@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package mahjong;
+
+option optimize_for = LITE_RUNTIME;
+option csharp_namespace = "ChuangMi.Mission.V1";
+option go_package = "game/message/mission;mission";
+
+
+message RecUpdateMisssionProgress {
+	message MissionData {
+		int32 id 			= 1;	//任务ID
+		int32 type 			= 2;	//任务类型
+		int32 num 			= 3;	//当前进度
+		int32 maxNum 		= 4;	//总进度
+		int32 currencyType 	= 5;	//货币类型 
+		int32 currency 		= 6;	//货币值
+		int32 state 		= 7;	//状态(0-进行中 1-可领取 2-已领取)
+	}
+
+	repeated MissionData datas = 1;
+}
+
+message ReqGetMisssionProgressReward {
+	int32 id = 1;
+}
+
+message RecGetMisssionProgressReward {
+	int32 state = 1;	//0-成功 1-失败
+}

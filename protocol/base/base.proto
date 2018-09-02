@@ -1,0 +1,620 @@
+syntax = "proto3";
+
+package mahjong;
+
+option optimize_for = LITE_RUNTIME;
+option csharp_namespace = "ChuangMi.Base.V1";
+option java_multiple_files = false;
+option java_package = "com.cmsy.majong.mode.proto";
+option go_package = "message/base;base";
+
+message NetMessage {
+
+    //消息头
+    enum Opcode {
+        CHECK_VERSION               = 0;
+        NOTICE_LOGIN                = 1;        //通知前端进行
+        LOGIN_SVR                   = 2;        //登陆服务器
+        REGISTER_ACCOUNT            = 3;        //注册账号
+        UPDATE_USER_INFO            = 4;        //更新玩家基本信息
+        UPDATE_CURRENCY             = 5;        //更新房卡
+        CREATE_GAME                 = 6;        //创建游戏
+        JOIN_GAME                   = 7;        //加入游戏
+        EXIT_GAME                   = 8;        //退出游戏
+        UPDATE_GAME_PLAYER_INFO     = 9;        //更新游戏中的玩家数据
+        READY_GAME                  = 10;        //准备游戏
+        START_GAME                  = 11;       //服务器通知开始游戏
+        SETTLE_GAME                 = 12;       //单局结算
+        REENTER_GAME                = 13;       //重新进入游戏
+        REENTER_GAME_INFO           = 14;       //重新进入游戏的信息推送
+        GAME_OVER                   = 15;       //游戏结束
+        GAME_START_ANIM             = 16;       //游戏开始 过场准备
+        APPLY_DISMISS_GAME          = 17;       //发起解散游戏
+        REPLY_DISMISS_GAME          = 18;       //回复解散房间
+        UPDATE_ONLINE_STATE         = 19;       //更新玩家在线状态
+        GAME_SUMMARY                = 20;       //游戏总结
+        APPLY_RESET_GAME            = 21;       //重置游戏
+        SVR_RESET_GAME              = 22;       //系统广播游戏重置消息
+        UPDATE_EVALUATION           = 23;       //更新玩家评价
+        UPDATE_RECORD               = 24;       //更新玩家游戏记录（历史战绩）
+        UPDATE_GAME_INFO            = 25;       //更新游戏设置
+        SYSTEM_NOTICE               = 26;       //更新系统公告
+        RELOGIN_SVR                 = 27;       //重新登陆服务器
+        ROUND_ACTION                = 28;       //通知出牌
+        ASK_ACTION                  = 29;       //询问操作
+        APPLY_ACTION                = 30;       //申请操作
+        EXECUTE_ACTION              = 31;       //通知操作(执行操作)
+        PLAYER_CHAT                 = 32;       //文字聊天
+        PLAYER_VOICE                = 33;       //语音聊天
+        EVALUATION_PLAYER           = 34;       //评价玩家
+        GAME_RECORD_INFO            = 35;       //获取一局战绩详细信息
+        GAME_REPLAY_INFO            = 36;       //单局详细回放信息
+        GPS_INFO                    = 37;
+        GAME_PLAYER_INTERACTION     = 38;       //互动特效
+        SHARE_MOMENTS_EVENT         = 39;       //客户端分享
+        LOBBY_MSG_LIST              = 40;       //大厅消息？？
+        
+        SEND_CLIENT_LOG             = 42;       //客户端发送log
+        SEND_PING                   = 43;
+
+        MAHJONG_ASK_PLUNDER         = 44;       //麻将询问是否抢胡 -> 参见具体游戏 AskPlunder
+        MAHJONG_SELECT_PIAO         = 45;
+        MAHJONG_UPDATE_PIAO         = 46;
+
+        GAME_SVR_MATCH              = 47;       //游戏服匹配返回
+
+        //-------游戏自定义协议区----------
+        HUAN_SAN_ZHANG              = 100;      //换三张
+        CHANGE_CARD_CONFIRM         = 101;      //换三张完成
+	    APPLY_CHANGE_MATCH          = 102;      //换桌--与游戏服通信
+        CARD_NOT_ENOUGH             = 103;      //元宝不足
+        FIVE_IN_A_ROW_STAKE         = 104;      //五子棋设置学费
+        FIVE_IN_A_ROW_GIVE_UP       = 105;      //五子棋认输
+    	SEND_LOG		            = 106;      //客户端发送log
+	    BAOJIAO_OVER                = 107; 	    //报叫结束
+        DING_QUE 		            = 111; 	    //定缺
+        MAI_PAO 		            = 112; 	    //买炮
+	
+        SEAT_DOWN                   = 113;      //百人推筒子坐下
+        SELF_INFO                   = 114;      //刷新自己的信息
+        POSITION_SCORE              = 115;      //百人推筒子下注信息
+        BANKER_LIST                 = 116;      //百人推筒子上庄列表
+        GET_BANKER                  = 117;      //百人推筒子上庄
+        LEAVE_BANKER                = 118;      //百人推筒子下庄
+        SELF_PLAYED                 = 119;      //百人推筒子自己下注分
+        WATCH_SIZE                  = 120;      //百人推筒子无座玩家数量
+        ASK_XIAZHUANG               = 121;      //百人推筒子询问下庄
+        JIXUDANGZHUANG              = 122;      //百人推筒子继续当庄
+        TREND                       = 123;      //百人推筒子走势
+        WATCH_LIST                  = 124;      //百人推筒子无座玩家列表
+		
+		YiBinPiao					= 130;		//飘
+        //---------------------------------
+
+        //兑换
+        EXCHANGE_CARD               = 52;
+        EXCHANGE_GOLD               = 53;
+        GET_DEF_GAME_LIST           = 54;        //获取房卡模式房间列表
+        UPDATE_USER_REBATE          = 55;        //更新玩家佣金
+        UPDATE_RANK                 = 56;        //排行榜信息
+        //新登陆
+        BIND_ACCOUNT				= 57;		//绑定账号
+        BIND_PHONE_NUMBER			= 58;		//绑定电话号码
+        MODIFY_PLAYER_INFO			= 59;		//修改账号信息
+
+        SEARCH_GAME                 = 60;       //搜索房间信息
+        UPDATE_INTRODUCE			= 61;		//更新个性签名
+        HANDSEL_CURRENCY			= 62;		//赠送货币
+
+        MATCH_RECORD_INFO           = 8000;     //获取匹配场战绩详情
+
+        //代开房
+        LOBBY_OTHER_ROOM_LIST       = 41;       //代开房信息
+        DISSOLVE_PROXY_GAME         = 9001;     //解散代开房
+
+        //匹配系统
+        APPLY_ENTER_MATCH           = 10001;     //申请进入匹配系统
+        APPLY_LEAVE_MATCH           = 10002;     //申请离开匹配系统
+        UPDATE_MATCH_INFO           = 10003;     //更新匹配信息
+
+        //消费累计VIP系统
+        UPDATE_CONSUME_VIP          = 10100;     //更新当前VIP等级
+
+        //签到系统
+        GET_SIGN_INFO               = 11001;     //获取玩家的签到信息
+        DO_SIGN_IN                  = 11002;     //签到
+        GET_LOTTERY_INFO            = 11003;     //取得抽奖信息
+        DO_LOTTERY                  = 11004;     //抽奖
+
+        //邮件系统
+        MAIL_LIST					= 14001;	//更新玩家邮件列表
+        MAIL_GET_ITEM				= 14002;	//获取邮件附件
+        MAIL_DEL					= 14003;	//删除邮件
+
+        //银行
+        BANK_INFO					= 15001;	//
+        BANK_DEPOSIT				= 15002;	//存
+        BANK_GET					= 15003;	//取
+
+        //任务系统
+        MISSION_PROGRESS_LIST       = 16001;    //任务列表
+        MISSION_PROGRESS_GET        = 16002;    //领取奖励
+    }
+
+    Opcode opcode = 1;
+    bytes data = 2;
+}
+enum LoginClass {
+   	WECHAT		= 0;		//微信账号
+    OFFICIAL	= 1;		//正式账号
+    TEMP 		= 2;		//临时账号
+}
+
+enum LoginState {
+    SUCCESS         = 0;
+    PASSWORD_ERROR  = 1;
+    LIMIT           = 2;  	//限制登陆
+    PHONE_ERROR		= 3;	//电话号码绑定
+    NO_ACCOUNT		= 4;	//没有账号
+    ERROR 			= 5;	//未知错误
+}
+
+message RecCheckVersion {
+
+    message GameInfo {
+        int32 allocId = 1;
+        int32 version = 2;
+    }
+
+    repeated GameInfo   games   = 1;
+    repeated string     keys    = 2;
+}
+
+message ReqCheckVersion {
+    int32 keyIndex = 1;
+}
+
+// 服务器异步处理完成，客户端开始操作
+message RecNoticeLogin {
+    int32 state = 1; // 0成功   1内部错误，重新连接
+}
+
+message ReqCreateAccount {
+	string 	account			= 1;
+	string 	password 		= 2;
+	string 	headUrl			= 3;
+	string 	nick			= 4;
+	int32 	sex				= 5;
+}
+
+message RecCreateAccount {
+
+	enum CreateAccountState {
+		SUCCESS = 0;
+		REPEAT  = 1;		//account重复 
+	}
+	CreateAccountState state = 1;
+}
+message ReqLoginServer {
+    string  account     = 1;
+    string  password    = 2;
+    string  headUrl     = 3;
+    int32   sex         = 4;
+    string  nick        = 5;
+    int64  	 	phone 		= 6;		//新加电话号码
+    LoginClass 	cls 		= 7;		//账号类型
+    bool		auto		= 8;		//自动注册
+}
+
+message RecLoginServer {
+    LoginState state = 1;
+}
+
+//玩家登陆，更新玩家基础信息
+message RecUserInfo {
+    bool fristIn        = 1; //是否第一次进入游戏
+    int32 playerId      = 2;
+    string account      = 3;
+    string nick         = 4;
+    string headUrl      = 5;
+    int32 sex           = 6;
+    int32 rootPower     = 7; //权限
+    int32 allocId       = 8; //游戏配置ID
+    int32 gameId        = 9; //游戏ID
+    int32 registerTime  = 10;
+    int32 playTotal     = 11; //对局局数
+    int64 	phone 			= 12;	//电话
+    bool    isContest       = 13;   //是否在比赛
+    string	introduce		= 14;	//个性签名
+    int32   consumeVip      = 15;   //消费累计VIP等级
+    int32   consumeVal      = 16;   //消费累计值
+}
+
+//更新房卡数量
+message RecUpdateCurrency {
+    int32 currency = 1; //货币数
+    int32 gold     = 2; //金币数量
+    int32 integral = 3; //积分
+}
+
+//更新玩家评价信息
+message RecUpdateEvaluate {
+    int32   praise  = 1;
+    int32   tread   = 2;
+}
+
+//更新玩家游戏记录，（历史战绩）
+message RecUpdateRecord {
+
+    message URecordPlayer {
+        int32   playerId    = 1;
+        string  nick        = 2;    //玩家昵称
+        int32   score       = 3;    //分数
+    }
+    message URecordSingle {
+        string      recordId                  = 1;
+        int32       allocId                   = 2;
+        int32       gameId                    = 3;
+        int32       gameNumber                = 4;
+        int32       totalNumber               = 5;
+        int32       time                      = 6;    //1970 秒
+        repeated    URecordPlayer   players   = 7;
+        repeated    string          lookIds   = 8;
+        bytes       content                   = 9;  //自定义额外游戏数据
+    }
+
+    repeated URecordSingle   normal = 1;
+    repeated URecordSingle   proxy  = 2;
+}
+
+message ReqCreateGame {
+    int32 allocId       = 1; //游戏的配置ID
+    int32 teaHouseId    = 2; //可为0
+    bool  proxy         = 3; //是是否是代开房
+    int32 maxPlayer     = 4; //房间最大人数
+    bytes content       = 5; //根据具体协议转换
+}
+
+message RecCreateGame {
+    int32 state = 1; //0-成功 1-没有游戏 2-已在房间 3-没有登录 4-房卡不足
+    int32 gameId = 2;
+}
+
+message ReqJoinGame {
+    int32 gameId = 1;
+    bytes content = 2; //根据具体协议转换
+}
+
+message RecJoinGame {
+    int32 state         = 1; //状态(0成功	1房间不存在		2房间已满)
+    int32 gameId        = 2;
+}
+
+message ReqRelogin {
+    int32 playerId = 1;
+    string account = 2;
+    string password = 3;
+    LoginClass 	cls  = 4;
+}
+
+message RecRelogin {
+    LoginState state = 1;
+}
+
+message ReqLobbyMsgList {
+    int32 allocId = 1;
+}
+
+message RecLobbyMsgList {
+    message LobbyMsgData {
+        int32 time = 1;
+        string msg = 2;
+        int32 type = 3;
+    }
+
+    repeated LobbyMsgData msgs = 1;
+}
+
+message ReqLobbyProxyGameList {
+    int32 allocId = 1;          //配置ID
+}
+
+message ReqDissolveProxyGame{
+    int32 allocId = 1;          //配置ID
+    int32 gameId  = 2;          //房间号
+}
+
+message RecDissolveProxyGame{
+    int32 state = 1; //0-成功 other-游戏服定义
+}
+
+message ReqShareMomentsEvent {
+    int32 allocId   = 1;
+}
+
+message RecShareMomentsEvent {
+    int32 state     = 1; 
+}
+
+message ReqExchangeCard {
+    int32       card        = 1;        //申请兑换房卡的数量
+}
+
+message RecExchangeCard {
+    bool        state       = 1;        //兑换状态
+}
+
+message ReqExchangeGold {
+    int32       gold        = 1;        //申请兑换金币的数量
+}
+
+message RecExchangeGold {
+    bool        state       = 1;        //兑换状态
+}
+
+// 获取一局战绩详细信息
+message ReqGameRecordInfo {
+    string recordId = 1;
+}
+
+message RecGameRecordInfo {
+    message GameRecordUser {
+        int32 playerId = 1;
+        string nick = 2;
+        int32 score = 3;
+    }
+
+    message GameOneRecordInfo {
+        string recordId = 1;
+        int32 lookId = 2;
+        int32 playTime = 3;
+        repeated GameRecordUser playerDatas = 4;
+        bytes content = 5;
+    }
+
+    int32 state = 1;
+    int32 allocId = 2;
+    int32 gameId = 3;
+    repeated GameOneRecordInfo recordInfos = 4;
+}
+
+
+//回放
+message ReqGameReplayInfo {
+    string replayId = 1;
+    int32 lookId = 2;
+    bool isMatch = 3;
+}
+
+message RecGameReplayInfo {
+    int32       state = 1;          // 0成功， 1失败
+    int32       time = 2;
+    int32       allocId = 3;
+    int32       gameId = 4;
+    bytes       content = 5;
+    bytes       adjunction = 6;
+}
+
+message RecSystemNotice {
+    string msg = 1;
+}
+
+//房卡模式房间列表
+message ReqDefGameList{
+    int32 allocId = 1;
+}
+
+//外部查看房间玩家信息
+message PlayerData{
+    int32   playerId = 1;
+    string  nickName = 2;
+    string  headUrl = 3;
+    int32   sex = 4;
+    string  ip_address      = 5;
+    int32   create_time     = 6;
+}
+
+//外部查看玩家信息
+message DefGameListData {
+    int32 gameId = 1;
+    int32 maxCount = 2;
+    int32 curCount = 3;
+    bytes createInfo = 4;//房间规则 对应 XXXCreateRoom
+    int32 gamePlayCount = 5;//游戏当前进行局数
+    repeated PlayerData playerInfos = 6;
+}
+
+//房卡模式房间列表信息
+message RecDefGameList{
+    repeated DefGameListData gameDatas = 1; 
+}
+
+message ReqSearchGameData{
+    int32 allocId = 1;
+    int32 gameId = 2;
+}
+
+message RecSearchGameData{
+    DefGameListData gameData = 1;
+}
+
+//更新佣金
+message RecUpdateRebate {
+    float       rebate  = 1;
+    int32       number  = 2;
+}
+
+
+message RecGetLotteryInfo {
+    string      json    = 1;
+	int32		round   = 2;
+}
+
+message RecDoLottery {
+    bool        state   = 1;
+    int32       cfg_id  = 2;
+}
+
+//游戏排行榜
+message ReqGameRank
+{
+    int32 type = 1;//1-房卡 2-金币 3-积分
+    int32 number = 2; //排行榜数量
+}
+
+message RecGameRank
+{
+    message PlayerRankInfo
+    {
+        int32       rankId      = 1;//名次
+        int32       playerId    = 2;
+        int32       currency    = 3;//当前对应的货币
+        string      nick        = 4;
+        string      headUrl     = 5;
+        string      introduce   = 6;   //个性签名
+        int32       consumeVip  = 7;//累计消费VIP等级
+    }
+
+    repeated PlayerRankInfo playerDatas  = 1;
+}
+//申请绑定手机号码
+message ReqBindPhone {
+	int64 phone = 1;		//电话号码
+}
+
+message RecBindPhone {
+	bool state = 1;
+}
+
+//申请绑定正式账号
+message ReqBindAccount {
+	string 	account 	= 1;
+	string  password 	= 2;
+}
+
+message RecBindAccount {
+	bool state = 1;
+}
+
+//申请修改账号信息
+message ReqModifyUserInfo {
+	int32		sex = 1;
+	string		nickName = 2;
+	string		headUrl = 3;
+}
+
+message RecModifyUserInfo {
+	bool state = 1;
+}
+
+message RecMailList {
+	message Mail {
+		int32 id = 1;
+		string title = 2;
+		string text = 3;
+		int32 card = 4;
+		int32 gold = 5;
+		int32 integral = 6;
+		int32     state       = 7;			//状态 -1 未读取 0 已读取 1 已领取
+		int64 time = 8;			//创建时间
+	}
+
+	repeated Mail mails = 1;
+}
+
+message ReqMailReadItem {
+    repeated int32 ids = 1;
+}
+
+message RecMailReadItem {
+    bool            state   = 1; 
+    repeated int32  ids     = 2; //更新成功的ID
+}
+
+message ReqMailGetItem {
+	repeated int32 ids = 1;
+}
+
+message RecMailGetItem {
+	bool            state   = 1;
+    repeated int32  ids     = 2; //更新成功的ID
+}
+
+message ReqMailDelete {
+	int32 id = 1;
+}
+
+message RecMailDelete {
+	bool state = 1;
+}
+
+//修改个人签名
+message ReqUpdateIntroduce {
+	string	content = 1;
+}
+
+message ReqBankInfo {
+	string password = 1;		//如果不需要，就客户端自行填
+}
+
+message RecBankInfo {
+	int32	state = 1;		//0 成功， 1 密码错误
+	int32	card = 2;
+	int32	gold = 3;
+	int32	integral = 4;
+}
+
+message ReqOperateBank {
+	int32	card = 1;
+	int32	gold = 2;
+	int32	integral = 3;
+	string	password = 4;
+}
+
+message RecOprateBank {
+	int32	state = 1;		//0 成功， 1 密码错误	2 数量不足	3 游戏中
+}
+
+//匹配场战绩详情
+message ReqMatchRecordInfo{
+    int32 allocId = 1;
+}
+
+//匹配场战绩详情
+message RecMatchRecordInfo{
+    message MatchRecordUser {
+        int32 playerId = 1;
+        string nick = 2;
+        int32 score = 3;
+    }
+
+    message MatchOneRecordInfo {
+        string recordId = 1;
+        int32 playTime = 2;
+		int32 gameId = 3;
+        repeated MatchRecordUser playerDatas = 4;
+        bytes content = 5;
+    }
+
+    int32 state = 1;
+    int32 allocId = 2;
+    repeated MatchOneRecordInfo recordInfos = 3;
+}
+
+message ReqHandselCurrency {
+	int32		playerId = 1;		//赠送对象
+	int32		card = 2;	
+	int32		gold = 3;
+	int32		integral = 4;
+}
+
+message RecHandselCurrency {
+	int32		state = 1;		//0 成功， 1 没找到玩家 2 金额不够
+}
+
+//UPDATE_CONSUME_VIP
+//请求更新消费累计VIP信息(主动请求更新)
+message RecUpdateConsumeVip {
+    int32 consumeVip = 1;
+    int32 consumeVal = 2;
+}

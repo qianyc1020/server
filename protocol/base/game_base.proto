@@ -1,0 +1,246 @@
+syntax = "proto3";
+
+//package mahjong;
+
+option optimize_for = LITE_RUNTIME;
+option csharp_namespace = "ChuangMi.GameBase.V1";
+//option java_multiple_files = false;
+//option java_package = "cn.gcxk721.core.rpc.majong";
+//option java_outer_classname = "MajongBaseProto";
+ 
+ //游戏服协议消息头增加在base NetMessage Opcode枚举下增加
+
+message ReqExitGame{
+    int32 gameId = 1;
+}
+
+message RecExitGame{
+    int32 state = 1;
+}
+
+// 更新游戏玩家信息
+message RecUpdateGameUsers {
+    message UserInfo {
+        int32   playerId        = 1;
+        string  account         = 2;
+        string  nick            = 3;
+        string  headUrl         = 4;
+        int32   sex             = 5;
+        int32   praise          = 6;
+        int32   tread           = 7;
+        string  ip              = 8;
+        bool    ready           = 9;
+        int32   score           = 10;
+        bool    banker          = 11;//房主
+        int32   loc             = 12;
+        int32   createTime      = 13;
+        int32   totalCount      = 14;
+        bool    online          = 15;
+        bool    guanzhan        = 16;
+        int32   consumeVip      = 17;// 累计消费VIP等级
+        string	introduce		= 18;	//个性签名
+    }
+
+    repeated UserInfo users = 1;
+}
+
+// 准备游戏
+message ReqReadyGame {
+    bool ready = 1;
+}
+
+// 准备游戏
+message RecReadyGame {
+
+    message ReadyState {
+        int32 playerId = 1;
+        bool ready = 2;
+    }
+
+    repeated ReadyState list = 1;
+}
+
+
+
+// 开始游戏
+message RecStartGame {
+    int32 gameId = 1;
+    bytes content = 2;//参照具体游戏 -> XXXRecStartGame
+}
+
+// 单局游戏结算
+message RecSettleSingle {
+    int32 time = 1;
+    int32 curPlayCount = 2;
+    int32 allocId = 3;
+    bytes content = 4; //单独的协议
+}
+
+// 重新进入游戏
+message ReqReEnterGame {
+    int32 gameId = 1;
+}
+
+message RecReEnterGame {
+    bool state = 1;
+    int32 gameState = 2;
+    int32 curPlayCount = 3;
+}
+
+message RecReEnterGameInfo{
+    int32 allocId = 1;
+    bytes content = 2; //参见具体游戏 -> XXXReEnterGameInfo
+    repeated bytes playerInfos = 3;//参见具体游戏 -> ReEnterPlayerInfo
+    repeated RecExecuteAction actionInfos = 4;
+}
+
+// 更新游戏设置
+message RecUpdateGameInfo {
+    int32 allocId = 1; //游戏配置ID
+    bytes content = 2; //游戏分别
+    int32 maxPlayer = 3;//游戏最大人数
+}
+
+message RecGameOver {
+    int32 allocId = 1;
+    int32 gameId = 2;
+}
+
+message ReqClientAnim {
+    int32 playerId = 1;
+    bool state = 2;
+}
+
+//广播客户端动画播放状态
+message RecClientAnim {
+    repeated ReqClientAnim clients = 1;
+}
+
+// 发起解散房间
+message ReqDismissGame {
+    int32 playerId = 1;
+}
+
+message RecDismissGame {
+    int32 playerId = 1;
+    int32 countDown = 2;
+}
+
+message ReqReplyDismissGame {
+    int32 playerId = 1;
+    bool state = 2;
+}
+
+message ReqUpdatePlayerOnline {
+    bool state = 1;
+}
+
+message RecUpdatePlayerOnline {
+    int32 playerId = 1;
+    bool state = 2;
+}
+
+message RecFinalSetResult {
+    int32 bankerId = 1;
+    int32 startAgain = 2;
+    int32 curPlayCount = 3;
+    int32 maxPlayCount = 4;
+    repeated bytes playerDatas = 5;
+    int32 time = 6; // 游戏时间
+}
+
+message RecUpdatePlayLog {
+    repeated bytes playerDatas = 1;
+}
+
+message RecRoundAction {
+    int32 randId = 1;
+    int32 playerId = 2;
+    int32 actionTime = 3;
+}
+
+message RecAskAction {
+    int32 randId = 1;
+    bool isAction = 2;
+    int32 actionTime = 3;
+}
+
+message ReqSendAction {
+    int32 randId = 1;
+    int32 actionType = 2;
+    bytes data = 3;
+}
+
+message RecExecuteAction {
+    int32 playerId = 1;
+    int32 actionType = 2;
+    bytes data = 3;//参见具体游戏 XXXExecuteAction
+}
+
+message ReqPlayerChat {
+    int32 type = 1;
+    string msg = 2;
+}
+
+message RecPlayerChat {
+    int32 playerId = 1;
+    int32 type = 2;
+    string msg = 3;
+}
+
+message ReqPlayerVoice {
+    int32 channels = 1;
+    bytes voiceData = 2;
+}
+
+message RecPlayerVoice {
+    int32 playerId = 1;
+    int32 channels = 2;
+    bytes voiceData = 3;
+}
+
+message ReqGpsInfo {
+    string gpsInfo = 1;
+}
+
+message RecGpsInfo {
+    message GpsPlayerInfo {
+        int32 playerId = 1;
+        string gpsInfo = 2;
+    }
+    repeated GpsPlayerInfo playerInfos = 1;
+}
+
+message ReqGamePlayerInteraction {
+    int32 targetId = 1;
+    int32 interactionId = 2;
+}
+
+message RecGamePlayerInteraction {
+    int32 playerId = 1;
+    int32 targetId = 2;
+    int32 interactionId = 3;
+}
+
+message ReqSendClientLog {
+    string log = 1;
+}
+//匹配场申请换桌
+message RecApplyChangeMatch
+{
+    int32 level     = 1;//匹配场等级
+    int32 gameId    = 2;//房间号
+}
+
+//房卡不足
+message RecCardNotEnough
+{
+    int32 gold      = 1;
+    bool  state     = 2;
+}
+
+message RecMatchGame{
+    int32 state = 1;//0-成功 1-房卡不足 2-金币不足 3-房间人数已满
+    int32 allocId = 2;//游戏配置ID
+    int32 level = 3;//匹配场等级
+}

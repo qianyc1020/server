@@ -1,16 +1,22 @@
 # coding=utf-8
-import hashlib
+import Queue
 import socket
 import struct
-from socket import _socketobject
+import threading
+
+from gateway.messagehandle import MessageHandle
+from protocol.base.base_pb2 import *
+from utils.stringutils import StringUtils
 
 clients = {}
 
 
 class Client(object):
-    conns = _socketobject()
+    conns = None
     name = ''
-    md5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
+    oldmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
+    randomKey = None
+    newmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
 
     def receive(self, conn):
         """
@@ -21,6 +27,10 @@ class Client(object):
         name = ""
         close = False
         self.conns = conn
+        messageQueue = Queue.Queue()
+        messageHandle = MessageHandle()
+        t = threading.Thread(target=MessageHandle.handle, args=(messageHandle, messageQueue,), name='handle')  # 线程对象.
+        t.start()
         try:
             while not close:
                 length = self.readInt(conn)
@@ -28,13 +38,22 @@ class Client(object):
                 length -= len(md5bytes) + 4
                 result = self.readBytes(conn, length)
                 if length == len(result) and 0 != len(result):
-                    h = hashlib.md5()
-                    h.update(self.md5keyBytes + result)
-                    if md5bytes.decode("utf-8") == h.hexdigest():
-                        body = result.decode("utf-8")
-                        print(body)
-                        clients[body] = conn
-                        self.send(result)
+                    md5result = StringUtils.md5(self.newmd5keyBytes + result)
+                    if md5bytes.decode("utf-8") == md5result:
+                        data = NetMessage()
+                        data.ParseFromString(result.decode("utf-8"))
+                        if data.opcode == NetMessage.Opcode.CHECK_VERSION:
+                            self.randomKey = StringUtils.randomStr(32)
+                            checkversion = ReqCheckVersion()
+                            gameinfo = ReqCheckVersion.GameInfo()
+                            gameinfo.allocId = 1
+                            gameinfo.version = 10000
+                            checkversion.games = gameinfo
+                            checkversion.keys = self.randomKey
+                            self.send(checkversion.SerializeToString())
+                        elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
+                            loginserver = ReqLoginServer()
+                            loginserver.ParseFromString(data.data)
                     else:
                         close = True
                         print "md5验证失败"
@@ -49,6 +68,7 @@ class Client(object):
         finally:
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()
+            messageHandle.close()
             print "over"
 
     def readInt(self, conn):
@@ -87,9 +107,8 @@ class Client(object):
 
     def send(self, data):
         if len(data) > 0:
-            h = hashlib.md5()
-            h.update(self.md5keyBytes + data)
-            md5bytes = h.hexdigest().decode("utf-8")
+            md5str = StringUtils.md5(self.newmd5keyBytes + data)
+            md5bytes = md5str.decode("utf-8")
             datalen = struct.pack("i", len(data) + len(md5bytes) + 4)
             self.conns.sendall(datalen)
             self.write(md5bytes)
