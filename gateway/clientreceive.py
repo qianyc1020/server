@@ -11,13 +11,12 @@ from utils.stringutils import StringUtils
 clients = {}
 
 
-class Client(object):
+class ClientReceive(object):
     conns = None
     name = ''
     oldmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
     randomKey = None
     newmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
-
     def receive(self, conn):
         """
         : 接收
@@ -54,6 +53,8 @@ class Client(object):
                         elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
                             loginserver = ReqLoginServer()
                             loginserver.ParseFromString(data.data)
+                        else:
+                            messageQueue.put(data)
                     else:
                         close = True
                         print "md5验证失败"

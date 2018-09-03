@@ -1,5 +1,7 @@
 # coding=utf-8
-class MessageHandle(object):
+
+
+class ServerReceive(object):
     __close = False
 
     def close(self):
@@ -8,3 +10,4 @@ class MessageHandle(object):
     def handle(self, queue):
         while not self.__close:
             message = queue.get(True, 20)
+            print("[Received: {0}]".format(message))
