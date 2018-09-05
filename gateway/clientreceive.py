@@ -4,32 +4,29 @@ import socket
 import struct
 import threading
 
+import gateway.globalvar as gl
 from gateway.messagehandle import MessageHandle
 from protocol.base.base_pb2 import *
 from utils.stringutils import StringUtils
 
-clients = {}
-
 
 class ClientReceive(object):
     conns = None
-    name = ''
+    userId = None
     oldmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
     randomKey = None
     newmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
+
     def receive(self, conn):
         """
         : 接收
         :param conn:
         :return:
         """
-        name = ""
         close = False
         self.conns = conn
-        messageQueue = Queue.Queue()
-        messageHandle = MessageHandle()
-        t = threading.Thread(target=MessageHandle.handle, args=(messageHandle, messageQueue,), name='handle')  # 线程对象.
-        t.start()
+        messageQueue = None
+        messageHandle = None
         try:
             while not close:
                 length = self.readInt(conn)
@@ -53,24 +50,37 @@ class ClientReceive(object):
                         elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
                             loginserver = ReqLoginServer()
                             loginserver.ParseFromString(data.data)
+
+                            # TODO userId
+                            self.userId = 10010
+
+                            gl.get_v("clients")[self.userId] = self
+
+                            messageQueue = Queue.Queue()
+                            messageHandle = MessageHandle(self.userId)
+                            t = threading.Thread(target=MessageHandle.handle, args=(messageHandle, messageQueue,),
+                                                 name='handle')  # 线程对象.
+                            t.start()
                         else:
-                            messageQueue.put(data)
+                            if self.userId is not None:
+                                messageQueue.put(data)
                     else:
                         close = True
-                        print "md5验证失败"
+                        gl.get_v("serverlogger").logger("MD5 validation failed")
                 else:
                     close = True
-                    print "client close"
+                    gl.get_v("serverlogger").logger("client close")
 
         except socket.error, e:
-            print e
+            gl.get_v("serverlogger").logger(e)
         except BaseException, x:
-            print x
+            gl.get_v("serverlogger").logger(x)
         finally:
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()
             messageHandle.close()
-            print "over"
+            del gl.get_v("clients")[self.userId]
+            gl.get_v("serverlogger").logger("client close")
 
     def readInt(self, conn):
         msg = conn.recv(4)  # total data length

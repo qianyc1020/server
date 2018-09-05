@@ -5,42 +5,46 @@ import threading
 
 import gateway
 import gateway.clientreceive
+import gateway.globalvar as gl
 from gateway.serverreceive import ServerReceive
+from utils.logger_utils import LoggerUtils
 from utils.natsutils import NatsUtils
-
-natsobj = None
-serverqueue = None
 
 
 def messagehandle(msg):
-    serverqueue.put(msg.data)
+    gl.get_v("serverqueue").put(msg.data)
 
 
 class Server(object):
 
     @staticmethod
     def start():
-        global natsobj
-        global serverqueue
+        gl.init()
+        gl.set_v("serverlogger", LoggerUtils("gateway"))
+        gl.set_v("serverqueue", Queue.Queue())
+        gl.set_v("natsobj", NatsUtils(["nats://pengyi:pengyi19960207@127.0.0.1:1111"], "server-gateway", messagehandle))
+        gl.set_v("clients", {})
 
-        serverqueue = Queue.Queue()
-        natsobj = NatsUtils(["nats://pengyi:pengyi19960207@127.0.0.1:1111"], "server-gateway",
-                            messagehandle)
-        natsthread = threading.Thread(target=NatsUtils.startNats, args=(natsobj,), name='natsthread')
+        natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
         natsthread.start()
 
-        t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), serverqueue,), name='handle')  # 线程对象.
+        t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
+                             name='handle')
         t.start()
 
         ip_port = ('127.0.0.1', 8888)
         sk = socket.socket()
         sk.bind(ip_port)
         sk.listen(5)
+        gl.get_v("serverlogger").logger("server started")
         while True:
-            reload(gateway.clientreceive)
-            from gateway.clientreceive import ClientReceive
+            try:
+                reload(gateway.clientreceive)
+                from gateway.clientreceive import ClientReceive
 
-            conn, address = sk.accept()
-            t = threading.Thread(target=ClientReceive.receive, args=(ClientReceive(), conn,),
-                                 name='clientreceive')  # 线程对象.
-            t.start()
+                conn, address = sk.accept()
+                t = threading.Thread(target=ClientReceive.receive, args=(ClientReceive(), conn,),
+                                     name='clientreceive')  # 线程对象.
+                t.start()
+            except BaseException, e:
+                print(e)
