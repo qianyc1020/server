@@ -27,6 +27,16 @@ class ClientReceive(object):
         self.conns = conn
         messageQueue = None
         messageHandle = None
+
+        self.randomKey = StringUtils.randomStr(32)
+        checkversion = ReqCheckVersion()
+        gameinfo = ReqCheckVersion.GameInfo()
+        gameinfo.allocId = 1
+        gameinfo.version = 10000
+        checkversion.games = gameinfo
+        checkversion.keys = self.randomKey
+        self.send(checkversion.SerializeToString())
+
         try:
             while not close:
                 length = self.readInt(conn)
@@ -39,17 +49,7 @@ class ClientReceive(object):
                         data = NetMessage()
                         data.ParseFromString(result.decode("utf-8"))
                         print data.opcode
-                        if data.opcode == NetMessage.Opcode.CHECK_VERSION:
-                            print "CHECK_VERSION"
-                            self.randomKey = StringUtils.randomStr(32)
-                            checkversion = ReqCheckVersion()
-                            gameinfo = ReqCheckVersion.GameInfo()
-                            gameinfo.allocId = 1
-                            gameinfo.version = 10000
-                            checkversion.games = gameinfo
-                            checkversion.keys = self.randomKey
-                            self.send(checkversion.SerializeToString())
-                        elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
+                        if data.opcode == NetMessage.Opcode.LOGIN_SVR:
                             print "LOGIN_SVR"
                             loginserver = ReqLoginServer()
                             loginserver.ParseFromString(data.data)
