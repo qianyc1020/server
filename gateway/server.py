@@ -27,10 +27,12 @@ class Server(object):
 
         natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
         natsthread.start()
+        gl.get_v("serverlogger").logger("natsthread started")
 
         t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
                              name='handle')
         t.start()
+        gl.get_v("serverlogger").logger("serverqueue started")
 
         ip_port = ('127.0.0.1', 8888)
         sk = socket.socket()

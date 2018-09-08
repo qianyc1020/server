@@ -2,7 +2,7 @@
 
 import sys
 
-sys.path.append('C:\Users\pengyi\server')
+sys.path.append('/root/server/server')
 
 from gateway.server import Server
 
