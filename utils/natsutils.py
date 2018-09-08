@@ -19,7 +19,6 @@ class NatsUtils(object):
         if self.__nc__.is_connected:
             future = self.__nc__.subscribe(self.__subject__, cb=self.__handle__)
             sid = future.result()
-            self.__nc__.publish(self.__subject__, "222")
 
     def startNats(self):
         self.main()
