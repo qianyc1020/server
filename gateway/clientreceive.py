@@ -30,10 +30,8 @@ class ClientReceive(object):
 
         self.randomKey = StringUtils.randomStr(32)
         checkversion = ReqCheckVersion()
-        gameinfo = ReqCheckVersion.GameInfo()
-        gameinfo.allocId = 1
-        gameinfo.version = 10000
-        checkversion.games = gameinfo
+        checkversion.games.allocId = 1
+        checkversion.games.version = 10000
         checkversion.keys = self.randomKey
         self.send(checkversion.SerializeToString())
 
