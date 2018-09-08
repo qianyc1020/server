@@ -33,12 +33,15 @@ class ClientReceive(object):
                           StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
                           StringUtils.randomStr(32)]
 
+        data = NetMessage()
+        data.opcode = data.CHECK_VERSION
         checkversion = RecCheckVersion()
-        checkversion.keys.extend(self.randomKey)
+        checkversion.keys.extend([])
         gameinfo = checkversion.games.add()
         gameinfo.allocId = 1
         gameinfo.version = 10000
-        self.send(checkversion.SerializeToString())
+        data.data = checkversion.SerializeToString()
+        self.send(data.SerializeToString())
 
         try:
             while not close:
@@ -57,7 +60,7 @@ class ClientReceive(object):
                             newmd5keyBytes = StringUtils.md5(
                                 self.randomKey[checkversion.keyIndex] + self.oldmd5keyBytes.decode("utf-8"))
                             print newmd5keyBytes
-                        elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
+                        elif data.opcode == data.LOGIN_SVR:
                             loginserver = ReqLoginServer()
                             loginserver.ParseFromString(data.data)
 
