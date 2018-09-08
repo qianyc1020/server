@@ -36,7 +36,7 @@ class ClientReceive(object):
         data = NetMessage()
         data.opcode = data.CHECK_VERSION
         checkversion = RecCheckVersion()
-        checkversion.keys.extend([])
+        checkversion.keys.extend([self.randomKey])
         gameinfo = checkversion.games.add()
         gameinfo.allocId = 1
         gameinfo.version = 10000
@@ -97,10 +97,11 @@ class ClientReceive(object):
             gl.get_v("serverlogger").logger("client close")
 
     def readInt(self, conn):
-        msg = conn.recv(4)  # total data length
-        if len(msg) <= 0:  # 接收空数据包
-            return 0
-        data = struct.unpack("i", msg)
+        msg1 = conn.recv(1)  # total data length
+        msg2 = conn.recv(1)  # total data length
+        msg3 = conn.recv(1)  # total data length
+        msg4 = conn.recv(1)  # total data length
+        data = struct.unpack("i", msg4 + msg3 + msg2 + msg1)
         return data[0]
 
     def readStringBytes(self, conn):
@@ -135,6 +136,17 @@ class ClientReceive(object):
             md5str = StringUtils.md5(self.newmd5keyBytes + data)
             md5bytes = md5str.decode("utf-8")
             datalen = struct.pack("i", len(data) + len(md5bytes) + 4)
-            self.conns.sendall(datalen)
+            b = bytearray()
+            b.append(datalen[0])
+            self.conns.sendall(b)
+            b.remove(datalen[0])
+            b.append(datalen[1])
+            self.conns.sendall(b)
+            b.remove(datalen[1])
+            b.append(datalen[2])
+            self.conns.sendall(b)
+            b.remove(datalen[2])
+            b.append(datalen[3])
+            self.conns.sendall(b)
             self.write(md5bytes)
             self.conns.sendall(data)
