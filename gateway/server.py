@@ -34,7 +34,7 @@ class Server(object):
         t.start()
         gl.get_v("serverlogger").logger("serverqueue started")
 
-        ip_port = ('127.0.0.1', 8888)
+        ip_port = ('', 8888)
         sk = socket.socket()
         sk.bind(ip_port)
         sk.listen(5)
