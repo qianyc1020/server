@@ -28,11 +28,16 @@ class ClientReceive(object):
         messageQueue = None
         messageHandle = None
 
-        self.randomKey = StringUtils.randomStr(32)
-        checkversion = ReqCheckVersion()
-        checkversion.games.allocId = 1
-        checkversion.games.version = 10000
-        checkversion.keys = self.randomKey
+        self.randomKey = [StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
+                          StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
+                          StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
+                          StringUtils.randomStr(32)]
+
+        checkversion = RecCheckVersion()
+        checkversion.keys.extend(self.randomKey)
+        gameinfo = checkversion.games.add()
+        gameinfo.allocId = 1
+        gameinfo.version = 10000
         self.send(checkversion.SerializeToString())
 
         try:
@@ -46,9 +51,13 @@ class ClientReceive(object):
                     if md5bytes.decode("utf-8") == md5result:
                         data = NetMessage()
                         data.ParseFromString(result.decode("utf-8"))
-                        print data.opcode
-                        if data.opcode == NetMessage.Opcode.LOGIN_SVR:
-                            print "LOGIN_SVR"
+                        print (data.opcode)
+                        if data.opcode == NetMessage.Opcode.CHECK_VERSION:
+                            checkversion = ReqCheckVersion()
+                            newmd5keyBytes = StringUtils.md5(
+                                self.randomKey[checkversion.keyIndex] + self.oldmd5keyBytes.decode("utf-8"))
+                            print newmd5keyBytes
+                        elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
                             loginserver = ReqLoginServer()
                             loginserver.ParseFromString(data.data)
 
