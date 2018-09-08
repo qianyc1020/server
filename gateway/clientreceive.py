@@ -36,7 +36,7 @@ class ClientReceive(object):
         data = NetMessage()
         data.opcode = data.CHECK_VERSION
         checkversion = RecCheckVersion()
-        checkversion.keys.extend([self.randomKey])
+        checkversion.keys.extend(self.randomKey)
         gameinfo = checkversion.games.add()
         gameinfo.allocId = 1
         gameinfo.version = 10000
