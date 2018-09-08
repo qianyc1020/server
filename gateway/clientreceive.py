@@ -38,7 +38,9 @@ class ClientReceive(object):
                     if md5bytes.decode("utf-8") == md5result:
                         data = NetMessage()
                         data.ParseFromString(result.decode("utf-8"))
+                        print data.opcode
                         if data.opcode == NetMessage.Opcode.CHECK_VERSION:
+                            print "CHECK_VERSION"
                             self.randomKey = StringUtils.randomStr(32)
                             checkversion = ReqCheckVersion()
                             gameinfo = ReqCheckVersion.GameInfo()
@@ -48,6 +50,7 @@ class ClientReceive(object):
                             checkversion.keys = self.randomKey
                             self.send(checkversion.SerializeToString())
                         elif data.opcode == NetMessage.Opcode.LOGIN_SVR:
+                            print "LOGIN_SVR"
                             loginserver = ReqLoginServer()
                             loginserver.ParseFromString(data.data)
 
@@ -79,7 +82,8 @@ class ClientReceive(object):
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()
             messageHandle.close()
-            del gl.get_v("clients")[self.userId]
+            if self.userId is not None:
+                del gl.get_v("clients")[self.userId]
             gl.get_v("serverlogger").logger("client close")
 
     def readInt(self, conn):
