@@ -2,7 +2,7 @@
 
 import sys
 
-# sys.path.append('/root/server/server')
+sys.path.append('/root/server/server')
 from gateway.server import Server
 
 if __name__ == '__main__':
