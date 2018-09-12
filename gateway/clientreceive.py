@@ -5,43 +5,45 @@ import struct
 import threading
 
 import gateway.globalvar as gl
+from gateway import login
 from gateway.messagehandle import MessageHandle
+from protocol.base import base_pb2
 from protocol.base.base_pb2 import *
 from utils.stringutils import StringUtils
 
 
 class ClientReceive(object):
     conns = None
+    address = None
     userId = None
     oldmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
     randomKey = None
     newmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
+    messageQueue = None
+    messageHandle = None
 
-    def receive(self, conn):
+    def receive(self, conn, address):
         """
         : 接收
         :param conn:
+        :param address:
         :return:
         """
         close = False
         self.conns = conn
-        messageQueue = None
-        messageHandle = None
+        self.address = address
 
         self.randomKey = [StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
                           StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
                           StringUtils.randomStr(32), StringUtils.randomStr(32), StringUtils.randomStr(32),
                           StringUtils.randomStr(32)]
 
-        data = NetMessage()
-        data.opcode = data.CHECK_VERSION
         checkversion = RecCheckVersion()
         checkversion.keys.extend(self.randomKey)
         gameinfo = checkversion.games.add()
         gameinfo.allocId = 1
         gameinfo.version = 10000
-        data.data = checkversion.SerializeToString()
-        self.send(data.SerializeToString())
+        self.send_data(NetMessage.CHECK_VERSION, checkversion.SerializeToString())
 
         try:
             while not close:
@@ -55,28 +57,17 @@ class ClientReceive(object):
                         data = NetMessage()
                         data.ParseFromString(result.decode("utf-8"))
                         print (data.opcode)
-                        if data.opcode == NetMessage.Opcode.CHECK_VERSION:
+                        if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
-                            newmd5keyBytes = StringUtils.md5(
+                            self.newmd5keyBytes = StringUtils.md5(
                                 self.randomKey[checkversion.keyIndex] + self.oldmd5keyBytes.decode("utf-8"))
-                            print newmd5keyBytes
                         elif data.opcode == data.LOGIN_SVR:
-                            loginserver = ReqLoginServer()
-                            loginserver.ParseFromString(data.data)
-
-                            # TODO userId
-                            self.userId = 10010
-
-                            gl.get_v("clients")[self.userId] = self
-
-                            messageQueue = Queue.Queue()
-                            messageHandle = MessageHandle(self.userId)
-                            t = threading.Thread(target=MessageHandle.handle, args=(messageHandle, messageQueue,),
-                                                 name='handle')  # 线程对象.
-                            t.start()
+                            self.login(data)
+                        elif data.opcode == data.RELOGIN_SVR:
+                            self.relogin(data)
                         else:
                             if self.userId is not None:
-                                messageQueue.put(data)
+                                self.messageQueue.put(data)
                     else:
                         close = True
                         gl.get_v("serverlogger").logger("MD5 validation failed")
@@ -91,7 +82,7 @@ class ClientReceive(object):
         finally:
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()
-            messageHandle.close()
+            self.messageHandle.close()
             if self.userId is not None:
                 del gl.get_v("clients")[self.userId]
             gl.get_v("serverlogger").logger("client close")
@@ -136,3 +127,79 @@ class ClientReceive(object):
             self.conns.sendall(datalen)
             self.write(md5bytes)
             self.conns.sendall(data)
+
+    def send_data(self, opcode, data):
+        send_data = NetMessage()
+        send_data.opcode = opcode
+        send_data.data = data
+        self.send(send_data.SerializeToString())
+
+    def login(self, data):
+
+        loginserver = ReqLoginServer()
+        loginserver.ParseFromString(data.data)
+
+        account = login.login(loginserver, self.address)
+        if account is not None:
+            self.checkLogin(account)
+        else:
+            self.conns.shutdown(socket.SHUT_RDWR)
+            self.conns.close()
+            gl.get_v("serverlogger").logger("login fail")
+
+    def checkLogin(self, account):
+
+        reclogin = RecLoginServer()
+        if account is not None:
+            if StringUtils.md5(account.account_name) != account.pswd:
+                reclogin.state = base_pb2.PASSWORD_ERROR
+            elif 1 == account.account_state:
+                reclogin.state = base_pb2.LIMIT
+            else:
+                self.send_data(NetMessage.LOGIN_SVR, reclogin.SerializeToString())
+                self.userId = account.id
+                gl.get_v("clients")[self.userId] = self
+                self.messageQueue = Queue.Queue()
+                self.messageHandle = MessageHandle(self.userId)
+                t = threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
+                                     name='handle')  # 线程对象.
+                t.start()
+                self.update_user_info(account)
+                return
+        else:
+            reclogin.state = base_pb2.ERROR
+        self.send_data(NetMessage.LOGIN_SVR, reclogin.SerializeToString())
+
+    def update_user_info(self, account):
+        user_info = RecUserInfo()
+        user_info.fristIn = account.create_time == account.last_time
+        user_info.playerId = account.id
+        user_info.account = account.account_name
+        user_info.nick = account.nick_name
+        user_info.headUrl = account.head_url
+        user_info.sex = account.sex
+        user_info.rootPower = account.authority
+        user_info.registerTime = account.create_time
+        user_info.playTotal = account.total_count
+        user_info.registerTime = account.create_time
+        user_info.introduce = account.integral
+        user_info.phone = account.phone
+        user_info.consumeVip = account.level
+        user_info.consumeVal = account.experience
+        # TODO 游戏中
+        # user_info.allocId = account.id
+        # user_info.gameId = account.id
+        # user_info.isContest = account.id
+        self.send_data(NetMessage.UPDATE_USER_INFO, user_info.SerializeToString())
+
+    def relogin(self, data):
+        relogin = ReqRelogin()
+        relogin.ParseFromString(data.data)
+
+        account = login.relogin(relogin, self.address)
+        if account is not None:
+            self.checkLogin(account)
+        else:
+            self.conns.shutdown(socket.SHUT_RDWR)
+            self.conns.close()
+            gl.get_v("serverlogger").logger("login fail")

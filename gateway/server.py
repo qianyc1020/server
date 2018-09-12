@@ -45,7 +45,8 @@ class Server(object):
                 from gateway.clientreceive import ClientReceive
 
                 conn, address = sk.accept()
-                t = threading.Thread(target=ClientReceive.receive, args=(ClientReceive(), conn,),
+                t = threading.Thread(target=ClientReceive.receive,
+                                     args=(ClientReceive(), conn, '''%s:%d''' % (address[0], address[1]),),
                                      name='clientreceive')  # 线程对象.
                 t.start()
             except BaseException, e:

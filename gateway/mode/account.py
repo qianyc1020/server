@@ -1,0 +1,21 @@
+# coding=utf-8
+class Account(object):
+    id = None
+    account_name = None
+    nick_name = None
+    sex = None
+    head_url = None
+    pswd = None
+    create_time = None
+    last_time = None
+    last_address = None
+    account_state = None
+    gold = None
+    integral = None
+    records = None
+    authority = None
+    total_count = None
+    introduce = None
+    phone = None
+    level = None
+    experience = None
