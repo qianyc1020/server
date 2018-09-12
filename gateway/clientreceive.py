@@ -16,9 +16,9 @@ class ClientReceive(object):
     conns = None
     address = None
     userId = None
-    oldmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
+    oldmd5keyBytes = "ipFOrJC4qWEd1f@nrc9ETHsKbME1QFe8".encode("utf-8")
     randomKey = None
-    newmd5keyBytes = "2704031cd4814eb2a82e47bd1d9042c6".encode("utf-8")
+    newmd5keyBytes = "ipFOrJC4qWEd1f@nrc9ETHsKbME1QFe8".encode("utf-8")
     messageQueue = None
     messageHandle = None
 
