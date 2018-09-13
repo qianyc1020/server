@@ -60,7 +60,7 @@ class ClientReceive(object):
                         gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
                         if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
-                            self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") +
+                            self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") + "+" +
                                                                   self.randomKey[checkversion.keyIndex])
                             noticelogin = RecNoticeLogin()
                             self.send_data(NetMessage.NOTICE_LOGIN, noticelogin.SerializeToString())
