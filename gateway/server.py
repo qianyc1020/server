@@ -3,9 +3,9 @@ import Queue
 import socket
 import threading
 
+import core.globalvar as gl
 import gateway
 import gateway.clientreceive
-import core.globalvar as gl
 from core import config
 from gateway.serverreceive import ServerReceive
 from utils.logger_utils import LoggerUtils
@@ -20,9 +20,6 @@ class Server(object):
 
     @staticmethod
     def start():
-        config.init("/root/server/server/conf/pyg.conf")
-        # config.init("/home/pengyi/server/conf/pyg.conf")
-
         gl.init()
         gl.set_v("serverlogger", LoggerUtils("gateway"))
         gl.set_v("serverqueue", Queue.Queue())
