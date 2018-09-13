@@ -20,4 +20,4 @@ class ServerReceive(object):
 
                 gl.get_v("clients")[s.userId].send(s.data)
             except Empty:
-                print("Received timeout")
+                gl.get_v("serverlogger").logger("Received timeout")

@@ -2,6 +2,7 @@
 from Queue import Empty
 
 import coordinate.globalvar as gl
+from protocol.base.base_pb2 import NetMessage
 from protocol.base.gateway_pb2 import GateWayMessage
 
 
@@ -18,6 +19,9 @@ class ServerReceive(object):
                 s = GateWayMessage()
                 s.ParseFromString(message)
 
-                gl.get_v("clients")[s.userId].send(s.data)
+                netmessage = NetMessage()
+                netmessage.ParseFromString(s.data)
+                gl.get_v("serverlogger").logger('''收到%d消息%d''' % (s.userId, netmessage.opcode))
+
             except Empty:
-                print("Received timeout")
+                gl.get_v("serverlogger").logger("Received timeout")

@@ -56,7 +56,7 @@ class ClientReceive(object):
                     if md5bytes.decode("utf-8") == md5result:
                         data = NetMessage()
                         data.ParseFromString(result.decode("utf-8"))
-                        print (data.opcode)
+                        gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
                         if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
                             self.newmd5keyBytes = StringUtils.md5(
@@ -110,7 +110,7 @@ class ClientReceive(object):
                 result += result1
                 length -= len(result1)
             else:
-                print "client close"
+                gl.get_v("serverlogger").logger("client close")
                 break
         return result
 

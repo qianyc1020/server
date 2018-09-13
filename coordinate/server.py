@@ -21,7 +21,6 @@ class Server(object):
         gl.set_v("serverqueue", Queue.Queue())
         gl.set_v("natsobj",
                  NatsUtils(["nats://pengyi:pengyi19960207@127.0.0.1:1111"], "server-coordinate", messagehandle))
-        gl.set_v("clients", {})
 
         t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
                              name='handle')
