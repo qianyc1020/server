@@ -61,6 +61,8 @@ class ClientReceive(object):
                             checkversion = ReqCheckVersion()
                             self.newmd5keyBytes = StringUtils.md5(
                                 self.randomKey[checkversion.keyIndex] + self.oldmd5keyBytes.decode("utf-8"))
+                            noticelogin = RecNoticeLogin()
+                            self.send_data(NetMessage.NOTICE_LOGIN, noticelogin.SerializeToString())
                         elif data.opcode == data.LOGIN_SVR:
                             self.login(data)
                         elif data.opcode == data.RELOGIN_SVR:
