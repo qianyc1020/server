@@ -60,7 +60,7 @@ class ClientReceive(object):
                         gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
                         if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
-                            gl.get_v("serverlogger").logger('''老key%s''' % self.oldmd5keyBytes.decode("utf-8"))
+                            gl.get_v("serverlogger").logger('''老key%s''' % self.oldmd5keyBytes)
                             gl.get_v("serverlogger").logger('''选的key%s''' % self.randomKey[checkversion.keyIndex])
                             self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") + "+" +
                                                                   self.randomKey[checkversion.keyIndex])
