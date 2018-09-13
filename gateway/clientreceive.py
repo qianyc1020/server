@@ -55,7 +55,7 @@ class ClientReceive(object):
                     md5result = StringUtils.md5(self.newmd5keyBytes + result)
                     if md5bytes.decode("utf-8") == md5result:
                         data = NetMessage()
-                        data.ParseFromString(result.decode("utf-8"))
+                        data.ParseFromString(result)
                         gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
                         if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
