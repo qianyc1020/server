@@ -4,8 +4,9 @@ import socket
 import struct
 import threading
 
-import gateway.globalvar as gl
+import core.globalvar as gl
 from gateway import login
+from core import config
 from gateway.messagehandle import MessageHandle
 from protocol.base import base_pb2
 from protocol.base.base_pb2 import *
@@ -16,9 +17,9 @@ class ClientReceive(object):
     conns = None
     address = None
     userId = None
-    oldmd5keyBytes = "ipFOrJC4qWEd1f@nrc9ETHsKbME1QFe8".encode("utf-8")
+    oldmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
     randomKey = None
-    newmd5keyBytes = "ipFOrJC4qWEd1f@nrc9ETHsKbME1QFe8".encode("utf-8")
+    newmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
     messageQueue = None
     messageHandle = None
 

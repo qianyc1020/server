@@ -5,7 +5,8 @@ import threading
 
 import gateway
 import gateway.clientreceive
-import gateway.globalvar as gl
+import core.globalvar as gl
+from core import config
 from gateway.serverreceive import ServerReceive
 from utils.logger_utils import LoggerUtils
 from utils.natsutils import NatsUtils
@@ -19,10 +20,12 @@ class Server(object):
 
     @staticmethod
     def start():
+        config.init("/home/pengyi/server/conf/pyg.conf")
+
         gl.init()
         gl.set_v("serverlogger", LoggerUtils("gateway"))
         gl.set_v("serverqueue", Queue.Queue())
-        gl.set_v("natsobj", NatsUtils(["nats://pengyi:pengyi19960207@127.0.0.1:1111"], "server-gateway", messagehandle))
+        gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], "server-gateway", messagehandle))
         gl.set_v("clients", {})
 
         natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')

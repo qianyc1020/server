@@ -3,6 +3,7 @@ import time
 
 import pymysql
 
+from core import config
 from gateway.mode.account import Account
 from utils.stringutils import StringUtils
 
@@ -11,11 +12,12 @@ def login(loginserver, address):
     t = time.time()
     connection = None
     try:
-        connection = pymysql.connect(host='127.0.0.1',
-                                     user='root',
-                                     password='Pengyi_9627',
-                                     db='pygame',
-                                     charset='utf8mb4',
+        connection = pymysql.connect(host=config.get("db", "db_host"),
+                                     port=int(config.get("db", "db_port")),
+                                     user=config.get("db", "db_user"),
+                                     password=config.get("db", "db_pass"),
+                                     db=config.get("db", "db_db"),
+                                     charset=config.get("db", "db_charset"),
                                      cursorclass=pymysql.cursors.DictCursor)
 
         if not exist_account(connection, loginserver.account):
@@ -40,11 +42,12 @@ def relogin(relogininfo, address):
     t = time.time()
     connection = None
     try:
-        connection = pymysql.connect(host='127.0.0.1',
-                                     user='root',
-                                     password='Pengyi_9627',
-                                     db='pygame',
-                                     charset='utf8mb4',
+        connection = pymysql.connect(host=config.get("db", "db_host"),
+                                     port=int(config.get("db", "db_port")),
+                                     user=config.get("db", "db_user"),
+                                     password=config.get("db", "db_pass"),
+                                     db=config.get("db", "db_db"),
+                                     charset=config.get("db", "db_charset"),
                                      cursorclass=pymysql.cursors.DictCursor)
 
         if exist_account(connection, relogininfo.account):
@@ -61,7 +64,7 @@ def relogin(relogininfo, address):
 
 
 def create_account(t, connection, loginserver, address):
-    sql = '''INSERT INTO account (account_name, nick_name, sex, head_url, pswd, create_time, last_time, last_address, account_state, gold, integral, records, authority, total_count) VALUES ("%s", "%s", %d, "%s", "%s", %d, %d, "%s", %d, %d, %d, "%s", %d, %d)''' % (
+    sql = config.get("sql", "sql_create_account") % (
         loginserver.account, loginserver.nick, loginserver.sex, loginserver.headUrl, StringUtils.md5(
             loginserver.account), int(t), int(t), address, 0, 0, 0, '', 0, 0)
     with connection.cursor() as cursor:
@@ -70,7 +73,7 @@ def create_account(t, connection, loginserver, address):
 
 
 def update_login_with_info(t, connection, loginserver, address):
-    sql = '''UPDATE account SET nick_name = "%s", sex = %d, head_url="%s", last_time=%d, last_address="%s" WHERE account_name = "%s"''' % (
+    sql = config.get("sql", "sql_update_login_with_info") % (
         loginserver.nick, loginserver.sex, loginserver.headUrl, int(t), address, loginserver.account)
     with connection.cursor() as cursor:
         cursor.execute(sql)
@@ -78,15 +81,14 @@ def update_login_with_info(t, connection, loginserver, address):
 
 
 def update_login(t, connection, address, account):
-    sql = '''UPDATE account SET last_time=%d, last_address="%s" WHERE account_name = "%s"''' % (
-        int(t), address, account)
+    sql = config.get("sql", "sql_update_login") % (int(t), address, account)
     with connection.cursor() as cursor:
         cursor.execute(sql)
         connection.commit()
 
 
 def exist_account(connection, account):
-    sql = '''SELECT COUNT(id) AS result FROM account WHERE account_name = "%s"''' % account
+    sql = config.get("sql", "sql_exist_account") % account
     with connection.cursor() as cursor:
         cursor.execute(sql)
         result = cursor.fetchone()
@@ -94,7 +96,7 @@ def exist_account(connection, account):
 
 
 def query_account_by_account(connection, account):
-    sql = '''SELECT * FROM account WHERE account_name = "%s"''' % account
+    sql = config.get("sql", "sql_query_account_by_account") % account
     with connection.cursor() as cursor:
         cursor.execute(sql)
         result = cursor.fetchone()

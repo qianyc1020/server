@@ -2,8 +2,9 @@
 import Queue
 import threading
 
-import coordinate.globalvar as gl
+import core.globalvar as gl
 from coordinate.serverreceive import ServerReceive
+from core import config
 from utils.logger_utils import LoggerUtils
 from utils.natsutils import NatsUtils
 
@@ -19,8 +20,7 @@ class Server(object):
         gl.init()
         gl.set_v("serverlogger", LoggerUtils("coordinate"))
         gl.set_v("serverqueue", Queue.Queue())
-        gl.set_v("natsobj",
-                 NatsUtils(["nats://pengyi:pengyi19960207@127.0.0.1:1111"], "server-coordinate", messagehandle))
+        gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], "server-gateway", messagehandle))
 
         t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
                              name='handle')

@@ -1,7 +1,7 @@
 # coding=utf-8
 from Queue import Empty
 
-import gateway.globalvar as gl
+import core.globalvar as gl
 from protocol.base.gateway_pb2 import GateWayMessage
 
 
