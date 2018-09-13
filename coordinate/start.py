@@ -3,7 +3,7 @@
 import sys
 
 sys.path.append('/root/server/server')
-from gateway.server import Server
+from coordinate.server import Server
 
 if __name__ == '__main__':
     Server.start()
