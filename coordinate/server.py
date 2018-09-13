@@ -17,7 +17,6 @@ class Server(object):
 
     @staticmethod
     def start():
-        gl.init()
         gl.set_v("serverlogger", LoggerUtils("coordinate"))
         gl.set_v("serverqueue", Queue.Queue())
         gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], "server-gateway", messagehandle))

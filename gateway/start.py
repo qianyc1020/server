@@ -3,11 +3,17 @@ import sys
 
 sys.path.append('/root/server/server')
 
-from gateway.server import Server
-from core import config
-
 if __name__ == '__main__':
+    from core import config
+
     config.init("/root/server/server/conf/pyg.conf")
+
+    import core.globalvar as gl
+
+    gl.init()
+
+    from gateway.server import Server
+
     # config.init("/home/pengyi/server/conf/pyg.conf")
     Server.start()
     # config.init("/home/pengyi/server/conf/pyg.conf")
