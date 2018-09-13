@@ -60,8 +60,8 @@ class ClientReceive(object):
                         gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
                         if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
-                            self.newmd5keyBytes = StringUtils.md5(
-                                self.randomKey[checkversion.keyIndex] + self.oldmd5keyBytes.decode("utf-8"))
+                            self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") +
+                                                                  self.randomKey[checkversion.keyIndex])
                             noticelogin = RecNoticeLogin()
                             self.send_data(NetMessage.NOTICE_LOGIN, noticelogin.SerializeToString())
                         elif data.opcode == data.LOGIN_SVR:
@@ -103,6 +103,9 @@ class ClientReceive(object):
             if result1:
                 result += result1
                 length -= len(result1)
+            else:
+                gl.get_v("serverlogger").logger("client close")
+                break
         return result
 
     def readBytes(self, conn, length):
