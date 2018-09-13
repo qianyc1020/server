@@ -167,6 +167,7 @@ class ClientReceive(object):
                                      name='handle')  # 线程对象.
                 t.start()
                 self.update_user_info(account)
+                self.update_currency(account)
                 return
         else:
             reclogin.state = base_pb2.ERROR
@@ -193,6 +194,13 @@ class ClientReceive(object):
         # user_info.gameId = account.id
         # user_info.isContest = account.id
         self.send_data(NetMessage.UPDATE_USER_INFO, user_info.SerializeToString())
+
+    def update_currency(self, account):
+        currency = RecUpdateCurrency()
+        currency.currency = account.gold
+        currency.gold = account.gold
+        currency.integral = account.integral
+        self.send_data(NetMessage.UPDATE_CURRENCY, currency.SerializeToString())
 
     def relogin(self, data):
         relogin = ReqRelogin()
