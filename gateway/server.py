@@ -20,7 +20,8 @@ class Server(object):
 
     @staticmethod
     def start():
-        config.init("/home/pengyi/server/conf/pyg.conf")
+        config.init("/root/server/server/conf/pyg.conf")
+        # config.init("/home/pengyi/server/conf/pyg.conf")
 
         gl.init()
         gl.set_v("serverlogger", LoggerUtils("gateway"))
