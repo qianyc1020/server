@@ -5,8 +5,8 @@ import struct
 import threading
 
 import core.globalvar as gl
-from gateway import login
 from core import config
+from gateway import login
 from gateway.messagehandle import MessageHandle
 from protocol.base import base_pb2
 from protocol.base.base_pb2 import *
@@ -61,11 +61,8 @@ class ClientReceive(object):
                         if data.opcode == data.CHECK_VERSION:
                             checkversion = ReqCheckVersion()
                             checkversion.ParseFromString(data.data)
-                            gl.get_v("serverlogger").logger('''老key%s''' % self.oldmd5keyBytes)
-                            gl.get_v("serverlogger").logger('''选的key%s''' % self.randomKey[checkversion.keyIndex])
                             self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") + "+" +
                                                                   self.randomKey[checkversion.keyIndex])
-                            gl.get_v("serverlogger").logger('''新key%s''' % self.newmd5keyBytes)
                             noticelogin = RecNoticeLogin()
                             self.send_data(NetMessage.NOTICE_LOGIN, noticelogin.SerializeToString())
                         elif data.opcode == data.LOGIN_SVR:
