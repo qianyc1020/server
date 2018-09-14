@@ -6,7 +6,7 @@ import threading
 
 import core.globalvar as gl
 from core import config
-from gateway import login
+from data.database import login
 from gateway.messagehandle import MessageHandle
 from protocol.base import base_pb2
 from protocol.base.base_pb2 import *
@@ -22,6 +22,7 @@ class ClientReceive(object):
     newmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
     messageQueue = None
     messageHandle = None
+    lock = threading.Lock()
 
     def receive(self, conn, address):
         """
@@ -136,10 +137,12 @@ class ClientReceive(object):
             self.conns.sendall(data)
 
     def send_data(self, opcode, data):
+        self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
         send_data.data = data
         self.send(send_data.SerializeToString())
+        self.lock.release()
 
     def login(self, data):
 

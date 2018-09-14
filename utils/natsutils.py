@@ -17,8 +17,9 @@ class NatsUtils(object):
     def main(self):
         yield self.__nc__.connect(servers=self.__servers__, allow_reconnect=False)
         if self.__nc__.is_connected:
-            future = self.__nc__.subscribe(self.__subject__, cb=self.__handle__)
-            sid = future.result()
+            for i in range(0, len(self.__subject__)):
+                future = self.__nc__.subscribe(self.__subject__[i], cb=self.__handle__[i])
+                sid = future.result()
 
     def startNats(self):
         self.main()

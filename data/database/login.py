@@ -4,7 +4,7 @@ import time
 import pymysql
 
 from core import config
-from gateway.mode.account import Account
+from mode.account import Account
 from utils.stringutils import StringUtils
 
 

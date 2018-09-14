@@ -22,7 +22,7 @@ class Server(object):
     def start():
         gl.set_v("serverlogger", LoggerUtils("gateway"))
         gl.set_v("serverqueue", Queue.Queue())
-        gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], "server-gateway", messagehandle))
+        gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], ["server-gateway"], [messagehandle]))
         gl.set_v("clients", {})
 
         natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
