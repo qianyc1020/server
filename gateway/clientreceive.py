@@ -81,8 +81,10 @@ class ClientReceive(object):
                     gl.get_v("serverlogger").logger("client close")
 
         except socket.error, e:
+            print e
             gl.get_v("serverlogger").logger(e)
         except BaseException, x:
+            print x
             gl.get_v("serverlogger").logger(x)
         finally:
             conn.shutdown(socket.SHUT_RDWR)
