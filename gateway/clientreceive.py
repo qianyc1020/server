@@ -140,7 +140,7 @@ class ClientReceive(object):
             self.conns.sendall(data)
 
     def send_data(self, opcode, data):
-        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.userId))
+        gl.get_v("serverlogger").logger("发送%d给%s,内容：%s" % (opcode, self.userId, data))
         self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
@@ -209,11 +209,9 @@ class ClientReceive(object):
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()
-        a = Decimal()
-        a.to_integral()
-        currency.currency = account.gold.to_integral()
-        currency.gold = account.gold.to_integral()
-        currency.integral = account.integral.to_integral()
+        # currency.currency = account.gold.to_integral()
+        # currency.gold = account.gold.to_integral()
+        # currency.integral = account.integral.to_integral()
         self.send_data(NetMessage.UPDATE_CURRENCY, currency.SerializeToString())
 
     def relogin(self, data):
