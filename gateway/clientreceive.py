@@ -3,6 +3,7 @@ import Queue
 import socket
 import struct
 import threading
+from unicodedata import decimal
 
 import core.globalvar as gl
 from core import config
@@ -207,9 +208,9 @@ class ClientReceive(object):
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()
-        currency.currency = account.gold
-        currency.gold = account.gold
-        currency.integral = account.integral
+        currency.currency = int(account.gold)
+        currency.gold = int(account.gold)
+        currency.integral = int(account.integral)
         self.send_data(NetMessage.UPDATE_CURRENCY, currency.SerializeToString())
 
     def relogin(self, data):
