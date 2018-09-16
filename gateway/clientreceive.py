@@ -140,6 +140,7 @@ class ClientReceive(object):
             self.conns.sendall(data)
 
     def send_data(self, opcode, data):
+        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.userId))
         self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
