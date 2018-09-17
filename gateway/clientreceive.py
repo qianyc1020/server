@@ -71,6 +71,8 @@ class ClientReceive(object):
                             self.login(data)
                         elif data.opcode == data.RELOGIN_SVR:
                             self.relogin(data)
+                        elif data.opcode == data.SEND_PING:
+                            self.send_data(NetMessage.SEND_PING, None)
                         else:
                             if self.userId is not None:
                                 self.messageQueue.put(data)
@@ -145,7 +147,8 @@ class ClientReceive(object):
         self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
-        send_data.data = data.SerializeToString()
+        if data is not None:
+            send_data.data = data.SerializeToString()
         self.send(send_data.SerializeToString())
         self.lock.release()
 
