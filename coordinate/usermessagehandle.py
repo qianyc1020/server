@@ -63,7 +63,7 @@ class UserMessageHandle(object):
                     if message.opcode == message.BANK_GET and int(
                             account.bank_integral.quantize(Decimal('0'))) < reqOperateBank.integral:
                         break
-                    gold = reqOperateBank.gold if message.opcode == message.BANK_DEPOSIT else -reqOperateBank.gold
+                    gold = reqOperateBank.card if message.opcode == message.BANK_DEPOSIT else -reqOperateBank.card
                     integral = reqOperateBank.integral if message.opcode == message.BANK_DEPOSIT else -reqOperateBank.integral
 
                     data_account.update_currency(mysql_connection.get_conn(), gold, integral, self.__userId)
@@ -74,11 +74,10 @@ class UserMessageHandle(object):
                     account = data_account.query_account_by_id(mysql_connection.get_conn(), self.__userId)
                     self.update_currency(account)
 
-
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)
                 self.close()
-                self.__server_receive.close()
+                self.__server_receive.remove(self.__userId)
 
     def send_to_gateway(self, opcode, data):
         send_data = NetMessage()

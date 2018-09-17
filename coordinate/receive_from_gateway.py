@@ -44,5 +44,6 @@ class ReceiveHandle(object):
 
     def remove(self, userid):
         self.__lock.acquire()
-        del self.__user_queue[userid]
+        if userid in self.__user_queue:
+            del self.__user_queue[userid]
         self.__lock.release()
