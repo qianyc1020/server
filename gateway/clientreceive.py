@@ -140,7 +140,7 @@ class ClientReceive(object):
             self.conns.sendall(data)
 
     def send_data(self, opcode, data):
-        gl.get_v("serverlogger").logger("发送%d给%s,内容：%s" % (opcode, self.userId, data))
+        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.userId))
         self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
@@ -197,8 +197,10 @@ class ClientReceive(object):
         user_info.registerTime = account.create_time
         user_info.playTotal = account.total_count
         user_info.registerTime = account.create_time
-        user_info.introduce = account.introduce
-        user_info.phone = account.phone
+        if account.introduce is not None:
+            user_info.introduce = account.introduce
+        if account.phone is not None:
+            user_info.phone = account.phone
         user_info.consumeVip = account.level
         user_info.consumeVal = account.experience
         # TODO 游戏中
@@ -209,9 +211,9 @@ class ClientReceive(object):
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()
-        # currency.currency = account.gold.to_integral()
-        # currency.gold = account.gold.to_integral()
-        # currency.integral = account.integral.to_integral()
+        currency.currency = int(account.gold.quantize(Decimal('0')))
+        currency.gold = int(account.gold.quantize(Decimal('0')))
+        currency.integral = int(account.integral.quantize(Decimal('0')))
         self.send_data(NetMessage.UPDATE_CURRENCY, currency.SerializeToString())
 
     def relogin(self, data):

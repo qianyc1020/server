@@ -21,7 +21,7 @@ class MessageHandle(object):
                 message = queue.get(True, 20)
                 s = GateWayMessage()
                 s.userId = self.__userId
-                s.data = message
+                s.data = message.SerializeToString()
                 gl.get_v("natsobj").publish("gateway-coordinate", s.SerializeToString())
             except Empty:
                 print("messagehandle received timeout")
