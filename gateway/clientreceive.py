@@ -46,7 +46,7 @@ class ClientReceive(object):
         gameinfo = checkversion.games.add()
         gameinfo.allocId = 1
         gameinfo.version = 10000
-        self.send_data(NetMessage.CHECK_VERSION, checkversion.SerializeToString())
+        self.send_data(NetMessage.CHECK_VERSION, checkversion)
 
         try:
             while not close:
@@ -66,7 +66,7 @@ class ClientReceive(object):
                             self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") + "+" +
                                                                   self.randomKey[checkversion.keyIndex])
                             noticelogin = RecNoticeLogin()
-                            self.send_data(NetMessage.NOTICE_LOGIN, noticelogin.SerializeToString())
+                            self.send_data(NetMessage.NOTICE_LOGIN, noticelogin)
                         elif data.opcode == data.LOGIN_SVR:
                             self.login(data)
                         elif data.opcode == data.RELOGIN_SVR:
@@ -90,7 +90,8 @@ class ClientReceive(object):
         finally:
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()
-            self.messageHandle.close()
+            if self.messageHandle is not None:
+                self.messageHandle.close()
             if self.userId is not None:
                 del gl.get_v("clients")[self.userId]
             gl.get_v("serverlogger").logger("client close")
@@ -144,7 +145,7 @@ class ClientReceive(object):
         self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
-        send_data.data = data
+        send_data.data = data.SerializeToString()
         self.send(send_data.SerializeToString())
         self.lock.release()
 
@@ -170,7 +171,7 @@ class ClientReceive(object):
             elif 1 == account.account_state:
                 reclogin.state = base_pb2.LIMIT
             else:
-                self.send_data(NetMessage.LOGIN_SVR, reclogin.SerializeToString())
+                self.send_data(NetMessage.LOGIN_SVR, reclogin)
                 self.userId = account.id
                 gl.get_v("clients")[self.userId] = self
                 self.messageQueue = Queue.Queue()
@@ -183,7 +184,7 @@ class ClientReceive(object):
                 return
         else:
             reclogin.state = base_pb2.ERROR
-        self.send_data(NetMessage.LOGIN_SVR, reclogin.SerializeToString())
+        self.send_data(NetMessage.LOGIN_SVR, reclogin)
 
     def update_user_info(self, account):
         user_info = RecUserInfo()
@@ -207,14 +208,14 @@ class ClientReceive(object):
         # user_info.allocId = account.id
         # user_info.gameId = account.id
         # user_info.isContest = account.id
-        self.send_data(NetMessage.UPDATE_USER_INFO, user_info.SerializeToString())
+        self.send_data(NetMessage.UPDATE_USER_INFO, user_info)
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()
         currency.currency = int(account.gold.quantize(Decimal('0')))
         currency.gold = int(account.gold.quantize(Decimal('0')))
         currency.integral = int(account.integral.quantize(Decimal('0')))
-        self.send_data(NetMessage.UPDATE_CURRENCY, currency.SerializeToString())
+        self.send_data(NetMessage.UPDATE_CURRENCY, currency)
 
     def relogin(self, data):
         relogin = ReqRelogin()

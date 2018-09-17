@@ -12,6 +12,9 @@ class Account(object):
     account_state = None
     gold = None
     integral = None
+    bank_pswd = None
+    bank_gold = None
+    bank_integral = None
     records = None
     authority = None
     total_count = None
