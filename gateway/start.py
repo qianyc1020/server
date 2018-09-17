@@ -1,13 +1,14 @@
 # coding=utf-8
 import sys
 
-sys.path.append('/root/server/server')
+# sys.path.append('/root/server/server')
+sys.path.append('/home/pengyi/server')
 
 from core import config
 import core.globalvar as gl
 
-config.init("/root/server/server/conf/pyg.conf")
-# config.init("/home/pengyi/server/conf/pyg.conf")
+# config.init("/root/server/server/conf/pyg.conf")
+config.init("/home/pengyi/server/conf/pyg.conf")
 gl.init()
 
 from gateway.server import Server

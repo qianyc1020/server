@@ -7,7 +7,7 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from core import config
-from data.database import login
+from data.database import data_account
 from gateway.messagehandle import MessageHandle
 from protocol.base import base_pb2
 from protocol.base.base_pb2 import *
@@ -154,7 +154,7 @@ class ClientReceive(object):
         loginserver = ReqLoginServer()
         loginserver.ParseFromString(data.data)
 
-        account = login.login(loginserver, self.address)
+        account = data_account.login(loginserver, self.address)
         if account is not None:
             self.checkLogin(account)
         else:
@@ -221,7 +221,7 @@ class ClientReceive(object):
         relogin = ReqRelogin()
         relogin.ParseFromString(data.data)
 
-        account = login.relogin(relogin, self.address)
+        account = data_account.relogin(relogin, self.address)
         if account is not None:
             self.checkLogin(account)
         else:

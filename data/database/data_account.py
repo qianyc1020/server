@@ -142,3 +142,10 @@ def query_account_by_id(connection, id):
         a.experience = result["experience"]
 
         return a
+
+
+def update_currency(connection, gold, integral, id):
+    sql = config.get("sql", "sql_update_currency") % (-gold, -integral, gold, integral, id)
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        connection.commit()
