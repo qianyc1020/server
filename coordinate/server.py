@@ -25,6 +25,7 @@ class Server(object):
         gl.set_v("serverlogger", LoggerUtils("coordinate"))
         gl.set_v("from-gateway-queue", Queue.Queue())
         gl.set_v("from-game-queue", Queue.Queue())
+        gl.set_v("games", [])
         gl.set_v("natsobj",
                  NatsUtils([config.get("nats", "nats")], ["gateway-coordinate", "game-coordinate"],
                            [from_gateway_handle, from_game_handle]))

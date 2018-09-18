@@ -149,3 +149,37 @@ def update_currency(connection, gold, integral, id):
     with connection.cursor() as cursor:
         cursor.execute(sql)
         connection.commit()
+
+
+def ranking_by_gold(connection, limit):
+    accounts = []
+    sql = config.get("sql", "sql_ranking_by_gold") % limit
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        for r in result:
+            a = Account()
+            a.id = r["id"]
+            a.account_name = r["account_name"]
+            a.nick_name = r["nick_name"]
+            a.sex = r["sex"]
+            a.pswd = r["pswd"]
+            a.head_url = r["head_url"]
+            a.create_time = r["create_time"]
+            a.last_time = r["last_time"]
+            a.last_address = r["last_address"]
+            a.account_state = r["account_state"]
+            a.gold = r["gold"]
+            a.integral = r["integral"]
+            a.bank_pswd = r["bank_pswd"]
+            a.bank_gold = r["bank_gold"]
+            a.bank_integral = r["bank_integral"]
+            a.authority = r["authority"]
+            a.total_count = r["total_count"]
+            a.introduce = r["introduce"]
+            a.phone = r["phone"]
+            a.level = r["level"]
+            a.experience = r["experience"]
+            accounts.append(a)
+
+        return accounts
