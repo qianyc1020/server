@@ -1,20 +1,11 @@
 syntax = "proto3";
 
 option optimize_for = LITE_RUNTIME;
-option java_package = "com.cmsy.mode.proto";
-import "base";
 
 enum ServerState {
     RUNNING = 0; //正常运行
     BLOCKING = 1; //阻塞，不允许新用户进入 游戏服务器初始化注册，就是这个状态
     EXITING = 2; //尝试退出
-}
-
-//网络消息
-message NetMessage {
-    SMsgHead msgHead = 1;
-    bytes content = 2;
-    string id = 3;
 }
 
 //注册游戏服务器

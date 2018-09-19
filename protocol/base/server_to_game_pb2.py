@@ -20,60 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x19\x62\x61se/server_to_game.proto\"E\n\nNetMessage\x12\x1a\n\x07msgHead\x18\x01 \x01(\x0e\x32\t.SMsgHead\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\n\n\x02id\x18\x03 \x01(\t\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"\xc5\x02\n\x0cMutualPlayer\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x02 \x01(\t\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x10\n\x08head_url\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x12\n\nip_address\x18\x06 \x01(\t\x12\x13\n\x0b\x63heat_level\x18\x07 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x08 \x01(\x05\x12\x0c\n\x04gold\x18\t \x01(\x05\x12\x10\n\x08integral\x18\n \x01(\x05\x12\x0e\n\x06praise\x18\x0b \x01(\x05\x12\r\n\x05tread\x18\x0c \x01(\x05\x12\x13\n\x0b\x63reate_time\x18\r \x01(\x05\x12\x15\n\rcontest_score\x18\x0e \x01(\x05\x12\x11\n\tintroduce\x18\x0f \x01(\t\x12\x12\n\nconsumeVip\x18\x10 \x01(\x05\x12\x11\n\tauthority\x18\x11 \x01(\x05\"\x9d\x01\n\rReqCreateGame\x12\x1e\n\x07\x63reater\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x19\n\x05gener\x18\x02 \x01(\x0e\x32\n.GameGener\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\x12\x1c\n\x05\x65nter\x18\x05 \x01(\x0b\x32\r.MutualPlayer\x12\x11\n\tmaxPlayer\x18\x06 \x01(\x05\"N\n\x0cReqEnterGame\x12\x1c\n\x05\x65nter\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x0f\n\x07game_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\x0c\"x\n\x12ReqGameAddCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x10\n\x08\x61lloc_id\x18\x02 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x03 \x01(\x05\x12\x0f\n\x07game_id\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"T\n\x11RecUpdateCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05*\xc2\x01\n\x08SMsgHead\x12\x14\n\x10REGISTER_SERVICE\x10\x00\x12\x18\n\x14\x43HANGE_SERVICE_STATE\x10\x01\x12\x0f\n\x0b\x43REATE_GAME\x10\x02\x12\x0e\n\nENTER_GAME\x10\x03\x12\x15\n\x11GAME_ADD_CURRENCY\x10\x04\x12\x11\n\rCHANGE_ONLINE\x10\x05\x12\x13\n\x0fUPDATE_CURRENCY\x10\x06\x12\x10\n\x0c\x44ISMISS_GAME\x10\x07\x12\x14\n\x10GAME_SVR_OFFLINE\x10\x08*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02*F\n\tGameGener\x12\x08\n\x04\x43\x41RD\x10\x00\x12\t\n\x05MATCH\x10\x01\x12\t\n\x05PROXY\x10\x02\x12\x0c\n\x08TEAHOUSE\x10\x03\x12\x0b\n\x07\x43ONTEST\x10\x04\x42\x17\n\x13\x63om.cmsy.mode.protoH\x03\x62\x06proto3')
+        '\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"\xc5\x02\n\x0cMutualPlayer\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x02 \x01(\t\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x10\n\x08head_url\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x12\n\nip_address\x18\x06 \x01(\t\x12\x13\n\x0b\x63heat_level\x18\x07 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x08 \x01(\x05\x12\x0c\n\x04gold\x18\t \x01(\x05\x12\x10\n\x08integral\x18\n \x01(\x05\x12\x0e\n\x06praise\x18\x0b \x01(\x05\x12\r\n\x05tread\x18\x0c \x01(\x05\x12\x13\n\x0b\x63reate_time\x18\r \x01(\x05\x12\x15\n\rcontest_score\x18\x0e \x01(\x05\x12\x11\n\tintroduce\x18\x0f \x01(\t\x12\x12\n\nconsumeVip\x18\x10 \x01(\x05\x12\x11\n\tauthority\x18\x11 \x01(\x05\"\x9d\x01\n\rReqCreateGame\x12\x1e\n\x07\x63reater\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x19\n\x05gener\x18\x02 \x01(\x0e\x32\n.GameGener\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\x12\x1c\n\x05\x65nter\x18\x05 \x01(\x0b\x32\r.MutualPlayer\x12\x11\n\tmaxPlayer\x18\x06 \x01(\x05\"N\n\x0cReqEnterGame\x12\x1c\n\x05\x65nter\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x0f\n\x07game_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\x0c\"x\n\x12ReqGameAddCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x10\n\x08\x61lloc_id\x18\x02 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x03 \x01(\x05\x12\x0f\n\x07game_id\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"T\n\x11RecUpdateCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02*F\n\tGameGener\x12\x08\n\x04\x43\x41RD\x10\x00\x12\t\n\x05MATCH\x10\x01\x12\t\n\x05PROXY\x10\x02\x12\x0c\n\x08TEAHOUSE\x10\x03\x12\x0b\n\x07\x43ONTEST\x10\x04\x42\x02H\x03\x62\x06proto3')
 )
 
-_SMSGHEAD = _descriptor.EnumDescriptor(
-    name='SMsgHead',
-    full_name='SMsgHead',
-    filename=None,
-    file=DESCRIPTOR,
-    values=[
-        _descriptor.EnumValueDescriptor(
-            name='REGISTER_SERVICE', index=0, number=0,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='CHANGE_SERVICE_STATE', index=1, number=1,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='CREATE_GAME', index=2, number=2,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='ENTER_GAME', index=3, number=3,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='GAME_ADD_CURRENCY', index=4, number=4,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='CHANGE_ONLINE', index=5, number=5,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='UPDATE_CURRENCY', index=6, number=6,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='DISMISS_GAME', index=7, number=7,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='GAME_SVR_OFFLINE', index=8, number=8,
-            options=None,
-            type=None),
-    ],
-    containing_type=None,
-    options=None,
-    serialized_start=1130,
-    serialized_end=1324,
-)
-_sym_db.RegisterEnumDescriptor(_SMSGHEAD)
-
-SMsgHead = enum_type_wrapper.EnumTypeWrapper(_SMSGHEAD)
 _SERVERSTATE = _descriptor.EnumDescriptor(
     name='ServerState',
     full_name='ServerState',
@@ -95,8 +44,8 @@ _SERVERSTATE = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     options=None,
-    serialized_start=1326,
-    serialized_end=1379,
+    serialized_start=1058,
+    serialized_end=1111,
 )
 _sym_db.RegisterEnumDescriptor(_SERVERSTATE)
 
@@ -130,21 +79,12 @@ _GAMEGENER = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     options=None,
-    serialized_start=1381,
-    serialized_end=1451,
+    serialized_start=1113,
+    serialized_end=1183,
 )
 _sym_db.RegisterEnumDescriptor(_GAMEGENER)
 
 GameGener = enum_type_wrapper.EnumTypeWrapper(_GAMEGENER)
-REGISTER_SERVICE = 0
-CHANGE_SERVICE_STATE = 1
-CREATE_GAME = 2
-ENTER_GAME = 3
-GAME_ADD_CURRENCY = 4
-CHANGE_ONLINE = 5
-UPDATE_CURRENCY = 6
-DISMISS_GAME = 7
-GAME_SVR_OFFLINE = 8
 RUNNING = 0
 BLOCKING = 1
 EXITING = 2
@@ -153,50 +93,6 @@ MATCH = 1
 PROXY = 2
 TEAHOUSE = 3
 CONTEST = 4
-
-_NETMESSAGE = _descriptor.Descriptor(
-    name='NetMessage',
-    full_name='NetMessage',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='msgHead', full_name='NetMessage.msgHead', index=0,
-            number=1, type=14, cpp_type=8, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='content', full_name='NetMessage.content', index=1,
-            number=2, type=12, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b(""),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='id', full_name='NetMessage.id', index=2,
-            number=3, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b("").decode('utf-8'),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=29,
-    serialized_end=98,
-)
 
 _REQREGISTERGAME = _descriptor.Descriptor(
     name='ReqRegisterGame',
@@ -238,8 +134,8 @@ _REQREGISTERGAME = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=100,
-    serialized_end=167,
+    serialized_start=29,
+    serialized_end=96,
 )
 
 _RESREGISTERGAME = _descriptor.Descriptor(
@@ -268,8 +164,8 @@ _RESREGISTERGAME = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=169,
-    serialized_end=201,
+    serialized_start=98,
+    serialized_end=130,
 )
 
 _REQSERVICESTATE = _descriptor.Descriptor(
@@ -298,8 +194,8 @@ _REQSERVICESTATE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=203,
-    serialized_end=249,
+    serialized_start=132,
+    serialized_end=178,
 )
 
 _MUTUALPLAYER = _descriptor.Descriptor(
@@ -440,8 +336,8 @@ _MUTUALPLAYER = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=252,
-    serialized_end=577,
+    serialized_start=181,
+    serialized_end=506,
 )
 
 _REQCREATEGAME = _descriptor.Descriptor(
@@ -505,8 +401,8 @@ _REQCREATEGAME = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=580,
-    serialized_end=737,
+    serialized_start=509,
+    serialized_end=666,
 )
 
 _REQENTERGAME = _descriptor.Descriptor(
@@ -549,8 +445,8 @@ _REQENTERGAME = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=739,
-    serialized_end=817,
+    serialized_start=668,
+    serialized_end=746,
 )
 
 _REQGAMEADDCURRENCY = _descriptor.Descriptor(
@@ -614,8 +510,8 @@ _REQGAMEADDCURRENCY = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=819,
-    serialized_end=939,
+    serialized_start=748,
+    serialized_end=868,
 )
 
 _REQCHANGEONLINE = _descriptor.Descriptor(
@@ -658,8 +554,8 @@ _REQCHANGEONLINE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=941,
-    serialized_end=1009,
+    serialized_start=870,
+    serialized_end=938,
 )
 
 _RECUPDATECURRENCY = _descriptor.Descriptor(
@@ -709,8 +605,8 @@ _RECUPDATECURRENCY = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=1011,
-    serialized_end=1095,
+    serialized_start=940,
+    serialized_end=1024,
 )
 
 _DISMISSGAME = _descriptor.Descriptor(
@@ -739,17 +635,15 @@ _DISMISSGAME = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=1097,
-    serialized_end=1127,
+    serialized_start=1026,
+    serialized_end=1056,
 )
 
-_NETMESSAGE.fields_by_name['msgHead'].enum_type = _SMSGHEAD
 _REQSERVICESTATE.fields_by_name['state'].enum_type = _SERVERSTATE
 _REQCREATEGAME.fields_by_name['creater'].message_type = _MUTUALPLAYER
 _REQCREATEGAME.fields_by_name['gener'].enum_type = _GAMEGENER
 _REQCREATEGAME.fields_by_name['enter'].message_type = _MUTUALPLAYER
 _REQENTERGAME.fields_by_name['enter'].message_type = _MUTUALPLAYER
-DESCRIPTOR.message_types_by_name['NetMessage'] = _NETMESSAGE
 DESCRIPTOR.message_types_by_name['ReqRegisterGame'] = _REQREGISTERGAME
 DESCRIPTOR.message_types_by_name['ResRegisterGame'] = _RESREGISTERGAME
 DESCRIPTOR.message_types_by_name['ReqServiceState'] = _REQSERVICESTATE
@@ -760,17 +654,9 @@ DESCRIPTOR.message_types_by_name['ReqGameAddCurrency'] = _REQGAMEADDCURRENCY
 DESCRIPTOR.message_types_by_name['ReqChangeOnline'] = _REQCHANGEONLINE
 DESCRIPTOR.message_types_by_name['RecUpdateCurrency'] = _RECUPDATECURRENCY
 DESCRIPTOR.message_types_by_name['DismissGame'] = _DISMISSGAME
-DESCRIPTOR.enum_types_by_name['SMsgHead'] = _SMSGHEAD
 DESCRIPTOR.enum_types_by_name['ServerState'] = _SERVERSTATE
 DESCRIPTOR.enum_types_by_name['GameGener'] = _GAMEGENER
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-NetMessage = _reflection.GeneratedProtocolMessageType('NetMessage', (_message.Message,), dict(
-    DESCRIPTOR=_NETMESSAGE,
-    __module__='base.server_to_game_pb2'
-    # @@protoc_insertion_point(class_scope:NetMessage)
-))
-_sym_db.RegisterMessage(NetMessage)
 
 ReqRegisterGame = _reflection.GeneratedProtocolMessageType('ReqRegisterGame', (_message.Message,), dict(
     DESCRIPTOR=_REQREGISTERGAME,
@@ -843,5 +729,5 @@ DismissGame = _reflection.GeneratedProtocolMessageType('DismissGame', (_message.
 _sym_db.RegisterMessage(DismissGame)
 
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\023com.cmsy.mode.protoH\003'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003'))
 # @@protoc_insertion_point(module_scope)

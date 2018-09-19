@@ -5,6 +5,7 @@ from Queue import Empty
 import core.globalvar as gl
 from core import config
 from mode.game_item import Game
+from protocol.base.base_pb2 import *
 from protocol.base.server_to_game_pb2 import *
 
 
@@ -20,14 +21,17 @@ class ReceiveHandle(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
-                gl.get_v("serverlogger").logger('''收到游戏服消息%d''' % message.opcode)
-                if message.opcode == REGISTER_SERVICE:
+                netMessage = NetMessage()
+                netMessage.ParseFromString(message)
+                gl.get_v("serverlogger").logger('''收到游戏服消息%d''' % netMessage.opcode)
+                if netMessage.opcode == REGISTER_SERVICE:
                     reqRegisterGame = ReqRegisterGame()
+                    reqRegisterGame.ParseFromString(netMessage.data)
                     if reqRegisterGame.password == config.get("coordinate", "game_connect_pwd"):
-                        gl.get_v("games").append(Game(reqRegisterGame.alloc_id, reqRegisterGame.name, message.id))
-                if message.opcode == CHANGE_SERVICE_STATE:
+                        gl.get_v("games").append(Game(reqRegisterGame.alloc_id, reqRegisterGame.name, netMessage.id))
+                if netMessage.opcode == CHANGE_SERVICE_STATE:
                     reqServiceState = ReqServiceState()
-                    self.changeServerState(message.id, reqServiceState.state)
+                    self.changeServerState(netMessage.id, reqServiceState.state)
 
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
@@ -43,7 +47,8 @@ class ReceiveHandle(object):
 
     def sendToGame(self, uuid, opcode, data):
         message = NetMessage()
-        message.msgHead = opcode
+        message.opcode = opcode
         if data is not None:
-            message.content = data.SerializeToString()
+            message.data = data.SerializeToString()
+        gl.get_v("serverlogger").logger("发送%d给游戏服" % opcode)
         gl.get_v("natsobj").publish(uuid, message.SerializeToString())

@@ -4,7 +4,6 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account, mysql_connection
-from mode.account import Account
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
@@ -28,21 +27,21 @@ class UserMessageHandle(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
-                if message.opcode == message.APPLY_ENTER_MATCH:
+                if message.opcode == APPLY_ENTER_MATCH:
                     reqApplyEnterMatch = ReqApplyEnterMatch()
                     reqApplyEnterMatch.ParseFromString(message.data)
                     find = False
                     for g in gl.get_v("games"):
                         if g.alloc_id == reqApplyEnterMatch.allocId and g.state == RUNNING:
-                            self.sendToGame(g.uuid, message.APPLY_ENTER_MATCH, reqApplyEnterMatch)
+                            self.sendToGame(g.uuid, APPLY_ENTER_MATCH, reqApplyEnterMatch)
                             find = True
                             break
                     if not find:
                         recApplyEnterMatch = RecApplyEnterMatch()
                         recApplyEnterMatch.state = recApplyEnterMatch.FAILD
-                        self.send_to_gateway(message.APPLY_ENTER_MATCH, recApplyEnterMatch)
+                        self.send_to_gateway(APPLY_ENTER_MATCH, recApplyEnterMatch)
 
-                elif message.opcode == message.UPDATE_MATCH_INFO:
+                elif message.opcode == UPDATE_MATCH_INFO:
                     reqUpdateMatchInfo = ReqUpdateMatchInfo()
                     reqUpdateMatchInfo.ParseFromString(message.data)
 
@@ -52,9 +51,9 @@ class UserMessageHandle(object):
                     recUpdateMatchInfo.games = 1
                     recUpdateMatchInfo.players = 5
                     recUpdateMatchInfo.totalPlayers = 10
-                    self.send_to_gateway(message.UPDATE_MATCH_INFO, recUpdateMatchInfo)
+                    self.send_to_gateway(UPDATE_MATCH_INFO, recUpdateMatchInfo)
 
-                elif message.opcode == message.BANK_INFO:
+                elif message.opcode == BANK_INFO:
                     reqBankInfo = ReqBankInfo()
                     reqBankInfo.ParseFromString(message.data)
 
@@ -64,32 +63,32 @@ class UserMessageHandle(object):
                     recBankInfo.card = int(account.bank_gold.quantize(Decimal('0')))
                     recBankInfo.gold = int(account.bank_gold.quantize(Decimal('0')))
                     recBankInfo.integral = int(account.bank_integral.quantize(Decimal('0')))
-                    self.send_to_gateway(NetMessage.BANK_INFO, recBankInfo)
+                    self.send_to_gateway(BANK_INFO, recBankInfo)
 
-                elif message.opcode == message.BANK_DEPOSIT or message.opcode == message.BANK_GET:
+                elif message.opcode == BANK_DEPOSIT or message.opcode == BANK_GET:
                     reqOperateBank = ReqOperateBank()
                     reqOperateBank.ParseFromString(message.data)
                     account = data_account.query_account_by_id(mysql_connection.get_conn(), self.__userId)
-                    if message.opcode == message.BANK_DEPOSIT and int(
+                    if message.opcode == BANK_DEPOSIT and int(
                             account.gold.quantize(Decimal('0'))) < reqOperateBank.card:
                         break
-                    if message.opcode == message.BANK_DEPOSIT and int(
+                    if message.opcode == BANK_DEPOSIT and int(
                             account.gold.quantize(Decimal('0'))) < reqOperateBank.gold:
                         break
-                    if message.opcode == message.BANK_DEPOSIT and int(
+                    if message.opcode == BANK_DEPOSIT and int(
                             account.integral.quantize(Decimal('0'))) < reqOperateBank.integral:
                         break
-                    if message.opcode == message.BANK_GET and int(
+                    if message.opcode == BANK_GET and int(
                             account.bank_gold.quantize(Decimal('0'))) < reqOperateBank.card:
                         break
-                    if message.opcode == message.BANK_GET and int(
+                    if message.opcode == BANK_GET and int(
                             account.bank_gold.quantize(Decimal('0'))) < reqOperateBank.gold:
                         break
-                    if message.opcode == message.BANK_GET and int(
+                    if message.opcode == BANK_GET and int(
                             account.bank_integral.quantize(Decimal('0'))) < reqOperateBank.integral:
                         break
-                    gold = reqOperateBank.card if message.opcode == message.BANK_DEPOSIT else -reqOperateBank.card
-                    integral = reqOperateBank.integral if message.opcode == message.BANK_DEPOSIT else -reqOperateBank.integral
+                    gold = reqOperateBank.card if message.opcode == BANK_DEPOSIT else -reqOperateBank.card
+                    integral = reqOperateBank.integral if message.opcode == BANK_DEPOSIT else -reqOperateBank.integral
 
                     data_account.update_currency(mysql_connection.get_conn(), gold, integral, self.__userId)
 
@@ -98,7 +97,7 @@ class UserMessageHandle(object):
 
                     account = data_account.query_account_by_id(mysql_connection.get_conn(), self.__userId)
                     self.update_currency(account)
-                elif message.opcode == message.UPDATE_RANK:
+                elif message.opcode == UPDATE_RANK:
                     reqGameRank = ReqGameRank()
                     reqGameRank.ParseFromString(message.data)
                     accounts = data_account.ranking_by_gold(mysql_connection.get_conn(), reqGameRank.number)
@@ -135,14 +134,15 @@ class UserMessageHandle(object):
 
     def sendToGame(self, uuid, opcode, data):
         message = NetMessage()
-        message.msgHead = opcode
+        message.opcode = opcode
         if data is not None:
-            message.content = data.SerializeToString()
-        gl.get_v("natsobj").publish(uuid, message.SerializeToString())
+            message.data = data.SerializeToString()
+        gl.get_v("serverlogger").logger("发送%d给游戏服" % opcode)
+        gl.get_v("natsobj").publish(uuid.encode("utf-8"), message.SerializeToString())
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()
         currency.currency = int(account.gold.quantize(Decimal('0')))
         currency.gold = int(account.gold.quantize(Decimal('0')))
         currency.integral = int(account.integral.quantize(Decimal('0')))
-        self.send_to_gateway(NetMessage.UPDATE_CURRENCY, currency)
+        self.send_to_gateway(UPDATE_CURRENCY, currency)

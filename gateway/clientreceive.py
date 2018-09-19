@@ -9,7 +9,6 @@ import core.globalvar as gl
 from core import config
 from data.database import data_account
 from gateway.messagehandle import MessageHandle
-from protocol.base import base_pb2
 from protocol.base.base_pb2 import *
 from utils.stringutils import StringUtils
 
@@ -46,7 +45,7 @@ class ClientReceive(object):
         gameinfo = checkversion.games.add()
         gameinfo.allocId = 1
         gameinfo.version = 10000
-        self.send_data(NetMessage.CHECK_VERSION, checkversion)
+        self.send_data(CHECK_VERSION, checkversion)
 
         try:
             while not close:
@@ -60,19 +59,19 @@ class ClientReceive(object):
                         data = NetMessage()
                         data.ParseFromString(result)
                         gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
-                        if data.opcode == data.CHECK_VERSION:
+                        if data.opcode == CHECK_VERSION:
                             checkversion = ReqCheckVersion()
                             checkversion.ParseFromString(data.data)
                             self.newmd5keyBytes = StringUtils.md5(self.oldmd5keyBytes.decode("utf-8") + "+" +
                                                                   self.randomKey[checkversion.keyIndex])
                             noticelogin = RecNoticeLogin()
-                            self.send_data(NetMessage.NOTICE_LOGIN, noticelogin)
-                        elif data.opcode == data.LOGIN_SVR:
+                            self.send_data(NOTICE_LOGIN, noticelogin)
+                        elif data.opcode == LOGIN_SVR:
                             self.login(data)
-                        elif data.opcode == data.RELOGIN_SVR:
+                        elif data.opcode == RELOGIN_SVR:
                             self.relogin(data)
-                        elif data.opcode == data.SEND_PING:
-                            self.send_data(NetMessage.SEND_PING, None)
+                        elif data.opcode == SEND_PING:
+                            self.send_data(SEND_PING, None)
                         else:
                             if self.userId is not None:
                                 self.messageQueue.put(data)
@@ -170,11 +169,11 @@ class ClientReceive(object):
         reclogin = RecLoginServer()
         if account is not None:
             if StringUtils.md5(account.account_name) != account.pswd:
-                reclogin.state = base_pb2.PASSWORD_ERROR
+                reclogin.state = PASSWORD_ERROR
             elif 1 == account.account_state:
-                reclogin.state = base_pb2.LIMIT
+                reclogin.state = LIMIT
             else:
-                self.send_data(NetMessage.LOGIN_SVR, reclogin)
+                self.send_data(LOGIN_SVR, reclogin)
                 self.userId = account.id
                 gl.get_v("clients")[self.userId] = self
                 self.messageQueue = Queue.Queue()
@@ -186,8 +185,8 @@ class ClientReceive(object):
                 self.update_currency(account)
                 return
         else:
-            reclogin.state = base_pb2.ERROR
-        self.send_data(NetMessage.LOGIN_SVR, reclogin)
+            reclogin.state = ERROR
+        self.send_data(LOGIN_SVR, reclogin)
 
     def update_user_info(self, account):
         user_info = RecUserInfo()
@@ -211,14 +210,14 @@ class ClientReceive(object):
         # user_info.allocId = account.id
         # user_info.gameId = account.id
         # user_info.isContest = account.id
-        self.send_data(NetMessage.UPDATE_USER_INFO, user_info)
+        self.send_data(UPDATE_USER_INFO, user_info)
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()
         currency.currency = int(account.gold.quantize(Decimal('0')))
         currency.gold = int(account.gold.quantize(Decimal('0')))
         currency.integral = int(account.integral.quantize(Decimal('0')))
-        self.send_data(NetMessage.UPDATE_CURRENCY, currency)
+        self.send_data(UPDATE_CURRENCY, currency)
 
     def relogin(self, data):
         relogin = ReqRelogin()

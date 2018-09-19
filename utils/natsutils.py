@@ -28,3 +28,6 @@ class NatsUtils(object):
     def publish(self, subject, data):
         if self.__nc__.is_connected:
             self.__nc__.publish(subject, data)
+
+    def isConnect(self):
+        return self.__nc__.is_connected

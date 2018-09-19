@@ -29,15 +29,15 @@ class ReceiveHandle(object):
                 gl.get_v("serverlogger").logger('''收到%d消息%d''' % (s.userId, netmessage.opcode))
 
                 self.__lock.acquire()
-                if s.userId in self.__user_queue:
-                    self.__user_queue[s.userId].put(netmessage)
-                else:
+                if s.userId not in self.__user_queue:
                     messagequeue = Queue.Queue()
                     messagehandle = UserMessageHandle(s.userId, self)
                     t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
                                          name='handle')  # 线程对象.
                     t.start()
                     self.__user_queue[s.userId] = messagequeue
+
+                self.__user_queue[s.userId].put(netmessage)
                 self.__lock.release()
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")

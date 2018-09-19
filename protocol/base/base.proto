@@ -4,9 +4,6 @@ package mahjong;
 
 option optimize_for = LITE_RUNTIME;
 option csharp_namespace = "ChuangMi.Base.V1";
-option java_multiple_files = false;
-option java_package = "com.cmsy.majong.mode.proto";
-option go_package = "message/base;base";
 
 enum Opcode {
     CHECK_VERSION               = 0;
@@ -148,6 +145,7 @@ enum Opcode {
 message NetMessage {
     Opcode opcode = 1;
     bytes data = 2;
+    string id = 3;
 }
 enum LoginClass {
    	WECHAT		= 0;		//微信账号
