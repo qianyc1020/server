@@ -2,19 +2,7 @@ syntax = "proto3";
 
 option optimize_for = LITE_RUNTIME;
 option java_package = "com.cmsy.mode.proto";
-
-//消息头
-enum SMsgHead {
-    REGISTER_SERVICE = 0;
-    CHANGE_SERVICE_STATE = 1;
-    CREATE_GAME = 2;
-    ENTER_GAME = 3;
-    GAME_ADD_CURRENCY = 4;
-    CHANGE_ONLINE = 5;
-    UPDATE_CURRENCY = 6;
-    DISMISS_GAME = 7;
-    GAME_SVR_OFFLINE = 8; //关闭游戏服务器
-}
+import "base";
 
 enum ServerState {
     RUNNING = 0; //正常运行
