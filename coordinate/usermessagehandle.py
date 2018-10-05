@@ -57,7 +57,7 @@ class UserMessageHandle(object):
                     reqBankInfo = ReqBankInfo()
                     reqBankInfo.ParseFromString(message.data)
 
-                    account = data_account.query_account_by_id(mysql_connection.get_conn(), self.__userId)
+                    account = data_account.query_account_by_id(None, self.__userId)
 
                     recBankInfo = RecBankInfo()
                     recBankInfo.card = int(account.bank_gold.quantize(Decimal('0')))
@@ -68,7 +68,7 @@ class UserMessageHandle(object):
                 elif message.opcode == BANK_DEPOSIT or message.opcode == BANK_GET:
                     reqOperateBank = ReqOperateBank()
                     reqOperateBank.ParseFromString(message.data)
-                    account = data_account.query_account_by_id(mysql_connection.get_conn(), self.__userId)
+                    account = data_account.query_account_by_id(None, self.__userId)
                     if message.opcode == BANK_DEPOSIT and int(
                             account.gold.quantize(Decimal('0'))) < reqOperateBank.card:
                         break
@@ -90,17 +90,17 @@ class UserMessageHandle(object):
                     gold = reqOperateBank.card if message.opcode == BANK_DEPOSIT else -reqOperateBank.card
                     integral = reqOperateBank.integral if message.opcode == BANK_DEPOSIT else -reqOperateBank.integral
 
-                    data_account.update_currency(mysql_connection.get_conn(), gold, integral, self.__userId)
+                    data_account.update_currency(None, gold, integral, self.__userId)
 
                     recOprateBank = RecOprateBank()
                     self.send_to_gateway(message.opcode, recOprateBank)
 
-                    account = data_account.query_account_by_id(mysql_connection.get_conn(), self.__userId)
+                    account = data_account.query_account_by_id(None, self.__userId)
                     self.update_currency(account)
                 elif message.opcode == UPDATE_RANK:
                     reqGameRank = ReqGameRank()
                     reqGameRank.ParseFromString(message.data)
-                    accounts = data_account.ranking_by_gold(mysql_connection.get_conn(), reqGameRank.number)
+                    accounts = data_account.ranking_by_gold(None, reqGameRank.number)
                     recGameRank = RecGameRank()
                     i = 0
                     for a in accounts:
