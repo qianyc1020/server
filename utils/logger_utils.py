@@ -15,7 +15,7 @@ class LoggerUtils(object):
         log_fmt = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'
         formatter = logging.Formatter(log_fmt)
         log_file_handler = TimedRotatingFileHandler(
-            filename='../logs/%s.log' % filename, when="H", interval=1,
+            filename='./logs/%s.log' % filename, when="H", interval=1,
             backupCount=720)
         log_file_handler.suffix = "%Y-%m-%d_%H.log"
         log_file_handler.extMatch = re.compile(r"^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}.log$")
