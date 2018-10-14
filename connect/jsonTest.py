@@ -1,6 +1,11 @@
 # coding=utf-8
-from connect.logger_utils import LoggerUtils
-from connect.redis_utils import RedisUtils
+import json
+
+from core import config
+import core.globalvar as gl
+config.init("C:\\Users\pengyi\server\conf\pyg.conf")
+gl.init()
+from utils.redis_utils import RedisUtils
 
 
 class Cli(object):
@@ -13,12 +18,17 @@ class Cli(object):
 
 
 if __name__ == '__main__':
-    r = RedisUtils()
-    ss = LoggerUtils("ss")
-    ss.logger("ss")
-    aa = LoggerUtils("aa")
-    aa.logger("aa")
-    ss.logger("ss")
+    # r = RedisUtils()
+    s = []
+    s.append(1)
+    s.append(2)
+    ss = json.dumps(s)
+
+    sss = json.loads(ss)
+    # r.setobj("s", s)
+
+    # g = r.getobj("s", list)
+    print 1
 
     # cli = Cli("1", "2")
     #

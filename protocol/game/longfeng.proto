@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+import "base/game_base.proto";
+option optimize_for = LITE_RUNTIME;
+option csharp_namespace = "ChuangMi.GuiYangNiuNiu.V1";
+option java_multiple_files = true;
+option java_package = "zhipai.mode.proto";
+
+// 创建房间
+message BaiRenLongFengCreateRoom {
+    int32 baseScore = 1; // 底注设定
+    int32 inScore = 2; // 入场设定
+    int32 leaveScore = 3; // 离场场设定
+}
+
+message BaiRenLongFengDice {
+    repeated int32 dice = 1; // 骰子
+}
+
+// 发牌
+message BaiRenLongFengDealCardAction {
+    repeated int32 cards = 1;
+}
+//询问
+message BaiRenLongFengRecAsk {
+    int32 time = 1; //下注时间
+    int32 type = 2; //1.骰子 2.下注
+}
+
+// 下注
+message BaiRenLongFengBetScore {
+    int32 score = 1;
+    int32 index = 2; //下注方位
+    int32 playerId = 3;
+}
+
+message BaiRenLongFengBetScoreAction {
+    repeated BaiRenLongFengBetScore betScore = 1;
+}
+
+message BaiRenLongFengPositions {
+    repeated BaiRenLongFengBetScore positions = 1;
+    int32 shensuanziPositions = 2;
+}
+
+//单局结算
+message BaiRenLongFengPlayerOneSetResult {
+    repeated BaiRenLongFengSettlePlayerInfo players = 1;
+    RecUpdateGameUsers.UserInfo dayingjia = 2;
+    int32 bankerWin = 3; //1.通赔 2.通杀
+    repeated int32 positionWin = 4; //0.平局 1.赢 2.输
+
+}
+
+message BaiRenLongFengSettlePlayerInfo {
+    int32 playerId = 1;
+    int32 score = 2; // 当局分数
+    int32 totalScore = 3;
+}
+
+message BaiRenLongFengScore {
+    repeated int32 score = 1; // 当局分数
+}
+
+message BaiRenLongFengWatchSize {
+    int32 watchSize = 1; // 无座玩家数量
+}
+
+message BaiRenLongFengTrend {
+    message SigleTrend {
+        repeated int32 positionWin = 1; //0.平局 1.赢 2.输
+    }
+    repeated SigleTrend trends = 1;
+}
+
+message BankerConfirm {
+    RecUpdateGameUsers.UserInfo banker = 1;
+    int32 shangzhuangScore = 2;
+}
+
+message ShangZhuangList {
+    repeated BankerConfirm bankerList = 1;
+}

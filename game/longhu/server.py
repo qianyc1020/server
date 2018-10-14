@@ -1,16 +1,19 @@
 # coding=utf-8
 import Queue
+import json
 import threading
 import time
 
 import core.globalvar as gl
-from game.game_handle import ReceiveHandle as game_handle
+from game.longhu.command import match_cmd
+from game.longhu.game_handle import ReceiveHandle as game_handle
 from core import config
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
 from utils.logger_utils import LoggerUtils
 from utils.natsutils import NatsUtils
+from utils.redis_utils import RedisUtils
 from utils.stringutils import StringUtils
 
 
@@ -27,6 +30,8 @@ class Server(object):
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
         gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], [uuid], [message_handle]))
+        gl.set_v("redis", RedisUtils())
+        gl.set_v("match_info", json.loads(config.get("longhu", "match")))
 
         t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
                              name='message-handle-queue')
@@ -43,6 +48,7 @@ class Server(object):
     @staticmethod
     def initCommand():
         gl.set_v("command", {})
+        gl.get_v("command")["10001"] = match_cmd
 
     @staticmethod
     def send_to_gateway(self, opcode, data):
@@ -68,6 +74,6 @@ class Server(object):
     def register():
         reqRegisterGame = ReqRegisterGame()
         reqRegisterGame.password = config.get("coordinate", "game_connect_pwd")
-        reqRegisterGame.alloc_id = 7
+        reqRegisterGame.alloc_id = 8
         reqRegisterGame.name = "lhd"
         Server.sendToCoordinate(REGISTER_SERVICE, reqRegisterGame)

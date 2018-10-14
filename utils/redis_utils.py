@@ -4,11 +4,14 @@ import time
 
 import redis
 
+from core import config
+
 
 class RedisUtils(object):
 
     def __init__(self):
-        self.__pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+        self.__pool = redis.ConnectionPool(host=config.get("redis", "host"), port=int(config.get("redis", "port")),
+                                           db=0)
         self.__redis = redis.Redis(connection_pool=self.__pool)
 
     def lock(self, key, timeout):
@@ -45,14 +48,33 @@ class RedisUtils(object):
         """
         self.__redis.set(key, json.dumps(obj.__dict__))
 
-    def getobj(self, key, object_hook):
+    def set(self, key, obj):
+        """
+        : 存入数组
+        :param key:
+        :param obj:
+        :return:
+        """
+        self.__redis.set(key, json.dumps(obj))
+
+    def getobj(self, key, obj):
         """
         : 取出对象
         :param key:
-        :param object_hook:
+        :param obj:
         :return:
         """
-        return json.loads(self.__redis.get(key), object_hook=object_hook)
+        loaded = json.loads(self.__redis.get(key))
+        obj.__dict__ = loaded
+        return obj
+
+    def get(self, key):
+        """
+        : 取出数组
+        :param key:
+        :return:
+        """
+        return json.loads(self.__redis.get(key))
 
     def delobj(self, key):
         """
@@ -61,3 +83,6 @@ class RedisUtils(object):
         :return:
         """
         self.__redis.delete(key)
+
+    def exists(self, key):
+        return self.__redis.exists(key)

@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "zhipai.mode.proto";
+
+service Zhipai {
+    //结算
+    rpc settle (SettleData) returns (SettleResult) {
+    }
+
+    //洗牌函数
+    rpc shuffle (ShuffleData) returns (ShuffleResult) {
+    }
+}
+
+message SettleData {
+    int32 allocid = 1; //1.劈板板2.斗牛牛3.荣昌牛牛4.万州牛牛
+    int32 banker = 2; //庄家id
+    repeated UserSettleData userSettleData = 3; //结算用户
+    bytes extraData = 4;
+}
+
+message NiuniuSettleData {
+    int32 playRule = 1; // 特殊玩法 1=>硬牛牛 2=>软牛牛
+    int32 doubleRule = 2; //翻倍规则 1=>牛牛x4 2=>牛牛x3
+    int32 gameRules = 3; ////游戏规则
+}
+
+message PiBanBanSettleData {
+    int32 playType = 1; //下注方式
+    int32 jackpot = 2; //奖池
+}
+
+//用户结算数据
+message UserSettleData {
+    int32 userId = 1;
+    repeated int32 cardlist = 2; //手牌
+    int32 score = 3; //下注分数
+    int32 grab = 4; //抢庄
+}
+
+message SettleResult {
+    repeated UserSettleResult userSettleResule = 1;
+}
+
+//用户结算结果
+message UserSettleResult {
+    int32 userId = 1;
+    int32 cardValue = 2; //牌值 0-9为点子，1.劈板板大于10为豹子，2.贵阳斗牛牛（10.牛牛,11.五牛,12.炸弹牛,13.五小牛），3.荣昌牛牛（10.牛牛,11.五花牛,12.葫芦牛,13.炸弹牛,14.五小牛）
+    int32 win = 3; //输赢分数
+}
+
+message ShuffleData {
+    int32 allocid = 1; //1.劈板板2.斗牛牛
+    bytes extraData = 2;
+    repeated CheatData cheatData = 3;
+}
+
+message ShuffleResult {
+    repeated int32 cardlist = 1; //牌
+}
+
+message JinhuaData {
+    bool gameType = 1;
+}
+
+//作弊的数据
+message CheatData {
+    int32 player_id = 1;
+    int32 loc = 2;
+    int32 level = 3;
+}

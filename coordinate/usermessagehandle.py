@@ -3,7 +3,7 @@ from Queue import Empty
 from decimal import Decimal
 
 import core.globalvar as gl
-from data.database import data_account, mysql_connection
+from data.database import data_account
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
@@ -14,10 +14,12 @@ class UserMessageHandle(object):
     __close = False
     __userId = None
     __server_receive = None
+    __redis = None
 
     def __init__(self, userid, server_receive):
         self.__userId = userid
         self.__server_receive = server_receive
+        self.__redis = gl.get_v("redis")
 
     def close(self):
         self.__close = True
@@ -33,8 +35,11 @@ class UserMessageHandle(object):
                     find = False
                     for g in gl.get_v("games"):
                         if g.alloc_id == reqApplyEnterMatch.allocId and g.state == RUNNING:
-                            self.sendToGame(g.uuid, APPLY_ENTER_MATCH, reqApplyEnterMatch)
+                            self.sendToGame(g.uuid, APPLY_ENTER_MATCH, reqApplyEnterMatch.SerializeToString())
                             find = True
+                            recApplyEnterMatch = RecApplyEnterMatch()
+                            recApplyEnterMatch.state = recApplyEnterMatch.SUCCESS
+                            self.send_to_gateway(APPLY_ENTER_MATCH, recApplyEnterMatch)
                             break
                     if not find:
                         recApplyEnterMatch = RecApplyEnterMatch()
@@ -90,7 +95,7 @@ class UserMessageHandle(object):
                     gold = reqOperateBank.card if message.opcode == BANK_DEPOSIT else -reqOperateBank.card
                     integral = reqOperateBank.integral if message.opcode == BANK_DEPOSIT else -reqOperateBank.integral
 
-                    data_account.update_currency(None, gold, integral, self.__userId)
+                    data_account.update_currency(None, gold, integral, -gold, -integral, self.__userId)
 
                     recOprateBank = RecOprateBank()
                     self.send_to_gateway(message.opcode, recOprateBank)
@@ -115,6 +120,14 @@ class UserMessageHandle(object):
                             playerRankInfo.introduce = a.introduce
                         playerRankInfo.consumeVip = a.level
                     self.send_to_gateway(message.opcode, recGameRank)
+                elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
+                        99 < message.opcode < 200) or message.opcode == 38:
+                    roomNo = self.__redis.get(str(self.__userId) + "_room")
+                    gameId = self.__redis.get(str(roomNo) + "_gameId")
+                    for g in gl.get_v("games"):
+                        if g.alloc_id == gameId and g.state == RUNNING:
+                            self.sendToGame(g.uuid, message.opcode, message.data)
+                            break
 
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)
@@ -136,9 +149,12 @@ class UserMessageHandle(object):
         message = NetMessage()
         message.opcode = opcode
         if data is not None:
-            message.data = data.SerializeToString()
-        gl.get_v("serverlogger").logger("发送%d给游戏服" % opcode)
-        gl.get_v("natsobj").publish(uuid.encode("utf-8"), message.SerializeToString())
+            message.data = data
+        s = GateWayMessage()
+        s.userId = self.__userId
+        s.data = message.SerializeToString()
+        gl.get_v("serverlogger").logger("%d发送%d给游戏服" % (self.__userId, opcode))
+        gl.get_v("natsobj").publish(uuid.encode("utf-8"), s.SerializeToString())
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()

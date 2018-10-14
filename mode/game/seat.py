@@ -1,0 +1,21 @@
+# coding=utf-8
+class Seat(object):
+    seatNo = 0
+    userId = None
+    account = None
+    createDate = None
+    nickname = None
+    head = None
+    sex = None
+    score = None
+    areaString = ""
+    isRobot = False
+    ready = False
+    online = True
+    ip = None
+    gpsInfo = None
+    total_count = 0
+    introduce = 0
+    phone = None
+    level = 0
+    experience = 0

@@ -2,303 +2,311 @@
 # source: service/match.proto
 
 import sys
-
-_b = sys.version_info[0] < 3 and (lambda x: x) or (lambda x: x.encode('latin1'))
+_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf import descriptor_pb2
-
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
+
+
+
 DESCRIPTOR = _descriptor.FileDescriptor(
-    name='service/match.proto',
-    package='mahjong',
-    syntax='proto3',
-    serialized_pb=_b(
-        '\n\x13service/match.proto\x12\x07mahjong\"R\n\x12ReqApplyEnterMatch\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0e\n\x06reject\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\"~\n\x12RecApplyEnterMatch\x12\x35\n\x05state\x18\x01 \x01(\x0e\x32&.mahjong.RecApplyEnterMatch.EnterState\"1\n\nEnterState\x12\x0b\n\x07SUCCESS\x10\x00\x12\t\n\x05\x46\x41ILD\x10\x01\x12\x0b\n\x07\x41LREADY\x10\x02\"\x14\n\x12ReqApplyLeaveMatch\"q\n\x12RecApplyLeaveMatch\x12\x35\n\x05state\x18\x01 \x01(\x0e\x32&.mahjong.RecApplyLeaveMatch.LeaveState\"$\n\nLeaveState\x12\x0b\n\x07SUCCESS\x10\x00\x12\t\n\x05\x46\x41ILD\x10\x01\"4\n\x12ReqUpdateMatchInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\"j\n\x12RecUpdateMatchInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\r\n\x05games\x18\x02 \x01(\x05\x12\x0f\n\x07players\x18\x03 \x01(\x05\x12\x14\n\x0ctotalPlayers\x18\x04 \x01(\x05\x12\r\n\x05level\x18\x05 \x01(\x05\x42+H\x03Z\x13message/match;match\xaa\x02\x11\x43huangMi.Match.V1b\x06proto3')
+  name='service/match.proto',
+  package='mahjong',
+  syntax='proto3',
+  serialized_pb=_b('\n\x13service/match.proto\x12\x07mahjong\"R\n\x12ReqApplyEnterMatch\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0e\n\x06reject\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\"~\n\x12RecApplyEnterMatch\x12\x35\n\x05state\x18\x01 \x01(\x0e\x32&.mahjong.RecApplyEnterMatch.EnterState\"1\n\nEnterState\x12\x0b\n\x07SUCCESS\x10\x00\x12\t\n\x05\x46\x41ILD\x10\x01\x12\x0b\n\x07\x41LREADY\x10\x02\"\x14\n\x12ReqApplyLeaveMatch\"q\n\x12RecApplyLeaveMatch\x12\x35\n\x05state\x18\x01 \x01(\x0e\x32&.mahjong.RecApplyLeaveMatch.LeaveState\"$\n\nLeaveState\x12\x0b\n\x07SUCCESS\x10\x00\x12\t\n\x05\x46\x41ILD\x10\x01\"4\n\x12ReqUpdateMatchInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\"j\n\x12RecUpdateMatchInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\r\n\x05games\x18\x02 \x01(\x05\x12\x0f\n\x07players\x18\x03 \x01(\x05\x12\x14\n\x0ctotalPlayers\x18\x04 \x01(\x05\x12\r\n\x05level\x18\x05 \x01(\x05\x42+H\x03Z\x13message/match;match\xaa\x02\x11\x43huangMi.Match.V1b\x06proto3')
 )
 
+
+
 _RECAPPLYENTERMATCH_ENTERSTATE = _descriptor.EnumDescriptor(
-    name='EnterState',
-    full_name='mahjong.RecApplyEnterMatch.EnterState',
-    filename=None,
-    file=DESCRIPTOR,
-    values=[
-        _descriptor.EnumValueDescriptor(
-            name='SUCCESS', index=0, number=0,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='FAILD', index=1, number=1,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='ALREADY', index=2, number=2,
-            options=None,
-            type=None),
-    ],
-    containing_type=None,
-    options=None,
-    serialized_start=193,
-    serialized_end=242,
+  name='EnterState',
+  full_name='mahjong.RecApplyEnterMatch.EnterState',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='SUCCESS', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FAILD', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ALREADY', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=193,
+  serialized_end=242,
 )
 _sym_db.RegisterEnumDescriptor(_RECAPPLYENTERMATCH_ENTERSTATE)
 
 _RECAPPLYLEAVEMATCH_LEAVESTATE = _descriptor.EnumDescriptor(
-    name='LeaveState',
-    full_name='mahjong.RecApplyLeaveMatch.LeaveState',
-    filename=None,
-    file=DESCRIPTOR,
-    values=[
-        _descriptor.EnumValueDescriptor(
-            name='SUCCESS', index=0, number=0,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='FAILD', index=1, number=1,
-            options=None,
-            type=None),
-    ],
-    containing_type=None,
-    options=None,
-    serialized_start=343,
-    serialized_end=379,
+  name='LeaveState',
+  full_name='mahjong.RecApplyLeaveMatch.LeaveState',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='SUCCESS', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FAILD', index=1, number=1,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=343,
+  serialized_end=379,
 )
 _sym_db.RegisterEnumDescriptor(_RECAPPLYLEAVEMATCH_LEAVESTATE)
 
+
 _REQAPPLYENTERMATCH = _descriptor.Descriptor(
-    name='ReqApplyEnterMatch',
-    full_name='mahjong.ReqApplyEnterMatch',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='allocId', full_name='mahjong.ReqApplyEnterMatch.allocId', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='level', full_name='mahjong.ReqApplyEnterMatch.level', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='reject', full_name='mahjong.ReqApplyEnterMatch.reject', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='type', full_name='mahjong.ReqApplyEnterMatch.type', index=3,
-            number=4, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=32,
-    serialized_end=114,
+  name='ReqApplyEnterMatch',
+  full_name='mahjong.ReqApplyEnterMatch',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='allocId', full_name='mahjong.ReqApplyEnterMatch.allocId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='mahjong.ReqApplyEnterMatch.level', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='reject', full_name='mahjong.ReqApplyEnterMatch.reject', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='mahjong.ReqApplyEnterMatch.type', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=32,
+  serialized_end=114,
 )
+
 
 _RECAPPLYENTERMATCH = _descriptor.Descriptor(
-    name='RecApplyEnterMatch',
-    full_name='mahjong.RecApplyEnterMatch',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='state', full_name='mahjong.RecApplyEnterMatch.state', index=0,
-            number=1, type=14, cpp_type=8, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-        _RECAPPLYENTERMATCH_ENTERSTATE,
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=116,
-    serialized_end=242,
+  name='RecApplyEnterMatch',
+  full_name='mahjong.RecApplyEnterMatch',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='state', full_name='mahjong.RecApplyEnterMatch.state', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _RECAPPLYENTERMATCH_ENTERSTATE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=116,
+  serialized_end=242,
 )
+
 
 _REQAPPLYLEAVEMATCH = _descriptor.Descriptor(
-    name='ReqApplyLeaveMatch',
-    full_name='mahjong.ReqApplyLeaveMatch',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=244,
-    serialized_end=264,
+  name='ReqApplyLeaveMatch',
+  full_name='mahjong.ReqApplyLeaveMatch',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=244,
+  serialized_end=264,
 )
+
 
 _RECAPPLYLEAVEMATCH = _descriptor.Descriptor(
-    name='RecApplyLeaveMatch',
-    full_name='mahjong.RecApplyLeaveMatch',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='state', full_name='mahjong.RecApplyLeaveMatch.state', index=0,
-            number=1, type=14, cpp_type=8, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-        _RECAPPLYLEAVEMATCH_LEAVESTATE,
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=266,
-    serialized_end=379,
+  name='RecApplyLeaveMatch',
+  full_name='mahjong.RecApplyLeaveMatch',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='state', full_name='mahjong.RecApplyLeaveMatch.state', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _RECAPPLYLEAVEMATCH_LEAVESTATE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=266,
+  serialized_end=379,
 )
+
 
 _REQUPDATEMATCHINFO = _descriptor.Descriptor(
-    name='ReqUpdateMatchInfo',
-    full_name='mahjong.ReqUpdateMatchInfo',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='allocId', full_name='mahjong.ReqUpdateMatchInfo.allocId', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='level', full_name='mahjong.ReqUpdateMatchInfo.level', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=381,
-    serialized_end=433,
+  name='ReqUpdateMatchInfo',
+  full_name='mahjong.ReqUpdateMatchInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='allocId', full_name='mahjong.ReqUpdateMatchInfo.allocId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='mahjong.ReqUpdateMatchInfo.level', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=381,
+  serialized_end=433,
 )
 
+
 _RECUPDATEMATCHINFO = _descriptor.Descriptor(
-    name='RecUpdateMatchInfo',
-    full_name='mahjong.RecUpdateMatchInfo',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='allocId', full_name='mahjong.RecUpdateMatchInfo.allocId', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='games', full_name='mahjong.RecUpdateMatchInfo.games', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='players', full_name='mahjong.RecUpdateMatchInfo.players', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='totalPlayers', full_name='mahjong.RecUpdateMatchInfo.totalPlayers', index=3,
-            number=4, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='level', full_name='mahjong.RecUpdateMatchInfo.level', index=4,
-            number=5, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=435,
-    serialized_end=541,
+  name='RecUpdateMatchInfo',
+  full_name='mahjong.RecUpdateMatchInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='allocId', full_name='mahjong.RecUpdateMatchInfo.allocId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='games', full_name='mahjong.RecUpdateMatchInfo.games', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='players', full_name='mahjong.RecUpdateMatchInfo.players', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='totalPlayers', full_name='mahjong.RecUpdateMatchInfo.totalPlayers', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='mahjong.RecUpdateMatchInfo.level', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=435,
+  serialized_end=541,
 )
 
 _RECAPPLYENTERMATCH.fields_by_name['state'].enum_type = _RECAPPLYENTERMATCH_ENTERSTATE
@@ -314,48 +322,48 @@ DESCRIPTOR.message_types_by_name['RecUpdateMatchInfo'] = _RECUPDATEMATCHINFO
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ReqApplyEnterMatch = _reflection.GeneratedProtocolMessageType('ReqApplyEnterMatch', (_message.Message,), dict(
-    DESCRIPTOR=_REQAPPLYENTERMATCH,
-    __module__='service.match_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.ReqApplyEnterMatch)
-))
+  DESCRIPTOR = _REQAPPLYENTERMATCH,
+  __module__ = 'service.match_pb2'
+  # @@protoc_insertion_point(class_scope:mahjong.ReqApplyEnterMatch)
+  ))
 _sym_db.RegisterMessage(ReqApplyEnterMatch)
 
 RecApplyEnterMatch = _reflection.GeneratedProtocolMessageType('RecApplyEnterMatch', (_message.Message,), dict(
-    DESCRIPTOR=_RECAPPLYENTERMATCH,
-    __module__='service.match_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecApplyEnterMatch)
-))
+  DESCRIPTOR = _RECAPPLYENTERMATCH,
+  __module__ = 'service.match_pb2'
+  # @@protoc_insertion_point(class_scope:mahjong.RecApplyEnterMatch)
+  ))
 _sym_db.RegisterMessage(RecApplyEnterMatch)
 
 ReqApplyLeaveMatch = _reflection.GeneratedProtocolMessageType('ReqApplyLeaveMatch', (_message.Message,), dict(
-    DESCRIPTOR=_REQAPPLYLEAVEMATCH,
-    __module__='service.match_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.ReqApplyLeaveMatch)
-))
+  DESCRIPTOR = _REQAPPLYLEAVEMATCH,
+  __module__ = 'service.match_pb2'
+  # @@protoc_insertion_point(class_scope:mahjong.ReqApplyLeaveMatch)
+  ))
 _sym_db.RegisterMessage(ReqApplyLeaveMatch)
 
 RecApplyLeaveMatch = _reflection.GeneratedProtocolMessageType('RecApplyLeaveMatch', (_message.Message,), dict(
-    DESCRIPTOR=_RECAPPLYLEAVEMATCH,
-    __module__='service.match_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecApplyLeaveMatch)
-))
+  DESCRIPTOR = _RECAPPLYLEAVEMATCH,
+  __module__ = 'service.match_pb2'
+  # @@protoc_insertion_point(class_scope:mahjong.RecApplyLeaveMatch)
+  ))
 _sym_db.RegisterMessage(RecApplyLeaveMatch)
 
 ReqUpdateMatchInfo = _reflection.GeneratedProtocolMessageType('ReqUpdateMatchInfo', (_message.Message,), dict(
-    DESCRIPTOR=_REQUPDATEMATCHINFO,
-    __module__='service.match_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.ReqUpdateMatchInfo)
-))
+  DESCRIPTOR = _REQUPDATEMATCHINFO,
+  __module__ = 'service.match_pb2'
+  # @@protoc_insertion_point(class_scope:mahjong.ReqUpdateMatchInfo)
+  ))
 _sym_db.RegisterMessage(ReqUpdateMatchInfo)
 
 RecUpdateMatchInfo = _reflection.GeneratedProtocolMessageType('RecUpdateMatchInfo', (_message.Message,), dict(
-    DESCRIPTOR=_RECUPDATEMATCHINFO,
-    __module__='service.match_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateMatchInfo)
-))
+  DESCRIPTOR = _RECUPDATEMATCHINFO,
+  __module__ = 'service.match_pb2'
+  # @@protoc_insertion_point(class_scope:mahjong.RecUpdateMatchInfo)
+  ))
 _sym_db.RegisterMessage(RecUpdateMatchInfo)
 
+
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(),
-                                                _b('H\003Z\023message/match;match\252\002\021ChuangMi.Match.V1'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003Z\023message/match;match\252\002\021ChuangMi.Match.V1'))
 # @@protoc_insertion_point(module_scope)

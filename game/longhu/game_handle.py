@@ -1,11 +1,12 @@
 # coding=utf-8
+import Queue
 import threading
 from Queue import Empty
 
 import core.globalvar as gl
+from game.longhu.usermessagehandle import UserMessageHandle
 from protocol.base.base_pb2 import NetMessage
 from protocol.base.gateway_pb2 import GateWayMessage
-from protocol.base.server_to_game_pb2 import *
 
 
 class ReceiveHandle(object):
@@ -20,10 +21,23 @@ class ReceiveHandle(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
+                s = GateWayMessage()
+                s.ParseFromString(message)
                 netMessage = NetMessage()
-                netMessage.ParseFromString(message)
-                gl.get_v("serverlogger").logger('''收到消息%d''' % netMessage.opcode)
+                netMessage.ParseFromString(s.data)
+                gl.get_v("serverlogger").logger('''收到%d消息%d''' % (s.userId, netMessage.opcode))
 
+                self.__lock.acquire()
+                if s.userId not in self.__user_queue:
+                    messagequeue = Queue.Queue()
+                    messagehandle = UserMessageHandle(s.userId, self)
+                    t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
+                                         name='handle')  # 线程对象.
+                    t.start()
+                    self.__user_queue[s.userId] = messagequeue
+
+                self.__user_queue[s.userId].put(netMessage)
+                self.__lock.release()
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
 
@@ -40,3 +54,9 @@ class ReceiveHandle(object):
 
         gl.get_v("serverlogger").logger("发送%d给%d" % (opcode, userid))
         gl.get_v("natsobj").publish("server-gateway", message.SerializeToString())
+
+    def remove(self, userid):
+        self.__lock.acquire()
+        if userid in self.__user_queue:
+            del self.__user_queue[userid]
+        self.__lock.release()

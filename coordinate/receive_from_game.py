@@ -4,7 +4,7 @@ from Queue import Empty
 
 import core.globalvar as gl
 from core import config
-from mode.game_item import Game
+from mode.base.game_item import Game
 from protocol.base.base_pb2 import *
 from protocol.base.server_to_game_pb2 import *
 
