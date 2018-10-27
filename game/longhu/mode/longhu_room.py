@@ -1,10 +1,12 @@
 # coding=utf-8
+import base64
 import time
 from decimal import Decimal
 
 import core.globalvar as gl
 from core import config
 from game.longhu.mode.game_status import GameStatus
+from game.longhu.mode.longhu_seat import LonghuSeat
 from mode.game.position import Position
 from mode.game.room import Room
 from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME_PLAYER_INFO, SELF_INFO, BANKER_LIST, \
@@ -17,7 +19,7 @@ from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction, BaiRenLongF
 class LonghuRoom(Room):
     gameStatus = GameStatus.WAITING
     banker = None
-    bankerScore = None
+    bankerScore = 0
     historyActions = []
     score = None
     inScore = None
@@ -38,9 +40,71 @@ class LonghuRoom(Room):
         self.leaveScore = leaveScore
         self.gameStatus = GameStatus.WAITING
         self.banker = 1
+        self.bankerScore = 0
+        self.historyActions = []
+        self.positions = []
         self.positions.append(Position())
         self.positions.append(Position())
+        self.bankerList = []
+        self.xiazhuang = False
+        self.started = False
+        self.dayingjia = 0
+        self.trend = []
+        self.betScores = []
         self.shensuanziPlayIndex = -1
+
+    def object_to_dict(self, d):
+        if "seats" in d:
+            seat = []
+            for s in d["seats"]:
+                s1 = LonghuSeat()
+                s1.__dict__ = eval(s)
+                seat.append(s1)
+            d["seats"] = seat
+
+        if "watchSeats" in d:
+            watchSeats = []
+            for s in d["watchSeats"]:
+                s1 = LonghuSeat()
+                s1.__dict__ = eval(s)
+                watchSeats.append(s1)
+            d["watchSeats"] = watchSeats
+
+        if "positions" in d:
+            positions = []
+            for s in d["positions"]:
+                s1 = Position()
+                s1.__dict__ = eval(s)
+                positions.append(s1)
+            d["positions"] = positions
+
+        if "historyActions" in d:
+            historyActions = []
+            for s in d["historyActions"]:
+                historyActions.append(base64.b64decode(s))
+            d["historyActions"] = historyActions
+        return d
+
+    def dict_to_object(self):
+        d = self.__dict__
+        dict = d.copy()
+        seats = []
+        for s in self.seats:
+            seats.append(str(s.__dict__))
+        dict["seats"] = seats
+        watchSeats = []
+        for s in self.watchSeats:
+            watchSeats.append(str(s.__dict__))
+        dict["watchSeats"] = watchSeats
+        positions = []
+        for s in self.positions:
+            positions.append(str(s.__dict__))
+        dict["positions"] = positions
+        historyActions = []
+        for s in self.historyActions:
+            historyActions.append(base64.b64encode(s))
+        dict["historyActions"] = historyActions
+        return str(dict)
 
     def clear(self):
         super(LonghuRoom, self).clear()
@@ -67,7 +131,9 @@ class LonghuRoom(Room):
                         config.get("longhu", "getBankerScore")):
                     self.banker = bankerId
                     break
-        userInfo = RecUpdateGameUsers.UserInfo()
+
+        bankerConfirm = BankerConfirm()
+        userInfo = bankerConfirm.banker
         if 1 == self.banker:
             if bool(config.get("longhu", "onlyPlayerBanker")):
                 self.updateBankerList(messageHandle, 0)
@@ -95,10 +161,8 @@ class LonghuRoom(Room):
         messageHandle.broadcast_watch_to_gateway(START_GAME, None, self)
         self.started = True
         self.startDate = time.time()
-        bankerConfirm = BankerConfirm()
-        bankerConfirm.banker = userInfo
         bankerConfirm.shangzhuangScore = self.bankerScore
-        self.executeAction(0, 4, bankerConfirm.toByteString(), messageHandle)
+        self.executeAction(0, 4, bankerConfirm, messageHandle)
         self.updateBankerList(messageHandle, 0)
 
     def executeAction(self, userId, actionType, data, messageHandle):
@@ -134,7 +198,7 @@ class LonghuRoom(Room):
         recUpdateGameUsers = RecUpdateGameUsers()
         i = 1
         for s in self.seats:
-            userInfo = recUpdateGameUsers.users.Add()
+            userInfo = recUpdateGameUsers.users.add()
             userInfo.account = s.account
             userInfo.playerId = s.userId
             userInfo.headUrl = s.head
@@ -175,7 +239,7 @@ class LonghuRoom(Room):
         for b in self.bankerList:
             s = self.getWatchSeatByUserId(b)
             if s is not None:
-                bankerConfirm = shangZhuangList.bankerList.Add()
+                bankerConfirm = shangZhuangList.bankerList.add()
                 userInfo = bankerConfirm.banker
                 userInfo.account = s.account
                 userInfo.playerId = s.userId
@@ -206,7 +270,7 @@ class LonghuRoom(Room):
     def updateTrend(self, messageHandle, userId):
         baiRenTuiTongZiTrend = BaiRenLongFengTrend()
         for t in self.trend:
-            sigleTrend = baiRenTuiTongZiTrend.trends.Add()
+            sigleTrend = baiRenTuiTongZiTrend.trends.add()
             sigleTrend.extend(t)
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(TREND, baiRenTuiTongZiTrend, self)
@@ -217,13 +281,13 @@ class LonghuRoom(Room):
         recReEnterGameInfo = RecReEnterGameInfo()
         recReEnterGameInfo.allocId = 8
         for a in self.historyActions:
-            executeAction = recReEnterGameInfo.actionInfos.Add()
+            executeAction = recReEnterGameInfo.actionInfos.add()
             executeAction.ParseFromString(a)
         messageHandle.send_to_gateway(REENTER_GAME_INFO, recReEnterGameInfo, userId)
 
         positions = BaiRenLongFengPositions()
         for i in range(0, len(self.positions)):
-            action = positions.positions.Add()
+            action = positions.positions.add()
             action.index = i
             action.score = self.positions[i].totalScore
         positions.shensuanziPositions = self.shensuanziPlayIndex
@@ -247,7 +311,7 @@ class LonghuRoom(Room):
     def exit(self, userId, messageHandle):
         seat = self.getWatchSeatByUserId(userId)
         if seat is not None:
-            if seat.getPlayScore() != 0 or (self.banker == seat.getUserId() and self.started):
+            if seat.playScore != 0 or (self.banker == seat.userId and self.started):
                 return
             if userId == self.banker:
                 self.xiazhuang = True

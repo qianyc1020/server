@@ -1,4 +1,5 @@
 # coding=utf-8
+import ast
 import json
 import time
 
@@ -46,7 +47,7 @@ class RedisUtils(object):
         :param obj:
         :return:
         """
-        self.__redis.set(key, json.dumps(obj.__dict__))
+        self.__redis.set(key, obj.dict_to_object())
 
     def set(self, key, obj):
         """
@@ -57,14 +58,18 @@ class RedisUtils(object):
         """
         self.__redis.set(key, json.dumps(obj))
 
-    def getobj(self, key, obj):
+    def getobj(self, key, obj, object_hook):
         """
         : 取出对象
         :param key:
         :param obj:
         :return:
         """
-        loaded = json.loads(self.__redis.get(key))
+        jsons = self.__redis.get(key)
+        jsons = ast.literal_eval(jsons)
+        jsons = json.dumps(jsons)
+        print("json:%s" % jsons)
+        loaded = json.loads(jsons, object_hook=object_hook)
         obj.__dict__ = loaded
         return obj
 

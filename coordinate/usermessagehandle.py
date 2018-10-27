@@ -92,8 +92,8 @@ class UserMessageHandle(object):
                     if message.opcode == BANK_GET and int(
                             account.bank_integral.quantize(Decimal('0'))) < reqOperateBank.integral:
                         break
-                    gold = reqOperateBank.card if message.opcode == BANK_DEPOSIT else -reqOperateBank.card
-                    integral = reqOperateBank.integral if message.opcode == BANK_DEPOSIT else -reqOperateBank.integral
+                    gold = -reqOperateBank.card if message.opcode == BANK_DEPOSIT else reqOperateBank.card
+                    integral = -reqOperateBank.integral if message.opcode == BANK_DEPOSIT else reqOperateBank.integral
 
                     data_account.update_currency(None, gold, integral, -gold, -integral, self.__userId)
 

@@ -5,9 +5,11 @@ import threading
 import time
 
 import core.globalvar as gl
-from game.longhu.command import match_cmd
-from game.longhu.game_handle import ReceiveHandle as game_handle
 from core import config
+from game.longhu.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
+    jixudangzhuang_cmd, watchseat_cmd
+from game.longhu.game_handle import ReceiveHandle as game_handle
+from game.server.command import action_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
@@ -49,6 +51,13 @@ class Server(object):
     def initCommand():
         gl.set_v("command", {})
         gl.get_v("command")["10001"] = match_cmd
+        gl.get_v("command")["30"] = action_cmd
+        gl.get_v("command")["13"] = reconnection_cmd
+        gl.get_v("command")["8"] = exit_cmd
+        gl.get_v("command")["117"] = shangzhuang_cmd
+        gl.get_v("command")["118"] = xiazhuang_cmd
+        gl.get_v("command")["122"] = jixudangzhuang_cmd
+        gl.get_v("command")["124"] = watchseat_cmd
 
     @staticmethod
     def send_to_gateway(self, opcode, data):

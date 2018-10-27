@@ -23,7 +23,10 @@ def execute(room, messageHandle):
         # TODO 排序
 
         room.seats = []
-        room.seats.extend(room.seats.index(0, 6))
+        if len(room.watchSeats) < 6:
+            room.seats.extend(room.watchSeats[0: len(room.watchSeats)])
+        else:
+            room.seats.extend(room.watchSeats[0: 6])
         room.recUpdateScore(messageHandle, 0)
         room.bankerConfirm(messageHandle)
         if bool(config.get("longhu", "onlyPlayerBanker")) and 1 == room.banker:

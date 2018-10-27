@@ -1,5 +1,6 @@
 # coding=utf-8
 import time
+from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account
@@ -26,7 +27,7 @@ def execute(userId, message, messageHandle, room):
     longhuSeat.nickname = account.nick_name
     longhuSeat.head = account.head_url
     longhuSeat.sex = account.sex
-    longhuSeat.score = account.gold
+    longhuSeat.score = int(account.gold.quantize(Decimal('0')))
     longhuSeat.ip = account.last_address
     longhuSeat.gpsInfo = ""
     longhuSeat.total_count = account.total_count

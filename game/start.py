@@ -3,6 +3,8 @@ import sys
 
 # sys.path.append('/root/server')
 # sys.path.append('/home/pengyi/server/server')
+from game.longhu.mode.longhu_room import LonghuRoom
+
 sys.path.append('C:\\Users\pengyi\server')
 
 from core import config

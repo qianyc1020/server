@@ -22,7 +22,7 @@ def execute(userId, message, messageHandle):
         for r in rooms:
             if redis.exists("room_" + str(r)):
                 redis.lock("lockroom_" + str(r), 5000)
-                room = redis.getobj("room_" + str(r), LonghuRoom())
+                room = redis.getobj("room_" + str(r), LonghuRoom(), LonghuRoom().object_to_dict)
                 if room.roomNo != reqApplyEnterMatch.reject and (room.count == -1 or 0 < len(room.seatNos)):
                     join_match_room_cmd.execute(userId, message, messageHandle, room)
                 redis.unlock("lockroom_" + str(r))

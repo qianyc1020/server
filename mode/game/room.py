@@ -21,7 +21,7 @@ class Room(object):
         for i in range(0, count):
             self.seatNos.append(i + 1)
         self.gameCount = 0
-        self.startDate = time.time()
+        self.startDate = long(time.time() * 1000)
 
     def clear(self):
         for s in self.seats:

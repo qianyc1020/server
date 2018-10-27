@@ -18,7 +18,7 @@ def execute(room, messageHandle):
             conn = grpc.insecure_channel('127.0.0.1:50011')
             client = zhipai_pb2_grpc.ZhipaiStub(channel=conn)
             shuffleResult = client.shuffle(shuffleData)
-            cardlist = shuffleResult.cardlistList
+            cardlist = shuffleResult.cardlist
             i = 0
             for p in room.positions:
                 p.cards.append(cardlist[i])
