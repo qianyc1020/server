@@ -1,10 +1,10 @@
 # coding=utf-8
 import sys
 
-# sys.path.append('/root/server')
+sys.path.append('/root/server')
 # sys.path.append('/home/pengyi/server/server')
 # sys.path.append('C:\\Users\pengyi\server')
-sys.path.append('/Users/yi/server')
+# sys.path.append('/Users/yi/server')
 
 from core import config
 import core.globalvar as gl
