@@ -22,10 +22,8 @@ def execute(room, messageHandle):
             client = zhipai_pb2_grpc.ZhipaiStub(channel=conn)
             shuffleResult = client.shuffle(shuffleData)
             cardlist = shuffleResult.cardlist
-            i = 0
-            for p in room.positions:
-                p.cards.append(cardlist[i])
-                i += 1
+            room.positions[0].cards.append(cardlist[0])
+            room.positions[1].cards.append(cardlist[1])
             room.startDate = int(time.time())
         if room.gameStatus == GameStatus.PLAYING:
             gameover_cmd.execute(room, messageHandle)

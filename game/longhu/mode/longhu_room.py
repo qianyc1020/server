@@ -45,6 +45,7 @@ class LonghuRoom(Room):
         self.positions = []
         self.positions.append(Position())
         self.positions.append(Position())
+        self.positions.append(Position())
         self.bankerList = []
         self.xiazhuang = False
         self.started = False
@@ -271,7 +272,7 @@ class LonghuRoom(Room):
         baiRenTuiTongZiTrend = BaiRenLongFengTrend()
         for t in self.trend:
             sigleTrend = baiRenTuiTongZiTrend.trends.add()
-            sigleTrend.extend(t)
+            sigleTrend.positionWin.extend(t)
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(TREND, baiRenTuiTongZiTrend, self)
         else:

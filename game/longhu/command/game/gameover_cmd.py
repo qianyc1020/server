@@ -46,7 +46,7 @@ def execute(room, messageHandle):
         tuitongziPlayerOneSetResult.positionWin.append(0)
         tuitongziPlayerOneSetResult.positionWin.append(0)
 
-        for u in settleResult.userSettleResuleList:
+        for u in settleResult.userSettleResule:
             win = 0
             if u.win > 0:
                 win = 1
@@ -64,7 +64,7 @@ def execute(room, messageHandle):
                         userScore[k] = win * position.playScores[k]
 
         win = 0
-        if 0 == settleResult.userSettleResuleList[0].win:
+        if 0 == settleResult.userSettleResule[0].win:
             win = float(config.get("longhu", "pingRatio"))
             tuitongziPlayerOneSetResult.positionWin[2] = 1
         else:
@@ -80,7 +80,7 @@ def execute(room, messageHandle):
 
         pingReturn = float(config.get("longhu", "pingReturn"))
         if 1 != pingReturn:
-            if 0 == settleResult.userSettleResuleList[0].win:
+            if 0 == settleResult.userSettleResule[0].win:
                 win = -(1 - pingReturn)
                 for k in room.positions[0].playScores:
                     bankerWin -= int(win * room.positions[0].playScores[k])
@@ -160,7 +160,7 @@ def execute(room, messageHandle):
             banker.shangzhuangScore = room.bankerScore
             if banker is not None:
                 banker.score += bankerFinalWin
-                daerSettlePlayerInfo.total = banker.score
+                daerSettlePlayerInfo.totalScore = banker.score
             # TODO 经验值和返利
         # TODO else 系统输赢
         daerSettlePlayerInfo.playerId = room.banker
@@ -181,14 +181,14 @@ def execute(room, messageHandle):
                 gl.get_v("serverlogger").logger('''%d结算后总分%d''' % (s.userId, s.score))
 
             recSettleSingle.content = tuitongziPlayerOneSetResult.SerializeToString()
-            messageHandle.sendToPlayer(SETTLE_GAME, recSettleSingle, s.userId)
+            messageHandle.send_to_gateway(SETTLE_GAME, recSettleSingle, s.userId)
             if daerSettlePlayerInfo is not None:
                 tuitongziPlayerOneSetResult.players.remove(daerSettlePlayerInfo)
 
         if banker is not None:
             if room.bankerScore >= int(config.get("longhu", "getBankerScore")):
                 room.xiazhuang = True
-                messageHandle.sendToPlayer(ASK_XIAZHUANG, None, room.banker)
+                messageHandle.send_to_gateway(ASK_XIAZHUANG, None, room.banker)
 
         # TODO 战绩
         if 0 != len(room.watchSeats):
