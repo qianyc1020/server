@@ -4,7 +4,9 @@ import traceback
 
 import grpc
 
+from game.longhu.command.game import gameover_cmd
 from game.longhu.mode.game_status import GameStatus
+from game.longhu.timeout import play_timeout
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
@@ -24,16 +26,16 @@ def execute(room, messageHandle):
                 p.cards.append(cardlist[i])
                 i += 1
             room.startDate = int(time.time())
-        # if room.gameStatus == GameStatus.PLAYING:
-        # # TODO gameOver
-        # else:
-        executeAction = RecExecuteAction()
-        executeAction.actionType = 0
-        messageHandle.broadcast_watch_to_gateway(EXECUTE_ACTION, executeAction, room)
-        room.gameStatus = GameStatus.PLAYING
-        # TODO 下注计时器
-        room.historyActions.append(executeAction.SerializeToString())
-        room.executeAsk(messageHandle, 0, 2)
-        # TODO 唤醒发送下注计时器
+        if room.gameStatus == GameStatus.PLAYING:
+            gameover_cmd.execute(room, messageHandle)
+        else:
+            executeAction = RecExecuteAction()
+            executeAction.actionType = 0
+            messageHandle.broadcast_watch_to_gateway(EXECUTE_ACTION, executeAction, room)
+            room.gameStatus = GameStatus.PLAYING
+            room.historyActions.append(executeAction.SerializeToString())
+            room.executeAsk(messageHandle, 0, 2)
+            play_timeout.execute(room.roomNo, messageHandle)
+            # TODO 唤醒发送下注计时器
     except:
         print traceback.print_exc()
