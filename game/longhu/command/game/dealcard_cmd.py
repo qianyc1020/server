@@ -1,4 +1,5 @@
 # coding=utf-8
+import threading
 import time
 import traceback
 
@@ -35,7 +36,9 @@ def execute(room, messageHandle):
             room.gameStatus = GameStatus.PLAYING
             room.historyActions.append(executeAction.SerializeToString())
             room.executeAsk(messageHandle, 0, 2)
-            play_timeout.execute(room.roomNo, messageHandle)
+            t = threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle,),
+                                 name='handle')  # 线程对象.
+            t.start()
             # TODO 唤醒发送下注计时器
     except:
         print traceback.print_exc()
