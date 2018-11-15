@@ -5,6 +5,7 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from core import config
+from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
 from game.longhu.mode.longhu_seat import LonghuSeat
 from mode.game.position import Position
@@ -153,7 +154,7 @@ class LonghuRoom(Room):
             userInfo.online = s.online
             userInfo.nick = s.nickname
             userInfo.ready = s.ready
-            userInfo.score = int((s.score - s.playScore).quantize(Decimal('0')))
+            userInfo.score = s.score - s.playScore
             userInfo.sex = s.sex
             userInfo.totalCount = s.total_count
             userInfo.loc = 0
@@ -208,7 +209,7 @@ class LonghuRoom(Room):
             userInfo.online = s.online
             userInfo.nick = s.nickname
             userInfo.ready = s.ready
-            userInfo.score = int((s.score - s.playScore).quantize(Decimal('0')))
+            userInfo.score = s.score - s.playScore
             userInfo.sex = s.sex
             userInfo.totalCount = s.total_count
             userInfo.loc = i
@@ -228,7 +229,7 @@ class LonghuRoom(Room):
             userInfo.online = s.online
             userInfo.nick = s.nickname
             userInfo.ready = s.ready
-            userInfo.score = int((s.score - s.playScore).quantize(Decimal('0')))
+            userInfo.score = s.score - s.playScore
             userInfo.sex = s.sex
             userInfo.totalCount = s.total_count
             userInfo.loc = i
@@ -250,7 +251,7 @@ class LonghuRoom(Room):
                 userInfo.online = s.online
                 userInfo.nick = s.nickname
                 userInfo.ready = s.ready
-                userInfo.score = int((s.score - s.playScore).quantize(Decimal('0')))
+                userInfo.score = s.score - s.playScore
                 userInfo.sex = s.sex
                 userInfo.totalCount = s.total_count
                 userInfo.consumeVip = s.level
@@ -334,5 +335,5 @@ class LonghuRoom(Room):
             if inseat:
                 self.recUpdateScore(messageHandle, 0)
             self.updateWatchSize(messageHandle, 0)
-            # if 0 == len(self.watchSeats):
-            # TODO roomOver
+            if 0 == len(self.watchSeats):
+                roomover_cmd.execute(self, messageHandle)

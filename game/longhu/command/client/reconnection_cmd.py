@@ -1,6 +1,5 @@
 # coding=utf-8
 import traceback
-from decimal import Decimal
 
 import core.globalvar as gl
 from game.longhu.mode.game_status import GameStatus
@@ -20,7 +19,7 @@ def execute(userId, message, messageHandle):
             seat = room.getWatchSeatByUserId(userId)
             if seat is None:
                 return
-            room.sendBetScore()
+            room.sendBetScore(messageHandle)
             redis.setobj("room_" + str(roomNo), room)
             recReEnterGame = RecReEnterGame()
             recReEnterGame.gameState = room.gameStatus
@@ -43,7 +42,7 @@ def execute(userId, message, messageHandle):
                 userInfo.online = s.online
                 userInfo.nick = s.nickname
                 userInfo.ready = s.ready
-                userInfo.score = int((s.score - s.playScore).quantize(Decimal('0')))
+                userInfo.score = s.score - s.playScore
                 userInfo.sex = s.sex
                 userInfo.totalCount = s.total_count
                 userInfo.loc = s.seatNo

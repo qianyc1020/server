@@ -10,7 +10,7 @@ from protocol.base.base_pb2 import LEAVE_BANKER
 def execute(room, messageHandle):
     if room.gameStatus == GameStatus.WAITING:
         banker = room.getWatchSeatByUserId(room.banker)
-        if (1 != room.banker and room.xiazhaung) or (
+        if (1 != room.banker and room.xiazhuang) or (
                 banker is not None and banker.shangzhuangScore < int(config.get("longhu", "getBankerScore"))):
             messageHandle.broadcast_watch_to_gateway(LEAVE_BANKER, None, room)
         if bool(config.get("longhu", "onlyPlayerBanker")) and 0 == len(room.bankerList) and (

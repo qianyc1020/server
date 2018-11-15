@@ -2,6 +2,7 @@
 import traceback
 
 import core.globalvar as gl
+from game.longhu.command.client import reconnection_cmd
 from game.longhu.command.game import join_match_room_cmd, create_match_room_cmd
 from game.longhu.mode.longhu_room import LonghuRoom
 from protocol.service.match_pb2 import ReqApplyEnterMatch
@@ -10,6 +11,7 @@ from protocol.service.match_pb2 import ReqApplyEnterMatch
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
     if redis.exists(str(userId) + "_room"):
+        reconnection_cmd.execute(userId, message, messageHandle)
         return
     reqApplyEnterMatch = ReqApplyEnterMatch()
     reqApplyEnterMatch.ParseFromString(message.data)

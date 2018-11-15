@@ -122,17 +122,20 @@ class UserMessageHandle(object):
                     self.send_to_gateway(message.opcode, recGameRank)
                 elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
                         99 < message.opcode < 200) or message.opcode == 38:
-                    roomNo = self.__redis.get(str(self.__userId) + "_room")
-                    gameId = self.__redis.get(str(roomNo) + "_gameId")
-                    for g in gl.get_v("games"):
-                        if g.alloc_id == gameId and g.state == RUNNING:
-                            self.sendToGame(g.uuid, message.opcode, message.data)
-                            break
+                    if self.__redis.get(str(self.__userId) + "_room"):
+                        roomNo = self.__redis.get(str(self.__userId) + "_room")
+                        gameId = self.__redis.get(str(roomNo) + "_gameId")
+                        for g in gl.get_v("games"):
+                            if g.alloc_id == gameId and g.state == RUNNING:
+                                self.sendToGame(g.uuid, message.opcode, message.data)
+                                break
 
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)
                 self.close()
                 self.__server_receive.remove(self.__userId)
+            except BaseException, e:
+                print(e)
 
     def send_to_gateway(self, opcode, data):
         send_data = NetMessage()

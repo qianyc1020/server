@@ -23,7 +23,7 @@ def execute(userId, message, messageHandle):
             userInfo.online = s.online
             userInfo.nick = s.nickname
             userInfo.ready = s.ready
-            userInfo.score = int((s.score - s.playScore).quantize(Decimal('0')))
+            userInfo.score = s.score - s.playScore
             userInfo.sex = s.sex
             userInfo.totalCount = s.total_count
             userInfo.consumeVip = s.level

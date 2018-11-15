@@ -1,4 +1,5 @@
 # coding=utf-8
+import threading
 import time
 from decimal import Decimal
 
@@ -7,7 +8,9 @@ import grpc
 import core.globalvar as gl
 from core import config
 from data.database import data_account
+from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
+from game.longhu.timeout import start_timeout
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecUpdateGameUsers, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -135,7 +138,7 @@ def execute(room, messageHandle):
             userInfo.online = dayingjiaSeat.online
             userInfo.nick = dayingjiaSeat.nickname
             userInfo.ready = dayingjiaSeat.ready
-            userInfo.score = int((dayingjiaSeat.score - dayingjiaSeat.playScore).quantize(Decimal('0')))
+            userInfo.score = dayingjiaSeat.score - dayingjiaSeat.playScore
             userInfo.sex = dayingjiaSeat.sex
             userInfo.totalCount = dayingjiaSeat.total_count
             userInfo.loc = i
@@ -194,6 +197,8 @@ def execute(room, messageHandle):
         if 0 != len(room.watchSeats):
             room.clear()
             room.gameCount += 1
-            # TODO 计时器 下一局开始
-        # else:
-        # TODO  roomOver
+            t = threading.Thread(target=start_timeout.execute, args=(room.roomNo, messageHandle,),
+                                 name='handle')  # 线程对象.
+            t.start()
+        else:
+            roomover_cmd.execute(room, messageHandle)
