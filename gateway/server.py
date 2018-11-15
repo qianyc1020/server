@@ -10,6 +10,7 @@ from core import config
 from gateway.serverreceive import ServerReceive
 from utils.logger_utils import LoggerUtils
 from utils.natsutils import NatsUtils
+from utils.redis_utils import RedisUtils
 
 
 def messagehandle(msg):
@@ -23,6 +24,7 @@ class Server(object):
         gl.set_v("serverlogger", LoggerUtils("gateway"))
         gl.set_v("serverqueue", Queue.Queue())
         gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], ["server-gateway"], [messagehandle]))
+        gl.set_v("redis", RedisUtils())
         gl.set_v("clients", {})
 
         natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')

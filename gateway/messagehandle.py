@@ -25,3 +25,5 @@ class MessageHandle(object):
                 gl.get_v("natsobj").publish("gateway-coordinate", s.SerializeToString())
             except Empty:
                 print("messagehandle received timeout")
+            except BaseException, e:
+                print(e)

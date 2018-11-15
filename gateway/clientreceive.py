@@ -183,6 +183,7 @@ class ClientReceive(object):
                 t.start()
                 self.update_user_info(account)
                 self.update_currency(account)
+                self.checkgame()
                 return
         else:
             reclogin.state = ERROR
@@ -230,3 +231,10 @@ class ClientReceive(object):
             self.conns.shutdown(socket.SHUT_RDWR)
             self.conns.close()
             gl.get_v("serverlogger").logger("login fail")
+
+    def checkgame(self):
+        redis = gl.get_v("redis")
+        if redis.exists(str(self.userId) + "_room"):
+            relogin = NetMessage()
+            relogin.opcode = REENTER_GAME
+            self.messageQueue.put(relogin)
