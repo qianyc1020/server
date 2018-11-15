@@ -18,21 +18,6 @@ from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction, BaiRenLongF
 
 
 class LonghuRoom(Room):
-    gameStatus = GameStatus.WAITING
-    banker = None
-    bankerScore = 0
-    historyActions = []
-    score = None
-    inScore = None
-    leaveScore = None
-    positions = []
-    bankerList = []
-    xiazhuang = False
-    started = False
-    dayingjia = 0
-    trend = []
-    betScores = []
-    shensuanziPlayIndex = -1
 
     def __init__(self, roomNo=0, count=0, gameRules=0, matchLevel=0, score=0, inScore=0, leaveScore=0):
         super(LonghuRoom, self).__init__(roomNo, count, gameRules, matchLevel)

@@ -10,9 +10,11 @@ from protocol.base.server_to_game_pb2 import *
 
 
 class ReceiveHandle(object):
-    __close = False
-    __lock = threading.Lock()
-    __user_queue = {}
+
+    def __init__(self):
+        self.__close = False
+        self.__lock = threading.Lock()
+        self.__user_queue = {}
 
     def close(self):
         self.__close = True

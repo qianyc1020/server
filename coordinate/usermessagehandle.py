@@ -11,12 +11,9 @@ from protocol.service.match_pb2 import *
 
 
 class UserMessageHandle(object):
-    __close = False
-    __userId = None
-    __server_receive = None
-    __redis = None
 
     def __init__(self, userid, server_receive):
+        self.__close = False
         self.__userId = userid
         self.__server_receive = server_receive
         self.__redis = gl.get_v("redis")
