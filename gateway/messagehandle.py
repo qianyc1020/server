@@ -6,11 +6,10 @@ from protocol.base.gateway_pb2 import GateWayMessage
 
 
 class MessageHandle(object):
-    __close = False
-    __userId = None
 
     def __init__(self, userid):
         self.__userId = userid
+        self.__close = False
 
     def close(self):
         self.__close = True

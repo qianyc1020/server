@@ -6,7 +6,9 @@ from protocol.base.gateway_pb2 import GateWayMessage
 
 
 class ServerReceive(object):
-    __close = False
+
+    def __init__(self):
+        self.__close = False
 
     def close(self):
         self.__close = True

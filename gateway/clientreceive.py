@@ -14,15 +14,17 @@ from utils.stringutils import StringUtils
 
 
 class ClientReceive(object):
-    conns = None
-    address = None
-    userId = None
-    oldmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
-    randomKey = None
-    newmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
-    messageQueue = None
-    messageHandle = None
-    lock = threading.Lock()
+
+    def __init__(self):
+        self.conns = None
+        self.address = None
+        self.userId = None
+        self.oldmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
+        self.randomKey = None
+        self.newmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
+        self.messageQueue = None
+        self.messageHandle = None
+        self.lock = threading.Lock()
 
     def receive(self, conn, address):
         """
@@ -183,7 +185,6 @@ class ClientReceive(object):
                 t.start()
                 self.update_user_info(account)
                 self.update_currency(account)
-                self.checkgame()
                 return
         else:
             reclogin.state = ERROR
@@ -207,9 +208,12 @@ class ClientReceive(object):
             user_info.phone = account.phone
         user_info.consumeVip = account.level
         user_info.consumeVal = account.experience
-        # TODO 游戏中
-        # user_info.allocId = account.id
-        # user_info.gameId = account.id
+        redis = gl.get_v("redis")
+        if redis.exists(str(self.userId) + "_room"):
+            roomNo = redis.get(str(self.userId) + "_room")
+            gameId = redis.get(str(roomNo) + "_gameId")
+            user_info.allocId = gameId
+            user_info.gameId = roomNo
         # user_info.isContest = account.id
         self.send_data(UPDATE_USER_INFO, user_info)
 
@@ -231,10 +235,3 @@ class ClientReceive(object):
             self.conns.shutdown(socket.SHUT_RDWR)
             self.conns.close()
             gl.get_v("serverlogger").logger("login fail")
-
-    def checkgame(self):
-        redis = gl.get_v("redis")
-        if redis.exists(str(self.userId) + "_room"):
-            relogin = NetMessage()
-            relogin.opcode = REENTER_GAME
-            self.messageQueue.put(relogin)
