@@ -5,6 +5,6 @@ from protocol.base.game_base_pb2 import ReqSendAction
 
 def execute(userId, message, messageHandle):
     action = ReqSendAction()
-    action.ParseFromString(message)
+    action.ParseFromString(message.data)
     if 2 == action.actionType:
         playscore_cmd.execute(userId, action.data, messageHandle)

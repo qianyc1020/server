@@ -1,5 +1,6 @@
 # coding=utf-8
 import time
+import traceback
 
 from core import config
 from data.database import mysql_connection
@@ -26,10 +27,10 @@ def login(loginserver, address):
             else:
                 update_login(t, connection, address, loginserver.account)
         account = query_account_by_account(connection, loginserver.account)
-    except BaseException, e:
+    except:
         if connection is not None:
             connection.rollback()
-        print e
+        print traceback.print_exc()
     finally:
         if connection is not None:
             connection.close()
@@ -45,10 +46,10 @@ def relogin(relogininfo, address):
         if exist_account(connection, relogininfo.account):
             update_login(t, connection, address, relogininfo.account)
         return query_account_by_account(connection, relogininfo.account)
-    except BaseException, e:
+    except:
         if connection is not None:
             connection.rollback()
-        print e
+        print traceback.print_exc()
     finally:
         if connection is not None:
             connection.close()
@@ -66,10 +67,10 @@ def create_account(t, connection, loginserver, address):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
-    except BaseException, e:
+    except:
         if close and connection is not None:
             connection.rollback()
-        print e
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -85,10 +86,10 @@ def update_login_with_info(t, connection, loginserver, address):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
-    except BaseException, e:
+    except:
         if close and connection is not None:
             connection.rollback()
-        print e
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -103,10 +104,10 @@ def update_login(t, connection, address, account):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
-    except BaseException, e:
+    except:
         if close and connection is not None:
             connection.rollback()
-        print e
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -122,8 +123,8 @@ def exist_account(connection, account):
             cursor.execute(sql)
             result = cursor.fetchone()
             return result["result"] != 0
-    except BaseException, e:
-        print e
+    except:
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -162,8 +163,8 @@ def query_account_by_account(connection, account):
             a.level = result["level"]
             a.experience = result["experience"]
             return a
-    except BaseException, e:
-        print e
+    except:
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -202,8 +203,8 @@ def query_account_by_id(connection, id):
             a.level = result["level"]
             a.experience = result["experience"]
             return a
-    except BaseException, e:
-        print e
+    except:
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -219,10 +220,10 @@ def update_currency(connection, gold, integral, bankGold, bankIntegral, id):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
-    except BaseException, e:
+    except:
         if close and connection is not None:
             connection.rollback()
-        print e
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()
@@ -263,8 +264,8 @@ def ranking_by_gold(connection, limit):
                 a.experience = r["experience"]
                 accounts.append(a)
             return accounts
-    except BaseException, e:
-        print e
+    except:
+        print traceback.print_exc()
     finally:
         if close and connection is not None:
             connection.close()

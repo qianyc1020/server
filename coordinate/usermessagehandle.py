@@ -1,4 +1,5 @@
 # coding=utf-8
+import traceback
 from Queue import Empty
 from decimal import Decimal
 
@@ -131,8 +132,8 @@ class UserMessageHandle(object):
                 print("%d messagehandle received timeout close" % self.__userId)
                 self.close()
                 self.__server_receive.remove(self.__userId)
-            except BaseException, e:
-                print(e)
+            except:
+                print traceback.print_exc()
 
     def send_to_gateway(self, opcode, data):
         send_data = NetMessage()

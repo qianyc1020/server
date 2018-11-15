@@ -1,5 +1,6 @@
 # coding=utf-8
 import threading
+import traceback
 from Queue import Empty
 
 import core.globalvar as gl
@@ -37,8 +38,8 @@ class ReceiveHandle(object):
 
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
-            except BaseException, e:
-                print(e)
+            except:
+                print traceback.print_exc()
 
     def changeServerState(self, uuid, state):
         for g in gl.get_v("games"):

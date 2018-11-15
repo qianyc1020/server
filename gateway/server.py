@@ -2,6 +2,7 @@
 import Queue
 import socket
 import threading
+import traceback
 
 import core.globalvar as gl
 import gateway
@@ -51,5 +52,5 @@ class Server(object):
                                      args=(ClientReceive(), conn, '''%s:%d''' % (address[0], address[1]),),
                                      name='clientreceive')  # 线程对象.
                 t.start()
-            except BaseException, e:
-                print(e)
+            except:
+                print traceback.print_exc()

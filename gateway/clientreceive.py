@@ -3,6 +3,7 @@ import Queue
 import socket
 import struct
 import threading
+import traceback
 from decimal import Decimal
 
 import core.globalvar as gl
@@ -87,9 +88,8 @@ class ClientReceive(object):
         except socket.error, e:
             print e
             gl.get_v("serverlogger").logger(e)
-        except BaseException, x:
-            print x
-            gl.get_v("serverlogger").logger(x)
+        except:
+            print traceback.print_exc()
         finally:
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()

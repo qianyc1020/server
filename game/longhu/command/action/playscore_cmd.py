@@ -39,10 +39,10 @@ def execute(userId, message, messageHandle):
                     break
                 playPosition = room.positions[betScore.index]
                 playPosition.totalScore += betScore.score
-                if userId in playPosition.playScore:
-                    playPosition.playScore[userId] += betScore.score
+                if userId in playPosition.playScores:
+                    playPosition.playScores[userId] += betScore.score
                 else:
-                    playPosition.playScore[userId] = betScore.score
+                    playPosition.playScores[userId] = betScore.score
                 seat.playScore += betScore.score
                 betScore.playerId = userId
                 room.betScores.append(betScore.SerializeToString())

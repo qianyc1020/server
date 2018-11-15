@@ -70,6 +70,12 @@ class LonghuRoom(Room):
             for s in d["historyActions"]:
                 historyActions.append(base64.b64decode(s))
             d["historyActions"] = historyActions
+
+        if "betScores" in d:
+            betScores = []
+            for s in d["betScores"]:
+                betScores.append(base64.b64decode(s))
+            d["betScores"] = betScores
         return d
 
     def dict_to_object(self):
@@ -91,6 +97,11 @@ class LonghuRoom(Room):
         for s in self.historyActions:
             historyActions.append(base64.b64encode(s))
         dict["historyActions"] = historyActions
+
+        betScores = []
+        for b in self.betScores:
+            betScores.append(base64.b64encode(b))
+        dict["betScores"] = betScores
         return str(dict)
 
     def clear(self):
@@ -165,7 +176,9 @@ class LonghuRoom(Room):
     def sendBetScore(self, messageHandle):
         if 0 < len(self.betScores):
             action = BaiRenLongFengBetScoreAction()
-            action.betScore.extend(self.betScores)
+            for b in self.betScores:
+                a = action.betScore.add()
+                a.ParseFromString(b)
             executeAction = RecExecuteAction()
             executeAction.actionType = 2
             executeAction.data = action.SerializeToString()

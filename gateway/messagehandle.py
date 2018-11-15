@@ -1,4 +1,5 @@
 # coding=utf-8
+import traceback
 from Queue import Empty
 
 import core.globalvar as gl
@@ -24,5 +25,5 @@ class MessageHandle(object):
                 gl.get_v("natsobj").publish("gateway-coordinate", s.SerializeToString())
             except Empty:
                 print("messagehandle received timeout")
-            except BaseException, e:
-                print(e)
+            except:
+                print traceback.print_exc()

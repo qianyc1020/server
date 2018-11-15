@@ -1,6 +1,7 @@
 # coding=utf-8
 import Queue
 import threading
+import traceback
 from Queue import Empty
 
 import core.globalvar as gl
@@ -42,8 +43,8 @@ class ReceiveHandle(object):
                 self.__lock.release()
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
-            except BaseException, e:
-                print(e)
+            except:
+                print traceback.print_exc()
 
     def sendToGateway(self, userid, opcode, data):
 

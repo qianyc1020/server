@@ -12,7 +12,7 @@ def execute(userId, message, messageHandle):
         redis.lock("lockroom_" + str(roomNo), 5000)
         try:
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
-            room.setXiazhuang = False
+            room.xiazhuang = False
             redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()

@@ -1,4 +1,5 @@
 # coding=utf-8
+import traceback
 from Queue import Empty
 
 import core.globalvar as gl
@@ -24,5 +25,5 @@ class ServerReceive(object):
                 gl.get_v("serverlogger").logger("转发消息给%d" % s.userId)
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
-            except BaseException, e:
-                print(e)
+            except:
+                print traceback.print_exc()
