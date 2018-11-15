@@ -42,6 +42,8 @@ class ReceiveHandle(object):
                 self.__lock.release()
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
+            except BaseException, e:
+                print(e)
 
     def sendToGateway(self, userid, opcode, data):
 

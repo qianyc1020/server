@@ -43,6 +43,8 @@ class ReceiveHandle(object):
                 self.__lock.release()
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
+            except BaseException, e:
+                print(e)
 
     def remove(self, userid):
         self.__lock.acquire()

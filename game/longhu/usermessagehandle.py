@@ -31,6 +31,8 @@ class UserMessageHandle(object):
                 print("%d messagehandle received timeout close" % self.__userId)
                 self.close()
                 self.__server_receive.remove(self.__userId)
+            except BaseException, e:
+                print(e)
 
     def send_to_gateway(self, opcode, data, userId=None):
         send_data = NetMessage()

@@ -24,3 +24,5 @@ class ServerReceive(object):
                 gl.get_v("serverlogger").logger("转发消息给%d" % s.userId)
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
+            except BaseException, e:
+                print(e)

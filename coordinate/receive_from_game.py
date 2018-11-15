@@ -37,6 +37,8 @@ class ReceiveHandle(object):
 
             except Empty:
                 gl.get_v("serverlogger").logger("Received timeout")
+            except BaseException, e:
+                print(e)
 
     def changeServerState(self, uuid, state):
         for g in gl.get_v("games"):
