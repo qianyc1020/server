@@ -29,7 +29,7 @@ class ReceiveHandle(object):
 
                 netmessage = NetMessage()
                 netmessage.ParseFromString(s.data)
-                gl.get_v("serverlogger").logger('''收到%d消息%d''' % (s.userId, netmessage.opcode))
+                gl.get_v("serverlogger").logger.info('''收到%d消息%d''' % (s.userId, netmessage.opcode))
 
                 self.__lock.acquire()
                 if s.userId not in self.__user_queue:
@@ -43,7 +43,7 @@ class ReceiveHandle(object):
                 self.__user_queue[s.userId].put(netmessage)
                 self.__lock.release()
             except Empty:
-                gl.get_v("serverlogger").logger("Received timeout")
+                gl.get_v("serverlogger").logger.info("Received timeout")
             except:
                 print traceback.print_exc()
 

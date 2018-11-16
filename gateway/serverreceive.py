@@ -22,8 +22,8 @@ class ServerReceive(object):
                 s.ParseFromString(message)
 
                 gl.get_v("clients")[s.userId].send(s.data)
-                gl.get_v("serverlogger").logger("转发消息给%d" % s.userId)
+                gl.get_v("serverlogger").logger.info("转发消息给%d" % s.userId)
             except Empty:
-                gl.get_v("serverlogger").logger("Received timeout")
+                gl.get_v("serverlogger").logger.info("Received timeout")
             except:
                 print traceback.print_exc()

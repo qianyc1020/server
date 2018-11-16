@@ -28,7 +28,7 @@ class ReceiveHandle(object):
                 s.ParseFromString(message)
                 netMessage = NetMessage()
                 netMessage.ParseFromString(s.data)
-                gl.get_v("serverlogger").logger('''收到%d消息%d''' % (s.userId, netMessage.opcode))
+                gl.get_v("serverlogger").logger.info('''收到%d消息%d''' % (s.userId, netMessage.opcode))
 
                 self.__lock.acquire()
                 if s.userId not in self.__user_queue:
@@ -42,7 +42,7 @@ class ReceiveHandle(object):
                 self.__user_queue[s.userId].put(netMessage)
                 self.__lock.release()
             except Empty:
-                gl.get_v("serverlogger").logger("Received timeout")
+                gl.get_v("serverlogger").logger.info("Received timeout")
             except:
                 print traceback.print_exc()
 
@@ -57,7 +57,7 @@ class ReceiveHandle(object):
         message.userId = userid
         message.data = netMessage.SerializeToString()
 
-        gl.get_v("serverlogger").logger("发送%d给%d" % (opcode, userid))
+        gl.get_v("serverlogger").logger.info("发送%d给%d" % (opcode, userid))
         gl.get_v("natsobj").publish("server-gateway", message.SerializeToString())
 
     def remove(self, userid):

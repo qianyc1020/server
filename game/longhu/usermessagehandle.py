@@ -26,7 +26,7 @@ class UserMessageHandle(object):
                 if gl.get_v("command").has_key(str(message.opcode)):
                     gl.get_v("command")[str(message.opcode)].execute(self.__userId, message, self)
                 else:
-                    gl.get_v("serverlogger").logger("%d消息头不存在%d" % (self.__userId, message.opcode))
+                    gl.get_v("serverlogger").logger.info("%d消息头不存在%d" % (self.__userId, message.opcode))
 
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)
@@ -47,7 +47,7 @@ class UserMessageHandle(object):
             s.userId = userId
         s.data = send_data.SerializeToString()
         gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
-        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.__userId))
+        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId))
 
     def update_currency(self, account):
         currency = RecUpdateCurrency()

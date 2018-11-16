@@ -16,7 +16,7 @@ def execute(room, messageHandle):
         if bool(config.get("longhu", "onlyPlayerBanker")) and 0 == len(room.bankerList) and (
                 1 == room.banker or room.xiazhuang or banker is None or room.bankerScore < int(
             config.get("longhu", "getBankerScore"))):
-            gl.get_v("serverlogger").logger('''开始游戏-无庄''')
+            gl.get_v("serverlogger").logger.info('''开始游戏-无庄''')
             room.banker = 1
             return
 
@@ -30,6 +30,6 @@ def execute(room, messageHandle):
         room.recUpdateScore(messageHandle, 0)
         room.bankerConfirm(messageHandle)
         if bool(config.get("longhu", "onlyPlayerBanker")) and 1 == room.banker:
-            gl.get_v("serverlogger").logger('''开始游戏-无庄''')
+            gl.get_v("serverlogger").logger.info('''开始游戏-无庄''')
             return
         dealcard_cmd.execute(room, messageHandle)

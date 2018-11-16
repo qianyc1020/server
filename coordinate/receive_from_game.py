@@ -26,7 +26,7 @@ class ReceiveHandle(object):
                 message = queue.get(True, 20)
                 netMessage = NetMessage()
                 netMessage.ParseFromString(message)
-                gl.get_v("serverlogger").logger('''收到游戏服消息%d''' % netMessage.opcode)
+                gl.get_v("serverlogger").logger.info('''收到游戏服消息%d''' % netMessage.opcode)
                 if netMessage.opcode == REGISTER_SERVICE:
                     reqRegisterGame = ReqRegisterGame()
                     reqRegisterGame.ParseFromString(netMessage.data)
@@ -37,7 +37,7 @@ class ReceiveHandle(object):
                     self.changeServerState(netMessage.id, reqServiceState.state)
 
             except Empty:
-                gl.get_v("serverlogger").logger("Received timeout")
+                gl.get_v("serverlogger").logger.info("Received timeout")
             except:
                 print traceback.print_exc()
 
@@ -55,5 +55,5 @@ class ReceiveHandle(object):
         message.opcode = opcode
         if data is not None:
             message.data = data.SerializeToString()
-        gl.get_v("serverlogger").logger("发送%d给游戏服" % opcode)
+        gl.get_v("serverlogger").logger.info("发送%d给游戏服" % opcode)
         gl.get_v("natsobj").publish(uuid, message.SerializeToString())

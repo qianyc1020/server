@@ -9,7 +9,7 @@ from core import config
 from game.longhu.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
     jixudangzhuang_cmd, watchseat_cmd
 from game.longhu.game_handle import ReceiveHandle as game_handle
-from game.server.command import action_cmd
+from game.server.command import action_cmd, chat_cmd, voice_cmd, gps_cmd, interaction_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
@@ -52,6 +52,10 @@ class Server(object):
         gl.set_v("command", {})
         gl.get_v("command")["10001"] = match_cmd
         gl.get_v("command")["30"] = action_cmd
+        gl.get_v("command")["32"] = chat_cmd
+        gl.get_v("command")["33"] = voice_cmd
+        gl.get_v("command")["37"] = gps_cmd
+        gl.get_v("command")["38"] = interaction_cmd
         gl.get_v("command")["13"] = reconnection_cmd
         gl.get_v("command")["8"] = exit_cmd
         gl.get_v("command")["117"] = shangzhuang_cmd
@@ -69,7 +73,7 @@ class Server(object):
         s.userId = self.__userId
         s.data = send_data.SerializeToString()
         gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
-        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.__userId))
+        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId))
 
     @staticmethod
     def sendToCoordinate(opcode, data):

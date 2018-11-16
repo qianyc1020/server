@@ -61,7 +61,7 @@ class ClientReceive(object):
                     if md5bytes.decode("utf-8") == md5result:
                         data = NetMessage()
                         data.ParseFromString(result)
-                        gl.get_v("serverlogger").logger('''收到%d''' % data.opcode)
+                        gl.get_v("serverlogger").logger.info('''收到%d''' % data.opcode)
                         if data.opcode == CHECK_VERSION:
                             checkversion = ReqCheckVersion()
                             checkversion.ParseFromString(data.data)
@@ -80,14 +80,14 @@ class ClientReceive(object):
                                 self.messageQueue.put(data)
                     else:
                         close = True
-                        gl.get_v("serverlogger").logger("MD5 validation failed")
+                        gl.get_v("serverlogger").logger.info("MD5 validation failed")
                 else:
                     close = True
-                    gl.get_v("serverlogger").logger("client close")
+                    gl.get_v("serverlogger").logger.info("client close")
 
         except socket.error, e:
             print e
-            gl.get_v("serverlogger").logger(e)
+            gl.get_v("serverlogger").logger.info(e)
         except:
             print traceback.print_exc()
         finally:
@@ -97,7 +97,7 @@ class ClientReceive(object):
                 self.messageHandle.close()
             if self.userId is not None:
                 del gl.get_v("clients")[self.userId]
-            gl.get_v("serverlogger").logger("client close")
+            gl.get_v("serverlogger").logger.info("client close")
 
     def readInt(self, conn):
         msg = conn.recv(4)  # total data length
@@ -113,7 +113,7 @@ class ClientReceive(object):
                 result += result1
                 length -= len(result1)
             else:
-                gl.get_v("serverlogger").logger("client close")
+                gl.get_v("serverlogger").logger.info("client close")
                 break
         return result
 
@@ -125,7 +125,7 @@ class ClientReceive(object):
                 result += result1
                 length -= len(result1)
             else:
-                gl.get_v("serverlogger").logger("client close")
+                gl.get_v("serverlogger").logger.info("client close")
                 break
         return result
 
@@ -144,7 +144,7 @@ class ClientReceive(object):
             self.conns.sendall(data)
 
     def send_data(self, opcode, data):
-        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.userId))
+        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.userId))
         self.lock.acquire()
         send_data = NetMessage()
         send_data.opcode = opcode
@@ -164,7 +164,7 @@ class ClientReceive(object):
         else:
             self.conns.shutdown(socket.SHUT_RDWR)
             self.conns.close()
-            gl.get_v("serverlogger").logger("login fail")
+            gl.get_v("serverlogger").logger.info("login fail")
 
     def checkLogin(self, account):
 
@@ -234,4 +234,4 @@ class ClientReceive(object):
         else:
             self.conns.shutdown(socket.SHUT_RDWR)
             self.conns.close()
-            gl.get_v("serverlogger").logger("login fail")
+            gl.get_v("serverlogger").logger.info("login fail")

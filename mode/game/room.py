@@ -1,6 +1,8 @@
 # coding=utf-8
 import time
 
+from protocol.base.game_base_pb2 import RecGpsInfo
+
 
 class Room(object):
     roomNo = None
@@ -46,3 +48,11 @@ class Room(object):
             if s.userId == userId:
                 return s
         return None
+
+    def gpsinfo(self):
+        recGpsInfo = RecGpsInfo()
+        for seat in self.seats:
+            gpsPlayerInfo = recGpsInfo.playerInfos.add()
+            gpsPlayerInfo.gpsInfo = seat.getGpsInfo()
+            gpsPlayerInfo.playerId = seat.getUserId()
+        return recGpsInfo

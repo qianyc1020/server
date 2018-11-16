@@ -7,11 +7,10 @@ from logging.handlers import TimedRotatingFileHandler
 
 
 class LoggerUtils(object):
-    __logger = None
 
     def __init__(self, filename):
         logging.basicConfig(level=logging.INFO)
-        self.__logger = logging.getLogger(filename)
+        self.logger = logging.getLogger(filename)
         log_fmt = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'
         formatter = logging.Formatter(log_fmt)
         log_file_handler = TimedRotatingFileHandler(
@@ -22,10 +21,7 @@ class LoggerUtils(object):
         log_file_handler.setFormatter(formatter)
         log_file_handler.setLevel(logging.DEBUG)
 
-        self.__logger.addHandler(log_file_handler)
-
-    def logger(self, s):
-        self.__logger.info(s)
+        self.logger.addHandler(log_file_handler)
 
 
 class Formatter(logging.Formatter):

@@ -144,7 +144,7 @@ class UserMessageHandle(object):
         s.userId = self.__userId
         s.data = send_data.SerializeToString()
         gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
-        gl.get_v("serverlogger").logger("发送%d给%s" % (opcode, self.__userId))
+        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId))
 
     def sendToGame(self, uuid, opcode, data):
         message = NetMessage()
@@ -154,7 +154,7 @@ class UserMessageHandle(object):
         s = GateWayMessage()
         s.userId = self.__userId
         s.data = message.SerializeToString()
-        gl.get_v("serverlogger").logger("%d发送%d给游戏服" % (self.__userId, opcode))
+        gl.get_v("serverlogger").logger.info("%d发送%d给游戏服" % (self.__userId, opcode))
         gl.get_v("natsobj").publish(uuid.encode("utf-8"), s.SerializeToString())
 
     def update_currency(self, account):

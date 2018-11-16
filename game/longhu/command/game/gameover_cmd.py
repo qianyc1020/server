@@ -110,9 +110,9 @@ def execute(room, messageHandle):
                 dayingjiaScore = userScore[k]
             seat = room.getWatchSeatByUserId(k)
             if seat is not None:
-                gl.get_v("serverlogger").logger('''%d下注前%d''' % (k, seat.score))
-                gl.get_v("serverlogger").logger('''%d下注%d''' % (k, seat.playScore))
-                gl.get_v("serverlogger").logger('''%d输赢%d''' % (k, userScore[k]))
+                gl.get_v("serverlogger").logger.info('''%d下注前%d''' % (k, seat.score))
+                gl.get_v("serverlogger").logger.info('''%d下注%d''' % (k, seat.playScore))
+                gl.get_v("serverlogger").logger.info('''%d输赢%d''' % (k, userScore[k]))
                 userwin = userScore[k] if userScore[k] <= 0 else int((userScore[k] * (1 - rate)))
                 seat.score += userwin
                 scores.join(",").join(str(userwin))
@@ -149,7 +149,7 @@ def execute(room, messageHandle):
                 daerSettlePlayerInfo.playerId = s.userId
                 daerSettlePlayerInfo.score = 0 if s.userId not in userScore else userScore[s.userId]
                 daerSettlePlayerInfo.totalScore = s.score
-                gl.get_v("serverlogger").logger('''%d结算后总分%d''' % (s.userId, s.score))
+                gl.get_v("serverlogger").logger.info('''%d结算后总分%d''' % (s.userId, s.score))
 
         daerSettlePlayerInfo = tuitongziPlayerOneSetResult.players.add()
         banker = None
@@ -179,7 +179,7 @@ def execute(room, messageHandle):
                 daerSettlePlayerInfo.playerId = s.userId
                 daerSettlePlayerInfo.score = 0 if s.userId not in userScore else userScore[s.userId]
                 daerSettlePlayerInfo.totalScore = s.score
-                gl.get_v("serverlogger").logger('''%d结算后总分%d''' % (s.userId, s.score))
+                gl.get_v("serverlogger").logger.info('''%d结算后总分%d''' % (s.userId, s.score))
 
             recSettleSingle.content = tuitongziPlayerOneSetResult.SerializeToString()
             messageHandle.send_to_gateway(SETTLE_GAME, recSettleSingle, s.userId)
