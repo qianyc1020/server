@@ -35,7 +35,7 @@ class ReceiveHandle(object):
                 if s.userId not in self.__user_queue:
                     messagequeue = Queue.Queue()
                     messagehandle = UserMessageHandle(s.userId, self)
-                    t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
+                    t = threading.Thread(target=messagehandle.handle, args=(messagequeue,),
                                          name='handle')  # 线程对象.
                     t.start()
                     self.__user_queue[s.userId] = messagequeue

@@ -5,9 +5,11 @@ import traceback
 
 import grpc
 
+import core.globalvar as gl
 from game.longhu.command.game import gameover_cmd
 from game.longhu.mode.game_status import GameStatus
-from game.longhu.timeout import play_timeout
+from game.longhu.timeout import play_timeout, send_scores_timeout
+from game.longhu.timeout.send_scores_timeout import SendScores
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
@@ -37,6 +39,11 @@ def execute(room, messageHandle):
             t = threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle,),
                                  name='handle')  # 线程对象.
             t.start()
-            # TODO 唤醒发送下注计时器
+
+            if gl.get_v(str(room.roomNo) + "sendthread") is None:
+                e = SendScores(room.roomNo, messageHandle)
+                t = threading.Thread(target=e.execute, name='handle')  # 线程对象.
+                t.start()
+                gl.set_v(str(room.roomNo) + "sendthread", e)
     except:
         print traceback.print_exc()

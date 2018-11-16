@@ -3,6 +3,7 @@ import traceback
 
 import core.globalvar as gl
 from core import config
+from game.longhu.mode.game_status import GameStatus
 from game.longhu.mode.longhu_room import LonghuRoom
 from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction
 
@@ -14,6 +15,10 @@ def execute(userId, message, messageHandle):
         redis.lock("lockroom_" + str(roomNo), 5000)
         try:
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
+            if room.gameStatus != GameStatus.PLAYING:
+                return
+            if userId == room.banker:
+                return
             seat = room.getWatchSeatByUserId(userId)
             if seat is None:
                 return

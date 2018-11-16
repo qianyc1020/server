@@ -1,7 +1,6 @@
 # coding=utf-8
 import threading
 import time
-from decimal import Decimal
 
 import grpc
 
@@ -129,7 +128,7 @@ def execute(room, messageHandle):
         dayingjiaSeat = room.getWatchSeatByUserId(dayingjia)
         if dayingjiaSeat is not None:
             room.dayingjia = dayingjia
-            userInfo = RecUpdateGameUsers.UserInfo()
+            userInfo = tuitongziPlayerOneSetResult.dayingjia
             userInfo.account = dayingjiaSeat.account
             userInfo.playerId = dayingjiaSeat.userId
             userInfo.headUrl = dayingjiaSeat.head
@@ -143,7 +142,6 @@ def execute(room, messageHandle):
             userInfo.totalCount = dayingjiaSeat.total_count
             userInfo.loc = i
             userInfo.consumeVip = dayingjiaSeat.level
-            tuitongziPlayerOneSetResult.dayingjia = userInfo
         for seat in room.seats:
             if seat.userId != room.banker:
                 daerSettlePlayerInfo = tuitongziPlayerOneSetResult.players.add()

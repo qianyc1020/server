@@ -1,7 +1,6 @@
 # coding=utf-8
 import base64
 import time
-from decimal import Decimal
 
 import core.globalvar as gl
 from core import config
@@ -179,6 +178,7 @@ class LonghuRoom(Room):
             for b in self.betScores:
                 a = action.betScore.add()
                 a.ParseFromString(b)
+            self.betScores = []
             executeAction = RecExecuteAction()
             executeAction.actionType = 2
             executeAction.data = action.SerializeToString()

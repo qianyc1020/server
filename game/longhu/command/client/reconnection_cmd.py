@@ -59,7 +59,7 @@ def execute(userId, message, messageHandle):
                 if seat.playScore > 0:
                     score = BaiRenLongFengScore()
                     for position in room.positions:
-                        score.score.append(0 if userId in position.playScores[userId] else position.playScores[userId])
+                        score.score.append(0 if userId not in position.playScores else position.playScores[userId])
                     messageHandle.send_to_gateway(SELF_PLAYED, score)
             else:
                 if room.started:
@@ -68,7 +68,7 @@ def execute(userId, message, messageHandle):
                         score = BaiRenLongFengScore()
                         for position in room.positions:
                             score.score.append(
-                                0 if userId in position.playScores[userId] else position.playScores[userId])
+                                0 if userId not in position.playScores else position.playScores[userId])
                         messageHandle.send_to_gateway(SELF_PLAYED, score)
                     room.executeAsk(messageHandle, userId, 1)
 

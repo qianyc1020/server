@@ -1,4 +1,5 @@
 # coding=utf-8
+import traceback
 
 
 def init():
@@ -15,3 +16,10 @@ def get_v(name, defValue=None):
         return _global_dict[name]
     except KeyError:
         return defValue
+
+
+def del_v(name):
+    try:
+        del _global_dict[name]
+    except:
+        print traceback.print_exc()
