@@ -46,7 +46,7 @@ def execute(userId, message, messageHandle, room):
     room.updateTrend(messageHandle, userId)
     if 0 == room.gameStatus == GameStatus.PLAYING or room.started:
         room.recReEnterGameInfo(messageHandle, userId)
-        if 0 == room.gameStatus == GameStatus.PLAYING:
+        if room.gameStatus == GameStatus.PLAYING:
             room.executeAsk(messageHandle, userId, 2)
         else:
             room.executeAsk(messageHandle, userId, 1)
