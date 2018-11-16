@@ -36,10 +36,9 @@ def execute(userId, message, messageHandle):
                     maxPlay = room.positions[2].totalScore + room.positions[0].totalScore + room.bankerScore
                 if betScore.index == 2:
                     pingReturn = float(config.get("longhu", "pingReturn"))
-                    if 1 != pingReturn:
-                        maxPlay = int(
-                            ((room.positions[0].totalScore + room.positions[1].totalScore + room.bankerScore) * (
-                                    1 - pingReturn) + room.bankerScore) / float(config.get("longhu", "pingRatio")))
+                    maxPlay = int(
+                        ((room.positions[0].totalScore + room.positions[1].totalScore + room.bankerScore) * (
+                                1 - pingReturn) + room.bankerScore) / float(config.get("longhu", "pingRatio")))
                 if room.positions[betScore.index].totalScore + betScore.score > maxPlay:
                     break
                 playPosition = room.positions[betScore.index]
