@@ -4,7 +4,7 @@ from Queue import Empty
 from decimal import Decimal
 
 import core.globalvar as gl
-from data.database import data_account
+from data.database import data_account, data_record
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
@@ -118,6 +118,11 @@ class UserMessageHandle(object):
                             playerRankInfo.introduce = a.introduce
                         playerRankInfo.consumeVip = a.level
                     self.send_to_gateway(message.opcode, recGameRank)
+                elif message.opcode == MATCH_RECORD_INFO:
+                    reqMatchRecordInfo = ReqMatchRecordInfo()
+                    reqMatchRecordInfo.ParseFromString(message.data)
+                    records = data_record.get_records(reqMatchRecordInfo.allocId, self.__userId)
+                    self.send_to_gateway(message.opcode, records)
                 elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
                         99 < message.opcode < 200) or message.opcode == 38:
                     if self.__redis.get(str(self.__userId) + "_room"):

@@ -119,7 +119,6 @@ class LonghuRoom(Room):
                 self.banker = 1
         if self.xiazhuang or 1 == self.banker:
             self.xiazhuang = False
-            # TODO 排序
             while len(self.bankerList) > 0:
                 bankerId = self.bankerList[0]
                 self.bankerList.remove(bankerId)

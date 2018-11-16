@@ -211,6 +211,49 @@ def query_account_by_id(connection, id):
     return None
 
 
+def query_account_by_ids(connection, ids):
+    close = connection is None
+    accounts = {}
+    try:
+        if connection is None:
+            connection = mysql_connection.get_conn()
+        in_p = ', '.join((map(lambda x: '%s', ids)))
+        sql = config.get("sql", "sql_query_account_by_ids") % in_p
+        with connection.cursor() as cursor:
+            cursor.execute(sql, ids)
+            r = cursor.fetchall()
+            for result in r:
+                a = Account()
+                a.id = result["id"]
+                a.account_name = result["account_name"]
+                a.nick_name = result["nick_name"]
+                a.sex = result["sex"]
+                a.pswd = result["pswd"]
+                a.head_url = result["head_url"]
+                a.create_time = result["create_time"]
+                a.last_time = result["last_time"]
+                a.last_address = result["last_address"]
+                a.account_state = result["account_state"]
+                a.gold = result["gold"]
+                a.integral = result["integral"]
+                a.bank_pswd = result["bank_pswd"]
+                a.bank_gold = result["bank_gold"]
+                a.bank_integral = result["bank_integral"]
+                a.authority = result["authority"]
+                a.total_count = result["total_count"]
+                a.introduce = result["introduce"]
+                a.phone = result["phone"]
+                a.level = result["level"]
+                a.experience = result["experience"]
+                accounts[a.id] = a
+    except:
+        print traceback.print_exc()
+    finally:
+        if close and connection is not None:
+            connection.close()
+    return accounts
+
+
 def update_currency(connection, gold, integral, bankGold, bankIntegral, id):
     close = connection is None
     try:

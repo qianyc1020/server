@@ -20,8 +20,6 @@ def execute(room, messageHandle):
             room.banker = 1
             return
 
-        # TODO 排序
-
         room.seats = []
         if len(room.watchSeats) < 6:
             room.seats.extend(room.watchSeats[0: len(room.watchSeats)])

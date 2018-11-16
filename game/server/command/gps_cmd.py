@@ -4,7 +4,7 @@ import traceback
 import core.globalvar as gl
 from game.longhu.mode.longhu_room import LonghuRoom
 from protocol.base.base_pb2 import PLAYER_VOICE
-from protocol.base.game_base_pb2 import ReqPlayerVoice, RecPlayerVoice, ReqGpsInfo
+from protocol.base.game_base_pb2 import ReqGpsInfo
 
 
 def execute(userId, message, messageHandle):

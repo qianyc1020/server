@@ -10,6 +10,7 @@ from data.database import data_account
 from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
 from game.longhu.timeout import start_timeout
+from game.server.command import record_cmd
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecUpdateGameUsers, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -97,10 +98,8 @@ def execute(room, messageHandle):
                     else:
                         userScore[k] = int(win * room.positions[1].playScores[k])
 
-        scores = ""
-        scores.join(",").join(str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))))
-        users = ""
-        users.join(",").join(str(room.banker))
+        scores = "," + str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
+        users = "," + str(room.banker)
 
         dayingjia = 0
         dayingjiaScore = 0
@@ -115,8 +114,8 @@ def execute(room, messageHandle):
                 gl.get_v("serverlogger").logger.info('''%d输赢%d''' % (k, userScore[k]))
                 userwin = userScore[k] if userScore[k] <= 0 else int((userScore[k] * (1 - rate)))
                 seat.score += userwin
-                scores.join(",").join(str(userwin))
-                users.join(",").join(str(k))
+                scores += "," + str(userwin)
+                users += "," + str(k)
                 data_account.update_currency(None, userwin, 0, 0, 0, k)
                 # TODO 经验值和返利
 
@@ -191,7 +190,8 @@ def execute(room, messageHandle):
                 room.xiazhuang = True
                 messageHandle.send_to_gateway(ASK_XIAZHUANG, None, room.banker)
 
-        # TODO 战绩
+        if len(userScore) > 0:
+            record_cmd.execute(room, users[1:], scores[1:])
         if 0 != len(room.watchSeats):
             room.clear()
             room.gameCount += 1
