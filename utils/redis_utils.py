@@ -22,6 +22,7 @@ class RedisUtils(object):
         :param timeout:
         :return:
         """
+        print("加锁%s" % key)
         t = time.time()
         nano = int(round(t * 1000000000))
         timeoutnanos = timeout * 1000000L
@@ -38,6 +39,7 @@ class RedisUtils(object):
         :param key:
         :return:
         """
+        print("解锁%s" % key)
         self.__redis.delete(key)
 
     def setobj(self, key, obj):
@@ -68,7 +70,6 @@ class RedisUtils(object):
         jsons = self.__redis.get(key)
         jsons = ast.literal_eval(jsons)
         jsons = json.dumps(jsons)
-        print("json:%s" % jsons)
         loaded = json.loads(jsons, object_hook=object_hook)
         obj.__dict__ = loaded
         return obj

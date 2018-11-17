@@ -32,7 +32,7 @@ def get_records(allocId, __userId):
     try:
         connection = mysql_connection.get_conn()
         records = []
-        playes = ""
+        ps = []
         t = int(time.time())
         sql = config.get("sql", "sql_get_record") % (str((t - 259200) * 1000000), allocId, "%" + str(__userId) + "%")
         with connection.cursor() as cursor:
@@ -47,8 +47,10 @@ def get_records(allocId, __userId):
                 a.scores = r["scores"]
                 a.time = r["time"]
                 records.append(a)
-                playes += a.players
-        ps = playes.split(",")
+                playes = a.players.split(",")
+                for p in  playes:
+                    if p not in ps:
+                        ps.append(p)
         accounts = data_account.query_account_by_ids(connection, ps)
 
         for r in records:
