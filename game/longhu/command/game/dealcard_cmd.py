@@ -39,6 +39,7 @@ def execute(room, messageHandle):
             t = threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle,),
                                  name='handle')  # 线程对象.
             t.start()
+            gl.get_v("serverlogger").logger.info("开始下注")
 
             if gl.get_v(str(room.roomNo) + "sendthread") is None:
                 e = SendScores(room.roomNo, messageHandle)

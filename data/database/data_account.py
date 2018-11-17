@@ -3,7 +3,7 @@ import time
 import traceback
 
 from core import config
-from data.database import mysql_connection
+from data.database import mysql_connection, data_gold
 from mode.base.account import Account
 from utils.stringutils import StringUtils
 

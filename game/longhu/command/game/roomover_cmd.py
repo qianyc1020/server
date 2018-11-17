@@ -27,9 +27,6 @@ def execute(room, messageHandle):
             redis.delobj("room_" + str(room.roomNo))
             redis.delobj(str(room.roomNo) + "_gameId")
             redis.set("8_rooms", rooms)
-            e = gl.get_v(str(room.roomNo) + "sendthread")
-            e.close()
-            gl.del_v(str(room.roomNo) + "sendthread")
     except:
         traceback.print_exc()
     redis.unlock("lock8_rooms")

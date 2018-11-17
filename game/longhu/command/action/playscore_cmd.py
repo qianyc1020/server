@@ -16,11 +16,15 @@ def execute(userId, message, messageHandle):
         try:
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
             if room.gameStatus != GameStatus.PLAYING:
+                gl.get_v("serverlogger").logger.info("下注失败状态不对")
+                redis.unlock("lockroom_" + str(roomNo))
                 return
             if userId == room.banker:
+                redis.unlock("lockroom_" + str(roomNo))
                 return
             seat = room.getWatchSeatByUserId(userId)
             if seat is None:
+                redis.unlock("lockroom_" + str(roomNo))
                 return
             betScoreAction = BaiRenLongFengBetScoreAction()
             betScoreAction.ParseFromString(message)
@@ -50,6 +54,7 @@ def execute(userId, message, messageHandle):
                 seat.playScore += betScore.score
                 betScore.playerId = userId
                 room.betScores.append(betScore.SerializeToString())
+                gl.get_v("serverlogger").logger.info("下注成功")
             redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()

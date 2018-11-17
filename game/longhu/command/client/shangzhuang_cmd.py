@@ -18,6 +18,7 @@ def execute(userId, message, messageHandle):
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
             seat = room.getWatchSeatByUserId(userId)
             if seat is None or room.banker == userId:
+                redis.unlock("lockroom_" + str(roomNo))
                 return
             score = BaiRenLongFengScore()
             score.ParseFromString(message.data)

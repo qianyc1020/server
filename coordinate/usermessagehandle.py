@@ -4,7 +4,7 @@ from Queue import Empty
 from decimal import Decimal
 
 import core.globalvar as gl
-from data.database import data_account, data_record
+from data.database import data_account, data_record, data_gold
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
@@ -94,6 +94,7 @@ class UserMessageHandle(object):
                     integral = -reqOperateBank.integral if message.opcode == BANK_DEPOSIT else reqOperateBank.integral
 
                     data_account.update_currency(None, gold, integral, -gold, -integral, self.__userId)
+                    data_gold.create_gold(2, self.__userId, self.__userId, gold)
 
                     recOprateBank = RecOprateBank()
                     self.send_to_gateway(message.opcode, recOprateBank)

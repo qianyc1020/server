@@ -5,6 +5,7 @@ import time
 
 import redis
 
+import core.globalvar as gl
 from core import config
 
 
@@ -22,13 +23,13 @@ class RedisUtils(object):
         :param timeout:
         :return:
         """
-        print("加锁%s" % key)
         t = time.time()
         nano = int(round(t * 1000000000))
         timeoutnanos = timeout * 1000000L
         while (int(round(time.time() * 1000000000)) - nano) < timeoutnanos:
             if self.__redis.setnx(key, time.strftime("%Y%m%d%H%M%S", time.localtime())) == 1:
                 self.__redis.expire(key, 5)
+                gl.get_v("serverlogger").logger.info("加锁成功%s" % key)
                 return True
             time.sleep(0.002)
         return False
@@ -39,7 +40,7 @@ class RedisUtils(object):
         :param key:
         :return:
         """
-        print("解锁%s" % key)
+        gl.get_v("serverlogger").logger.info("解锁%s" % key)
         self.__redis.delete(key)
 
     def setobj(self, key, obj):

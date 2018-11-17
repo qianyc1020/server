@@ -6,13 +6,13 @@ import grpc
 
 import core.globalvar as gl
 from core import config
-from data.database import data_account
+from data.database import data_account, data_gold
 from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
 from game.longhu.timeout import start_timeout
 from game.server.command import record_cmd
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
-from protocol.base.game_base_pb2 import RecExecuteAction, RecUpdateGameUsers, RecSettleSingle
+from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
 from protocol.game.longfeng_pb2 import BaiRenLongFengDealCardAction, BaiRenLongFengPlayerOneSetResult
 from protocol.game.zhipai_pb2 import SettleData
@@ -117,6 +117,7 @@ def execute(room, messageHandle):
                 scores += "," + str(userwin)
                 users += "," + str(k)
                 data_account.update_currency(None, userwin, 0, 0, 0, k)
+                data_gold.create_gold(1, room.roomNo, k, userwin)
                 # TODO 经验值和返利
 
         room.trend.append(tuitongziPlayerOneSetResult.positionWin)
@@ -155,6 +156,7 @@ def execute(room, messageHandle):
         if 1 != room.banker:
             bankerFinalWin = bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))
             data_account.update_currency(None, bankerFinalWin, 0, 0, 0, room.banker)
+            data_gold.create_gold(1, room.roomNo, room.banker, bankerFinalWin)
             banker = room.getWatchSeatByUserId(room.banker)
             room.bankerScore += bankerFinalWin
             banker.shangzhuangScore = room.bankerScore
@@ -192,6 +194,9 @@ def execute(room, messageHandle):
 
         if len(userScore) > 0:
             record_cmd.execute(room, users[1:], scores[1:])
+        e = gl.get_v(str(room.roomNo) + "sendthread")
+        e.close()
+        gl.del_v(str(room.roomNo) + "sendthread")
         if 0 != len(room.watchSeats):
             room.clear()
             room.gameCount += 1

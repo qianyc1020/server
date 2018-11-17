@@ -51,22 +51,23 @@ def get_records(allocId, __userId):
                 for p in  playes:
                     if p not in ps:
                         ps.append(p)
-        accounts = data_account.query_account_by_ids(connection, ps)
+        if len(ps) > 0:
+            accounts = data_account.query_account_by_ids(connection, ps)
 
-        for r in records:
-            recordInfos = recMatchRecordInfo.recordInfos.add()
-            recordInfos.recordId = r.id
-            recordInfos.playTime = r.time
-            recordInfos.gameId = int(r.roomNo)
+            for r in records:
+                recordInfos = recMatchRecordInfo.recordInfos.add()
+                recordInfos.recordId = r.id
+                recordInfos.playTime = r.time
+                recordInfos.gameId = int(r.roomNo)
 
-            rplayers = r.players.split(",")
-            rscore = r.scores.split(",")
+                rplayers = r.players.split(",")
+                rscore = r.scores.split(",")
 
-            for i in range(0, len(rplayers)):
-                playerDatas = recordInfos.playerDatas.add()
-                playerDatas.playerId = int(rplayers[i])
-                playerDatas.nick = accounts[int(rplayers[i])].nick_name
-                playerDatas.score = int(rscore[i])
+                for i in range(0, len(rplayers)):
+                    playerDatas = recordInfos.playerDatas.add()
+                    playerDatas.playerId = int(rplayers[i])
+                    playerDatas.nick = accounts[int(rplayers[i])].nick_name
+                    playerDatas.score = int(rscore[i])
     except:
         print traceback.print_exc()
     finally:

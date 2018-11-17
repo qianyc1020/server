@@ -13,7 +13,7 @@ def execute(userId, message, messageHandle):
         try:
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
             if userId in room.bankerList:
-                room.bankerList.remove(room)
+                room.bankerList.remove(userId)
                 room.updateBankerList(messageHandle, 0)
             elif room.banker == userId:
                 room.xaizhuang = True
