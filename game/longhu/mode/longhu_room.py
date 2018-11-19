@@ -12,6 +12,7 @@ from mode.game.room import Room
 from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME_PLAYER_INFO, SELF_INFO, BANKER_LIST, \
     WATCH_SIZE, TREND, REENTER_GAME_INFO, POSITION_SCORE, ASK_ACTION, EXIT_GAME, START_GAME
 from protocol.base.game_base_pb2 import RecExecuteAction, RecUpdateGameInfo, RecUpdateGameUsers, RecReEnterGameInfo
+from protocol.base.server_to_game_pb2 import UserExit
 from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction, BaiRenLongFengCreateRoom, ShangZhuangList, \
     BaiRenLongFengWatchSize, BaiRenLongFengTrend, BaiRenLongFengPositions, BaiRenLongFengRecAsk, BankerConfirm
 
@@ -328,7 +329,10 @@ class LonghuRoom(Room):
                 self.updateBankerList(messageHandle, 0)
             redis = gl.get_v("redis")
             redis.delobj(str(userId) + "_room")
-            messageHandle.send_to_gateway(EXIT_GAME, None)
+            userExit = UserExit()
+            userExit.playerId = userId
+            from game.longhu.server import Server
+            Server.send_to_coordinate(EXIT_GAME, userExit)
             if inseat:
                 self.recUpdateScore(messageHandle, 0)
             self.updateWatchSize(messageHandle, 0)

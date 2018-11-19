@@ -272,6 +272,27 @@ def update_currency(connection, gold, integral, bankGold, bankIntegral, id):
             connection.close()
 
 
+def update_introduce(connection, id, content):
+    account = None
+    close = connection is None
+    try:
+        if connection is None:
+            connection = mysql_connection.get_conn()
+        sql = config.get("sql", "sql_update_introduce") % (content, id)
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+            connection.commit()
+        account = query_account_by_id(connection, id)
+    except:
+        if close and connection is not None:
+            connection.rollback()
+        print traceback.print_exc()
+    finally:
+        if close and connection is not None:
+            connection.close()
+    return account
+
+
 def ranking_by_gold(connection, limit):
     close = connection is None
     try:

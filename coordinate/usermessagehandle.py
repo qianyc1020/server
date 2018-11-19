@@ -98,9 +98,7 @@ class UserMessageHandle(object):
 
                     recOprateBank = RecOprateBank()
                     self.send_to_gateway(message.opcode, recOprateBank)
-
-                    account = data_account.query_account_by_id(None, self.__userId)
-                    self.update_currency(account)
+                    self.update_currency(self.__userId)
                 elif message.opcode == UPDATE_RANK:
                     reqGameRank = ReqGameRank()
                     reqGameRank.ParseFromString(message.data)
@@ -124,15 +122,23 @@ class UserMessageHandle(object):
                     reqMatchRecordInfo.ParseFromString(message.data)
                     records = data_record.get_records(reqMatchRecordInfo.allocId, self.__userId)
                     self.send_to_gateway(message.opcode, records)
+                elif message.opcode == UPDATE_INTRODUCE:
+                    reqUpdateIntroduce = ReqUpdateIntroduce()
+                    reqUpdateIntroduce.ParseFromString(message.data)
+                    account = data_account.update_introduce(None, self.__userId, reqUpdateIntroduce.content)
+                    if None is not account:
+                        self.update_user_info(account)
                 elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
                         99 < message.opcode < 200) or message.opcode == 38:
-                    if self.__redis.get(str(self.__userId) + "_room"):
+                    if self.__redis.exists(str(self.__userId) + "_room"):
                         roomNo = self.__redis.get(str(self.__userId) + "_room")
                         gameId = self.__redis.get(str(roomNo) + "_gameId")
                         for g in gl.get_v("games"):
                             if g.alloc_id == gameId and g.state == RUNNING:
                                 self.sendToGame(g.uuid, message.opcode, message.data)
                                 break
+                else:
+                    gl.get_v("serverlogger").logger.info("无效协议%d，用户id%d" % (message.opcode, self.__userId))
 
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)
@@ -163,9 +169,31 @@ class UserMessageHandle(object):
         gl.get_v("serverlogger").logger.info("%d发送%d给游戏服" % (self.__userId, opcode))
         gl.get_v("natsobj").publish(uuid.encode("utf-8"), s.SerializeToString())
 
-    def update_currency(self, account):
-        currency = RecUpdateCurrency()
-        currency.currency = int(account.gold.quantize(Decimal('0')))
-        currency.gold = int(account.gold.quantize(Decimal('0')))
-        currency.integral = int(account.integral.quantize(Decimal('0')))
-        self.send_to_gateway(UPDATE_CURRENCY, currency)
+    def update_currency(self, userId):
+        account = data_account.query_account_by_id(None, userId)
+        if None is not account:
+            currency = RecUpdateCurrency()
+            currency.currency = int(account.gold.quantize(Decimal('0')))
+            currency.gold = int(account.gold.quantize(Decimal('0')))
+            currency.integral = int(account.integral.quantize(Decimal('0')))
+            self.send_to_gateway(UPDATE_CURRENCY, currency)
+
+    def update_user_info(self, account):
+        user_info = RecUserInfo()
+        user_info.fristIn = account.create_time == account.last_time
+        user_info.playerId = account.id
+        user_info.account = account.account_name
+        user_info.nick = account.nick_name
+        user_info.headUrl = account.head_url
+        user_info.sex = account.sex
+        user_info.rootPower = account.authority
+        user_info.registerTime = account.create_time
+        user_info.playTotal = account.total_count
+        user_info.registerTime = account.create_time
+        if account.introduce is not None:
+            user_info.introduce = account.introduce
+        if account.phone is not None:
+            user_info.phone = account.phone
+        user_info.consumeVip = account.level
+        user_info.consumeVal = account.experience
+        self.send_to_gateway(UPDATE_USER_INFO, user_info)

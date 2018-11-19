@@ -76,7 +76,7 @@ class Server(object):
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId))
 
     @staticmethod
-    def sendToCoordinate(opcode, data):
+    def send_to_coordinate(opcode, data):
         send_data = NetMessage()
         send_data.opcode = opcode
         send_data.data = data.SerializeToString()
@@ -89,4 +89,4 @@ class Server(object):
         reqRegisterGame.password = config.get("coordinate", "game_connect_pwd")
         reqRegisterGame.alloc_id = 8
         reqRegisterGame.name = "lhd"
-        Server.sendToCoordinate(REGISTER_SERVICE, reqRegisterGame)
+        Server.send_to_coordinate(REGISTER_SERVICE, reqRegisterGame)

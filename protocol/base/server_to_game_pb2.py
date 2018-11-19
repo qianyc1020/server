@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='base/server_to_game.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"\xc5\x02\n\x0cMutualPlayer\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x02 \x01(\t\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x10\n\x08head_url\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x12\n\nip_address\x18\x06 \x01(\t\x12\x13\n\x0b\x63heat_level\x18\x07 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x08 \x01(\x05\x12\x0c\n\x04gold\x18\t \x01(\x05\x12\x10\n\x08integral\x18\n \x01(\x05\x12\x0e\n\x06praise\x18\x0b \x01(\x05\x12\r\n\x05tread\x18\x0c \x01(\x05\x12\x13\n\x0b\x63reate_time\x18\r \x01(\x05\x12\x15\n\rcontest_score\x18\x0e \x01(\x05\x12\x11\n\tintroduce\x18\x0f \x01(\t\x12\x12\n\nconsumeVip\x18\x10 \x01(\x05\x12\x11\n\tauthority\x18\x11 \x01(\x05\"\x9d\x01\n\rReqCreateGame\x12\x1e\n\x07\x63reater\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x19\n\x05gener\x18\x02 \x01(\x0e\x32\n.GameGener\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\x12\x1c\n\x05\x65nter\x18\x05 \x01(\x0b\x32\r.MutualPlayer\x12\x11\n\tmaxPlayer\x18\x06 \x01(\x05\"N\n\x0cReqEnterGame\x12\x1c\n\x05\x65nter\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x0f\n\x07game_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\x0c\"x\n\x12ReqGameAddCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x10\n\x08\x61lloc_id\x18\x02 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x03 \x01(\x05\x12\x0f\n\x07game_id\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"T\n\x11RecUpdateCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02*F\n\tGameGener\x12\x08\n\x04\x43\x41RD\x10\x00\x12\t\n\x05MATCH\x10\x01\x12\t\n\x05PROXY\x10\x02\x12\x0c\n\x08TEAHOUSE\x10\x03\x12\x0b\n\x07\x43ONTEST\x10\x04\x42\x02H\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"\xc5\x02\n\x0cMutualPlayer\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x02 \x01(\t\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x10\n\x08head_url\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x12\n\nip_address\x18\x06 \x01(\t\x12\x13\n\x0b\x63heat_level\x18\x07 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x08 \x01(\x05\x12\x0c\n\x04gold\x18\t \x01(\x05\x12\x10\n\x08integral\x18\n \x01(\x05\x12\x0e\n\x06praise\x18\x0b \x01(\x05\x12\r\n\x05tread\x18\x0c \x01(\x05\x12\x13\n\x0b\x63reate_time\x18\r \x01(\x05\x12\x15\n\rcontest_score\x18\x0e \x01(\x05\x12\x11\n\tintroduce\x18\x0f \x01(\t\x12\x12\n\nconsumeVip\x18\x10 \x01(\x05\x12\x11\n\tauthority\x18\x11 \x01(\x05\"\x9d\x01\n\rReqCreateGame\x12\x1e\n\x07\x63reater\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x19\n\x05gener\x18\x02 \x01(\x0e\x32\n.GameGener\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\x12\x1c\n\x05\x65nter\x18\x05 \x01(\x0b\x32\r.MutualPlayer\x12\x11\n\tmaxPlayer\x18\x06 \x01(\x05\"N\n\x0cReqEnterGame\x12\x1c\n\x05\x65nter\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x0f\n\x07game_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\x0c\"x\n\x12ReqGameAddCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x10\n\x08\x61lloc_id\x18\x02 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x03 \x01(\x05\x12\x0f\n\x07game_id\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05\"\x1c\n\x08UserExit\x12\x10\n\x08playerId\x18\x01 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02*F\n\tGameGener\x12\x08\n\x04\x43\x41RD\x10\x00\x12\t\n\x05MATCH\x10\x01\x12\t\n\x05PROXY\x10\x02\x12\x0c\n\x08TEAHOUSE\x10\x03\x12\x0b\n\x07\x43ONTEST\x10\x04\x42\x02H\x03\x62\x06proto3')
 )
 
 _SERVERSTATE = _descriptor.EnumDescriptor(
@@ -44,8 +44,8 @@ _SERVERSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1058,
-  serialized_end=1111,
+  serialized_start=1002,
+  serialized_end=1055,
 )
 _sym_db.RegisterEnumDescriptor(_SERVERSTATE)
 
@@ -79,8 +79,8 @@ _GAMEGENER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1113,
-  serialized_end=1183,
+  serialized_start=1057,
+  serialized_end=1127,
 )
 _sym_db.RegisterEnumDescriptor(_GAMEGENER)
 
@@ -568,58 +568,6 @@ _REQCHANGEONLINE = _descriptor.Descriptor(
 )
 
 
-_RECUPDATECURRENCY = _descriptor.Descriptor(
-  name='RecUpdateCurrency',
-  full_name='RecUpdateCurrency',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='player_id', full_name='RecUpdateCurrency.player_id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='card', full_name='RecUpdateCurrency.card', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='RecUpdateCurrency.gold', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='integral', full_name='RecUpdateCurrency.integral', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=940,
-  serialized_end=1024,
-)
-
-
 _DISMISSGAME = _descriptor.Descriptor(
   name='DismissGame',
   full_name='DismissGame',
@@ -646,8 +594,39 @@ _DISMISSGAME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1026,
-  serialized_end=1056,
+  serialized_start=940,
+  serialized_end=970,
+)
+
+
+_USEREXIT = _descriptor.Descriptor(
+  name='UserExit',
+  full_name='UserExit',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='playerId', full_name='UserExit.playerId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=972,
+  serialized_end=1000,
 )
 
 _REQSERVICESTATE.fields_by_name['state'].enum_type = _SERVERSTATE
@@ -663,8 +642,8 @@ DESCRIPTOR.message_types_by_name['ReqCreateGame'] = _REQCREATEGAME
 DESCRIPTOR.message_types_by_name['ReqEnterGame'] = _REQENTERGAME
 DESCRIPTOR.message_types_by_name['ReqGameAddCurrency'] = _REQGAMEADDCURRENCY
 DESCRIPTOR.message_types_by_name['ReqChangeOnline'] = _REQCHANGEONLINE
-DESCRIPTOR.message_types_by_name['RecUpdateCurrency'] = _RECUPDATECURRENCY
 DESCRIPTOR.message_types_by_name['DismissGame'] = _DISMISSGAME
+DESCRIPTOR.message_types_by_name['UserExit'] = _USEREXIT
 DESCRIPTOR.enum_types_by_name['ServerState'] = _SERVERSTATE
 DESCRIPTOR.enum_types_by_name['GameGener'] = _GAMEGENER
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -725,19 +704,19 @@ ReqChangeOnline = _reflection.GeneratedProtocolMessageType('ReqChangeOnline', (_
   ))
 _sym_db.RegisterMessage(ReqChangeOnline)
 
-RecUpdateCurrency = _reflection.GeneratedProtocolMessageType('RecUpdateCurrency', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATECURRENCY,
-  __module__ = 'base.server_to_game_pb2'
-  # @@protoc_insertion_point(class_scope:RecUpdateCurrency)
-  ))
-_sym_db.RegisterMessage(RecUpdateCurrency)
-
 DismissGame = _reflection.GeneratedProtocolMessageType('DismissGame', (_message.Message,), dict(
   DESCRIPTOR = _DISMISSGAME,
   __module__ = 'base.server_to_game_pb2'
   # @@protoc_insertion_point(class_scope:DismissGame)
   ))
 _sym_db.RegisterMessage(DismissGame)
+
+UserExit = _reflection.GeneratedProtocolMessageType('UserExit', (_message.Message,), dict(
+  DESCRIPTOR = _USEREXIT,
+  __module__ = 'base.server_to_game_pb2'
+  # @@protoc_insertion_point(class_scope:UserExit)
+  ))
+_sym_db.RegisterMessage(UserExit)
 
 
 DESCRIPTOR.has_options = True

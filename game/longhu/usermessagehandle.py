@@ -4,6 +4,7 @@ from Queue import Empty
 from decimal import Decimal
 
 import core.globalvar as gl
+from data.database import data_account, data_gold
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 
@@ -47,14 +48,11 @@ class UserMessageHandle(object):
             s.userId = userId
         s.data = send_data.SerializeToString()
         gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
-        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId))
+        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId if userId is None else userId))
 
-    def update_currency(self, account):
-        currency = RecUpdateCurrency()
-        currency.currency = int(account.gold.quantize(Decimal('0')))
-        currency.gold = int(account.gold.quantize(Decimal('0')))
-        currency.integral = int(account.integral.quantize(Decimal('0')))
-        self.send_to_gateway(UPDATE_CURRENCY, currency)
+    def game_update_currency(self, gold, id, roomNo):
+        data_account.update_currency(None, gold, 0, 0, 0, id)
+        data_gold.create_gold(1, roomNo, id, gold)
 
     def broadcast_seat_to_gateway(self, opcode, data, room):
         for s in room.watchSeats:

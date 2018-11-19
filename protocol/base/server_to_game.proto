@@ -87,14 +87,10 @@ message ReqChangeOnline {
     int32 game_id = 3;
 }
 
-//服务器更新玩家的金币
-message RecUpdateCurrency {
-    int32 player_id = 1;
-    int32 card = 2;
-    int32 gold = 3;
-    int32 integral = 4;
-}
-
 message DismissGame {
     int32 game_id = 1;
+}
+
+message UserExit {
+    int32 playerId = 1;
 }

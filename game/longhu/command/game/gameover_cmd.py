@@ -6,7 +6,6 @@ import grpc
 
 import core.globalvar as gl
 from core import config
-from data.database import data_account, data_gold
 from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
 from game.longhu.timeout import start_timeout
@@ -116,8 +115,8 @@ def execute(room, messageHandle):
                 seat.score += userwin
                 scores += "," + str(userwin)
                 users += "," + str(k)
-                data_account.update_currency(None, userwin, 0, 0, 0, k)
-                data_gold.create_gold(1, room.roomNo, k, userwin)
+                if 0 != userwin:
+                    messageHandle.game_update_currency(userwin, k, room.roomNo)
                 # TODO 经验值和返利
 
         room.trend.append(tuitongziPlayerOneSetResult.positionWin)
@@ -155,8 +154,8 @@ def execute(room, messageHandle):
         banker = None
         if 1 != room.banker:
             bankerFinalWin = bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))
-            data_account.update_currency(None, bankerFinalWin, 0, 0, 0, room.banker)
-            data_gold.create_gold(1, room.roomNo, room.banker, bankerFinalWin)
+            if 0 != bankerFinalWin:
+                messageHandle.game_update_currency(bankerFinalWin, room.banker, room.roomNo)
             banker = room.getWatchSeatByUserId(room.banker)
             room.bankerScore += bankerFinalWin
             banker.shangzhuangScore = room.bankerScore

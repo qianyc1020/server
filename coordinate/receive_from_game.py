@@ -2,11 +2,14 @@
 import threading
 import traceback
 from Queue import Empty
+from decimal import Decimal
 
 import core.globalvar as gl
 from core import config
+from data.database import data_account
 from mode.base.game_item import Game
 from protocol.base.base_pb2 import *
+from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import *
 
 
@@ -35,7 +38,11 @@ class ReceiveHandle(object):
                 if netMessage.opcode == CHANGE_SERVICE_STATE:
                     reqServiceState = ReqServiceState()
                     self.changeServerState(netMessage.id, reqServiceState.state)
-
+                if netMessage.opcode == EXIT_GAME:
+                    userExit = UserExit()
+                    userExit.ParseFromString(netMessage.data)
+                    self.update_currency(userExit.playerId)
+                    self.send_to_gateway(EXIT_GAME, None, userExit.playerId)
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:
@@ -57,3 +64,24 @@ class ReceiveHandle(object):
             message.data = data.SerializeToString()
         gl.get_v("serverlogger").logger.info("发送%d给游戏服" % opcode)
         gl.get_v("natsobj").publish(uuid, message.SerializeToString())
+
+    def update_currency(self, userId):
+        account = data_account.query_account_by_id(None, userId)
+        if None is not account:
+            currency = RecUpdateCurrency()
+            currency.currency = int(account.gold.quantize(Decimal('0')))
+            currency.gold = int(account.gold.quantize(Decimal('0')))
+            currency.integral = int(account.integral.quantize(Decimal('0')))
+            self.send_to_gateway(UPDATE_CURRENCY, currency, userId)
+
+    def send_to_gateway(self, opcode, data, userId):
+        send_data = NetMessage()
+        send_data.opcode = opcode
+        if data is not None:
+            send_data.data = data.SerializeToString()
+
+        s = GateWayMessage()
+        s.userId = userId
+        s.data = send_data.SerializeToString()
+        gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
+        gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, userId))
