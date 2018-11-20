@@ -7,7 +7,7 @@ from game.longhu.mode.longhu_room import LonghuRoom
 
 
 def execute(roomNo, messageHandle):
-    time.sleep(10)
+    time.sleep(12)
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):

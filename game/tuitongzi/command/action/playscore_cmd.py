@@ -2,8 +2,7 @@
 import traceback
 
 import core.globalvar as gl
-from core import config
-from game.tuitongzi.command.game import gameover_cmd
+from game.tuitongzi.command.game import dealcard_cmd
 from game.tuitongzi.mode.game_status import GameStatus
 from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
 from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction
@@ -52,7 +51,7 @@ def execute(userId, message, messageHandle):
                 gl.get_v("serverlogger").logger.info("下注成功")
 
                 if room.bankerScore - total - betScore.score < 100:
-                    gameover_cmd.execute(room, messageHandle)
+                    dealcard_cmd.execute(room, messageHandle)
                     break
 
             redis.setobj("room_" + str(roomNo), room)
