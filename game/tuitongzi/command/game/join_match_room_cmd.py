@@ -21,31 +21,31 @@ def execute(userId, message, messageHandle, room):
     reqApplyEnterMatch = ReqApplyEnterMatch()
     reqApplyEnterMatch.ParseFromString(message.data)
 
-
     recMatchGame = RecMatchGame()
     recMatchGame.allocId = 7
     recMatchGame.level = reqApplyEnterMatch.level
 
     messageHandle.send_to_gateway(GAME_SVR_MATCH, recMatchGame)
 
-    tuitongziSeat = TuitongziSeat()
-    tuitongziSeat.seatNo = 0
-    tuitongziSeat.userId = account.id
-    tuitongziSeat.account = account.account_name
-    tuitongziSeat.createDate = account.create_time
-    tuitongziSeat.nickname = account.nick_name
-    tuitongziSeat.head = account.head_url
-    tuitongziSeat.sex = account.sex
-    tuitongziSeat.score = int(account.gold.quantize(Decimal('0')))
-    tuitongziSeat.ip = account.last_address
-    tuitongziSeat.gpsInfo = ""
-    tuitongziSeat.total_count = account.total_count
-    tuitongziSeat.introduce = account.introduce
-    tuitongziSeat.phone = account.phone
-    tuitongziSeat.level = account.level
-    tuitongziSeat.experience = account.experience
-    tuitongziSeat.intoDate = int(time.time())
-    room.watchSeats.append(tuitongziSeat)
+    if room.getWatchSeatByUserId(userId) is None:
+        tuitongziSeat = TuitongziSeat()
+        tuitongziSeat.seatNo = 0
+        tuitongziSeat.userId = account.id
+        tuitongziSeat.account = account.account_name
+        tuitongziSeat.createDate = account.create_time
+        tuitongziSeat.nickname = account.nick_name
+        tuitongziSeat.head = account.head_url
+        tuitongziSeat.sex = account.sex
+        tuitongziSeat.score = int(account.gold.quantize(Decimal('0')))
+        tuitongziSeat.ip = account.last_address
+        tuitongziSeat.gpsInfo = ""
+        tuitongziSeat.total_count = account.total_count
+        tuitongziSeat.introduce = account.introduce
+        tuitongziSeat.phone = account.phone
+        tuitongziSeat.level = account.level
+        tuitongziSeat.experience = account.experience
+        tuitongziSeat.intoDate = int(time.time())
+        room.watchSeats.append(tuitongziSeat)
     room.sendBetScore(messageHandle)
 
     room.recUpdateGameInfo(messageHandle)

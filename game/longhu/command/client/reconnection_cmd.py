@@ -13,6 +13,11 @@ def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
+
+        gameid = redis.get(str(roomNo) + "_gameId")
+        if 8 != gameid:
+            return
+
         redis.lock("lockroom_" + str(roomNo), 5000)
         try:
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)

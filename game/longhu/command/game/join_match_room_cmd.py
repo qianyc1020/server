@@ -21,31 +21,31 @@ def execute(userId, message, messageHandle, room):
     reqApplyEnterMatch = ReqApplyEnterMatch()
     reqApplyEnterMatch.ParseFromString(message.data)
 
-
     recMatchGame = RecMatchGame()
     recMatchGame.allocId = 8
     recMatchGame.level = reqApplyEnterMatch.level
 
     messageHandle.send_to_gateway(GAME_SVR_MATCH, recMatchGame)
 
-    longhuSeat = LonghuSeat()
-    longhuSeat.seatNo = 0
-    longhuSeat.userId = account.id
-    longhuSeat.account = account.account_name
-    longhuSeat.createDate = account.create_time
-    longhuSeat.nickname = account.nick_name
-    longhuSeat.head = account.head_url
-    longhuSeat.sex = account.sex
-    longhuSeat.score = int(account.gold.quantize(Decimal('0')))
-    longhuSeat.ip = account.last_address
-    longhuSeat.gpsInfo = ""
-    longhuSeat.total_count = account.total_count
-    longhuSeat.introduce = account.introduce
-    longhuSeat.phone = account.phone
-    longhuSeat.level = account.level
-    longhuSeat.experience = account.experience
-    longhuSeat.intoDate = int(time.time())
-    room.watchSeats.append(longhuSeat)
+    if room.getWatchSeatByUserId(userId) is None:
+        longhuSeat = LonghuSeat()
+        longhuSeat.seatNo = 0
+        longhuSeat.userId = account.id
+        longhuSeat.account = account.account_name
+        longhuSeat.createDate = account.create_time
+        longhuSeat.nickname = account.nick_name
+        longhuSeat.head = account.head_url
+        longhuSeat.sex = account.sex
+        longhuSeat.score = int(account.gold.quantize(Decimal('0')))
+        longhuSeat.ip = account.last_address
+        longhuSeat.gpsInfo = ""
+        longhuSeat.total_count = account.total_count
+        longhuSeat.introduce = account.introduce
+        longhuSeat.phone = account.phone
+        longhuSeat.level = account.level
+        longhuSeat.experience = account.experience
+        longhuSeat.intoDate = int(time.time())
+        room.watchSeats.append(longhuSeat)
     room.sendBetScore(messageHandle)
 
     room.recUpdateGameInfo(messageHandle)

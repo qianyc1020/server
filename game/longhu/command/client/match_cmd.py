@@ -10,8 +10,10 @@ from protocol.service.match_pb2 import ReqApplyEnterMatch
 
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
+    redis.lock("match", 5000)
     if redis.exists(str(userId) + "_room"):
         reconnection_cmd.execute(userId, message, messageHandle)
+        redis.unlock("match")
         return
     reqApplyEnterMatch = ReqApplyEnterMatch()
     reqApplyEnterMatch.ParseFromString(message.data)
@@ -34,3 +36,4 @@ def execute(userId, message, messageHandle):
             create_match_room_cmd.execute(userId, message, messageHandle)
     except:
         print traceback.print_exc()
+    redis.unlock("match")
