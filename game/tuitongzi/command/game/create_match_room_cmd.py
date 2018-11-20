@@ -4,8 +4,8 @@ import traceback
 
 import core.globalvar as gl
 from data.database import data_account
-from game.longhu.command.game import join_match_room_cmd
-from game.longhu.mode.longhu_room import LonghuRoom
+from game.tuitongzi.command.game import join_match_room_cmd
+from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
 from mode.game.match_info import MatchInfo
 from protocol.service.match_pb2 import ReqApplyEnterMatch
 
@@ -23,11 +23,11 @@ def execute(userId, message, messageHandle):
         m.__dict__ = match_info
         if m.level == reqApplyEnterMatch.level:
             if m.inScore <= account.gold:
-                room = LonghuRoom(0, m.playerNum, 0, m.level, m.baseScore, m.inScore, m.leaveScore)
-                redis.lock("lock8_rooms", 5000)
+                room = TuitongziRoom(0, m.playerNum, 0, m.level, m.baseScore, m.inScore, m.leaveScore)
+                redis.lock("lock7_rooms", 5000)
                 try:
-                    if redis.exists("8_rooms"):
-                        rooms = redis.get("8_rooms")
+                    if redis.exists("7_rooms"):
+                        rooms = redis.get("7_rooms")
                     else:
                         rooms = []
                     roomNo = random.randint(100000, 999999)
@@ -36,13 +36,13 @@ def execute(userId, message, messageHandle):
                     rooms.append(roomNo)
                     room.roomNo = roomNo
                     redis.setobj("room_" + str(roomNo), room)
-                    redis.set(str(roomNo) + "_gameId", 8)
-                    redis.set("8_rooms", rooms)
+                    redis.set(str(roomNo) + "_gameId", 7)
+                    redis.set("7_rooms", rooms)
                     redis.lock("lockroom_" + str(roomNo), 5000)
                     join_match_room_cmd.execute(userId, message, messageHandle, room)
                     redis.unlock("lockroom_" + str(roomNo))
                 except:
                     traceback.print_exc()
-                redis.unlock("lock8_rooms")
+                redis.unlock("lock7_rooms")
                 return
             break

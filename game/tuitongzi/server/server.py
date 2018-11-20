@@ -6,10 +6,10 @@ import time
 
 import core.globalvar as gl
 from core import config
-from game.longhu.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
+from game.tuitongzi.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
     jixudangzhuang_cmd, watchseat_cmd
-from game.longhu.game_handle import ReceiveHandle as game_handle
-from game.server.command import action_cmd, chat_cmd, voice_cmd, gps_cmd, interaction_cmd
+from game.tuitongzi.game_handle import ReceiveHandle as game_handle
+from game.tuitongzi.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
@@ -33,7 +33,7 @@ class Server(object):
         gl.set_v("uuid", uuid)
         gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], [uuid], [message_handle]))
         gl.set_v("redis", RedisUtils())
-        gl.set_v("match_info", json.loads(config.get("longhu", "match")))
+        gl.set_v("match_info", json.loads(config.get("tuitongzi", "match")))
 
         t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
                              name='message-handle-queue')
@@ -87,6 +87,6 @@ class Server(object):
     def register():
         reqRegisterGame = ReqRegisterGame()
         reqRegisterGame.password = config.get("coordinate", "game_connect_pwd")
-        reqRegisterGame.alloc_id = 8
+        reqRegisterGame.alloc_id = 7
         reqRegisterGame.name = "lhd"
         Server.send_to_coordinate(REGISTER_SERVICE, reqRegisterGame)

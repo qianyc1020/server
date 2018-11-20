@@ -20,6 +20,8 @@ message BaiRenLongFengDice {
 // 发牌
 message BaiRenLongFengDealCardAction {
     repeated int32 cards = 1;
+    int32 cardSize = 2;
+    repeated int32 dealedCards = 3;
 }
 //询问
 message BaiRenLongFengRecAsk {
@@ -49,6 +51,9 @@ message BaiRenLongFengPlayerOneSetResult {
     RecUpdateGameUsers.UserInfo dayingjia = 2;
     int32 bankerWin = 3; //1.通赔 2.通杀
     repeated int32 positionWin = 4; //0.平局 1.赢 2.输
+    RecUpdateGameUsers.UserInfo dashujia = 5;
+    int32 dayingjiaScore = 6;
+    int32 dashujiaScore = 7;
 
 }
 

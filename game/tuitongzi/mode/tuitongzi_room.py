@@ -4,9 +4,9 @@ import time
 
 import core.globalvar as gl
 from core import config
-from game.longhu.command.game import roomover_cmd
-from game.longhu.mode.game_status import GameStatus
-from game.longhu.mode.longhu_seat import LonghuSeat
+from game.tuitongzi.command.game import roomover_cmd
+from game.tuitongzi.mode.game_status import GameStatus
+from game.tuitongzi.mode.tuitongzi_seat import TuitongziSeat
 from mode.game.position import Position
 from mode.game.room import Room
 from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME_PLAYER_INFO, SELF_INFO, BANKER_LIST, \
@@ -17,10 +17,10 @@ from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction, BaiRenLongF
     BaiRenLongFengWatchSize, BaiRenLongFengTrend, BaiRenLongFengPositions, BaiRenLongFengRecAsk, BankerConfirm
 
 
-class LonghuRoom(Room):
+class TuitongziRoom(Room):
 
     def __init__(self, roomNo=0, count=0, gameRules=0, matchLevel=0, score=0, inScore=0, leaveScore=0):
-        super(LonghuRoom, self).__init__(roomNo, count, gameRules, matchLevel)
+        super(TuitongziRoom, self).__init__(roomNo, count, gameRules, matchLevel)
         self.score = score
         self.inScore = inScore
         self.leaveScore = leaveScore
@@ -32,6 +32,7 @@ class LonghuRoom(Room):
         self.positions.append(Position())
         self.positions.append(Position())
         self.positions.append(Position())
+        self.positions.append(Position())
         self.bankerList = []
         self.xiazhuang = False
         self.started = False
@@ -39,12 +40,17 @@ class LonghuRoom(Room):
         self.trend = []
         self.betScores = []
         self.shensuanziPlayIndex = -1
+        self.openCard = False
+        self.reDealCard = False
+        self.surplusCards = []
+        self.dealedCards = []
+
 
     def object_to_dict(self, d):
         if "seats" in d:
             seat = []
             for s in d["seats"]:
-                s1 = LonghuSeat()
+                s1 = TuitongziSeat()
                 s1.__dict__ = eval(s)
                 seat.append(s1)
             d["seats"] = seat
@@ -52,7 +58,7 @@ class LonghuRoom(Room):
         if "watchSeats" in d:
             watchSeats = []
             for s in d["watchSeats"]:
-                s1 = LonghuSeat()
+                s1 = TuitongziSeat()
                 s1.__dict__ = eval(s)
                 watchSeats.append(s1)
             d["watchSeats"] = watchSeats
@@ -105,7 +111,7 @@ class LonghuRoom(Room):
         return str(dict)
 
     def clear(self):
-        super(LonghuRoom, self).clear()
+        super(TuitongziRoom, self).clear()
         self.gameStatus = GameStatus.WAITING
         self.started = False
         self.historyActions = []
@@ -116,7 +122,7 @@ class LonghuRoom(Room):
     def bankerConfirm(self, messageHandle):
         if 1 != self.banker:
             seat = self.getWatchSeatByUserId(self.banker)
-            if seat is None or self.bankerScore < int(config.get("longhu", "getBankerScore")):
+            if seat is None or self.bankerScore < int(config.get("tuitongzi", "getBankerScore")):
                 self.banker = 1
         if self.xiazhuang or 1 == self.banker:
             self.xiazhuang = False
@@ -125,20 +131,20 @@ class LonghuRoom(Room):
                 self.bankerList.remove(bankerId)
                 bankerSeat = self.getWatchSeatByUserId(bankerId)
                 if bankerSeat is not None and bankerSeat.score >= bankerSeat.shangzhuangScore >= int(
-                        config.get("longhu", "getBankerScore")):
+                        config.get("tuitongzi", "getBankerScore")):
                     self.banker = bankerId
                     break
 
         bankerConfirm = BankerConfirm()
         userInfo = bankerConfirm.banker
         if 1 == self.banker:
-            if bool(config.get("longhu", "onlyPlayerBanker")):
+            if bool(config.get("tuitongzi", "onlyPlayerBanker")):
                 self.updateBankerList(messageHandle, 0)
                 return
             userInfo.playerId = 1
-            userInfo.score = int(config.get("longhu", "bankerDefaultScore"))
+            userInfo.score = int(config.get("tuitongzi", "bankerDefaultScore"))
             userInfo.online = True
-            self.bankerScore = int(config.get("longhu", "bankerDefaultScore"))
+            self.bankerScore = int(config.get("tuitongzi", "bankerDefaultScore"))
         else:
             s = self.getWatchSeatByUserId(self.banker)
             userInfo.account = s.account
@@ -186,7 +192,7 @@ class LonghuRoom(Room):
 
     def recUpdateGameInfo(self, messageHandle):
         recUpdateGameInfo = RecUpdateGameInfo()
-        recUpdateGameInfo.allocId = 8
+        recUpdateGameInfo.allocId = 7
         tuitongziCreateRoom = BaiRenLongFengCreateRoom()
         tuitongziCreateRoom.baseScore = self.score
         tuitongziCreateRoom.inScore = self.inScore
@@ -279,7 +285,7 @@ class LonghuRoom(Room):
 
     def recReEnterGameInfo(self, messageHandle, userId):
         recReEnterGameInfo = RecReEnterGameInfo()
-        recReEnterGameInfo.allocId = 8
+        recReEnterGameInfo.allocId = 7
         for a in self.historyActions:
             executeAction = recReEnterGameInfo.actionInfos.add()
             executeAction.ParseFromString(a)
@@ -331,7 +337,7 @@ class LonghuRoom(Room):
             redis.delobj(str(userId) + "_room")
             userExit = UserExit()
             userExit.playerId = userId
-            from game.longhu.server.server import Server
+            from game.tuitongzi.server.server import Server
             Server.send_to_coordinate(EXIT_GAME, userExit)
             if inseat:
                 self.recUpdateScore(messageHandle, 0)

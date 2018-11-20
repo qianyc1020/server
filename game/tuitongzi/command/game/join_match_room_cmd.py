@@ -4,8 +4,8 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account
-from game.longhu.mode.game_status import GameStatus
-from game.longhu.mode.longhu_seat import LonghuSeat
+from game.tuitongzi.mode.game_status import GameStatus
+from game.tuitongzi.mode.tuitongzi_seat import TuitongziSeat
 from protocol.base.base_pb2 import GAME_SVR_MATCH
 from protocol.base.game_base_pb2 import RecMatchGame
 from protocol.service.match_pb2 import ReqApplyEnterMatch
@@ -23,29 +23,29 @@ def execute(userId, message, messageHandle, room):
 
 
     recMatchGame = RecMatchGame()
-    recMatchGame.allocId = 8
+    recMatchGame.allocId = 7
     recMatchGame.level = reqApplyEnterMatch.level
 
     messageHandle.send_to_gateway(GAME_SVR_MATCH, recMatchGame)
 
-    longhuSeat = LonghuSeat()
-    longhuSeat.seatNo = 0
-    longhuSeat.userId = account.id
-    longhuSeat.account = account.account_name
-    longhuSeat.createDate = account.create_time
-    longhuSeat.nickname = account.nick_name
-    longhuSeat.head = account.head_url
-    longhuSeat.sex = account.sex
-    longhuSeat.score = int(account.gold.quantize(Decimal('0')))
-    longhuSeat.ip = account.last_address
-    longhuSeat.gpsInfo = ""
-    longhuSeat.total_count = account.total_count
-    longhuSeat.introduce = account.introduce
-    longhuSeat.phone = account.phone
-    longhuSeat.level = account.level
-    longhuSeat.experience = account.experience
-    longhuSeat.intoDate = int(time.time())
-    room.watchSeats.append(longhuSeat)
+    tuitongziSeat = TuitongziSeat()
+    tuitongziSeat.seatNo = 0
+    tuitongziSeat.userId = account.id
+    tuitongziSeat.account = account.account_name
+    tuitongziSeat.createDate = account.create_time
+    tuitongziSeat.nickname = account.nick_name
+    tuitongziSeat.head = account.head_url
+    tuitongziSeat.sex = account.sex
+    tuitongziSeat.score = int(account.gold.quantize(Decimal('0')))
+    tuitongziSeat.ip = account.last_address
+    tuitongziSeat.gpsInfo = ""
+    tuitongziSeat.total_count = account.total_count
+    tuitongziSeat.introduce = account.introduce
+    tuitongziSeat.phone = account.phone
+    tuitongziSeat.level = account.level
+    tuitongziSeat.experience = account.experience
+    tuitongziSeat.intoDate = int(time.time())
+    room.watchSeats.append(tuitongziSeat)
     room.sendBetScore(messageHandle)
 
     room.recUpdateGameInfo(messageHandle)

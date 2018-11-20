@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x13game/longfeng.proto\x1a\x14\x62\x61se/game_base.proto\"R\n\x18\x42\x61iRenLongFengCreateRoom\x12\x11\n\tbaseScore\x18\x01 \x01(\x05\x12\x0f\n\x07inScore\x18\x02 \x01(\x05\x12\x12\n\nleaveScore\x18\x03 \x01(\x05\"\"\n\x12\x42\x61iRenLongFengDice\x12\x0c\n\x04\x64ice\x18\x01 \x03(\x05\"-\n\x1c\x42\x61iRenLongFengDealCardAction\x12\r\n\x05\x63\x61rds\x18\x01 \x03(\x05\"2\n\x14\x42\x61iRenLongFengRecAsk\x12\x0c\n\x04time\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\"H\n\x16\x42\x61iRenLongFengBetScore\x12\r\n\x05score\x18\x01 \x01(\x05\x12\r\n\x05index\x18\x02 \x01(\x05\x12\x10\n\x08playerId\x18\x03 \x01(\x05\"I\n\x1c\x42\x61iRenLongFengBetScoreAction\x12)\n\x08\x62\x65tScore\x18\x01 \x03(\x0b\x32\x17.BaiRenLongFengBetScore\"b\n\x17\x42\x61iRenLongFengPositions\x12*\n\tpositions\x18\x01 \x03(\x0b\x32\x17.BaiRenLongFengBetScore\x12\x1b\n\x13shensuanziPositions\x18\x02 \x01(\x05\"\xad\x01\n BaiRenLongFengPlayerOneSetResult\x12\x30\n\x07players\x18\x01 \x03(\x0b\x32\x1f.BaiRenLongFengSettlePlayerInfo\x12/\n\tdayingjia\x18\x02 \x01(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x12\x11\n\tbankerWin\x18\x03 \x01(\x05\x12\x13\n\x0bpositionWin\x18\x04 \x03(\x05\"U\n\x1e\x42\x61iRenLongFengSettlePlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x12\n\ntotalScore\x18\x03 \x01(\x05\"$\n\x13\x42\x61iRenLongFengScore\x12\r\n\x05score\x18\x01 \x03(\x05\",\n\x17\x42\x61iRenLongFengWatchSize\x12\x11\n\twatchSize\x18\x01 \x01(\x05\"i\n\x13\x42\x61iRenLongFengTrend\x12/\n\x06trends\x18\x01 \x03(\x0b\x32\x1f.BaiRenLongFengTrend.SigleTrend\x1a!\n\nSigleTrend\x12\x13\n\x0bpositionWin\x18\x01 \x03(\x05\"W\n\rBankerConfirm\x12,\n\x06\x62\x61nker\x18\x01 \x01(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x12\x18\n\x10shangzhuangScore\x18\x02 \x01(\x05\"5\n\x0fShangZhuangList\x12\"\n\nbankerList\x18\x01 \x03(\x0b\x32\x0e.BankerConfirmB3\n\x11zhipai.mode.protoH\x03P\x01\xaa\x02\x19\x43huangMi.GuiYangNiuNiu.V1b\x06proto3')
+        '\n\x13game/longfeng.proto\x1a\x14\x62\x61se/game_base.proto\"R\n\x18\x42\x61iRenLongFengCreateRoom\x12\x11\n\tbaseScore\x18\x01 \x01(\x05\x12\x0f\n\x07inScore\x18\x02 \x01(\x05\x12\x12\n\nleaveScore\x18\x03 \x01(\x05\"\"\n\x12\x42\x61iRenLongFengDice\x12\x0c\n\x04\x64ice\x18\x01 \x03(\x05\"T\n\x1c\x42\x61iRenLongFengDealCardAction\x12\r\n\x05\x63\x61rds\x18\x01 \x03(\x05\x12\x10\n\x08\x63\x61rdSize\x18\x02 \x01(\x05\x12\x13\n\x0b\x64\x65\x61ledCards\x18\x03 \x03(\x05\"2\n\x14\x42\x61iRenLongFengRecAsk\x12\x0c\n\x04time\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\"H\n\x16\x42\x61iRenLongFengBetScore\x12\r\n\x05score\x18\x01 \x01(\x05\x12\r\n\x05index\x18\x02 \x01(\x05\x12\x10\n\x08playerId\x18\x03 \x01(\x05\"I\n\x1c\x42\x61iRenLongFengBetScoreAction\x12)\n\x08\x62\x65tScore\x18\x01 \x03(\x0b\x32\x17.BaiRenLongFengBetScore\"b\n\x17\x42\x61iRenLongFengPositions\x12*\n\tpositions\x18\x01 \x03(\x0b\x32\x17.BaiRenLongFengBetScore\x12\x1b\n\x13shensuanziPositions\x18\x02 \x01(\x05\"\x8c\x02\n BaiRenLongFengPlayerOneSetResult\x12\x30\n\x07players\x18\x01 \x03(\x0b\x32\x1f.BaiRenLongFengSettlePlayerInfo\x12/\n\tdayingjia\x18\x02 \x01(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x12\x11\n\tbankerWin\x18\x03 \x01(\x05\x12\x13\n\x0bpositionWin\x18\x04 \x03(\x05\x12.\n\x08\x64\x61shujia\x18\x05 \x01(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x12\x16\n\x0e\x64\x61yingjiaScore\x18\x06 \x01(\x05\x12\x15\n\rdashujiaScore\x18\x07 \x01(\x05\"U\n\x1e\x42\x61iRenLongFengSettlePlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x12\n\ntotalScore\x18\x03 \x01(\x05\"$\n\x13\x42\x61iRenLongFengScore\x12\r\n\x05score\x18\x01 \x03(\x05\",\n\x17\x42\x61iRenLongFengWatchSize\x12\x11\n\twatchSize\x18\x01 \x01(\x05\"i\n\x13\x42\x61iRenLongFengTrend\x12/\n\x06trends\x18\x01 \x03(\x0b\x32\x1f.BaiRenLongFengTrend.SigleTrend\x1a!\n\nSigleTrend\x12\x13\n\x0bpositionWin\x18\x01 \x03(\x05\"W\n\rBankerConfirm\x12,\n\x06\x62\x61nker\x18\x01 \x01(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x12\x18\n\x10shangzhuangScore\x18\x02 \x01(\x05\"5\n\x0fShangZhuangList\x12\"\n\nbankerList\x18\x01 \x03(\x0b\x32\x0e.BankerConfirmB3\n\x11zhipai.mode.protoH\x03P\x01\xaa\x02\x19\x43huangMi.GuiYangNiuNiu.V1b\x06proto3')
     ,
     dependencies=[base_dot_game__base__pb2.DESCRIPTOR, ])
 
@@ -113,6 +113,20 @@ _BAIRENLONGFENGDEALCARDACTION = _descriptor.Descriptor(
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='cardSize', full_name='BaiRenLongFengDealCardAction.cardSize', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='dealedCards', full_name='BaiRenLongFengDealCardAction.dealedCards', index=2,
+            number=3, type=5, cpp_type=1, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
     ],
     extensions=[
     ],
@@ -126,7 +140,7 @@ _BAIRENLONGFENGDEALCARDACTION = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=165,
-    serialized_end=210,
+    serialized_end=249,
 )
 
 _BAIRENLONGFENGRECASK = _descriptor.Descriptor(
@@ -162,8 +176,8 @@ _BAIRENLONGFENGRECASK = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=212,
-    serialized_end=262,
+    serialized_start=251,
+    serialized_end=301,
 )
 
 _BAIRENLONGFENGBETSCORE = _descriptor.Descriptor(
@@ -206,8 +220,8 @@ _BAIRENLONGFENGBETSCORE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=264,
-    serialized_end=336,
+    serialized_start=303,
+    serialized_end=375,
 )
 
 _BAIRENLONGFENGBETSCOREACTION = _descriptor.Descriptor(
@@ -236,8 +250,8 @@ _BAIRENLONGFENGBETSCOREACTION = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=338,
-    serialized_end=411,
+    serialized_start=377,
+    serialized_end=450,
 )
 
 _BAIRENLONGFENGPOSITIONS = _descriptor.Descriptor(
@@ -273,8 +287,8 @@ _BAIRENLONGFENGPOSITIONS = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=413,
-    serialized_end=511,
+    serialized_start=452,
+    serialized_end=550,
 )
 
 _BAIRENLONGFENGPLAYERONESETRESULT = _descriptor.Descriptor(
@@ -312,6 +326,27 @@ _BAIRENLONGFENGPLAYERONESETRESULT = _descriptor.Descriptor(
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='dashujia', full_name='BaiRenLongFengPlayerOneSetResult.dashujia', index=4,
+            number=5, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='dayingjiaScore', full_name='BaiRenLongFengPlayerOneSetResult.dayingjiaScore', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='dashujiaScore', full_name='BaiRenLongFengPlayerOneSetResult.dashujiaScore', index=6,
+            number=7, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
     ],
     extensions=[
     ],
@@ -324,8 +359,8 @@ _BAIRENLONGFENGPLAYERONESETRESULT = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=514,
-    serialized_end=687,
+    serialized_start=553,
+    serialized_end=821,
 )
 
 _BAIRENLONGFENGSETTLEPLAYERINFO = _descriptor.Descriptor(
@@ -368,8 +403,8 @@ _BAIRENLONGFENGSETTLEPLAYERINFO = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=689,
-    serialized_end=774,
+    serialized_start=823,
+    serialized_end=908,
 )
 
 _BAIRENLONGFENGSCORE = _descriptor.Descriptor(
@@ -398,8 +433,8 @@ _BAIRENLONGFENGSCORE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=776,
-    serialized_end=812,
+    serialized_start=910,
+    serialized_end=946,
 )
 
 _BAIRENLONGFENGWATCHSIZE = _descriptor.Descriptor(
@@ -428,8 +463,8 @@ _BAIRENLONGFENGWATCHSIZE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=814,
-    serialized_end=858,
+    serialized_start=948,
+    serialized_end=992,
 )
 
 _BAIRENLONGFENGTREND_SIGLETREND = _descriptor.Descriptor(
@@ -458,8 +493,8 @@ _BAIRENLONGFENGTREND_SIGLETREND = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=932,
-    serialized_end=965,
+    serialized_start=1066,
+    serialized_end=1099,
 )
 
 _BAIRENLONGFENGTREND = _descriptor.Descriptor(
@@ -488,8 +523,8 @@ _BAIRENLONGFENGTREND = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=860,
-    serialized_end=965,
+    serialized_start=994,
+    serialized_end=1099,
 )
 
 _BANKERCONFIRM = _descriptor.Descriptor(
@@ -525,8 +560,8 @@ _BANKERCONFIRM = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=967,
-    serialized_end=1054,
+    serialized_start=1101,
+    serialized_end=1188,
 )
 
 _SHANGZHUANGLIST = _descriptor.Descriptor(
@@ -555,8 +590,8 @@ _SHANGZHUANGLIST = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=1056,
-    serialized_end=1109,
+    serialized_start=1190,
+    serialized_end=1243,
 )
 
 _BAIRENLONGFENGBETSCOREACTION.fields_by_name['betScore'].message_type = _BAIRENLONGFENGBETSCORE
@@ -564,6 +599,8 @@ _BAIRENLONGFENGPOSITIONS.fields_by_name['positions'].message_type = _BAIRENLONGF
 _BAIRENLONGFENGPLAYERONESETRESULT.fields_by_name['players'].message_type = _BAIRENLONGFENGSETTLEPLAYERINFO
 _BAIRENLONGFENGPLAYERONESETRESULT.fields_by_name[
     'dayingjia'].message_type = base_dot_game__base__pb2._RECUPDATEGAMEUSERS_USERINFO
+_BAIRENLONGFENGPLAYERONESETRESULT.fields_by_name[
+    'dashujia'].message_type = base_dot_game__base__pb2._RECUPDATEGAMEUSERS_USERINFO
 _BAIRENLONGFENGTREND_SIGLETREND.containing_type = _BAIRENLONGFENGTREND
 _BAIRENLONGFENGTREND.fields_by_name['trends'].message_type = _BAIRENLONGFENGTREND_SIGLETREND
 _BANKERCONFIRM.fields_by_name['banker'].message_type = base_dot_game__base__pb2._RECUPDATEGAMEUSERS_USERINFO

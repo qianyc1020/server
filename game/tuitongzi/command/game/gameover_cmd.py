@@ -6,10 +6,10 @@ import grpc
 
 import core.globalvar as gl
 from core import config
-from game.longhu.command.game import roomover_cmd
-from game.longhu.mode.game_status import GameStatus
-from game.longhu.timeout import start_timeout
-from game.longhu.server.command import record_cmd
+from game.tuitongzi.command.game import roomover_cmd
+from game.tuitongzi.mode.game_status import GameStatus
+from game.tuitongzi.timeout import start_timeout
+from game.tuitongzi.server.command import record_cmd
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -18,7 +18,7 @@ from protocol.game.zhipai_pb2 import SettleData
 
 
 def execute(room, messageHandle):
-    rate = float(config.get("longhu", "rate"))
+    rate = float(config.get("tuitongzi", "rate"))
     if room.gameStatus == GameStatus.PLAYING:
         room.sendBetScore(messageHandle)
         settleData = SettleData()
@@ -30,20 +30,23 @@ def execute(room, messageHandle):
             userSettleData.score = 1
             userSettleData.grab = 1
             i += 1
-        conn = grpc.insecure_channel('127.0.0.1:50011')
+        conn = grpc.insecure_channel('127.0.0.1:50013')
         client = zhipai_pb2_grpc.ZhipaiStub(channel=conn)
         settleResult = client.settle(settleData)
 
         executeAction = RecExecuteAction()
         dealCardAction = BaiRenLongFengDealCardAction()
-        dealCardAction.cards.append(room.positions[0].cards[0])
-        dealCardAction.cards.append(room.positions[1].cards[0])
+        dealCardAction.cards.append(room.positions[0].cards[1])
+        dealCardAction.cards.append(room.positions[1].cards[1])
+        dealCardAction.cards.append(room.positions[2].cards[1])
+        dealCardAction.cards.append(room.positions[3].cards[1])
         executeAction.data = dealCardAction.SerializeToString()
         messageHandle.broadcast_watch_to_gateway(EXECUTE_ACTION, executeAction, room)
 
         userScore = {}
         bankerWin = 0
         tuitongziPlayerOneSetResult = BaiRenLongFengPlayerOneSetResult()
+        tuitongziPlayerOneSetResult.positionWin.append(0)
         tuitongziPlayerOneSetResult.positionWin.append(0)
         tuitongziPlayerOneSetResult.positionWin.append(0)
         tuitongziPlayerOneSetResult.positionWin.append(0)
@@ -65,47 +68,20 @@ def execute(room, messageHandle):
                     else:
                         userScore[k] = win * position.playScores[k]
 
-        win = 0
-        if 0 == settleResult.userSettleResule[0].win:
-            win = float(config.get("longhu", "pingRatio"))
-            tuitongziPlayerOneSetResult.positionWin[2] = 1
-        else:
-            win = -1
-            tuitongziPlayerOneSetResult.positionWin[2] = 2
-
-        for k in room.positions[2].playScores:
-            bankerWin -= win * room.positions[2].playScores[k]
-            if userScore.has_key(k):
-                userScore[k] += win * room.positions[2].playScores[k]
-            else:
-                userScore[k] = win * room.positions[2].playScores[k]
-
-        pingReturn = float(config.get("longhu", "pingReturn"))
-        if 1 != pingReturn:
-            if 0 == settleResult.userSettleResule[0].win:
-                win = -(1 - pingReturn)
-                for k in room.positions[0].playScores:
-                    bankerWin -= int(win * room.positions[0].playScores[k])
-                    if userScore.has_key(k):
-                        userScore[k] += int(win * room.positions[0].playScores[k])
-                    else:
-                        userScore[k] = int(win * room.positions[0].playScores[k])
-                for k in room.positions[1].playScores:
-                    bankerWin -= int(win * room.positions[1].playScores[k])
-                    if userScore.has_key(k):
-                        userScore[k] += int(win * room.positions[1].playScores[k])
-                    else:
-                        userScore[k] = int(win * room.positions[1].playScores[k])
-
         scores = "," + str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
         users = "," + str(room.banker)
 
         dayingjia = 0
         dayingjiaScore = 0
+        dashujia = 0
+        dashujiaScore = 0
         for k in userScore:
             if dayingjiaScore < userScore[k]:
                 dayingjia = k
                 dayingjiaScore = userScore[k]
+            if dashujiaScore > userScore[k]:
+                dashujia = k
+                dashujiaScore = userScore[k]
             seat = room.getWatchSeatByUserId(k)
             if seat is not None:
                 gl.get_v("serverlogger").logger.info('''%d下注前%d''' % (k, seat.score))
@@ -141,6 +117,25 @@ def execute(room, messageHandle):
             userInfo.totalCount = dayingjiaSeat.total_count
             userInfo.loc = i
             userInfo.consumeVip = dayingjiaSeat.level
+            tuitongziPlayerOneSetResult.dayingjiaScore = dayingjiaScore
+
+        dashujiaSeat = room.getWatchSeatByUserId(dashujia)
+        if dashujiaSeat is not None:
+            userInfo = tuitongziPlayerOneSetResult.dashujia
+            userInfo.account = dashujiaSeat.account
+            userInfo.playerId = dashujiaSeat.userId
+            userInfo.headUrl = dashujiaSeat.head
+            userInfo.createTime = dashujiaSeat.createDate
+            userInfo.ip = dashujiaSeat.ip
+            userInfo.online = dashujiaSeat.online
+            userInfo.nick = dashujiaSeat.nickname
+            userInfo.ready = dashujiaSeat.ready
+            userInfo.score = dashujiaSeat.score - dashujiaSeat.playScore
+            userInfo.sex = dashujiaSeat.sex
+            userInfo.totalCount = dashujiaSeat.total_count
+            userInfo.loc = i
+            userInfo.consumeVip = dashujiaSeat.level
+            tuitongziPlayerOneSetResult.dashujiaScore = dashujiaScore
         for seat in room.seats:
             if seat.userId != room.banker:
                 daerSettlePlayerInfo = tuitongziPlayerOneSetResult.players.add()
@@ -168,7 +163,7 @@ def execute(room, messageHandle):
         daerSettlePlayerInfo.score = bankerWin
 
         recSettleSingle = RecSettleSingle()
-        recSettleSingle.allocId = 8
+        recSettleSingle.allocId = 7
         recSettleSingle.curPlayCount = room.gameCount + 1
         recSettleSingle.time = int(time.time())
 
@@ -187,7 +182,7 @@ def execute(room, messageHandle):
                 tuitongziPlayerOneSetResult.players.remove(daerSettlePlayerInfo)
 
         if banker is not None:
-            if room.bankerScore >= int(config.get("longhu", "getBankerScore")):
+            if room.bankerScore >= int(config.get("tuitongzi", "getBankerScore")):
                 room.xiazhuang = True
                 messageHandle.send_to_gateway(ASK_XIAZHUANG, None, room.banker)
 
