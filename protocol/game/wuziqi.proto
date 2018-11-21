@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option optimize_for = LITE_RUNTIME;
+
+message WuziqiCreateRoom {
+    int32 countDown = 1; //倒计时
+}
+
+//单局结算
+message WuziqiPlayerOneSetResult {
+    message WuziqiSettlePlayerInfo {
+        int32 playerId = 1;
+        int32 totalScore = 2;
+        int32 allPoint = 3; //学费
+    }
+    repeated WuziqiSettlePlayerInfo players = 1; //胡牌牌型值
+}

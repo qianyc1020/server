@@ -6,5 +6,6 @@ python -m grpc_tools.protoc -I./ --python_out=./ ./service/mission.proto
 python -m grpc_tools.protoc -I./ --python_out=./ ./service/signin.proto
 python -m grpc_tools.protoc -I./ --python_out=./ ./game/bairen.proto
 python -m grpc_tools.protoc -I./ --python_out=./ ./game/hongbao.proto
+python -m grpc_tools.protoc -I./ --python_out=./ ./game/wuziqi.proto
 python -m grpc_tools.protoc -I./ --python_out=./ --grpc_python_out=./ ./game/zhipai.proto
 pause
