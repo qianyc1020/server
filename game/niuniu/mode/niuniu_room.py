@@ -119,6 +119,7 @@ class NiuniuRoom(Room):
         for p in self.positions:
             p.clear()
         self.shensuanziPlayIndex = -1
+        self.openCard = False
 
     def bankerConfirm(self, messageHandle):
         if 1 != self.banker:

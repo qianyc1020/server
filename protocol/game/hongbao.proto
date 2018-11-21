@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "base/game_base.proto";
+option optimize_for = LITE_RUNTIME;
+
+message BaiRenHongbaoScore {
+    int32 score = 1;
+}
+
+message BaiRenHongbaoQiang {
+    int32 score = 1;
+    RecUpdateGameUsers.UserInfo user = 2;
+}
