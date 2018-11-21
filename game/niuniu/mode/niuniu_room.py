@@ -307,9 +307,9 @@ class NiuniuRoom(Room):
         if GameStatus.PLAYING == self.gameStatus and 1 == type:
             return
         niuniuRecAsk = BaiRenRecAsk()
-        niuniuRecAsk.time = int((19500 - time.time() + self.startDate) / 1000)
+        niuniuRecAsk.time = int(19.5 - time.time() + self.startDate)
         if 1 == type:
-            niuniuRecAsk.time = int((9500 - time.time() + self.startDate) / 1000)
+            niuniuRecAsk.time = int(9.5 - time.time() + self.startDate)
         niuniuRecAsk.type = type
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(ASK_ACTION, niuniuRecAsk, self)

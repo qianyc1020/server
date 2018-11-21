@@ -299,9 +299,9 @@ class LonghuRoom(Room):
         if GameStatus.PLAYING == self.gameStatus and 1 == type:
             return
         tuitongziRecAsk = BaiRenRecAsk()
-        tuitongziRecAsk.time = int((9500 - time.time() + self.startDate) / 1000)
+        tuitongziRecAsk.time = int(9.500 - time.time() + self.startDate)
         if 2 == type:
-            tuitongziRecAsk.time = int((11500 - time.time() + self.startDate) / 1000)
+            tuitongziRecAsk.time = int(11.5 - time.time() + self.startDate)
         tuitongziRecAsk.type = type
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(ASK_ACTION, tuitongziRecAsk, self)
