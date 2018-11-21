@@ -2,8 +2,8 @@
 import traceback
 
 import core.globalvar as gl
-from game.longhu.mode.game_status import GameStatus
-from game.longhu.mode.longhu_room import LonghuRoom
+from game.niuniu.mode.game_status import GameStatus
+from game.niuniu.mode.niuniu_room import NiuniuRoom
 from protocol.base.base_pb2 import REENTER_GAME, SELF_INFO, SELF_PLAYED
 from protocol.base.game_base_pb2 import RecReEnterGame, RecUpdateGameUsers
 from protocol.game.bairen_pb2 import BaiRenScore
@@ -15,12 +15,12 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
 
         gameid = redis.get(str(roomNo) + "_gameId")
-        if 8 != gameid:
+        if 10 != gameid:
             return
 
         redis.lock("lockroom_" + str(roomNo), 5000)
         try:
-            room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
             seat = room.getWatchSeatByUserId(userId)
             if seat is not None:
                 room.sendBetScore(messageHandle)

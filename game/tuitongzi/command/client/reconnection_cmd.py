@@ -6,7 +6,7 @@ from game.tuitongzi.mode.game_status import GameStatus
 from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
 from protocol.base.base_pb2 import REENTER_GAME, SELF_INFO, SELF_PLAYED
 from protocol.base.game_base_pb2 import RecReEnterGame, RecUpdateGameUsers
-from protocol.game.longfeng_pb2 import BaiRenLongFengScore
+from protocol.game.bairen_pb2 import BaiRenScore
 
 
 def execute(userId, message, messageHandle):
@@ -61,7 +61,7 @@ def execute(userId, message, messageHandle):
                 if room.gameStatus != GameStatus.WAITING:
                     room.recReEnterGameInfo(messageHandle, userId)
                     if seat.playScore > 0:
-                        score = BaiRenLongFengScore()
+                        score = BaiRenScore()
                         for position in room.positions:
                             score.score.append(0 if userId not in position.playScores else position.playScores[userId])
                         messageHandle.send_to_gateway(SELF_PLAYED, score)
@@ -70,7 +70,7 @@ def execute(userId, message, messageHandle):
                     if room.started:
                         room.recReEnterGameInfo(messageHandle, userId)
                         if seat.playScore > 0:
-                            score = BaiRenLongFengScore()
+                            score = BaiRenScore()
                             for position in room.positions:
                                 score.score.append(
                                     0 if userId not in position.playScores else position.playScores[userId])

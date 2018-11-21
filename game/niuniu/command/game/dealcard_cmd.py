@@ -6,10 +6,10 @@ import traceback
 import grpc
 
 import core.globalvar as gl
-from game.tuitongzi.command.game import gameover_cmd
-from game.tuitongzi.mode.game_status import GameStatus
-from game.tuitongzi.timeout import play_timeout, send_scores_timeout, open_timeout
-from game.tuitongzi.timeout.send_scores_timeout import SendScores
+from game.niuniu.command.game import gameover_cmd
+from game.niuniu.mode.game_status import GameStatus
+from game.niuniu.timeout import play_timeout, send_scores_timeout, open_timeout
+from game.niuniu.timeout.send_scores_timeout import SendScores
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
@@ -21,20 +21,18 @@ def execute(room, messageHandle):
     try:
         if room.gameStatus == GameStatus.WAITING:
             shuffleData = ShuffleData()
-            conn = grpc.insecure_channel('127.0.0.1:50013')
+            conn = grpc.insecure_channel('127.0.0.1:50014')
             client = zhipai_pb2_grpc.ZhipaiStub(channel=conn)
-            if room.reDealCard or len(room.surplusCards) < 8:
-                shuffleResult = client.shuffle(shuffleData)
-                room.reDealCard = False
-                room.dealedCards = []
-                room.surplusCards = []
-                room.surplusCards.extend(shuffleResult.cardlist)
-            room.positions[0].cards.extend(room.surplusCards[0:2])
-            room.positions[1].cards.extend(room.surplusCards[2:4])
-            room.positions[2].cards.extend(room.surplusCards[4:6])
-            room.positions[3].cards.extend(room.surplusCards[6:8])
-            for i in range(0, 8):
-                room.surplusCards.remove(room.surplusCards[0])
+            shuffleResult = client.shuffle(shuffleData)
+            room.reDealCard = False
+            room.dealedCards = []
+            room.surplusCards = []
+            room.surplusCards.extend(shuffleResult.cardlist)
+            room.positions[0].cards.extend(room.surplusCards[0:5])
+            room.positions[1].cards.extend(room.surplusCards[5:10])
+            room.positions[2].cards.extend(room.surplusCards[10:15])
+            room.positions[3].cards.extend(room.surplusCards[15:20])
+            room.positions[4].cards.extend(room.surplusCards[20:25])
             room.startDate = int(time.time())
         if room.gameStatus == GameStatus.PLAYING:
             if not room.openCard:
@@ -47,12 +45,6 @@ def execute(room, messageHandle):
 
             executeAction = RecExecuteAction()
             dealCardAction = BaiRenDealCardAction()
-            dealCardAction.cards.append(room.positions[0].cards[0])
-            dealCardAction.cards.append(room.positions[1].cards[0])
-            dealCardAction.cards.append(room.positions[2].cards[0])
-            dealCardAction.cards.append(room.positions[3].cards[0])
-            dealCardAction.dealedCards.extend(room.dealedCards)
-            dealCardAction.cardSize = len(room.surplusCards) + 8
             executeAction.data = dealCardAction.SerializeToString()
             messageHandle.broadcast_watch_to_gateway(EXECUTE_ACTION, executeAction, room)
 

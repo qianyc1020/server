@@ -5,7 +5,7 @@ import core.globalvar as gl
 from game.tuitongzi.command.game import dealcard_cmd
 from game.tuitongzi.mode.game_status import GameStatus
 from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
-from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction
+from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 
 
 def execute(userId, message, messageHandle):
@@ -26,7 +26,7 @@ def execute(userId, message, messageHandle):
             if seat is None:
                 redis.unlock("lockroom_" + str(roomNo))
                 return
-            betScoreAction = BaiRenLongFengBetScoreAction()
+            betScoreAction = BaiRenBetScoreAction()
             betScoreAction.ParseFromString(message)
             for betScore in betScoreAction.betScore:
                 if 0 > betScore.index > 3:

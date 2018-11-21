@@ -5,7 +5,7 @@ import traceback
 from Queue import Empty
 
 import core.globalvar as gl
-from game.longhu.usermessagehandle import UserMessageHandle
+from game.base.usermessagehandle import UserMessageHandle
 from protocol.base.base_pb2 import NetMessage
 from protocol.base.gateway_pb2 import GateWayMessage
 

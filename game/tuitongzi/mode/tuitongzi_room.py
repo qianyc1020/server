@@ -13,8 +13,8 @@ from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME
     WATCH_SIZE, TREND, REENTER_GAME_INFO, POSITION_SCORE, ASK_ACTION, EXIT_GAME, START_GAME
 from protocol.base.game_base_pb2 import RecExecuteAction, RecUpdateGameInfo, RecUpdateGameUsers, RecReEnterGameInfo
 from protocol.base.server_to_game_pb2 import UserExit
-from protocol.game.longfeng_pb2 import BaiRenLongFengBetScoreAction, BaiRenLongFengCreateRoom, ShangZhuangList, \
-    BaiRenLongFengWatchSize, BaiRenLongFengTrend, BaiRenLongFengPositions, BaiRenLongFengRecAsk, BankerConfirm
+from protocol.game.bairen_pb2 import BaiRenBetScoreAction, BaiRenCreateRoom, ShangZhuangList, \
+    BaiRenWatchSize, BaiRenTrend, BaiRenPositions, BaiRenRecAsk, BankerConfirm
 
 
 class TuitongziRoom(Room):
@@ -180,7 +180,7 @@ class TuitongziRoom(Room):
 
     def sendBetScore(self, messageHandle):
         if 0 < len(self.betScores):
-            action = BaiRenLongFengBetScoreAction()
+            action = BaiRenBetScoreAction()
             for b in self.betScores:
                 a = action.betScore.add()
                 a.ParseFromString(b)
@@ -193,7 +193,7 @@ class TuitongziRoom(Room):
     def recUpdateGameInfo(self, messageHandle):
         recUpdateGameInfo = RecUpdateGameInfo()
         recUpdateGameInfo.allocId = 7
-        tuitongziCreateRoom = BaiRenLongFengCreateRoom()
+        tuitongziCreateRoom = BaiRenCreateRoom()
         tuitongziCreateRoom.baseScore = self.score
         tuitongziCreateRoom.inScore = self.inScore
         tuitongziCreateRoom.leaveScore = self.leaveScore
@@ -266,7 +266,7 @@ class TuitongziRoom(Room):
             messageHandle.send_to_gateway(BANKER_LIST, shangZhuangList)
 
     def updateWatchSize(self, messageHandle, userId):
-        watchSize = BaiRenLongFengWatchSize()
+        watchSize = BaiRenWatchSize()
         watchSize.watchSize = len(self.watchSeats)
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(WATCH_SIZE, watchSize, self)
@@ -274,7 +274,7 @@ class TuitongziRoom(Room):
             messageHandle.send_to_gateway(WATCH_SIZE, watchSize)
 
     def updateTrend(self, messageHandle, userId):
-        baiRenTuiTongZiTrend = BaiRenLongFengTrend()
+        baiRenTuiTongZiTrend = BaiRenTrend()
         for t in self.trend:
             sigleTrend = baiRenTuiTongZiTrend.trends.add()
             sigleTrend.positionWin.extend(t)
@@ -291,7 +291,7 @@ class TuitongziRoom(Room):
             executeAction.ParseFromString(a)
         messageHandle.send_to_gateway(REENTER_GAME_INFO, recReEnterGameInfo, userId)
 
-        positions = BaiRenLongFengPositions()
+        positions = BaiRenPositions()
         for i in range(0, len(self.positions)):
             action = positions.positions.add()
             action.index = i
@@ -304,7 +304,7 @@ class TuitongziRoom(Room):
             return
         if GameStatus.PLAYING == self.gameStatus and 1 == type:
             return
-        tuitongziRecAsk = BaiRenLongFengRecAsk()
+        tuitongziRecAsk = BaiRenRecAsk()
         tuitongziRecAsk.time = int((19500 - time.time() + self.startDate) / 1000)
         if 1 == type:
             tuitongziRecAsk.time = int((9500 - time.time() + self.startDate) / 1000)

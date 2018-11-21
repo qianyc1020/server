@@ -1,7 +1,6 @@
 # coding=utf-8
 import traceback
 from Queue import Empty
-from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account, data_gold

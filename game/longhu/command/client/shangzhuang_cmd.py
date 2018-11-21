@@ -6,7 +6,7 @@ from core import config
 from game.longhu.command.game import gamestart_cmd
 from game.longhu.mode.game_status import GameStatus
 from game.longhu.mode.longhu_room import LonghuRoom
-from protocol.game.longfeng_pb2 import BaiRenLongFengScore
+from protocol.game.bairen_pb2 import BaiRenScore
 
 
 def execute(userId, message, messageHandle):
@@ -20,7 +20,7 @@ def execute(userId, message, messageHandle):
             if seat is None or room.banker == userId:
                 redis.unlock("lockroom_" + str(roomNo))
                 return
-            score = BaiRenLongFengScore()
+            score = BaiRenScore()
             score.ParseFromString(message.data)
             if 1 == len(score.score):
                 seat.shangzhuangScore = score.score[0]

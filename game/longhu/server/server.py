@@ -8,7 +8,7 @@ import core.globalvar as gl
 from core import config
 from game.longhu.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
     jixudangzhuang_cmd, watchseat_cmd
-from game.longhu.game_handle import ReceiveHandle as game_handle
+from game.base.game_handle import ReceiveHandle as game_handle
 from game.longhu.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage

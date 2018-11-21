@@ -13,7 +13,7 @@ from game.longhu.server.command import record_cmd
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
-from protocol.game.longfeng_pb2 import BaiRenLongFengDealCardAction, BaiRenLongFengPlayerOneSetResult
+from protocol.game.bairen_pb2 import BaiRenDealCardAction, BaiRenPlayerOneSetResult
 from protocol.game.zhipai_pb2 import SettleData
 
 
@@ -35,7 +35,7 @@ def execute(room, messageHandle):
         settleResult = client.settle(settleData)
 
         executeAction = RecExecuteAction()
-        dealCardAction = BaiRenLongFengDealCardAction()
+        dealCardAction = BaiRenDealCardAction()
         dealCardAction.cards.append(room.positions[0].cards[0])
         dealCardAction.cards.append(room.positions[1].cards[0])
         executeAction.data = dealCardAction.SerializeToString()
@@ -43,7 +43,7 @@ def execute(room, messageHandle):
 
         userScore = {}
         bankerWin = 0
-        tuitongziPlayerOneSetResult = BaiRenLongFengPlayerOneSetResult()
+        tuitongziPlayerOneSetResult = BaiRenPlayerOneSetResult()
         tuitongziPlayerOneSetResult.positionWin.append(0)
         tuitongziPlayerOneSetResult.positionWin.append(0)
         tuitongziPlayerOneSetResult.positionWin.append(0)

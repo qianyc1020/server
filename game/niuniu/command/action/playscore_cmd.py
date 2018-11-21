@@ -2,9 +2,9 @@
 import traceback
 
 import core.globalvar as gl
-from core import config
-from game.longhu.mode.game_status import GameStatus
-from game.longhu.mode.longhu_room import LonghuRoom
+from game.niuniu.command.game import dealcard_cmd
+from game.niuniu.mode.game_status import GameStatus
+from game.niuniu.mode.niuniu_room import NiuniuRoom
 from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 
 
@@ -14,7 +14,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo), 5000)
         try:
-            room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
             if room.gameStatus != GameStatus.PLAYING:
                 gl.get_v("serverlogger").logger.info("下注失败状态不对")
                 redis.unlock("lockroom_" + str(roomNo))
@@ -29,21 +29,15 @@ def execute(userId, message, messageHandle):
             betScoreAction = BaiRenBetScoreAction()
             betScoreAction.ParseFromString(message)
             for betScore in betScoreAction.betScore:
-                if betScore.index != 0 and betScore.index != 1 and betScore.index != 2:
+                if 0 > betScore.index > 3:
                     break
                 if seat.playScore + betScore.score > seat.score:
                     break
-                maxPlay = 0
-                if betScore.index == 0:
-                    maxPlay = room.positions[2].totalScore + room.positions[1].totalScore + room.bankerScore
-                if betScore.index == 1:
-                    maxPlay = room.positions[2].totalScore + room.positions[0].totalScore + room.bankerScore
-                if betScore.index == 2:
-                    pingReturn = float(config.get("longhu", "pingReturn"))
-                    maxPlay = int(
-                        ((room.positions[0].totalScore + room.positions[1].totalScore + room.bankerScore) * (
-                                1 - pingReturn) + room.bankerScore) / float(config.get("longhu", "pingRatio")))
-                if room.positions[betScore.index].totalScore + betScore.score > maxPlay:
+                total = 0
+                for p in room.positions:
+                    total += p.totalScore
+
+                if total + betScore.score > room.bankerScore / 3:
                     break
                 playPosition = room.positions[betScore.index]
                 playPosition.totalScore += betScore.score
@@ -55,6 +49,11 @@ def execute(userId, message, messageHandle):
                 betScore.playerId = userId
                 room.betScores.append(betScore.SerializeToString())
                 gl.get_v("serverlogger").logger.info("下注成功")
+
+                if room.bankerScore / 3 - total - betScore.score < 100:
+                    dealcard_cmd.execute(room, messageHandle)
+                    break
+
             redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()
