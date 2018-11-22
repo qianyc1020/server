@@ -6,6 +6,7 @@ from mode.game.seat import Seat
 class HongbaoSeat(Seat):
 
     def __init__(self):
+        super(HongbaoSeat, self).__init__()
         self.playScore = 0
         self.intoDate = None
         self.shangzhuangScore = 0
