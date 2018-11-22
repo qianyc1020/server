@@ -30,8 +30,8 @@ def execute(room, messageHandle):
             userScore[int(d)] = win
             bankerWin -= win
 
-        scores = "," + str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
-        users = "," + str(room.banker)
+        scores = str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
+        users = str(room.banker)
 
         for k in userScore:
             seat = room.getWatchSeatByUserId(k)
@@ -97,7 +97,7 @@ def execute(room, messageHandle):
                 messageHandle.send_to_gateway(ASK_XIAZHUANG, None, room.banker)
 
         if len(userScore) > 0:
-            record_cmd.execute(room, users[1:], scores[1:])
+            record_cmd.execute(room, users, scores)
         if 0 != len(room.watchSeats):
             room.clear()
             room.gameCount += 1

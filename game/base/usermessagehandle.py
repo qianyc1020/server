@@ -54,7 +54,7 @@ class UserMessageHandle(object):
         data_gold.create_gold(1, roomNo, id, gold)
 
     def broadcast_seat_to_gateway(self, opcode, data, room):
-        for s in room.watchSeats:
+        for s in room.seats:
             self.send_to_gateway(opcode, data, s.userId)
 
     def broadcast_watch_to_gateway(self, opcode, data, room):

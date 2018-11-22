@@ -68,8 +68,8 @@ def execute(room, messageHandle):
                     else:
                         userScore[k] = win * position.playScores[k]
 
-        scores = "," + str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
-        users = "," + str(room.banker)
+        scores = str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
+        users = str(room.banker)
 
         dayingjia = 0
         dayingjiaScore = 0
@@ -187,7 +187,7 @@ def execute(room, messageHandle):
                 messageHandle.send_to_gateway(ASK_XIAZHUANG, None, room.banker)
 
         if len(userScore) > 0:
-            record_cmd.execute(room, users[1:], scores[1:])
+            record_cmd.execute(room, users, scores)
         e = gl.get_v(str(room.roomNo) + "sendthread")
         e.close()
         gl.del_v(str(room.roomNo) + "sendthread")

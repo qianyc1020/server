@@ -5,25 +5,19 @@ from protocol.base.game_base_pb2 import RecGpsInfo
 
 
 class Room(object):
-    roomNo = None
-    watchSeats = []
-    seats = []
-    seatNos = []
-    count = None
-    gameRules = None
-    gameCount = None
-    startDate = None
-    matchLevel = None
 
     def __init__(self, roomNo, count, gameRules, matchLevel):
         self.roomNo = roomNo
         self.count = count
         self.gameRules = gameRules
         self.matchLevel = matchLevel
+        self.watchSeats = []
+        self.seats = []
+        self.seatNos = []
         for i in range(0, count):
             self.seatNos.append(i + 1)
         self.gameCount = 0
-        self.startDate = long(time.time() * 1000)
+        self.startDate = int(time.time())
 
     def clear(self):
         for s in self.seats:

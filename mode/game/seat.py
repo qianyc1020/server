@@ -1,21 +1,23 @@
 # coding=utf-8
 class Seat(object):
-    seatNo = 0
-    userId = None
-    account = None
-    createDate = None
-    nickname = None
-    head = None
-    sex = None
-    score = None
-    areaString = ""
-    isRobot = False
-    ready = False
-    online = True
-    ip = None
-    gpsInfo = None
-    total_count = 0
-    introduce = 0
-    phone = None
-    level = 0
-    experience = 0
+
+    def __init__(self):
+        self.seatNo = 0
+        self.userId = None
+        self.account = None
+        self.createDate = None
+        self.nickname = None
+        self.head = None
+        self.sex = None
+        self.score = None
+        self.areaString = ""
+        self.isRobot = False
+        self.ready = False
+        self.online = True
+        self.ip = None
+        self.gpsInfo = None
+        self.total_count = 0
+        self.introduce = 0
+        self.phone = None
+        self.level = 0
+        self.experience = 0

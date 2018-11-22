@@ -27,7 +27,36 @@ class UserMessageHandle(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
-                if message.opcode == APPLY_ENTER_MATCH:
+                if message.opcode == CREATE_GAME:
+                    reqCreateGame = ReqCreateGame()
+                    reqCreateGame.ParseFromString(message.data)
+                    find = False
+                    for g in gl.get_v("games"):
+                        if g.alloc_id == reqCreateGame.allocId and g.state == RUNNING:
+                            self.sendToGame(g.uuid, CREATE_GAME, reqCreateGame.SerializeToString())
+                            find = True
+                            break
+                    if not find:
+                        recCreateGame = RecCreateGame()
+                        recCreateGame.state = 1
+                        self.send_to_gateway(CREATE_GAME, recCreateGame)
+                elif message.opcode == JOIN_GAME:
+                    reqJoinGame = ReqJoinGame()
+                    reqJoinGame.ParseFromString(message.data)
+                    find = False
+                    if self.__redis.exists(str(reqJoinGame.gameId) + "_gameId"):
+                        gameId = self.__redis.get(str(reqJoinGame.gameId) + "_gameId")
+                        for g in gl.get_v("games"):
+                            if g.alloc_id == gameId and g.state == RUNNING:
+                                self.sendToGame(g.uuid, message.opcode, message.data)
+                                find = True
+                                break
+                    if not find:
+                        recJoinGame = RecJoinGame()
+                        recJoinGame.state = 1
+                        recJoinGame.gameId = reqJoinGame.gameId
+                        self.send_to_gateway(JOIN_GAME, recJoinGame)
+                elif message.opcode == APPLY_ENTER_MATCH:
                     reqApplyEnterMatch = ReqApplyEnterMatch()
                     reqApplyEnterMatch.ParseFromString(message.data)
                     find = False
