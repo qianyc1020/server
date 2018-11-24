@@ -9,4 +9,5 @@
 /usr/bin/python -m grpc_tools.protoc -I./ --python_out=./ ./game/bairen.proto &
 /usr/bin/python -m grpc_tools.protoc -I./ --python_out=./ ./game/hongbao.proto &
 /usr/bin/python -m grpc_tools.protoc -I./ --python_out=./ ./game/wuziqi.proto &
+/usr/bin/python -m grpc_tools.protoc -I./ --python_out=./ ./game/jinhua.proto &
 /usr/bin/python -m grpc_tools.protoc -I./ --python_out=./ --grpc_python_out=./ ./game/zhipai.proto &

@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option optimize_for = LITE_RUNTIME;
+
+// 创建房间
+message JinhuaCreateRoom {
+    int32 baseScore = 1; // 底注设定
+    int32 inScore = 2; // 入场设定
+    int32 leaveScore = 3; // 离场场设定
+    bool sameIp = 4; // 同ip进入
+    bool gameType = 5; // true.普通模式 false.激情模式
+    int32 gameRules = 6; // 低位到高位顺序(允许相同IP进入，必闷三圈)
+    bool match = 7; // 比赛场
+    bool isGold = 8; //金币场
+}
+
+// 确认庄家
+message JinhuaBankerConfirm {
+    int32 bankerId = 1; // 庄家ID
+}
+
+// 询问
+message JinhuaRecRound {
+    int32 randId = 1;
+    int32 playerId = 2;
+    int32 actionTime = 3;
+    int32 minScore = 4; // 最小下注分数
+}
+
+// 看牌
+message JinhuaLookCardAction {
+    repeated int32 cards = 1;
+}
+
+// 下注
+message JinhuaBetScoreAction {
+    int32 score = 1;
+}
+
+// 比牌
+message JinhuaCompare {
+    int32 compareId = 1; //要比牌的人
+    bool win = 2;
+    int32 score = 3;
+}
+
+//单局结算
+message JinhuaPlayerOneSetResult {
+    repeated JinhuaSettlePlayerInfo players = 1;
+}
+
+message JinhuaSettlePlayerInfo {
+    int32 playerId = 1;
+    repeated int32 card = 2;
+    int32 totalScore = 3; // 总输赢分数
+    int32 score = 4; // 当局分数
+    int32 cardType = 5; // 牌型
+}
+
+//  重连玩家数据
+message JinhuaReEnterPlayerInfo {
+    int32 playerId = 1;
+    repeated int32 cards = 2;
+}
+
+message JinhuaRecordContent {
+    int32 banker = 1;
+    repeated RecordPlayerContent playerContent = 2;
+    int32 gameRules = 3;
+    message RecordPlayerContent {
+        int32 playerId = 1;
+        repeated int32 cards = 2;
+    }
+}
