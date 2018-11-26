@@ -1,4 +1,5 @@
 # coding=utf-8
+import threading
 import time
 from decimal import Decimal
 
@@ -6,6 +7,7 @@ import core.globalvar as gl
 from data.database import data_account
 from game.jinhua.mode.game_status import GameStatus
 from game.jinhua.mode.jinhua_seat import JinhuaSeat
+from game.jinhua.timeout import ready_timeout
 from protocol.base.base_pb2 import GAME_SVR_MATCH
 from protocol.base.game_base_pb2 import RecMatchGame
 from protocol.service.match_pb2 import ReqApplyEnterMatch
@@ -36,7 +38,7 @@ def execute(userId, message, messageHandle, room):
 
     messageHandle.send_to_gateway(GAME_SVR_MATCH, recMatchGame)
 
-    if room.getWatchSeatByUserId(userId) is None:
+    if room.getSeatByUserId(userId) is None:
         jinhuaSeat = JinhuaSeat()
         jinhuaSeat.seatNo = room.seatNos[0]
         room.seatNos.remove(room.seatNos[0])
@@ -57,7 +59,12 @@ def execute(userId, message, messageHandle, room):
         jinhuaSeat.intoDate = int(time.time())
         jinhuaSeat.guanzhan = room.gameStatus == GameStatus.PLAYING
         room.seats.append(jinhuaSeat)
-    #TODO 准备超时
+
+        t = threading.Thread(target=ready_timeout.execute,
+                             args=(room.gameCount, room.roomNo, messageHandle, userId, jinhuaSeat.intoDate),
+                             name='ready_timeout')  # 线程对象.
+        t.start()
+
     room.recUpdateGameInfo(messageHandle)
     room.recUpdateScore(messageHandle, 0)
     if room.gameStatus == GameStatus.PLAYING:

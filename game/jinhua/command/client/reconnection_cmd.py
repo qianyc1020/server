@@ -22,7 +22,6 @@ def execute(userId, message, messageHandle):
             room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
             seat = room.getSeatByUserId(userId)
             if seat is not None:
-                redis.setobj("room_" + str(roomNo), room)
                 recReEnterGame = RecReEnterGame()
                 recReEnterGame.gameState = room.gameStatus
                 recReEnterGame.state = True
@@ -34,8 +33,6 @@ def execute(userId, message, messageHandle):
 
                 if room.gameStatus != GameStatus.WAITING:
                     room.recReEnterGameInfo(messageHandle, userId)
-
-                redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

@@ -36,7 +36,7 @@ def execute(userId, message, messageHandle):
                     redis.unlock("lockroom_" + str(roomNo))
                     return
                 room.playScore(seat, betScoreAction, messageHandle)
-            redis.setobj("room_" + str(roomNo), room)
+                redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

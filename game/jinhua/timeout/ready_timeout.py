@@ -5,8 +5,8 @@ import core.globalvar as gl
 from game.jinhua.mode.game_status import GameStatus
 
 
-def execute(roomNo, messageHandle, userId, gameCount, round):
-    time.sleep(60)
+def execute(round, roomNo, messageHandle, userId, intoDate):
+    time.sleep(15)
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
@@ -14,10 +14,10 @@ def execute(roomNo, messageHandle, userId, gameCount, round):
         try:
             from game.jinhua.mode.jinhua_room import JinhuaRoom
             room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
-            if room.gameCount == gameCount and room.gameStatus == GameStatus.PLAYING:
+            if room.gameCount == round and room.gameStatus != GameStatus.PLAYING:
                 seat = room.getSeatByUserId(userId)
-                if not seat.end and seat.round == round:
-                    room.abandon(messageHandle, seat)
+                if seat is not None and not seat.ready and seat.intoDate == intoDate:
+                    room.exit(userId, messageHandle)
                     redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()

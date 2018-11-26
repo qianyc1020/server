@@ -2,10 +2,7 @@
 import traceback
 
 import core.globalvar as gl
-from game.hongbao.command.game import dealcard_cmd
-from game.hongbao.mode.game_status import GameStatus
 from game.hongbao.mode.hongbao_room import HongbaoRoom
-from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 from protocol.game.hongbao_pb2 import BaiRenHongbaoScore
 
 

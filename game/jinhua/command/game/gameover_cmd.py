@@ -1,8 +1,10 @@
 # coding=utf-8
+import threading
 import time
 
 from game.jinhua.mode.game_status import GameStatus
 from game.jinhua.server.command import record_cmd
+from game.jinhua.timeout import ready_timeout
 from protocol.base.base_pb2 import SETTLE_GAME
 from protocol.base.game_base_pb2 import RecSettleSingle
 from protocol.game.jinhua_pb2 import JinhuaPlayerOneSetResult
@@ -54,4 +56,8 @@ def execute(room, messageHandle, wins):
         if len(wins) != 0:
             room.banker = wins[0].userId
         room.gameCount += 1
-        # TODO 准备超时
+        for seat in room.seats:
+            t = threading.Thread(target=ready_timeout.execute,
+                                 args=(room.gameCount, room.roomNo, messageHandle, seat.userId, seat.intoDate),
+                                 name='ready_timeout')  # 线程对象.
+            t.start()

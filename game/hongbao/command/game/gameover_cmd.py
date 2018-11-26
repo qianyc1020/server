@@ -102,7 +102,7 @@ def execute(room, messageHandle):
             room.clear()
             room.gameCount += 1
             t = threading.Thread(target=start_timeout.execute, args=(room.roomNo, messageHandle,),
-                                 name='handle')  # 线程对象.
+                                 name='start_timeout')  # 线程对象.
             t.start()
         else:
             roomover_cmd.execute(room, messageHandle)

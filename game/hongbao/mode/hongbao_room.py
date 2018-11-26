@@ -261,7 +261,7 @@ class HongbaoRoom(Room):
         self.executeAsk(messageHandle, 0, 2)
 
         t = threading.Thread(target=qiang_timeout.execute, args=(self.roomNo, self.gameCount, messageHandle,),
-                             name='handle')  # 线程对象.
+                             name='qiang_timeout')  # 线程对象.
         t.start()
 
         hongbaolist = []

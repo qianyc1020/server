@@ -16,7 +16,7 @@ def execute(room, messageHandle):
             room.gameStatus = GameStatus.PLAYING
 
             t = threading.Thread(target=selnum_timeout.execute, args=(room.roomNo, room.gameCount, messageHandle,),
-                                 name='handle')  # 线程对象.
+                                 name='selnum_timeout')  # 线程对象.
             t.start()
             gl.get_v("serverlogger").logger.info("开始下注")
     except:

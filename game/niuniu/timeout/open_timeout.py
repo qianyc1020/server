@@ -2,7 +2,6 @@ import time
 import traceback
 
 import core.globalvar as gl
-from game.niuniu.command.game import gameover_cmd
 from game.niuniu.mode.game_status import GameStatus
 from game.niuniu.mode.niuniu_room import NiuniuRoom
 
@@ -18,7 +17,7 @@ def execute(roomNo, round, messageHandle):
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING:
                 room.executeAction(0, 5, None, messageHandle)
                 room.opencard = True
-            redis.setobj("room_" + str(roomNo), room)
+                redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

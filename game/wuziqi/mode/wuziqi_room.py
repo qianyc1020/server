@@ -127,7 +127,6 @@ class WuziqiRoom(Room):
             seat = self.getSeatByUserId(userId)
             if seat is not None:
                 while seat is not None:
-                    inseat = True
                     self.seatNos.append(seat.seatNo)
                     self.seats.remove(seat)
                     seat = self.getSeatByUserId(userId)

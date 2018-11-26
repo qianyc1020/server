@@ -76,8 +76,6 @@ def execute(userId, message, messageHandle):
                                     0 if userId not in position.playScores else position.playScores[userId])
                             messageHandle.send_to_gateway(SELF_PLAYED, score)
                         room.executeAsk(messageHandle, userId, 1)
-
-                redis.setobj("room_" + str(roomNo), room)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

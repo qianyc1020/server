@@ -184,8 +184,8 @@ class JinhuaRoom(Room):
             roundAction.actionTime = 60
 
             t = threading.Thread(target=play_timeout.execute,
-                                 args=(self.roomNo, messageHandle, operation.userId, operation.round),
-                                 name='handle')  # 线程对象.
+                                 args=(self.roomNo, messageHandle, operation.userId, self.gameCount, operation.round),
+                                 name='play_timeout')  # 线程对象.
             t.start()
             messageHandle.broadcast_seat_to_gateway(ROUND_ACTION, roundAction, self)
         else:
@@ -211,6 +211,7 @@ class JinhuaRoom(Room):
         seat = self.getSeatByUserId(userId)
         if seat is not None and (seat.guanzhan or self.gameStatus == GameStatus.WAITING):
             while seat is not None:
+                self.seatNos.append(seat.seatNo)
                 self.seats.remove(seat)
                 seat = self.getSeatByUserId(userId)
             redis = gl.get_v("redis")
