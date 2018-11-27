@@ -5,7 +5,7 @@ import traceback
 from core import config
 from data.database import mysql_connection, data_account
 from mode.base.record import Record
-from protocol.base.base_pb2 import RecMatchRecordInfo
+from protocol.service.match_pb2 import RecMatchRecordInfo
 
 
 def create_record(id, alloc_id, room_no, game, players, scores, time):
@@ -25,16 +25,18 @@ def create_record(id, alloc_id, room_no, game, players, scores, time):
             connection.close()
 
 
-def get_records(allocId, __userId):
+def get_records(allocIds, __userId):
     connection = None
     recMatchRecordInfo = RecMatchRecordInfo()
-    recMatchRecordInfo.allocId = allocId
     try:
         connection = mysql_connection.get_conn()
         records = []
         ps = []
         t = int(time.time())
-        sql = config.get("sql", "sql_get_record") % (str((t - 259200) * 1000000), allocId, "%" + str(__userId) + "%")
+        in_p = ""
+        for a in allocIds:
+            in_p += "," + str(a)
+        sql = config.get("sql", "sql_get_record") % (str((t - 259200) * 1000000), "%" + str(__userId) + "%", in_p[1:])
         with connection.cursor() as cursor:
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -48,15 +50,16 @@ def get_records(allocId, __userId):
                 a.time = r["time"]
                 records.append(a)
                 playes = a.players.split(",")
-                for p in  playes:
+                for p in playes:
                     if p not in ps:
                         ps.append(p)
         if len(ps) > 0:
             accounts = data_account.query_account_by_ids(connection, ps)
 
             for r in records:
-                recordInfos = recMatchRecordInfo.recordInfos.add()
+                recordInfos = recMatchRecordInfo.matchRecords.add()
                 recordInfos.recordId = r.id
+                recordInfos.allocId = r.alloc_id
                 recordInfos.playTime = r.time
                 recordInfos.gameId = int(r.roomNo)
 

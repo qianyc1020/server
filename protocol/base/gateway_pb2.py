@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x12\x62\x61se/gateway.proto\".\n\x0eGateWayMessage\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x42 \n\x1a\x63om.cmsy.majong.mode.protoH\x03P\x00\x62\x06proto3')
+        '\n\x12\x62\x61se/gateway.proto\".\n\x0eGateWayMessage\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x42\x02H\x03\x62\x06proto3')
 )
 
 _GATEWAYMESSAGE = _descriptor.Descriptor(
@@ -70,6 +70,5 @@ GateWayMessage = _reflection.GeneratedProtocolMessageType('GateWayMessage', (_me
 _sym_db.RegisterMessage(GateWayMessage)
 
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(),
-                                                _b('\n\032com.cmsy.majong.mode.protoH\003P\000'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003'))
 # @@protoc_insertion_point(module_scope)

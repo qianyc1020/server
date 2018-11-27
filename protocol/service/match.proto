@@ -3,25 +3,23 @@ syntax = "proto3";
 package mahjong;
 
 option optimize_for = LITE_RUNTIME;
-option csharp_namespace = "ChuangMi.Match.V1";
-option go_package = "message/match;match";
 
 message ReqApplyEnterMatch {
-	int32		allocId 	= 1;
-	int32		level		= 2;		//低级 中级 高级 等
-	int32		reject		= 3;		//拒绝的游戏ID
-	int32		type 		= 4;		//0 即时进入，1 人满进入
+    int32 allocId = 1;
+    int32 level = 2; //低级 中级 高级 等
+    int32 reject = 3; //拒绝的游戏ID
+    int32 type = 4; //0 即时进入，1 人满进入
 }
 
 message RecApplyEnterMatch {
 
-	enum EnterState {
-		SUCCESS 	= 0;
-		FAILD		= 1;
-		ALREADY		= 2;
-	}
+    enum EnterState {
+        SUCCESS = 0;
+        FAILD = 1;
+        ALREADY = 2;
+    }
 
-	EnterState		state = 1;
+    EnterState state = 1;
 }
 
 message ReqApplyLeaveMatch {
@@ -30,26 +28,61 @@ message ReqApplyLeaveMatch {
 
 message RecApplyLeaveMatch {
 
-	enum LeaveState {
-		SUCCESS 	= 0;
-		FAILD		= 1;
-	}
+    enum LeaveState {
+        SUCCESS = 0;
+        FAILD = 1;
+    }
 
-	LeaveState		state = 1;
+    LeaveState state = 1;
 }
 
 //客户端请求当前匹配系统的信息
 message ReqUpdateMatchInfo {
-	int32		allocId 		= 1;
-	int32		level		= 2;
+    message MatchInfo {
+        int32 allocId = 1;
+        int32 level = 2;
+    }
+
+    repeated MatchInfo infos = 1;
 }
 
 //更新匹配系统的信息
 message RecUpdateMatchInfo {
-	int32		allocId 		= 1;
-	int32		games			= 2;		//当有拥有的游戏数量
-	int32		players			= 3;		//队列中的玩家数量
-	int32		totalPlayers 	= 4;		//allocId对应的所有玩家
-	int32		level			= 5;
+    message MatchInfo {
+        int32 allocId = 1;
+        int32 level = 2;
+        int32 games = 3; //当有拥有的游戏数量
+        int32 players = 4; //队列中的玩家数量
+        int32 totalPlayers = 5; //allocId对应的所有玩家
+    }
+    //---新协议---
+    repeated MatchInfo infos = 6;
 }
 
+//匹配场战绩详情
+message ReqMatchRecordInfo {
+    repeated int32 allocIds = 2;
+}
+
+//匹配场战绩详情
+message RecMatchRecordInfo {
+    int32 state = 1;
+    repeated UGameRecordInfo matchRecords = 2;
+}
+
+message UGameRecordInfo {
+    string recordId = 1;
+    int32 allocId = 2;
+    int32 gameId = 3;
+    int32 teahouseId = 4;
+    int32 lookId = 5;
+    int32 playTime = 6;
+    repeated URecordPlayer playerDatas = 7;
+    bytes content = 8;
+}
+
+message URecordPlayer {
+    int32 playerId = 1;
+    string nick = 2; //玩家昵称
+    int32 score = 3; //分数
+}

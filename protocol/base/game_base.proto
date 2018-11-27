@@ -1,9 +1,6 @@
 syntax = "proto3";
 
-//package mahjong;
-
 option optimize_for = LITE_RUNTIME;
-option csharp_namespace = "ChuangMi.GameBase.V1";
 
 //游戏服协议消息头增加在base NetMessage Opcode枚举下增加
 

@@ -2,1690 +2,1651 @@
 # source: base/game_base.proto
 
 import sys
-_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+
+_b = sys.version_info[0] < 3 and (lambda x: x) or (lambda x: x.encode('latin1'))
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf import descriptor_pb2
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-
-
-
 DESCRIPTOR = _descriptor.FileDescriptor(
-  name='base/game_base.proto',
-  package='',
-  syntax='proto3',
-  serialized_pb=_b('\n\x14\x62\x61se/game_base.proto\"\x1d\n\x0bReqExitGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\"\x1c\n\x0bRecExitGame\x12\r\n\x05state\x18\x01 \x01(\x05\"\xf4\x02\n\x12RecUpdateGameUsers\x12+\n\x05users\x18\x01 \x03(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x1a\xb0\x02\n\x08UserInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07\x61\x63\x63ount\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0f\n\x07headUrl\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x0e\n\x06praise\x18\x06 \x01(\x05\x12\r\n\x05tread\x18\x07 \x01(\x05\x12\n\n\x02ip\x18\x08 \x01(\t\x12\r\n\x05ready\x18\t \x01(\x08\x12\r\n\x05score\x18\n \x01(\x05\x12\x0e\n\x06\x62\x61nker\x18\x0b \x01(\x08\x12\x0b\n\x03loc\x18\x0c \x01(\x05\x12\x12\n\ncreateTime\x18\r \x01(\x05\x12\x12\n\ntotalCount\x18\x0e \x01(\x05\x12\x0e\n\x06online\x18\x0f \x01(\x08\x12\x10\n\x08guanzhan\x18\x10 \x01(\x08\x12\x12\n\nconsumeVip\x18\x11 \x01(\x05\x12\x11\n\tintroduce\x18\x12 \x01(\t\"\x1d\n\x0cReqReadyGame\x12\r\n\x05ready\x18\x01 \x01(\x08\"e\n\x0cRecReadyGame\x12&\n\x04list\x18\x01 \x03(\x0b\x32\x18.RecReadyGame.ReadyState\x1a-\n\nReadyState\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05ready\x18\x02 \x01(\x08\"/\n\x0cRecStartGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"W\n\x0fRecSettleSingle\x12\x0c\n\x04time\x18\x01 \x01(\x05\x12\x14\n\x0c\x63urPlayCount\x18\x02 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\" \n\x0eReqReEnterGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\"H\n\x0eRecReEnterGame\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x11\n\tgameState\x18\x02 \x01(\x05\x12\x14\n\x0c\x63urPlayCount\x18\x03 \x01(\x05\"s\n\x12RecReEnterGameInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\x13\n\x0bplayerInfos\x18\x03 \x03(\x0c\x12&\n\x0b\x61\x63tionInfos\x18\x04 \x03(\x0b\x32\x11.RecExecuteAction\"H\n\x11RecUpdateGameInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\x11\n\tmaxPlayer\x18\x03 \x01(\x05\".\n\x0bRecGameOver\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"0\n\rReqClientAnim\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"0\n\rRecClientAnim\x12\x1f\n\x07\x63lients\x18\x01 \x03(\x0b\x32\x0e.ReqClientAnim\"\"\n\x0eReqDismissGame\x12\x10\n\x08playerId\x18\x01 \x01(\x05\"5\n\x0eRecDismissGame\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x11\n\tcountDown\x18\x02 \x01(\x05\"6\n\x13ReqReplyDismissGame\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"&\n\x15ReqUpdatePlayerOnline\x12\r\n\x05state\x18\x01 \x01(\x08\"8\n\x15RecUpdatePlayerOnline\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"\x88\x01\n\x11RecFinalSetResult\x12\x10\n\x08\x62\x61nkerId\x18\x01 \x01(\x05\x12\x12\n\nstartAgain\x18\x02 \x01(\x05\x12\x14\n\x0c\x63urPlayCount\x18\x03 \x01(\x05\x12\x14\n\x0cmaxPlayCount\x18\x04 \x01(\x05\x12\x13\n\x0bplayerDatas\x18\x05 \x03(\x0c\x12\x0c\n\x04time\x18\x06 \x01(\x05\"\'\n\x10RecUpdatePlayLog\x12\x13\n\x0bplayerDatas\x18\x01 \x03(\x0c\"F\n\x0eRecRoundAction\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x10\n\x08playerId\x18\x02 \x01(\x05\x12\x12\n\nactionTime\x18\x03 \x01(\x05\"D\n\x0cRecAskAction\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x10\n\x08isAction\x18\x02 \x01(\x08\x12\x12\n\nactionTime\x18\x03 \x01(\x05\"A\n\rReqSendAction\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x12\n\nactionType\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\"F\n\x10RecExecuteAction\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x12\n\nactionType\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\"*\n\rReqPlayerChat\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x0b\n\x03msg\x18\x02 \x01(\t\"<\n\rRecPlayerChat\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0b\n\x03msg\x18\x03 \x01(\t\"5\n\x0eReqPlayerVoice\x12\x10\n\x08\x63hannels\x18\x01 \x01(\x05\x12\x11\n\tvoiceData\x18\x02 \x01(\x0c\"G\n\x0eRecPlayerVoice\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x10\n\x08\x63hannels\x18\x02 \x01(\x05\x12\x11\n\tvoiceData\x18\x03 \x01(\x0c\"\x1d\n\nReqGpsInfo\x12\x0f\n\x07gpsInfo\x18\x01 \x01(\t\"p\n\nRecGpsInfo\x12.\n\x0bplayerInfos\x18\x01 \x03(\x0b\x32\x19.RecGpsInfo.GpsPlayerInfo\x1a\x32\n\rGpsPlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07gpsInfo\x18\x02 \x01(\t\"C\n\x18ReqGamePlayerInteraction\x12\x10\n\x08targetId\x18\x01 \x01(\x05\x12\x15\n\rinteractionId\x18\x02 \x01(\x05\"U\n\x18RecGamePlayerInteraction\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x10\n\x08targetId\x18\x02 \x01(\x05\x12\x15\n\rinteractionId\x18\x03 \x01(\x05\"\x1f\n\x10ReqSendClientLog\x12\x0b\n\x03log\x18\x01 \x01(\t\"4\n\x13RecApplyChangeMatch\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"/\n\x10RecCardNotEnough\x12\x0c\n\x04gold\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"=\n\x0cRecMatchGame\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05\x42\x19H\x03\xaa\x02\x14\x43huangMi.GameBase.V1b\x06proto3')
+    name='base/game_base.proto',
+    package='',
+    syntax='proto3',
+    serialized_pb=_b(
+        '\n\x14\x62\x61se/game_base.proto\"\x1d\n\x0bReqExitGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\"\x1c\n\x0bRecExitGame\x12\r\n\x05state\x18\x01 \x01(\x05\"\xf4\x02\n\x12RecUpdateGameUsers\x12+\n\x05users\x18\x01 \x03(\x0b\x32\x1c.RecUpdateGameUsers.UserInfo\x1a\xb0\x02\n\x08UserInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07\x61\x63\x63ount\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0f\n\x07headUrl\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x0e\n\x06praise\x18\x06 \x01(\x05\x12\r\n\x05tread\x18\x07 \x01(\x05\x12\n\n\x02ip\x18\x08 \x01(\t\x12\r\n\x05ready\x18\t \x01(\x08\x12\r\n\x05score\x18\n \x01(\x05\x12\x0e\n\x06\x62\x61nker\x18\x0b \x01(\x08\x12\x0b\n\x03loc\x18\x0c \x01(\x05\x12\x12\n\ncreateTime\x18\r \x01(\x05\x12\x12\n\ntotalCount\x18\x0e \x01(\x05\x12\x0e\n\x06online\x18\x0f \x01(\x08\x12\x10\n\x08guanzhan\x18\x10 \x01(\x08\x12\x12\n\nconsumeVip\x18\x11 \x01(\x05\x12\x11\n\tintroduce\x18\x12 \x01(\t\"\x1d\n\x0cReqReadyGame\x12\r\n\x05ready\x18\x01 \x01(\x08\"e\n\x0cRecReadyGame\x12&\n\x04list\x18\x01 \x03(\x0b\x32\x18.RecReadyGame.ReadyState\x1a-\n\nReadyState\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05ready\x18\x02 \x01(\x08\"/\n\x0cRecStartGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"W\n\x0fRecSettleSingle\x12\x0c\n\x04time\x18\x01 \x01(\x05\x12\x14\n\x0c\x63urPlayCount\x18\x02 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\" \n\x0eReqReEnterGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\"H\n\x0eRecReEnterGame\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x11\n\tgameState\x18\x02 \x01(\x05\x12\x14\n\x0c\x63urPlayCount\x18\x03 \x01(\x05\"s\n\x12RecReEnterGameInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\x13\n\x0bplayerInfos\x18\x03 \x03(\x0c\x12&\n\x0b\x61\x63tionInfos\x18\x04 \x03(\x0b\x32\x11.RecExecuteAction\"H\n\x11RecUpdateGameInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\x11\n\tmaxPlayer\x18\x03 \x01(\x05\".\n\x0bRecGameOver\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"0\n\rReqClientAnim\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"0\n\rRecClientAnim\x12\x1f\n\x07\x63lients\x18\x01 \x03(\x0b\x32\x0e.ReqClientAnim\"\"\n\x0eReqDismissGame\x12\x10\n\x08playerId\x18\x01 \x01(\x05\"5\n\x0eRecDismissGame\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x11\n\tcountDown\x18\x02 \x01(\x05\"6\n\x13ReqReplyDismissGame\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"&\n\x15ReqUpdatePlayerOnline\x12\r\n\x05state\x18\x01 \x01(\x08\"8\n\x15RecUpdatePlayerOnline\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"\x88\x01\n\x11RecFinalSetResult\x12\x10\n\x08\x62\x61nkerId\x18\x01 \x01(\x05\x12\x12\n\nstartAgain\x18\x02 \x01(\x05\x12\x14\n\x0c\x63urPlayCount\x18\x03 \x01(\x05\x12\x14\n\x0cmaxPlayCount\x18\x04 \x01(\x05\x12\x13\n\x0bplayerDatas\x18\x05 \x03(\x0c\x12\x0c\n\x04time\x18\x06 \x01(\x05\"\'\n\x10RecUpdatePlayLog\x12\x13\n\x0bplayerDatas\x18\x01 \x03(\x0c\"F\n\x0eRecRoundAction\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x10\n\x08playerId\x18\x02 \x01(\x05\x12\x12\n\nactionTime\x18\x03 \x01(\x05\"D\n\x0cRecAskAction\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x10\n\x08isAction\x18\x02 \x01(\x08\x12\x12\n\nactionTime\x18\x03 \x01(\x05\"A\n\rReqSendAction\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x12\n\nactionType\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\"F\n\x10RecExecuteAction\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x12\n\nactionType\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\"*\n\rReqPlayerChat\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x0b\n\x03msg\x18\x02 \x01(\t\"<\n\rRecPlayerChat\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0b\n\x03msg\x18\x03 \x01(\t\"5\n\x0eReqPlayerVoice\x12\x10\n\x08\x63hannels\x18\x01 \x01(\x05\x12\x11\n\tvoiceData\x18\x02 \x01(\x0c\"G\n\x0eRecPlayerVoice\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x10\n\x08\x63hannels\x18\x02 \x01(\x05\x12\x11\n\tvoiceData\x18\x03 \x01(\x0c\"\x1d\n\nReqGpsInfo\x12\x0f\n\x07gpsInfo\x18\x01 \x01(\t\"p\n\nRecGpsInfo\x12.\n\x0bplayerInfos\x18\x01 \x03(\x0b\x32\x19.RecGpsInfo.GpsPlayerInfo\x1a\x32\n\rGpsPlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07gpsInfo\x18\x02 \x01(\t\"C\n\x18ReqGamePlayerInteraction\x12\x10\n\x08targetId\x18\x01 \x01(\x05\x12\x15\n\rinteractionId\x18\x02 \x01(\x05\"U\n\x18RecGamePlayerInteraction\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x10\n\x08targetId\x18\x02 \x01(\x05\x12\x15\n\rinteractionId\x18\x03 \x01(\x05\"\x1f\n\x10ReqSendClientLog\x12\x0b\n\x03log\x18\x01 \x01(\t\"4\n\x13RecApplyChangeMatch\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"/\n\x10RecCardNotEnough\x12\x0c\n\x04gold\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\"=\n\x0cRecMatchGame\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05\x42\x02H\x03\x62\x06proto3')
 )
-
-
-
 
 _REQEXITGAME = _descriptor.Descriptor(
-  name='ReqExitGame',
-  full_name='ReqExitGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='ReqExitGame.gameId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=24,
-  serialized_end=53,
+    name='ReqExitGame',
+    full_name='ReqExitGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='ReqExitGame.gameId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=24,
+    serialized_end=53,
 )
-
 
 _RECEXITGAME = _descriptor.Descriptor(
-  name='RecExitGame',
-  full_name='RecExitGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='RecExitGame.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=55,
-  serialized_end=83,
+    name='RecExitGame',
+    full_name='RecExitGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='RecExitGame.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=55,
+    serialized_end=83,
 )
 
-
 _RECUPDATEGAMEUSERS_USERINFO = _descriptor.Descriptor(
-  name='UserInfo',
-  full_name='RecUpdateGameUsers.UserInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecUpdateGameUsers.UserInfo.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='account', full_name='RecUpdateGameUsers.UserInfo.account', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='RecUpdateGameUsers.UserInfo.nick', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='RecUpdateGameUsers.UserInfo.headUrl', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sex', full_name='RecUpdateGameUsers.UserInfo.sex', index=4,
-      number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='praise', full_name='RecUpdateGameUsers.UserInfo.praise', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tread', full_name='RecUpdateGameUsers.UserInfo.tread', index=6,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ip', full_name='RecUpdateGameUsers.UserInfo.ip', index=7,
-      number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ready', full_name='RecUpdateGameUsers.UserInfo.ready', index=8,
-      number=9, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='score', full_name='RecUpdateGameUsers.UserInfo.score', index=9,
-      number=10, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='banker', full_name='RecUpdateGameUsers.UserInfo.banker', index=10,
-      number=11, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='loc', full_name='RecUpdateGameUsers.UserInfo.loc', index=11,
-      number=12, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='createTime', full_name='RecUpdateGameUsers.UserInfo.createTime', index=12,
-      number=13, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='totalCount', full_name='RecUpdateGameUsers.UserInfo.totalCount', index=13,
-      number=14, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='online', full_name='RecUpdateGameUsers.UserInfo.online', index=14,
-      number=15, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='guanzhan', full_name='RecUpdateGameUsers.UserInfo.guanzhan', index=15,
-      number=16, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='consumeVip', full_name='RecUpdateGameUsers.UserInfo.consumeVip', index=16,
-      number=17, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='introduce', full_name='RecUpdateGameUsers.UserInfo.introduce', index=17,
-      number=18, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=154,
-  serialized_end=458,
+    name='UserInfo',
+    full_name='RecUpdateGameUsers.UserInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecUpdateGameUsers.UserInfo.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='account', full_name='RecUpdateGameUsers.UserInfo.account', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nick', full_name='RecUpdateGameUsers.UserInfo.nick', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='RecUpdateGameUsers.UserInfo.headUrl', index=3,
+            number=4, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='sex', full_name='RecUpdateGameUsers.UserInfo.sex', index=4,
+            number=5, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='praise', full_name='RecUpdateGameUsers.UserInfo.praise', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='tread', full_name='RecUpdateGameUsers.UserInfo.tread', index=6,
+            number=7, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='ip', full_name='RecUpdateGameUsers.UserInfo.ip', index=7,
+            number=8, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='ready', full_name='RecUpdateGameUsers.UserInfo.ready', index=8,
+            number=9, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='score', full_name='RecUpdateGameUsers.UserInfo.score', index=9,
+            number=10, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='banker', full_name='RecUpdateGameUsers.UserInfo.banker', index=10,
+            number=11, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='loc', full_name='RecUpdateGameUsers.UserInfo.loc', index=11,
+            number=12, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='createTime', full_name='RecUpdateGameUsers.UserInfo.createTime', index=12,
+            number=13, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='totalCount', full_name='RecUpdateGameUsers.UserInfo.totalCount', index=13,
+            number=14, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='online', full_name='RecUpdateGameUsers.UserInfo.online', index=14,
+            number=15, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='guanzhan', full_name='RecUpdateGameUsers.UserInfo.guanzhan', index=15,
+            number=16, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='consumeVip', full_name='RecUpdateGameUsers.UserInfo.consumeVip', index=16,
+            number=17, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='introduce', full_name='RecUpdateGameUsers.UserInfo.introduce', index=17,
+            number=18, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=154,
+    serialized_end=458,
 )
 
 _RECUPDATEGAMEUSERS = _descriptor.Descriptor(
-  name='RecUpdateGameUsers',
-  full_name='RecUpdateGameUsers',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='users', full_name='RecUpdateGameUsers.users', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECUPDATEGAMEUSERS_USERINFO, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=86,
-  serialized_end=458,
+    name='RecUpdateGameUsers',
+    full_name='RecUpdateGameUsers',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='users', full_name='RecUpdateGameUsers.users', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECUPDATEGAMEUSERS_USERINFO, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=86,
+    serialized_end=458,
 )
-
 
 _REQREADYGAME = _descriptor.Descriptor(
-  name='ReqReadyGame',
-  full_name='ReqReadyGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='ready', full_name='ReqReadyGame.ready', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=460,
-  serialized_end=489,
+    name='ReqReadyGame',
+    full_name='ReqReadyGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='ready', full_name='ReqReadyGame.ready', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=460,
+    serialized_end=489,
 )
 
-
 _RECREADYGAME_READYSTATE = _descriptor.Descriptor(
-  name='ReadyState',
-  full_name='RecReadyGame.ReadyState',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecReadyGame.ReadyState.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ready', full_name='RecReadyGame.ReadyState.ready', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=547,
-  serialized_end=592,
+    name='ReadyState',
+    full_name='RecReadyGame.ReadyState',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecReadyGame.ReadyState.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='ready', full_name='RecReadyGame.ReadyState.ready', index=1,
+            number=2, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=547,
+    serialized_end=592,
 )
 
 _RECREADYGAME = _descriptor.Descriptor(
-  name='RecReadyGame',
-  full_name='RecReadyGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='list', full_name='RecReadyGame.list', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECREADYGAME_READYSTATE, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=491,
-  serialized_end=592,
+    name='RecReadyGame',
+    full_name='RecReadyGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='list', full_name='RecReadyGame.list', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECREADYGAME_READYSTATE, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=491,
+    serialized_end=592,
 )
-
 
 _RECSTARTGAME = _descriptor.Descriptor(
-  name='RecStartGame',
-  full_name='RecStartGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='RecStartGame.gameId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='RecStartGame.content', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=594,
-  serialized_end=641,
+    name='RecStartGame',
+    full_name='RecStartGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='RecStartGame.gameId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='RecStartGame.content', index=1,
+            number=2, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=594,
+    serialized_end=641,
 )
-
 
 _RECSETTLESINGLE = _descriptor.Descriptor(
-  name='RecSettleSingle',
-  full_name='RecSettleSingle',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='time', full_name='RecSettleSingle.time', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='curPlayCount', full_name='RecSettleSingle.curPlayCount', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='RecSettleSingle.allocId', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='RecSettleSingle.content', index=3,
-      number=4, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=643,
-  serialized_end=730,
+    name='RecSettleSingle',
+    full_name='RecSettleSingle',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='time', full_name='RecSettleSingle.time', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='curPlayCount', full_name='RecSettleSingle.curPlayCount', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='RecSettleSingle.allocId', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='RecSettleSingle.content', index=3,
+            number=4, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=643,
+    serialized_end=730,
 )
-
 
 _REQREENTERGAME = _descriptor.Descriptor(
-  name='ReqReEnterGame',
-  full_name='ReqReEnterGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='ReqReEnterGame.gameId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=732,
-  serialized_end=764,
+    name='ReqReEnterGame',
+    full_name='ReqReEnterGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='ReqReEnterGame.gameId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=732,
+    serialized_end=764,
 )
-
 
 _RECREENTERGAME = _descriptor.Descriptor(
-  name='RecReEnterGame',
-  full_name='RecReEnterGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='RecReEnterGame.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameState', full_name='RecReEnterGame.gameState', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='curPlayCount', full_name='RecReEnterGame.curPlayCount', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=766,
-  serialized_end=838,
+    name='RecReEnterGame',
+    full_name='RecReEnterGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='RecReEnterGame.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameState', full_name='RecReEnterGame.gameState', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='curPlayCount', full_name='RecReEnterGame.curPlayCount', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=766,
+    serialized_end=838,
 )
-
 
 _RECREENTERGAMEINFO = _descriptor.Descriptor(
-  name='RecReEnterGameInfo',
-  full_name='RecReEnterGameInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='RecReEnterGameInfo.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='RecReEnterGameInfo.content', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerInfos', full_name='RecReEnterGameInfo.playerInfos', index=2,
-      number=3, type=12, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='actionInfos', full_name='RecReEnterGameInfo.actionInfos', index=3,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=840,
-  serialized_end=955,
+    name='RecReEnterGameInfo',
+    full_name='RecReEnterGameInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='RecReEnterGameInfo.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='RecReEnterGameInfo.content', index=1,
+            number=2, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerInfos', full_name='RecReEnterGameInfo.playerInfos', index=2,
+            number=3, type=12, cpp_type=9, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='actionInfos', full_name='RecReEnterGameInfo.actionInfos', index=3,
+            number=4, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=840,
+    serialized_end=955,
 )
-
 
 _RECUPDATEGAMEINFO = _descriptor.Descriptor(
-  name='RecUpdateGameInfo',
-  full_name='RecUpdateGameInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='RecUpdateGameInfo.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='RecUpdateGameInfo.content', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='maxPlayer', full_name='RecUpdateGameInfo.maxPlayer', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=957,
-  serialized_end=1029,
+    name='RecUpdateGameInfo',
+    full_name='RecUpdateGameInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='RecUpdateGameInfo.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='RecUpdateGameInfo.content', index=1,
+            number=2, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='maxPlayer', full_name='RecUpdateGameInfo.maxPlayer', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=957,
+    serialized_end=1029,
 )
-
 
 _RECGAMEOVER = _descriptor.Descriptor(
-  name='RecGameOver',
-  full_name='RecGameOver',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='RecGameOver.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='RecGameOver.gameId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1031,
-  serialized_end=1077,
+    name='RecGameOver',
+    full_name='RecGameOver',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='RecGameOver.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='RecGameOver.gameId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1031,
+    serialized_end=1077,
 )
-
 
 _REQCLIENTANIM = _descriptor.Descriptor(
-  name='ReqClientAnim',
-  full_name='ReqClientAnim',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='ReqClientAnim.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='ReqClientAnim.state', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1079,
-  serialized_end=1127,
+    name='ReqClientAnim',
+    full_name='ReqClientAnim',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='ReqClientAnim.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='state', full_name='ReqClientAnim.state', index=1,
+            number=2, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1079,
+    serialized_end=1127,
 )
-
 
 _RECCLIENTANIM = _descriptor.Descriptor(
-  name='RecClientAnim',
-  full_name='RecClientAnim',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='clients', full_name='RecClientAnim.clients', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1129,
-  serialized_end=1177,
+    name='RecClientAnim',
+    full_name='RecClientAnim',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='clients', full_name='RecClientAnim.clients', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1129,
+    serialized_end=1177,
 )
-
 
 _REQDISMISSGAME = _descriptor.Descriptor(
-  name='ReqDismissGame',
-  full_name='ReqDismissGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='ReqDismissGame.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1179,
-  serialized_end=1213,
+    name='ReqDismissGame',
+    full_name='ReqDismissGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='ReqDismissGame.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1179,
+    serialized_end=1213,
 )
-
 
 _RECDISMISSGAME = _descriptor.Descriptor(
-  name='RecDismissGame',
-  full_name='RecDismissGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecDismissGame.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='countDown', full_name='RecDismissGame.countDown', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1215,
-  serialized_end=1268,
+    name='RecDismissGame',
+    full_name='RecDismissGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecDismissGame.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='countDown', full_name='RecDismissGame.countDown', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1215,
+    serialized_end=1268,
 )
-
 
 _REQREPLYDISMISSGAME = _descriptor.Descriptor(
-  name='ReqReplyDismissGame',
-  full_name='ReqReplyDismissGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='ReqReplyDismissGame.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='ReqReplyDismissGame.state', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1270,
-  serialized_end=1324,
+    name='ReqReplyDismissGame',
+    full_name='ReqReplyDismissGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='ReqReplyDismissGame.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='state', full_name='ReqReplyDismissGame.state', index=1,
+            number=2, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1270,
+    serialized_end=1324,
 )
-
 
 _REQUPDATEPLAYERONLINE = _descriptor.Descriptor(
-  name='ReqUpdatePlayerOnline',
-  full_name='ReqUpdatePlayerOnline',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='ReqUpdatePlayerOnline.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1326,
-  serialized_end=1364,
+    name='ReqUpdatePlayerOnline',
+    full_name='ReqUpdatePlayerOnline',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='ReqUpdatePlayerOnline.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1326,
+    serialized_end=1364,
 )
-
 
 _RECUPDATEPLAYERONLINE = _descriptor.Descriptor(
-  name='RecUpdatePlayerOnline',
-  full_name='RecUpdatePlayerOnline',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecUpdatePlayerOnline.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='RecUpdatePlayerOnline.state', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1366,
-  serialized_end=1422,
+    name='RecUpdatePlayerOnline',
+    full_name='RecUpdatePlayerOnline',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecUpdatePlayerOnline.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='state', full_name='RecUpdatePlayerOnline.state', index=1,
+            number=2, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1366,
+    serialized_end=1422,
 )
-
 
 _RECFINALSETRESULT = _descriptor.Descriptor(
-  name='RecFinalSetResult',
-  full_name='RecFinalSetResult',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='bankerId', full_name='RecFinalSetResult.bankerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='startAgain', full_name='RecFinalSetResult.startAgain', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='curPlayCount', full_name='RecFinalSetResult.curPlayCount', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='maxPlayCount', full_name='RecFinalSetResult.maxPlayCount', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerDatas', full_name='RecFinalSetResult.playerDatas', index=4,
-      number=5, type=12, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='time', full_name='RecFinalSetResult.time', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1425,
-  serialized_end=1561,
+    name='RecFinalSetResult',
+    full_name='RecFinalSetResult',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='bankerId', full_name='RecFinalSetResult.bankerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='startAgain', full_name='RecFinalSetResult.startAgain', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='curPlayCount', full_name='RecFinalSetResult.curPlayCount', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='maxPlayCount', full_name='RecFinalSetResult.maxPlayCount', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerDatas', full_name='RecFinalSetResult.playerDatas', index=4,
+            number=5, type=12, cpp_type=9, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='time', full_name='RecFinalSetResult.time', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1425,
+    serialized_end=1561,
 )
-
 
 _RECUPDATEPLAYLOG = _descriptor.Descriptor(
-  name='RecUpdatePlayLog',
-  full_name='RecUpdatePlayLog',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerDatas', full_name='RecUpdatePlayLog.playerDatas', index=0,
-      number=1, type=12, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1563,
-  serialized_end=1602,
+    name='RecUpdatePlayLog',
+    full_name='RecUpdatePlayLog',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerDatas', full_name='RecUpdatePlayLog.playerDatas', index=0,
+            number=1, type=12, cpp_type=9, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1563,
+    serialized_end=1602,
 )
-
 
 _RECROUNDACTION = _descriptor.Descriptor(
-  name='RecRoundAction',
-  full_name='RecRoundAction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='randId', full_name='RecRoundAction.randId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecRoundAction.playerId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='actionTime', full_name='RecRoundAction.actionTime', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1604,
-  serialized_end=1674,
+    name='RecRoundAction',
+    full_name='RecRoundAction',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='randId', full_name='RecRoundAction.randId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecRoundAction.playerId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='actionTime', full_name='RecRoundAction.actionTime', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1604,
+    serialized_end=1674,
 )
-
 
 _RECASKACTION = _descriptor.Descriptor(
-  name='RecAskAction',
-  full_name='RecAskAction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='randId', full_name='RecAskAction.randId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='isAction', full_name='RecAskAction.isAction', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='actionTime', full_name='RecAskAction.actionTime', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1676,
-  serialized_end=1744,
+    name='RecAskAction',
+    full_name='RecAskAction',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='randId', full_name='RecAskAction.randId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='isAction', full_name='RecAskAction.isAction', index=1,
+            number=2, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='actionTime', full_name='RecAskAction.actionTime', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1676,
+    serialized_end=1744,
 )
-
 
 _REQSENDACTION = _descriptor.Descriptor(
-  name='ReqSendAction',
-  full_name='ReqSendAction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='randId', full_name='ReqSendAction.randId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='actionType', full_name='ReqSendAction.actionType', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='ReqSendAction.data', index=2,
-      number=3, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1746,
-  serialized_end=1811,
+    name='ReqSendAction',
+    full_name='ReqSendAction',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='randId', full_name='ReqSendAction.randId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='actionType', full_name='ReqSendAction.actionType', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='data', full_name='ReqSendAction.data', index=2,
+            number=3, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1746,
+    serialized_end=1811,
 )
-
 
 _RECEXECUTEACTION = _descriptor.Descriptor(
-  name='RecExecuteAction',
-  full_name='RecExecuteAction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecExecuteAction.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='actionType', full_name='RecExecuteAction.actionType', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='RecExecuteAction.data', index=2,
-      number=3, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1813,
-  serialized_end=1883,
+    name='RecExecuteAction',
+    full_name='RecExecuteAction',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecExecuteAction.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='actionType', full_name='RecExecuteAction.actionType', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='data', full_name='RecExecuteAction.data', index=2,
+            number=3, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1813,
+    serialized_end=1883,
 )
-
 
 _REQPLAYERCHAT = _descriptor.Descriptor(
-  name='ReqPlayerChat',
-  full_name='ReqPlayerChat',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='type', full_name='ReqPlayerChat.type', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='msg', full_name='ReqPlayerChat.msg', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1885,
-  serialized_end=1927,
+    name='ReqPlayerChat',
+    full_name='ReqPlayerChat',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='type', full_name='ReqPlayerChat.type', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='msg', full_name='ReqPlayerChat.msg', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1885,
+    serialized_end=1927,
 )
-
 
 _RECPLAYERCHAT = _descriptor.Descriptor(
-  name='RecPlayerChat',
-  full_name='RecPlayerChat',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecPlayerChat.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='type', full_name='RecPlayerChat.type', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='msg', full_name='RecPlayerChat.msg', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1929,
-  serialized_end=1989,
+    name='RecPlayerChat',
+    full_name='RecPlayerChat',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecPlayerChat.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='type', full_name='RecPlayerChat.type', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='msg', full_name='RecPlayerChat.msg', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1929,
+    serialized_end=1989,
 )
-
 
 _REQPLAYERVOICE = _descriptor.Descriptor(
-  name='ReqPlayerVoice',
-  full_name='ReqPlayerVoice',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='channels', full_name='ReqPlayerVoice.channels', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='voiceData', full_name='ReqPlayerVoice.voiceData', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1991,
-  serialized_end=2044,
+    name='ReqPlayerVoice',
+    full_name='ReqPlayerVoice',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='channels', full_name='ReqPlayerVoice.channels', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='voiceData', full_name='ReqPlayerVoice.voiceData', index=1,
+            number=2, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1991,
+    serialized_end=2044,
 )
-
 
 _RECPLAYERVOICE = _descriptor.Descriptor(
-  name='RecPlayerVoice',
-  full_name='RecPlayerVoice',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecPlayerVoice.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='channels', full_name='RecPlayerVoice.channels', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='voiceData', full_name='RecPlayerVoice.voiceData', index=2,
-      number=3, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2046,
-  serialized_end=2117,
+    name='RecPlayerVoice',
+    full_name='RecPlayerVoice',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecPlayerVoice.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='channels', full_name='RecPlayerVoice.channels', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='voiceData', full_name='RecPlayerVoice.voiceData', index=2,
+            number=3, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2046,
+    serialized_end=2117,
 )
-
 
 _REQGPSINFO = _descriptor.Descriptor(
-  name='ReqGpsInfo',
-  full_name='ReqGpsInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gpsInfo', full_name='ReqGpsInfo.gpsInfo', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2119,
-  serialized_end=2148,
+    name='ReqGpsInfo',
+    full_name='ReqGpsInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gpsInfo', full_name='ReqGpsInfo.gpsInfo', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2119,
+    serialized_end=2148,
 )
 
-
 _RECGPSINFO_GPSPLAYERINFO = _descriptor.Descriptor(
-  name='GpsPlayerInfo',
-  full_name='RecGpsInfo.GpsPlayerInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecGpsInfo.GpsPlayerInfo.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gpsInfo', full_name='RecGpsInfo.GpsPlayerInfo.gpsInfo', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2212,
-  serialized_end=2262,
+    name='GpsPlayerInfo',
+    full_name='RecGpsInfo.GpsPlayerInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecGpsInfo.GpsPlayerInfo.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gpsInfo', full_name='RecGpsInfo.GpsPlayerInfo.gpsInfo', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2212,
+    serialized_end=2262,
 )
 
 _RECGPSINFO = _descriptor.Descriptor(
-  name='RecGpsInfo',
-  full_name='RecGpsInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerInfos', full_name='RecGpsInfo.playerInfos', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECGPSINFO_GPSPLAYERINFO, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2150,
-  serialized_end=2262,
+    name='RecGpsInfo',
+    full_name='RecGpsInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerInfos', full_name='RecGpsInfo.playerInfos', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECGPSINFO_GPSPLAYERINFO, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2150,
+    serialized_end=2262,
 )
-
 
 _REQGAMEPLAYERINTERACTION = _descriptor.Descriptor(
-  name='ReqGamePlayerInteraction',
-  full_name='ReqGamePlayerInteraction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='targetId', full_name='ReqGamePlayerInteraction.targetId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='interactionId', full_name='ReqGamePlayerInteraction.interactionId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2264,
-  serialized_end=2331,
+    name='ReqGamePlayerInteraction',
+    full_name='ReqGamePlayerInteraction',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='targetId', full_name='ReqGamePlayerInteraction.targetId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='interactionId', full_name='ReqGamePlayerInteraction.interactionId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2264,
+    serialized_end=2331,
 )
-
 
 _RECGAMEPLAYERINTERACTION = _descriptor.Descriptor(
-  name='RecGamePlayerInteraction',
-  full_name='RecGamePlayerInteraction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='RecGamePlayerInteraction.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='targetId', full_name='RecGamePlayerInteraction.targetId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='interactionId', full_name='RecGamePlayerInteraction.interactionId', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2333,
-  serialized_end=2418,
+    name='RecGamePlayerInteraction',
+    full_name='RecGamePlayerInteraction',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='RecGamePlayerInteraction.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='targetId', full_name='RecGamePlayerInteraction.targetId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='interactionId', full_name='RecGamePlayerInteraction.interactionId', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2333,
+    serialized_end=2418,
 )
-
 
 _REQSENDCLIENTLOG = _descriptor.Descriptor(
-  name='ReqSendClientLog',
-  full_name='ReqSendClientLog',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='log', full_name='ReqSendClientLog.log', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2420,
-  serialized_end=2451,
+    name='ReqSendClientLog',
+    full_name='ReqSendClientLog',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='log', full_name='ReqSendClientLog.log', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2420,
+    serialized_end=2451,
 )
-
 
 _RECAPPLYCHANGEMATCH = _descriptor.Descriptor(
-  name='RecApplyChangeMatch',
-  full_name='RecApplyChangeMatch',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='level', full_name='RecApplyChangeMatch.level', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='RecApplyChangeMatch.gameId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2453,
-  serialized_end=2505,
+    name='RecApplyChangeMatch',
+    full_name='RecApplyChangeMatch',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='level', full_name='RecApplyChangeMatch.level', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='RecApplyChangeMatch.gameId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2453,
+    serialized_end=2505,
 )
-
 
 _RECCARDNOTENOUGH = _descriptor.Descriptor(
-  name='RecCardNotEnough',
-  full_name='RecCardNotEnough',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='RecCardNotEnough.gold', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='RecCardNotEnough.state', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2507,
-  serialized_end=2554,
+    name='RecCardNotEnough',
+    full_name='RecCardNotEnough',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='RecCardNotEnough.gold', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='state', full_name='RecCardNotEnough.state', index=1,
+            number=2, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2507,
+    serialized_end=2554,
 )
 
-
 _RECMATCHGAME = _descriptor.Descriptor(
-  name='RecMatchGame',
-  full_name='RecMatchGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='RecMatchGame.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='RecMatchGame.allocId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='level', full_name='RecMatchGame.level', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2556,
-  serialized_end=2617,
+    name='RecMatchGame',
+    full_name='RecMatchGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='RecMatchGame.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='RecMatchGame.allocId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='level', full_name='RecMatchGame.level', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2556,
+    serialized_end=2617,
 )
 
 _RECUPDATEGAMEUSERS_USERINFO.containing_type = _RECUPDATEGAMEUSERS
@@ -1736,289 +1697,290 @@ DESCRIPTOR.message_types_by_name['RecMatchGame'] = _RECMATCHGAME
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ReqExitGame = _reflection.GeneratedProtocolMessageType('ReqExitGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQEXITGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqExitGame)
-  ))
+    DESCRIPTOR=_REQEXITGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqExitGame)
+))
 _sym_db.RegisterMessage(ReqExitGame)
 
 RecExitGame = _reflection.GeneratedProtocolMessageType('RecExitGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECEXITGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecExitGame)
-  ))
+    DESCRIPTOR=_RECEXITGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecExitGame)
+))
 _sym_db.RegisterMessage(RecExitGame)
 
 RecUpdateGameUsers = _reflection.GeneratedProtocolMessageType('RecUpdateGameUsers', (_message.Message,), dict(
 
-  UserInfo = _reflection.GeneratedProtocolMessageType('UserInfo', (_message.Message,), dict(
-    DESCRIPTOR = _RECUPDATEGAMEUSERS_USERINFO,
-    __module__ = 'base.game_base_pb2'
-    # @@protoc_insertion_point(class_scope:RecUpdateGameUsers.UserInfo)
+    UserInfo=_reflection.GeneratedProtocolMessageType('UserInfo', (_message.Message,), dict(
+        DESCRIPTOR=_RECUPDATEGAMEUSERS_USERINFO,
+        __module__='base.game_base_pb2'
+        # @@protoc_insertion_point(class_scope:RecUpdateGameUsers.UserInfo)
     ))
-  ,
-  DESCRIPTOR = _RECUPDATEGAMEUSERS,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecUpdateGameUsers)
-  ))
+    ,
+    DESCRIPTOR=_RECUPDATEGAMEUSERS,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecUpdateGameUsers)
+))
 _sym_db.RegisterMessage(RecUpdateGameUsers)
 _sym_db.RegisterMessage(RecUpdateGameUsers.UserInfo)
 
 ReqReadyGame = _reflection.GeneratedProtocolMessageType('ReqReadyGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQREADYGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqReadyGame)
-  ))
+    DESCRIPTOR=_REQREADYGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqReadyGame)
+))
 _sym_db.RegisterMessage(ReqReadyGame)
 
 RecReadyGame = _reflection.GeneratedProtocolMessageType('RecReadyGame', (_message.Message,), dict(
 
-  ReadyState = _reflection.GeneratedProtocolMessageType('ReadyState', (_message.Message,), dict(
-    DESCRIPTOR = _RECREADYGAME_READYSTATE,
-    __module__ = 'base.game_base_pb2'
-    # @@protoc_insertion_point(class_scope:RecReadyGame.ReadyState)
+    ReadyState=_reflection.GeneratedProtocolMessageType('ReadyState', (_message.Message,), dict(
+        DESCRIPTOR=_RECREADYGAME_READYSTATE,
+        __module__='base.game_base_pb2'
+        # @@protoc_insertion_point(class_scope:RecReadyGame.ReadyState)
     ))
-  ,
-  DESCRIPTOR = _RECREADYGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecReadyGame)
-  ))
+    ,
+    DESCRIPTOR=_RECREADYGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecReadyGame)
+))
 _sym_db.RegisterMessage(RecReadyGame)
 _sym_db.RegisterMessage(RecReadyGame.ReadyState)
 
 RecStartGame = _reflection.GeneratedProtocolMessageType('RecStartGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECSTARTGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecStartGame)
-  ))
+    DESCRIPTOR=_RECSTARTGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecStartGame)
+))
 _sym_db.RegisterMessage(RecStartGame)
 
 RecSettleSingle = _reflection.GeneratedProtocolMessageType('RecSettleSingle', (_message.Message,), dict(
-  DESCRIPTOR = _RECSETTLESINGLE,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecSettleSingle)
-  ))
+    DESCRIPTOR=_RECSETTLESINGLE,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecSettleSingle)
+))
 _sym_db.RegisterMessage(RecSettleSingle)
 
 ReqReEnterGame = _reflection.GeneratedProtocolMessageType('ReqReEnterGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQREENTERGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqReEnterGame)
-  ))
+    DESCRIPTOR=_REQREENTERGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqReEnterGame)
+))
 _sym_db.RegisterMessage(ReqReEnterGame)
 
 RecReEnterGame = _reflection.GeneratedProtocolMessageType('RecReEnterGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECREENTERGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecReEnterGame)
-  ))
+    DESCRIPTOR=_RECREENTERGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecReEnterGame)
+))
 _sym_db.RegisterMessage(RecReEnterGame)
 
 RecReEnterGameInfo = _reflection.GeneratedProtocolMessageType('RecReEnterGameInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECREENTERGAMEINFO,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecReEnterGameInfo)
-  ))
+    DESCRIPTOR=_RECREENTERGAMEINFO,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecReEnterGameInfo)
+))
 _sym_db.RegisterMessage(RecReEnterGameInfo)
 
 RecUpdateGameInfo = _reflection.GeneratedProtocolMessageType('RecUpdateGameInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATEGAMEINFO,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecUpdateGameInfo)
-  ))
+    DESCRIPTOR=_RECUPDATEGAMEINFO,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecUpdateGameInfo)
+))
 _sym_db.RegisterMessage(RecUpdateGameInfo)
 
 RecGameOver = _reflection.GeneratedProtocolMessageType('RecGameOver', (_message.Message,), dict(
-  DESCRIPTOR = _RECGAMEOVER,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecGameOver)
-  ))
+    DESCRIPTOR=_RECGAMEOVER,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecGameOver)
+))
 _sym_db.RegisterMessage(RecGameOver)
 
 ReqClientAnim = _reflection.GeneratedProtocolMessageType('ReqClientAnim', (_message.Message,), dict(
-  DESCRIPTOR = _REQCLIENTANIM,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqClientAnim)
-  ))
+    DESCRIPTOR=_REQCLIENTANIM,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqClientAnim)
+))
 _sym_db.RegisterMessage(ReqClientAnim)
 
 RecClientAnim = _reflection.GeneratedProtocolMessageType('RecClientAnim', (_message.Message,), dict(
-  DESCRIPTOR = _RECCLIENTANIM,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecClientAnim)
-  ))
+    DESCRIPTOR=_RECCLIENTANIM,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecClientAnim)
+))
 _sym_db.RegisterMessage(RecClientAnim)
 
 ReqDismissGame = _reflection.GeneratedProtocolMessageType('ReqDismissGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQDISMISSGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqDismissGame)
-  ))
+    DESCRIPTOR=_REQDISMISSGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqDismissGame)
+))
 _sym_db.RegisterMessage(ReqDismissGame)
 
 RecDismissGame = _reflection.GeneratedProtocolMessageType('RecDismissGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECDISMISSGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecDismissGame)
-  ))
+    DESCRIPTOR=_RECDISMISSGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecDismissGame)
+))
 _sym_db.RegisterMessage(RecDismissGame)
 
 ReqReplyDismissGame = _reflection.GeneratedProtocolMessageType('ReqReplyDismissGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQREPLYDISMISSGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqReplyDismissGame)
-  ))
+    DESCRIPTOR=_REQREPLYDISMISSGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqReplyDismissGame)
+))
 _sym_db.RegisterMessage(ReqReplyDismissGame)
 
 ReqUpdatePlayerOnline = _reflection.GeneratedProtocolMessageType('ReqUpdatePlayerOnline', (_message.Message,), dict(
-  DESCRIPTOR = _REQUPDATEPLAYERONLINE,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqUpdatePlayerOnline)
-  ))
+    DESCRIPTOR=_REQUPDATEPLAYERONLINE,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqUpdatePlayerOnline)
+))
 _sym_db.RegisterMessage(ReqUpdatePlayerOnline)
 
 RecUpdatePlayerOnline = _reflection.GeneratedProtocolMessageType('RecUpdatePlayerOnline', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATEPLAYERONLINE,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecUpdatePlayerOnline)
-  ))
+    DESCRIPTOR=_RECUPDATEPLAYERONLINE,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecUpdatePlayerOnline)
+))
 _sym_db.RegisterMessage(RecUpdatePlayerOnline)
 
 RecFinalSetResult = _reflection.GeneratedProtocolMessageType('RecFinalSetResult', (_message.Message,), dict(
-  DESCRIPTOR = _RECFINALSETRESULT,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecFinalSetResult)
-  ))
+    DESCRIPTOR=_RECFINALSETRESULT,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecFinalSetResult)
+))
 _sym_db.RegisterMessage(RecFinalSetResult)
 
 RecUpdatePlayLog = _reflection.GeneratedProtocolMessageType('RecUpdatePlayLog', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATEPLAYLOG,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecUpdatePlayLog)
-  ))
+    DESCRIPTOR=_RECUPDATEPLAYLOG,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecUpdatePlayLog)
+))
 _sym_db.RegisterMessage(RecUpdatePlayLog)
 
 RecRoundAction = _reflection.GeneratedProtocolMessageType('RecRoundAction', (_message.Message,), dict(
-  DESCRIPTOR = _RECROUNDACTION,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecRoundAction)
-  ))
+    DESCRIPTOR=_RECROUNDACTION,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecRoundAction)
+))
 _sym_db.RegisterMessage(RecRoundAction)
 
 RecAskAction = _reflection.GeneratedProtocolMessageType('RecAskAction', (_message.Message,), dict(
-  DESCRIPTOR = _RECASKACTION,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecAskAction)
-  ))
+    DESCRIPTOR=_RECASKACTION,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecAskAction)
+))
 _sym_db.RegisterMessage(RecAskAction)
 
 ReqSendAction = _reflection.GeneratedProtocolMessageType('ReqSendAction', (_message.Message,), dict(
-  DESCRIPTOR = _REQSENDACTION,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqSendAction)
-  ))
+    DESCRIPTOR=_REQSENDACTION,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqSendAction)
+))
 _sym_db.RegisterMessage(ReqSendAction)
 
 RecExecuteAction = _reflection.GeneratedProtocolMessageType('RecExecuteAction', (_message.Message,), dict(
-  DESCRIPTOR = _RECEXECUTEACTION,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecExecuteAction)
-  ))
+    DESCRIPTOR=_RECEXECUTEACTION,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecExecuteAction)
+))
 _sym_db.RegisterMessage(RecExecuteAction)
 
 ReqPlayerChat = _reflection.GeneratedProtocolMessageType('ReqPlayerChat', (_message.Message,), dict(
-  DESCRIPTOR = _REQPLAYERCHAT,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqPlayerChat)
-  ))
+    DESCRIPTOR=_REQPLAYERCHAT,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqPlayerChat)
+))
 _sym_db.RegisterMessage(ReqPlayerChat)
 
 RecPlayerChat = _reflection.GeneratedProtocolMessageType('RecPlayerChat', (_message.Message,), dict(
-  DESCRIPTOR = _RECPLAYERCHAT,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecPlayerChat)
-  ))
+    DESCRIPTOR=_RECPLAYERCHAT,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecPlayerChat)
+))
 _sym_db.RegisterMessage(RecPlayerChat)
 
 ReqPlayerVoice = _reflection.GeneratedProtocolMessageType('ReqPlayerVoice', (_message.Message,), dict(
-  DESCRIPTOR = _REQPLAYERVOICE,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqPlayerVoice)
-  ))
+    DESCRIPTOR=_REQPLAYERVOICE,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqPlayerVoice)
+))
 _sym_db.RegisterMessage(ReqPlayerVoice)
 
 RecPlayerVoice = _reflection.GeneratedProtocolMessageType('RecPlayerVoice', (_message.Message,), dict(
-  DESCRIPTOR = _RECPLAYERVOICE,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecPlayerVoice)
-  ))
+    DESCRIPTOR=_RECPLAYERVOICE,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecPlayerVoice)
+))
 _sym_db.RegisterMessage(RecPlayerVoice)
 
 ReqGpsInfo = _reflection.GeneratedProtocolMessageType('ReqGpsInfo', (_message.Message,), dict(
-  DESCRIPTOR = _REQGPSINFO,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqGpsInfo)
-  ))
+    DESCRIPTOR=_REQGPSINFO,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqGpsInfo)
+))
 _sym_db.RegisterMessage(ReqGpsInfo)
 
 RecGpsInfo = _reflection.GeneratedProtocolMessageType('RecGpsInfo', (_message.Message,), dict(
 
-  GpsPlayerInfo = _reflection.GeneratedProtocolMessageType('GpsPlayerInfo', (_message.Message,), dict(
-    DESCRIPTOR = _RECGPSINFO_GPSPLAYERINFO,
-    __module__ = 'base.game_base_pb2'
-    # @@protoc_insertion_point(class_scope:RecGpsInfo.GpsPlayerInfo)
+    GpsPlayerInfo=_reflection.GeneratedProtocolMessageType('GpsPlayerInfo', (_message.Message,), dict(
+        DESCRIPTOR=_RECGPSINFO_GPSPLAYERINFO,
+        __module__='base.game_base_pb2'
+        # @@protoc_insertion_point(class_scope:RecGpsInfo.GpsPlayerInfo)
     ))
-  ,
-  DESCRIPTOR = _RECGPSINFO,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecGpsInfo)
-  ))
+    ,
+    DESCRIPTOR=_RECGPSINFO,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecGpsInfo)
+))
 _sym_db.RegisterMessage(RecGpsInfo)
 _sym_db.RegisterMessage(RecGpsInfo.GpsPlayerInfo)
 
-ReqGamePlayerInteraction = _reflection.GeneratedProtocolMessageType('ReqGamePlayerInteraction', (_message.Message,), dict(
-  DESCRIPTOR = _REQGAMEPLAYERINTERACTION,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqGamePlayerInteraction)
-  ))
+ReqGamePlayerInteraction = _reflection.GeneratedProtocolMessageType('ReqGamePlayerInteraction', (_message.Message,),
+                                                                    dict(
+                                                                        DESCRIPTOR=_REQGAMEPLAYERINTERACTION,
+                                                                        __module__='base.game_base_pb2'
+                                                                        # @@protoc_insertion_point(class_scope:ReqGamePlayerInteraction)
+                                                                    ))
 _sym_db.RegisterMessage(ReqGamePlayerInteraction)
 
-RecGamePlayerInteraction = _reflection.GeneratedProtocolMessageType('RecGamePlayerInteraction', (_message.Message,), dict(
-  DESCRIPTOR = _RECGAMEPLAYERINTERACTION,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecGamePlayerInteraction)
-  ))
+RecGamePlayerInteraction = _reflection.GeneratedProtocolMessageType('RecGamePlayerInteraction', (_message.Message,),
+                                                                    dict(
+                                                                        DESCRIPTOR=_RECGAMEPLAYERINTERACTION,
+                                                                        __module__='base.game_base_pb2'
+                                                                        # @@protoc_insertion_point(class_scope:RecGamePlayerInteraction)
+                                                                    ))
 _sym_db.RegisterMessage(RecGamePlayerInteraction)
 
 ReqSendClientLog = _reflection.GeneratedProtocolMessageType('ReqSendClientLog', (_message.Message,), dict(
-  DESCRIPTOR = _REQSENDCLIENTLOG,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:ReqSendClientLog)
-  ))
+    DESCRIPTOR=_REQSENDCLIENTLOG,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:ReqSendClientLog)
+))
 _sym_db.RegisterMessage(ReqSendClientLog)
 
 RecApplyChangeMatch = _reflection.GeneratedProtocolMessageType('RecApplyChangeMatch', (_message.Message,), dict(
-  DESCRIPTOR = _RECAPPLYCHANGEMATCH,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecApplyChangeMatch)
-  ))
+    DESCRIPTOR=_RECAPPLYCHANGEMATCH,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecApplyChangeMatch)
+))
 _sym_db.RegisterMessage(RecApplyChangeMatch)
 
 RecCardNotEnough = _reflection.GeneratedProtocolMessageType('RecCardNotEnough', (_message.Message,), dict(
-  DESCRIPTOR = _RECCARDNOTENOUGH,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecCardNotEnough)
-  ))
+    DESCRIPTOR=_RECCARDNOTENOUGH,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecCardNotEnough)
+))
 _sym_db.RegisterMessage(RecCardNotEnough)
 
 RecMatchGame = _reflection.GeneratedProtocolMessageType('RecMatchGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECMATCHGAME,
-  __module__ = 'base.game_base_pb2'
-  # @@protoc_insertion_point(class_scope:RecMatchGame)
-  ))
+    DESCRIPTOR=_RECMATCHGAME,
+    __module__='base.game_base_pb2'
+    # @@protoc_insertion_point(class_scope:RecMatchGame)
+))
 _sym_db.RegisterMessage(RecMatchGame)
 
-
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003\252\002\024ChuangMi.GameBase.V1'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003'))
 # @@protoc_insertion_point(module_scope)

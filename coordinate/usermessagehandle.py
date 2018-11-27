@@ -149,7 +149,7 @@ class UserMessageHandle(object):
                 elif message.opcode == MATCH_RECORD_INFO:
                     reqMatchRecordInfo = ReqMatchRecordInfo()
                     reqMatchRecordInfo.ParseFromString(message.data)
-                    records = data_record.get_records(reqMatchRecordInfo.allocId, self.__userId)
+                    records = data_record.get_records(reqMatchRecordInfo.allocIds, self.__userId)
                     self.send_to_gateway(message.opcode, records)
                 elif message.opcode == UPDATE_INTRODUCE:
                     reqUpdateIntroduce = ReqUpdateIntroduce()

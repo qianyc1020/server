@@ -2,9 +2,6 @@ syntax = "proto3";
 
 import "base/game_base.proto";
 option optimize_for = LITE_RUNTIME;
-option csharp_namespace = "ChuangMi.GuiYangNiuNiu.V1";
-option java_multiple_files = true;
-option java_package = "zhipai.mode.proto";
 
 // 创建房间
 message BaiRenCreateRoom {

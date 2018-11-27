@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x11game/douniu.proto\"\xd1\x01\n\x10\x44ouniuCreateRoom\x12\x11\n\tbaseScore\x18\x01 \x01(\x05\x12\x0f\n\x07inScore\x18\x02 \x01(\x05\x12\x12\n\nleaveScore\x18\x03 \x01(\x05\x12\x0e\n\x06sameIp\x18\x04 \x01(\x08\x12\x13\n\x0b\x61utoCompare\x18\x05 \x01(\x08\x12\r\n\x05match\x18\x06 \x01(\x08\x12\x0e\n\x06isGold\x18\x07 \x01(\x08\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\x0f\n\x07private\x18\t \x01(\x08\x12\x11\n\tgameRules\x18\n \x01(\r\x12\x0f\n\x07\x62\x65tType\x18\x0b \x01(\x05\"\'\n\x13\x44ouniuBankerConfirm\x12\x10\n\x08\x62\x61nkerId\x18\x01 \x01(\x05\"A\n\x0c\x44ouniuRecAsk\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x13\n\x0btuiZhuScore\x18\x03 \x01(\x05\"!\n\x10\x44ouniuCardAction\x12\r\n\x05\x63\x61rds\x18\x01 \x03(\x05\"\"\n\x11\x44ouniuScoreAction\x12\r\n\x05score\x18\x01 \x01(\x05\"\xd3\x01\n\x18\x44ouniuPlayerOneSetResult\x12(\n\x07players\x18\x01 \x03(\x0b\x32\x17.DouniuSettlePlayerInfo\x12\x44\n\x10playerGetJackpot\x18\x02 \x03(\x0b\x32*.DouniuPlayerOneSetResult.PlayerGetJackpot\x1aG\n\x10PlayerGetJackpot\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07jackpot\x18\x02 \x01(\x05\x12\x10\n\x08\x63\x61rdType\x18\x03 \x01(\x05\"m\n\x16\x44ouniuSettlePlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x03(\x05\x12\x12\n\ntotalScore\x18\x03 \x01(\x05\x12\r\n\x05score\x18\x04 \x01(\x05\x12\x10\n\x08\x63\x61rdType\x18\x05 \x01(\x05\"\x7f\n\x1a\x44ouniuPlayerFinalSetResult\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x11\n\tgrabCount\x18\x02 \x01(\x05\x12\x13\n\x0b\x62\x61nkerCount\x18\x03 \x01(\x05\x12\x13\n\x0btuiZhuCount\x18\x04 \x01(\x05\x12\x12\n\ntotalScore\x18\x05 \x01(\x05\":\n\x17\x44ouniuReEnterPlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05\x63\x61rds\x18\x02 \x03(\x05\"\xdc\x01\n\x13NiuNiuRecordContent\x12\x0e\n\x06\x62\x61nker\x18\x01 \x01(\x05\x12?\n\rplayerContent\x18\x02 \x03(\x0b\x32(.NiuNiuRecordContent.RecordPlayerContent\x12\x11\n\tgameRules\x18\x03 \x01(\x05\x1a\x61\n\x13RecordPlayerContent\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05\x63\x61rds\x18\x02 \x03(\x05\x12\x14\n\x0cgrabMultiple\x18\x03 \x01(\x05\x12\x13\n\x0bplayedScore\x18\x04 \x01(\x05\x42\x02H\x03\x62\x06proto3')
+        '\n\x11game/douniu.proto\"\xd1\x01\n\x10\x44ouniuCreateRoom\x12\x11\n\tbaseScore\x18\x01 \x01(\x05\x12\x0f\n\x07inScore\x18\x02 \x01(\x05\x12\x12\n\nleaveScore\x18\x03 \x01(\x05\x12\x0e\n\x06sameIp\x18\x04 \x01(\x08\x12\x13\n\x0b\x61utoCompare\x18\x05 \x01(\x08\x12\r\n\x05match\x18\x06 \x01(\x08\x12\x0e\n\x06isGold\x18\x07 \x01(\x08\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\x0f\n\x07private\x18\t \x01(\x08\x12\x11\n\tgameRules\x18\n \x01(\r\x12\x0f\n\x07\x62\x65tType\x18\x0b \x01(\x05\"\'\n\x13\x44ouniuBankerConfirm\x12\x10\n\x08\x62\x61nkerId\x18\x01 \x01(\x05\"A\n\x0c\x44ouniuRecAsk\x12\x0e\n\x06randId\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x13\n\x0btuiZhuScore\x18\x03 \x01(\x05\"!\n\x10\x44ouniuCardAction\x12\r\n\x05\x63\x61rds\x18\x01 \x03(\x05\"\"\n\x11\x44ouniuScoreAction\x12\r\n\x05score\x18\x01 \x01(\x05\"\xd3\x01\n\x18\x44ouniuPlayerOneSetResult\x12(\n\x07players\x18\x01 \x03(\x0b\x32\x17.DouniuSettlePlayerInfo\x12\x44\n\x10playerGetJackpot\x18\x02 \x03(\x0b\x32*.DouniuPlayerOneSetResult.PlayerGetJackpot\x1aG\n\x10PlayerGetJackpot\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07jackpot\x18\x02 \x01(\x05\x12\x10\n\x08\x63\x61rdType\x18\x03 \x01(\x05\"m\n\x16\x44ouniuSettlePlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x03(\x05\x12\x12\n\ntotalScore\x18\x03 \x01(\x05\x12\r\n\x05score\x18\x04 \x01(\x05\x12\x10\n\x08\x63\x61rdType\x18\x05 \x01(\x05\":\n\x17\x44ouniuReEnterPlayerInfo\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05\x63\x61rds\x18\x02 \x03(\x05\"\xdc\x01\n\x13NiuNiuRecordContent\x12\x0e\n\x06\x62\x61nker\x18\x01 \x01(\x05\x12?\n\rplayerContent\x18\x02 \x03(\x0b\x32(.NiuNiuRecordContent.RecordPlayerContent\x12\x11\n\tgameRules\x18\x03 \x01(\x05\x1a\x61\n\x13RecordPlayerContent\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\r\n\x05\x63\x61rds\x18\x02 \x03(\x05\x12\x14\n\x0cgrabMultiple\x18\x03 \x01(\x05\x12\x13\n\x0bplayedScore\x18\x04 \x01(\x05\x42\x02H\x03\x62\x06proto3')
 )
 
 _DOUNIUCREATEROOM = _descriptor.Descriptor(
@@ -395,64 +395,6 @@ _DOUNIUSETTLEPLAYERINFO = _descriptor.Descriptor(
     serialized_end=735,
 )
 
-_DOUNIUPLAYERFINALSETRESULT = _descriptor.Descriptor(
-    name='DouniuPlayerFinalSetResult',
-    full_name='DouniuPlayerFinalSetResult',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='playerId', full_name='DouniuPlayerFinalSetResult.playerId', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='grabCount', full_name='DouniuPlayerFinalSetResult.grabCount', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='bankerCount', full_name='DouniuPlayerFinalSetResult.bankerCount', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='tuiZhuCount', full_name='DouniuPlayerFinalSetResult.tuiZhuCount', index=3,
-            number=4, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='totalScore', full_name='DouniuPlayerFinalSetResult.totalScore', index=4,
-            number=5, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=737,
-    serialized_end=864,
-)
-
 _DOUNIUREENTERPLAYERINFO = _descriptor.Descriptor(
     name='DouniuReEnterPlayerInfo',
     full_name='DouniuReEnterPlayerInfo',
@@ -486,8 +428,8 @@ _DOUNIUREENTERPLAYERINFO = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=866,
-    serialized_end=924,
+    serialized_start=737,
+    serialized_end=795,
 )
 
 _NIUNIURECORDCONTENT_RECORDPLAYERCONTENT = _descriptor.Descriptor(
@@ -537,8 +479,8 @@ _NIUNIURECORDCONTENT_RECORDPLAYERCONTENT = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=1050,
-    serialized_end=1147,
+    serialized_start=921,
+    serialized_end=1018,
 )
 
 _NIUNIURECORDCONTENT = _descriptor.Descriptor(
@@ -581,8 +523,8 @@ _NIUNIURECORDCONTENT = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=927,
-    serialized_end=1147,
+    serialized_start=798,
+    serialized_end=1018,
 )
 
 _DOUNIUPLAYERONESETRESULT_PLAYERGETJACKPOT.containing_type = _DOUNIUPLAYERONESETRESULT
@@ -597,7 +539,6 @@ DESCRIPTOR.message_types_by_name['DouniuCardAction'] = _DOUNIUCARDACTION
 DESCRIPTOR.message_types_by_name['DouniuScoreAction'] = _DOUNIUSCOREACTION
 DESCRIPTOR.message_types_by_name['DouniuPlayerOneSetResult'] = _DOUNIUPLAYERONESETRESULT
 DESCRIPTOR.message_types_by_name['DouniuSettlePlayerInfo'] = _DOUNIUSETTLEPLAYERINFO
-DESCRIPTOR.message_types_by_name['DouniuPlayerFinalSetResult'] = _DOUNIUPLAYERFINALSETRESULT
 DESCRIPTOR.message_types_by_name['DouniuReEnterPlayerInfo'] = _DOUNIUREENTERPLAYERINFO
 DESCRIPTOR.message_types_by_name['NiuNiuRecordContent'] = _NIUNIURECORDCONTENT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -661,14 +602,6 @@ DouniuSettlePlayerInfo = _reflection.GeneratedProtocolMessageType('DouniuSettleP
     # @@protoc_insertion_point(class_scope:DouniuSettlePlayerInfo)
 ))
 _sym_db.RegisterMessage(DouniuSettlePlayerInfo)
-
-DouniuPlayerFinalSetResult = _reflection.GeneratedProtocolMessageType('DouniuPlayerFinalSetResult', (_message.Message,),
-                                                                      dict(
-                                                                          DESCRIPTOR=_DOUNIUPLAYERFINALSETRESULT,
-                                                                          __module__='game.douniu_pb2'
-                                                                          # @@protoc_insertion_point(class_scope:DouniuPlayerFinalSetResult)
-                                                                      ))
-_sym_db.RegisterMessage(DouniuPlayerFinalSetResult)
 
 DouniuReEnterPlayerInfo = _reflection.GeneratedProtocolMessageType('DouniuReEnterPlayerInfo', (_message.Message,), dict(
     DESCRIPTOR=_DOUNIUREENTERPLAYERINFO,

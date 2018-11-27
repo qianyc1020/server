@@ -1,7 +1,6 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "zhipai.mode.proto";
+option optimize_for = LITE_RUNTIME;
 
 service Zhipai {
     //结算

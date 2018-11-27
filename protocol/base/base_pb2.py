@@ -2,524 +2,524 @@
 # source: base/base.proto
 
 import sys
-_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+
+_b = sys.version_info[0] < 3 and (lambda x: x) or (lambda x: x.encode('latin1'))
 from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf import descriptor_pb2
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-
-
-
 DESCRIPTOR = _descriptor.FileDescriptor(
-  name='base/base.proto',
-  package='mahjong',
-  syntax='proto3',
-  serialized_pb=_b('\n\x0f\x62\x61se/base.proto\x12\x07mahjong\"G\n\nNetMessage\x12\x1f\n\x06opcode\x18\x01 \x01(\x0e\x32\x0f.mahjong.Opcode\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x12\n\n\x02id\x18\x03 \x01(\t\"\x7f\n\x0fRecCheckVersion\x12\x30\n\x05games\x18\x01 \x03(\x0b\x32!.mahjong.RecCheckVersion.GameInfo\x12\x0c\n\x04keys\x18\x02 \x03(\t\x1a,\n\x08GameInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0f\n\x07version\x18\x02 \x01(\x05\"#\n\x0fReqCheckVersion\x12\x10\n\x08keyIndex\x18\x01 \x01(\x05\"\x1f\n\x0eRecNoticeLogin\x12\r\n\x05state\x18\x01 \x01(\x05\"a\n\x10ReqCreateAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\x12\x0c\n\x04nick\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\"~\n\x10RecCreateAccount\x12;\n\x05state\x18\x01 \x01(\x0e\x32,.mahjong.RecCreateAccount.CreateAccountState\"-\n\x12\x43reateAccountState\x12\x0b\n\x07SUCCESS\x10\x00\x12\n\n\x06REPEAT\x10\x01\"\x9e\x01\n\x0eReqLoginServer\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\x12\x0b\n\x03sex\x18\x04 \x01(\x05\x12\x0c\n\x04nick\x18\x05 \x01(\t\x12\r\n\x05phone\x18\x06 \x01(\x03\x12 \n\x03\x63ls\x18\x07 \x01(\x0e\x32\x13.mahjong.LoginClass\x12\x0c\n\x04\x61uto\x18\x08 \x01(\x08\"4\n\x0eRecLoginServer\x12\"\n\x05state\x18\x01 \x01(\x0e\x32\x13.mahjong.LoginState\"\xa7\x02\n\x0bRecUserInfo\x12\x0f\n\x07\x66ristIn\x18\x01 \x01(\x08\x12\x10\n\x08playerId\x18\x02 \x01(\x05\x12\x0f\n\x07\x61\x63\x63ount\x18\x03 \x01(\t\x12\x0c\n\x04nick\x18\x04 \x01(\t\x12\x0f\n\x07headUrl\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\x12\x11\n\trootPower\x18\x07 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x08 \x01(\x05\x12\x0e\n\x06gameId\x18\t \x01(\x05\x12\x14\n\x0cregisterTime\x18\n \x01(\x05\x12\x11\n\tplayTotal\x18\x0b \x01(\x05\x12\r\n\x05phone\x18\x0c \x01(\x03\x12\x11\n\tisContest\x18\r \x01(\x08\x12\x11\n\tintroduce\x18\x0e \x01(\t\x12\x12\n\nconsumeVip\x18\x0f \x01(\x05\x12\x12\n\nconsumeVal\x18\x10 \x01(\x05\"E\n\x11RecUpdateCurrency\x12\x10\n\x08\x63urrency\x18\x01 \x01(\x05\x12\x0c\n\x04gold\x18\x02 \x01(\x05\x12\x10\n\x08integral\x18\x03 \x01(\x05\"2\n\x11RecUpdateEvaluate\x12\x0e\n\x06praise\x18\x01 \x01(\x05\x12\r\n\x05tread\x18\x02 \x01(\x05\"\x97\x03\n\x0fRecUpdateRecord\x12\x36\n\x06normal\x18\x01 \x03(\x0b\x32&.mahjong.RecUpdateRecord.URecordSingle\x12\x35\n\x05proxy\x18\x02 \x03(\x0b\x32&.mahjong.RecUpdateRecord.URecordSingle\x1a>\n\rURecordPlayer\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04nick\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x1a\xd4\x01\n\rURecordSingle\x12\x10\n\x08recordId\x18\x01 \x01(\t\x12\x0f\n\x07\x61llocId\x18\x02 \x01(\x05\x12\x0e\n\x06gameId\x18\x03 \x01(\x05\x12\x12\n\ngameNumber\x18\x04 \x01(\x05\x12\x13\n\x0btotalNumber\x18\x05 \x01(\x05\x12\x0c\n\x04time\x18\x06 \x01(\x05\x12\x37\n\x07players\x18\x07 \x03(\x0b\x32&.mahjong.RecUpdateRecord.URecordPlayer\x12\x0f\n\x07lookIds\x18\x08 \x03(\t\x12\x0f\n\x07\x63ontent\x18\t \x01(\x0c\"g\n\rReqCreateGame\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x12\n\nteaHouseId\x18\x02 \x01(\x05\x12\r\n\x05proxy\x18\x03 \x01(\x08\x12\x11\n\tmaxPlayer\x18\x04 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\".\n\rRecCreateGame\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\".\n\x0bReqJoinGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\",\n\x0bRecJoinGame\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"c\n\nReqRelogin\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07\x61\x63\x63ount\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12 \n\x03\x63ls\x18\x04 \x01(\x0e\x32\x13.mahjong.LoginClass\"0\n\nRecRelogin\x12\"\n\x05state\x18\x01 \x01(\x0e\x32\x13.mahjong.LoginState\"\"\n\x0fReqLobbyMsgList\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"\x7f\n\x0fRecLobbyMsgList\x12\x33\n\x04msgs\x18\x01 \x03(\x0b\x32%.mahjong.RecLobbyMsgList.LobbyMsgData\x1a\x37\n\x0cLobbyMsgData\x12\x0c\n\x04time\x18\x01 \x01(\x05\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\x05\"(\n\x15ReqLobbyProxyGameList\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"7\n\x14ReqDissolveProxyGame\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"%\n\x14RecDissolveProxyGame\x12\r\n\x05state\x18\x01 \x01(\x05\"\'\n\x14ReqShareMomentsEvent\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"%\n\x14RecShareMomentsEvent\x12\r\n\x05state\x18\x01 \x01(\x05\"\x1f\n\x0fReqExchangeCard\x12\x0c\n\x04\x63\x61rd\x18\x01 \x01(\x05\" \n\x0fRecExchangeCard\x12\r\n\x05state\x18\x01 \x01(\x08\"\x1f\n\x0fReqExchangeGold\x12\x0c\n\x04gold\x18\x01 \x01(\x05\" \n\x0fRecExchangeGold\x12\r\n\x05state\x18\x01 \x01(\x08\"%\n\x11ReqGameRecordInfo\x12\x10\n\x08recordId\x18\x01 \x01(\t\"\xe2\x02\n\x11RecGameRecordInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x02 \x01(\x05\x12\x0e\n\x06gameId\x18\x03 \x01(\x05\x12\x41\n\x0brecordInfos\x18\x04 \x03(\x0b\x32,.mahjong.RecGameRecordInfo.GameOneRecordInfo\x1a?\n\x0eGameRecordUser\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04nick\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x1a\x98\x01\n\x11GameOneRecordInfo\x12\x10\n\x08recordId\x18\x01 \x01(\t\x12\x0e\n\x06lookId\x18\x02 \x01(\x05\x12\x10\n\x08playTime\x18\x03 \x01(\x05\x12>\n\x0bplayerDatas\x18\x04 \x03(\x0b\x32).mahjong.RecGameRecordInfo.GameRecordUser\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\"F\n\x11ReqGameReplayInfo\x12\x10\n\x08replayId\x18\x01 \x01(\t\x12\x0e\n\x06lookId\x18\x02 \x01(\x05\x12\x0f\n\x07isMatch\x18\x03 \x01(\x08\"v\n\x11RecGameReplayInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0c\n\x04time\x18\x02 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x03 \x01(\x05\x12\x0e\n\x06gameId\x18\x04 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\x12\x12\n\nadjunction\x18\x06 \x01(\x0c\"\x1e\n\x0fRecSystemNotice\x12\x0b\n\x03msg\x18\x01 \x01(\t\"!\n\x0eReqDefGameList\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"w\n\nPlayerData\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x10\n\x08nickName\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\x12\x0b\n\x03sex\x18\x04 \x01(\x05\x12\x12\n\nip_address\x18\x05 \x01(\t\x12\x13\n\x0b\x63reate_time\x18\x06 \x01(\x05\"\x9a\x01\n\x0f\x44\x65\x66GameListData\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\x12\x10\n\x08maxCount\x18\x02 \x01(\x05\x12\x10\n\x08\x63urCount\x18\x03 \x01(\x05\x12\x12\n\ncreateInfo\x18\x04 \x01(\x0c\x12\x15\n\rgamePlayCount\x18\x05 \x01(\x05\x12(\n\x0bplayerInfos\x18\x06 \x03(\x0b\x32\x13.mahjong.PlayerData\"=\n\x0eRecDefGameList\x12+\n\tgameDatas\x18\x01 \x03(\x0b\x32\x18.mahjong.DefGameListData\"4\n\x11ReqSearchGameData\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"?\n\x11RecSearchGameData\x12*\n\x08gameData\x18\x01 \x01(\x0b\x32\x18.mahjong.DefGameListData\"1\n\x0fRecUpdateRebate\x12\x0e\n\x06rebate\x18\x01 \x01(\x02\x12\x0e\n\x06number\x18\x02 \x01(\x05\"0\n\x11RecGetLotteryInfo\x12\x0c\n\x04json\x18\x01 \x01(\t\x12\r\n\x05round\x18\x02 \x01(\x05\"-\n\x0cRecDoLottery\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x0e\n\x06\x63\x66g_id\x18\x02 \x01(\x05\"+\n\x0bReqGameRank\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x0e\n\x06number\x18\x02 \x01(\x05\"\xd4\x01\n\x0bRecGameRank\x12\x38\n\x0bplayerDatas\x18\x01 \x03(\x0b\x32#.mahjong.RecGameRank.PlayerRankInfo\x1a\x8a\x01\n\x0ePlayerRankInfo\x12\x0e\n\x06rankId\x18\x01 \x01(\x05\x12\x10\n\x08playerId\x18\x02 \x01(\x05\x12\x10\n\x08\x63urrency\x18\x03 \x01(\x05\x12\x0c\n\x04nick\x18\x04 \x01(\t\x12\x0f\n\x07headUrl\x18\x05 \x01(\t\x12\x11\n\tintroduce\x18\x06 \x01(\t\x12\x12\n\nconsumeVip\x18\x07 \x01(\x05\"\x1d\n\x0cReqBindPhone\x12\r\n\x05phone\x18\x01 \x01(\x03\"\x1d\n\x0cRecBindPhone\x12\r\n\x05state\x18\x01 \x01(\x08\"3\n\x0eReqBindAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1f\n\x0eRecBindAccount\x12\r\n\x05state\x18\x01 \x01(\x08\"C\n\x11ReqModifyUserInfo\x12\x0b\n\x03sex\x18\x01 \x01(\x05\x12\x10\n\x08nickName\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\"\"\n\x11RecModifyUserInfo\x12\r\n\x05state\x18\x01 \x01(\x08\"\xb3\x01\n\x0bRecMailList\x12(\n\x05mails\x18\x01 \x03(\x0b\x32\x19.mahjong.RecMailList.Mail\x1az\n\x04Mail\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04text\x18\x03 \x01(\t\x12\x0c\n\x04\x63\x61rd\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\x12\r\n\x05state\x18\x07 \x01(\x05\x12\x0c\n\x04time\x18\x08 \x01(\x03\"\x1e\n\x0fReqMailReadItem\x12\x0b\n\x03ids\x18\x01 \x03(\x05\"-\n\x0fRecMailReadItem\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x0b\n\x03ids\x18\x02 \x03(\x05\"\x1d\n\x0eReqMailGetItem\x12\x0b\n\x03ids\x18\x01 \x03(\x05\",\n\x0eRecMailGetItem\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x0b\n\x03ids\x18\x02 \x03(\x05\"\x1b\n\rReqMailDelete\x12\n\n\x02id\x18\x01 \x01(\x05\"\x1e\n\rRecMailDelete\x12\r\n\x05state\x18\x01 \x01(\x08\"%\n\x12ReqUpdateIntroduce\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\"\x1f\n\x0bReqBankInfo\x12\x10\n\x08password\x18\x01 \x01(\t\"J\n\x0bRecBankInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"P\n\x0eReqOperateBank\x12\x0c\n\x04\x63\x61rd\x18\x01 \x01(\x05\x12\x0c\n\x04gold\x18\x02 \x01(\x05\x12\x10\n\x08integral\x18\x03 \x01(\x05\x12\x10\n\x08password\x18\x04 \x01(\t\"\x1e\n\rRecOprateBank\x12\r\n\x05state\x18\x01 \x01(\x05\"%\n\x12ReqMatchRecordInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"\xd9\x02\n\x12RecMatchRecordInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x02 \x01(\x05\x12\x43\n\x0brecordInfos\x18\x03 \x03(\x0b\x32..mahjong.RecMatchRecordInfo.MatchOneRecordInfo\x1a@\n\x0fMatchRecordUser\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04nick\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x1a\x9b\x01\n\x12MatchOneRecordInfo\x12\x10\n\x08recordId\x18\x01 \x01(\t\x12\x10\n\x08playTime\x18\x02 \x01(\x05\x12\x0e\n\x06gameId\x18\x03 \x01(\x05\x12@\n\x0bplayerDatas\x18\x04 \x03(\x0b\x32+.mahjong.RecMatchRecordInfo.MatchRecordUser\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\"T\n\x12ReqHandselCurrency\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"#\n\x12RecHandselCurrency\x12\r\n\x05state\x18\x01 \x01(\x05\"=\n\x13RecUpdateConsumeVip\x12\x12\n\nconsumeVip\x18\x01 \x01(\x05\x12\x12\n\nconsumeVal\x18\x02 \x01(\x05*\xca\x10\n\x06Opcode\x12\x11\n\rCHECK_VERSION\x10\x00\x12\x10\n\x0cNOTICE_LOGIN\x10\x01\x12\r\n\tLOGIN_SVR\x10\x02\x12\x14\n\x10REGISTER_ACCOUNT\x10\x03\x12\x14\n\x10UPDATE_USER_INFO\x10\x04\x12\x13\n\x0fUPDATE_CURRENCY\x10\x05\x12\x0f\n\x0b\x43REATE_GAME\x10\x06\x12\r\n\tJOIN_GAME\x10\x07\x12\r\n\tEXIT_GAME\x10\x08\x12\x1b\n\x17UPDATE_GAME_PLAYER_INFO\x10\t\x12\x0e\n\nREADY_GAME\x10\n\x12\x0e\n\nSTART_GAME\x10\x0b\x12\x0f\n\x0bSETTLE_GAME\x10\x0c\x12\x10\n\x0cREENTER_GAME\x10\r\x12\x15\n\x11REENTER_GAME_INFO\x10\x0e\x12\r\n\tGAME_OVER\x10\x0f\x12\x13\n\x0fGAME_START_ANIM\x10\x10\x12\x16\n\x12\x41PPLY_DISMISS_GAME\x10\x11\x12\x16\n\x12REPLY_DISMISS_GAME\x10\x12\x12\x17\n\x13UPDATE_ONLINE_STATE\x10\x13\x12\x10\n\x0cGAME_SUMMARY\x10\x14\x12\x14\n\x10\x41PPLY_RESET_GAME\x10\x15\x12\x12\n\x0eSVR_RESET_GAME\x10\x16\x12\x15\n\x11UPDATE_EVALUATION\x10\x17\x12\x11\n\rUPDATE_RECORD\x10\x18\x12\x14\n\x10UPDATE_GAME_INFO\x10\x19\x12\x11\n\rSYSTEM_NOTICE\x10\x1a\x12\x0f\n\x0bRELOGIN_SVR\x10\x1b\x12\x10\n\x0cROUND_ACTION\x10\x1c\x12\x0e\n\nASK_ACTION\x10\x1d\x12\x10\n\x0c\x41PPLY_ACTION\x10\x1e\x12\x12\n\x0e\x45XECUTE_ACTION\x10\x1f\x12\x0f\n\x0bPLAYER_CHAT\x10 \x12\x10\n\x0cPLAYER_VOICE\x10!\x12\x15\n\x11\x45VALUATION_PLAYER\x10\"\x12\x14\n\x10GAME_RECORD_INFO\x10#\x12\x14\n\x10GAME_REPLAY_INFO\x10$\x12\x0c\n\x08GPS_INFO\x10%\x12\x1b\n\x17GAME_PLAYER_INTERACTION\x10&\x12\x17\n\x13SHARE_MOMENTS_EVENT\x10\'\x12\x12\n\x0eLOBBY_MSG_LIST\x10(\x12\x13\n\x0fSEND_CLIENT_LOG\x10*\x12\r\n\tSEND_PING\x10+\x12\x17\n\x13MAHJONG_ASK_PLUNDER\x10,\x12\x17\n\x13MAHJONG_SELECT_PIAO\x10-\x12\x17\n\x13MAHJONG_UPDATE_PIAO\x10.\x12\x12\n\x0eGAME_SVR_MATCH\x10/\x12\x12\n\x0eHUAN_SAN_ZHANG\x10\x64\x12\x17\n\x13\x43HANGE_CARD_CONFIRM\x10\x65\x12\x16\n\x12\x41PPLY_CHANGE_MATCH\x10\x66\x12\x13\n\x0f\x43\x41RD_NOT_ENOUGH\x10g\x12\x17\n\x13\x46IVE_IN_A_ROW_STAKE\x10h\x12\x19\n\x15\x46IVE_IN_A_ROW_GIVE_UP\x10i\x12\x0c\n\x08SEND_LOG\x10j\x12\x10\n\x0c\x42\x41OJIAO_OVER\x10k\x12\x0c\n\x08\x44ING_QUE\x10o\x12\x0b\n\x07MAI_PAO\x10p\x12\r\n\tSEAT_DOWN\x10q\x12\r\n\tSELF_INFO\x10r\x12\x12\n\x0ePOSITION_SCORE\x10s\x12\x0f\n\x0b\x42\x41NKER_LIST\x10t\x12\x0e\n\nGET_BANKER\x10u\x12\x10\n\x0cLEAVE_BANKER\x10v\x12\x0f\n\x0bSELF_PLAYED\x10w\x12\x0e\n\nWATCH_SIZE\x10x\x12\x11\n\rASK_XIAZHUANG\x10y\x12\x12\n\x0eJIXUDANGZHUANG\x10z\x12\t\n\x05TREND\x10{\x12\x0e\n\nWATCH_LIST\x10|\x12\x0e\n\tYiBinPiao\x10\x82\x01\x12\x11\n\rEXCHANGE_CARD\x10\x34\x12\x11\n\rEXCHANGE_GOLD\x10\x35\x12\x15\n\x11GET_DEF_GAME_LIST\x10\x36\x12\x16\n\x12UPDATE_USER_REBATE\x10\x37\x12\x0f\n\x0bUPDATE_RANK\x10\x38\x12\x10\n\x0c\x42IND_ACCOUNT\x10\x39\x12\x15\n\x11\x42IND_PHONE_NUMBER\x10:\x12\x16\n\x12MODIFY_PLAYER_INFO\x10;\x12\x0f\n\x0bSEARCH_GAME\x10<\x12\x14\n\x10UPDATE_INTRODUCE\x10=\x12\x14\n\x10HANDSEL_CURRENCY\x10>\x12\x16\n\x11MATCH_RECORD_INFO\x10\xc0>\x12\x19\n\x15LOBBY_OTHER_ROOM_LIST\x10)\x12\x18\n\x13\x44ISSOLVE_PROXY_GAME\x10\xa9\x46\x12\x16\n\x11\x41PPLY_ENTER_MATCH\x10\x91N\x12\x16\n\x11\x41PPLY_LEAVE_MATCH\x10\x92N\x12\x16\n\x11UPDATE_MATCH_INFO\x10\x93N\x12\x17\n\x12UPDATE_CONSUME_VIP\x10\xf4N\x12\x12\n\rGET_SIGN_INFO\x10\xf9U\x12\x0f\n\nDO_SIGN_IN\x10\xfaU\x12\x15\n\x10GET_LOTTERY_INFO\x10\xfbU\x12\x0f\n\nDO_LOTTERY\x10\xfcU\x12\x0e\n\tMAIL_LIST\x10\xb1m\x12\x12\n\rMAIL_GET_ITEM\x10\xb2m\x12\r\n\x08MAIL_DEL\x10\xb3m\x12\x0e\n\tBANK_INFO\x10\x99u\x12\x11\n\x0c\x42\x41NK_DEPOSIT\x10\x9au\x12\r\n\x08\x42\x41NK_GET\x10\x9bu\x12\x1a\n\x15MISSION_PROGRESS_LIST\x10\x81}\x12\x19\n\x14MISSION_PROGRESS_GET\x10\x82}\x12\x15\n\x10REGISTER_SERVICE\x10\xe8\x07\x12\x19\n\x14\x43HANGE_SERVICE_STATE\x10\xe9\x07\x12\x16\n\x11GAME_ADD_CURRENCY\x10\xec\x07\x12\x12\n\rCHANGE_ONLINE\x10\xed\x07\x12\x15\n\x10GAME_SVR_OFFLINE\x10\xf0\x07*0\n\nLoginClass\x12\n\n\x06WECHAT\x10\x00\x12\x0c\n\x08OFFICIAL\x10\x01\x12\x08\n\x04TEMP\x10\x02*d\n\nLoginState\x12\x0b\n\x07SUCCESS\x10\x00\x12\x12\n\x0ePASSWORD_ERROR\x10\x01\x12\t\n\x05LIMIT\x10\x02\x12\x0f\n\x0bPHONE_ERROR\x10\x03\x12\x0e\n\nNO_ACCOUNT\x10\x04\x12\t\n\x05\x45RROR\x10\x05\x42\x15H\x03\xaa\x02\x10\x43huangMi.Base.V1b\x06proto3')
+    name='base/base.proto',
+    package='mahjong',
+    syntax='proto3',
+    serialized_pb=_b(
+        '\n\x0f\x62\x61se/base.proto\x12\x07mahjong\"G\n\nNetMessage\x12\x1f\n\x06opcode\x18\x01 \x01(\x0e\x32\x0f.mahjong.Opcode\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x12\n\n\x02id\x18\x03 \x01(\t\"\x7f\n\x0fRecCheckVersion\x12\x30\n\x05games\x18\x01 \x03(\x0b\x32!.mahjong.RecCheckVersion.GameInfo\x12\x0c\n\x04keys\x18\x02 \x03(\t\x1a,\n\x08GameInfo\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0f\n\x07version\x18\x02 \x01(\x05\"#\n\x0fReqCheckVersion\x12\x10\n\x08keyIndex\x18\x01 \x01(\x05\"\x1f\n\x0eRecNoticeLogin\x12\r\n\x05state\x18\x01 \x01(\x05\"a\n\x10ReqCreateAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\x12\x0c\n\x04nick\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\"~\n\x10RecCreateAccount\x12;\n\x05state\x18\x01 \x01(\x0e\x32,.mahjong.RecCreateAccount.CreateAccountState\"-\n\x12\x43reateAccountState\x12\x0b\n\x07SUCCESS\x10\x00\x12\n\n\x06REPEAT\x10\x01\"\x9e\x01\n\x0eReqLoginServer\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\x12\x0b\n\x03sex\x18\x04 \x01(\x05\x12\x0c\n\x04nick\x18\x05 \x01(\t\x12\r\n\x05phone\x18\x06 \x01(\x03\x12 \n\x03\x63ls\x18\x07 \x01(\x0e\x32\x13.mahjong.LoginClass\x12\x0c\n\x04\x61uto\x18\x08 \x01(\x08\"4\n\x0eRecLoginServer\x12\"\n\x05state\x18\x01 \x01(\x0e\x32\x13.mahjong.LoginState\"\xa7\x02\n\x0bRecUserInfo\x12\x0f\n\x07\x66ristIn\x18\x01 \x01(\x08\x12\x10\n\x08playerId\x18\x02 \x01(\x05\x12\x0f\n\x07\x61\x63\x63ount\x18\x03 \x01(\t\x12\x0c\n\x04nick\x18\x04 \x01(\t\x12\x0f\n\x07headUrl\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\x12\x11\n\trootPower\x18\x07 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x08 \x01(\x05\x12\x0e\n\x06gameId\x18\t \x01(\x05\x12\x14\n\x0cregisterTime\x18\n \x01(\x05\x12\x11\n\tplayTotal\x18\x0b \x01(\x05\x12\r\n\x05phone\x18\x0c \x01(\x03\x12\x11\n\tisContest\x18\r \x01(\x08\x12\x11\n\tintroduce\x18\x0e \x01(\t\x12\x12\n\nconsumeVip\x18\x0f \x01(\x05\x12\x12\n\nconsumeVal\x18\x10 \x01(\x05\"E\n\x11RecUpdateCurrency\x12\x10\n\x08\x63urrency\x18\x01 \x01(\x05\x12\x0c\n\x04gold\x18\x02 \x01(\x05\x12\x10\n\x08integral\x18\x03 \x01(\x05\"2\n\x11RecUpdateEvaluate\x12\x0e\n\x06praise\x18\x01 \x01(\x05\x12\r\n\x05tread\x18\x02 \x01(\x05\"~\n\rReqCreateGame\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x12\n\nteaHouseId\x18\x02 \x01(\x05\x12\r\n\x05proxy\x18\x03 \x01(\x08\x12\x11\n\tmaxPlayer\x18\x04 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\x12\x15\n\rgamePlayCount\x18\x06 \x01(\x05\".\n\rRecCreateGame\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\".\n\x0bReqJoinGame\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\",\n\x0bRecJoinGame\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"c\n\nReqRelogin\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0f\n\x07\x61\x63\x63ount\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12 \n\x03\x63ls\x18\x04 \x01(\x0e\x32\x13.mahjong.LoginClass\"0\n\nRecRelogin\x12\"\n\x05state\x18\x01 \x01(\x0e\x32\x13.mahjong.LoginState\"\"\n\x0fReqLobbyMsgList\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"\x7f\n\x0fRecLobbyMsgList\x12\x33\n\x04msgs\x18\x01 \x03(\x0b\x32%.mahjong.RecLobbyMsgList.LobbyMsgData\x1a\x37\n\x0cLobbyMsgData\x12\x0c\n\x04time\x18\x01 \x01(\x05\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\x05\"(\n\x15ReqLobbyProxyGameList\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"7\n\x14ReqDissolveProxyGame\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"%\n\x14RecDissolveProxyGame\x12\r\n\x05state\x18\x01 \x01(\x05\"\'\n\x14ReqShareMomentsEvent\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"%\n\x14RecShareMomentsEvent\x12\r\n\x05state\x18\x01 \x01(\x05\"\x1f\n\x0fReqExchangeCard\x12\x0c\n\x04\x63\x61rd\x18\x01 \x01(\x05\" \n\x0fRecExchangeCard\x12\r\n\x05state\x18\x01 \x01(\x08\"\x1f\n\x0fReqExchangeGold\x12\x0c\n\x04gold\x18\x01 \x01(\x05\" \n\x0fRecExchangeGold\x12\r\n\x05state\x18\x01 \x01(\x08\"%\n\x11ReqGameRecordInfo\x12\x10\n\x08recordId\x18\x01 \x01(\t\"\xe2\x02\n\x11RecGameRecordInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x02 \x01(\x05\x12\x0e\n\x06gameId\x18\x03 \x01(\x05\x12\x41\n\x0brecordInfos\x18\x04 \x03(\x0b\x32,.mahjong.RecGameRecordInfo.GameOneRecordInfo\x1a?\n\x0eGameRecordUser\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04nick\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x1a\x98\x01\n\x11GameOneRecordInfo\x12\x10\n\x08recordId\x18\x01 \x01(\t\x12\x0e\n\x06lookId\x18\x02 \x01(\x05\x12\x10\n\x08playTime\x18\x03 \x01(\x05\x12>\n\x0bplayerDatas\x18\x04 \x03(\x0b\x32).mahjong.RecGameRecordInfo.GameRecordUser\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\"F\n\x11ReqGameReplayInfo\x12\x10\n\x08replayId\x18\x01 \x01(\t\x12\x0e\n\x06lookId\x18\x02 \x01(\x05\x12\x0f\n\x07isMatch\x18\x03 \x01(\x08\"v\n\x11RecGameReplayInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0c\n\x04time\x18\x02 \x01(\x05\x12\x0f\n\x07\x61llocId\x18\x03 \x01(\x05\x12\x0e\n\x06gameId\x18\x04 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\x0c\x12\x12\n\nadjunction\x18\x06 \x01(\x0c\"\x1e\n\x0fRecSystemNotice\x12\x0b\n\x03msg\x18\x01 \x01(\t\"!\n\x0eReqDefGameList\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\"w\n\nPlayerData\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x10\n\x08nickName\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\x12\x0b\n\x03sex\x18\x04 \x01(\x05\x12\x12\n\nip_address\x18\x05 \x01(\t\x12\x13\n\x0b\x63reate_time\x18\x06 \x01(\x05\"\x9a\x01\n\x0f\x44\x65\x66GameListData\x12\x0e\n\x06gameId\x18\x01 \x01(\x05\x12\x10\n\x08maxCount\x18\x02 \x01(\x05\x12\x10\n\x08\x63urCount\x18\x03 \x01(\x05\x12\x12\n\ncreateInfo\x18\x04 \x01(\x0c\x12\x15\n\rgamePlayCount\x18\x05 \x01(\x05\x12(\n\x0bplayerInfos\x18\x06 \x03(\x0b\x32\x13.mahjong.PlayerData\"=\n\x0eRecDefGameList\x12+\n\tgameDatas\x18\x01 \x03(\x0b\x32\x18.mahjong.DefGameListData\"4\n\x11ReqSearchGameData\x12\x0f\n\x07\x61llocId\x18\x01 \x01(\x05\x12\x0e\n\x06gameId\x18\x02 \x01(\x05\"?\n\x11RecSearchGameData\x12*\n\x08gameData\x18\x01 \x01(\x0b\x32\x18.mahjong.DefGameListData\"1\n\x0fRecUpdateRebate\x12\x0e\n\x06rebate\x18\x01 \x01(\x02\x12\x0e\n\x06number\x18\x02 \x01(\x05\"0\n\x11RecGetLotteryInfo\x12\x0c\n\x04json\x18\x01 \x01(\t\x12\r\n\x05round\x18\x02 \x01(\x05\"-\n\x0cRecDoLottery\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x0e\n\x06\x63\x66g_id\x18\x02 \x01(\x05\"\x89\x01\n\x0ePlayerRankInfo\x12\x0e\n\x06rankId\x18\x01 \x01(\x05\x12\x10\n\x08playerId\x18\x02 \x01(\x05\x12\x0f\n\x07rankVal\x18\x03 \x01(\x05\x12\x0c\n\x04nick\x18\x04 \x01(\t\x12\x0f\n\x07headUrl\x18\x05 \x01(\t\x12\x11\n\tintroduce\x18\x06 \x01(\t\x12\x12\n\nconsumeVip\x18\x07 \x01(\x05\"+\n\x0bReqGameRank\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x0e\n\x06number\x18\x02 \x01(\x05\";\n\x0bRecGameRank\x12,\n\x0bplayerDatas\x18\x01 \x03(\x0b\x32\x17.mahjong.PlayerRankInfo\"\x1d\n\x0cReqBindPhone\x12\r\n\x05phone\x18\x01 \x01(\x03\"\x1d\n\x0cRecBindPhone\x12\r\n\x05state\x18\x01 \x01(\x08\"3\n\x0eReqBindAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1f\n\x0eRecBindAccount\x12\r\n\x05state\x18\x01 \x01(\x08\"C\n\x11ReqModifyUserInfo\x12\x0b\n\x03sex\x18\x01 \x01(\x05\x12\x10\n\x08nickName\x18\x02 \x01(\t\x12\x0f\n\x07headUrl\x18\x03 \x01(\t\"\"\n\x11RecModifyUserInfo\x12\r\n\x05state\x18\x01 \x01(\x08\"\xb3\x01\n\x0bRecMailList\x12(\n\x05mails\x18\x01 \x03(\x0b\x32\x19.mahjong.RecMailList.Mail\x1az\n\x04Mail\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04text\x18\x03 \x01(\t\x12\x0c\n\x04\x63\x61rd\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\x12\r\n\x05state\x18\x07 \x01(\x05\x12\x0c\n\x04time\x18\x08 \x01(\x03\"\x1e\n\x0fReqMailReadItem\x12\x0b\n\x03ids\x18\x01 \x03(\x05\"-\n\x0fRecMailReadItem\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x0b\n\x03ids\x18\x02 \x03(\x05\"\x1d\n\x0eReqMailGetItem\x12\x0b\n\x03ids\x18\x01 \x03(\x05\",\n\x0eRecMailGetItem\x12\r\n\x05state\x18\x01 \x01(\x08\x12\x0b\n\x03ids\x18\x02 \x03(\x05\"\x1b\n\rReqMailDelete\x12\n\n\x02id\x18\x01 \x01(\x05\"\x1e\n\rRecMailDelete\x12\r\n\x05state\x18\x01 \x01(\x08\"%\n\x12ReqUpdateIntroduce\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\"\x1f\n\x0bReqBankInfo\x12\x10\n\x08password\x18\x01 \x01(\t\"J\n\x0bRecBankInfo\x12\r\n\x05state\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"P\n\x0eReqOperateBank\x12\x0c\n\x04\x63\x61rd\x18\x01 \x01(\x05\x12\x0c\n\x04gold\x18\x02 \x01(\x05\x12\x10\n\x08integral\x18\x03 \x01(\x05\x12\x10\n\x08password\x18\x04 \x01(\t\"\x1e\n\rRecOprateBank\x12\r\n\x05state\x18\x01 \x01(\x05\"T\n\x12ReqHandselCurrency\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x02 \x01(\x05\x12\x0c\n\x04gold\x18\x03 \x01(\x05\x12\x10\n\x08integral\x18\x04 \x01(\x05\"#\n\x12RecHandselCurrency\x12\r\n\x05state\x18\x01 \x01(\x05\"=\n\x13RecUpdateConsumeVip\x12\x12\n\nconsumeVip\x18\x01 \x01(\x05\x12\x12\n\nconsumeVal\x18\x02 \x01(\x05*\xca\x10\n\x06Opcode\x12\x11\n\rCHECK_VERSION\x10\x00\x12\x10\n\x0cNOTICE_LOGIN\x10\x01\x12\r\n\tLOGIN_SVR\x10\x02\x12\x14\n\x10REGISTER_ACCOUNT\x10\x03\x12\x14\n\x10UPDATE_USER_INFO\x10\x04\x12\x13\n\x0fUPDATE_CURRENCY\x10\x05\x12\x0f\n\x0b\x43REATE_GAME\x10\x06\x12\r\n\tJOIN_GAME\x10\x07\x12\r\n\tEXIT_GAME\x10\x08\x12\x1b\n\x17UPDATE_GAME_PLAYER_INFO\x10\t\x12\x0e\n\nREADY_GAME\x10\n\x12\x0e\n\nSTART_GAME\x10\x0b\x12\x0f\n\x0bSETTLE_GAME\x10\x0c\x12\x10\n\x0cREENTER_GAME\x10\r\x12\x15\n\x11REENTER_GAME_INFO\x10\x0e\x12\r\n\tGAME_OVER\x10\x0f\x12\x13\n\x0fGAME_START_ANIM\x10\x10\x12\x16\n\x12\x41PPLY_DISMISS_GAME\x10\x11\x12\x16\n\x12REPLY_DISMISS_GAME\x10\x12\x12\x17\n\x13UPDATE_ONLINE_STATE\x10\x13\x12\x10\n\x0cGAME_SUMMARY\x10\x14\x12\x14\n\x10\x41PPLY_RESET_GAME\x10\x15\x12\x12\n\x0eSVR_RESET_GAME\x10\x16\x12\x15\n\x11UPDATE_EVALUATION\x10\x17\x12\x11\n\rUPDATE_RECORD\x10\x18\x12\x14\n\x10UPDATE_GAME_INFO\x10\x19\x12\x11\n\rSYSTEM_NOTICE\x10\x1a\x12\x0f\n\x0bRELOGIN_SVR\x10\x1b\x12\x10\n\x0cROUND_ACTION\x10\x1c\x12\x0e\n\nASK_ACTION\x10\x1d\x12\x10\n\x0c\x41PPLY_ACTION\x10\x1e\x12\x12\n\x0e\x45XECUTE_ACTION\x10\x1f\x12\x0f\n\x0bPLAYER_CHAT\x10 \x12\x10\n\x0cPLAYER_VOICE\x10!\x12\x15\n\x11\x45VALUATION_PLAYER\x10\"\x12\x14\n\x10GAME_RECORD_INFO\x10#\x12\x14\n\x10GAME_REPLAY_INFO\x10$\x12\x0c\n\x08GPS_INFO\x10%\x12\x1b\n\x17GAME_PLAYER_INTERACTION\x10&\x12\x17\n\x13SHARE_MOMENTS_EVENT\x10\'\x12\x12\n\x0eLOBBY_MSG_LIST\x10(\x12\x13\n\x0fSEND_CLIENT_LOG\x10*\x12\r\n\tSEND_PING\x10+\x12\x17\n\x13MAHJONG_ASK_PLUNDER\x10,\x12\x17\n\x13MAHJONG_SELECT_PIAO\x10-\x12\x17\n\x13MAHJONG_UPDATE_PIAO\x10.\x12\x12\n\x0eGAME_SVR_MATCH\x10/\x12\x12\n\x0eHUAN_SAN_ZHANG\x10\x64\x12\x17\n\x13\x43HANGE_CARD_CONFIRM\x10\x65\x12\x16\n\x12\x41PPLY_CHANGE_MATCH\x10\x66\x12\x13\n\x0f\x43\x41RD_NOT_ENOUGH\x10g\x12\x17\n\x13\x46IVE_IN_A_ROW_STAKE\x10h\x12\x19\n\x15\x46IVE_IN_A_ROW_GIVE_UP\x10i\x12\x0c\n\x08SEND_LOG\x10j\x12\x10\n\x0c\x42\x41OJIAO_OVER\x10k\x12\x0c\n\x08\x44ING_QUE\x10o\x12\x0b\n\x07MAI_PAO\x10p\x12\r\n\tSEAT_DOWN\x10q\x12\r\n\tSELF_INFO\x10r\x12\x12\n\x0ePOSITION_SCORE\x10s\x12\x0f\n\x0b\x42\x41NKER_LIST\x10t\x12\x0e\n\nGET_BANKER\x10u\x12\x10\n\x0cLEAVE_BANKER\x10v\x12\x0f\n\x0bSELF_PLAYED\x10w\x12\x0e\n\nWATCH_SIZE\x10x\x12\x11\n\rASK_XIAZHUANG\x10y\x12\x12\n\x0eJIXUDANGZHUANG\x10z\x12\t\n\x05TREND\x10{\x12\x0e\n\nWATCH_LIST\x10|\x12\x0e\n\tYiBinPiao\x10\x82\x01\x12\x11\n\rEXCHANGE_CARD\x10\x34\x12\x11\n\rEXCHANGE_GOLD\x10\x35\x12\x15\n\x11GET_DEF_GAME_LIST\x10\x36\x12\x16\n\x12UPDATE_USER_REBATE\x10\x37\x12\x0f\n\x0bUPDATE_RANK\x10\x38\x12\x10\n\x0c\x42IND_ACCOUNT\x10\x39\x12\x15\n\x11\x42IND_PHONE_NUMBER\x10:\x12\x16\n\x12MODIFY_PLAYER_INFO\x10;\x12\x0f\n\x0bSEARCH_GAME\x10<\x12\x14\n\x10UPDATE_INTRODUCE\x10=\x12\x14\n\x10HANDSEL_CURRENCY\x10>\x12\x16\n\x11MATCH_RECORD_INFO\x10\xc0>\x12\x19\n\x15LOBBY_OTHER_ROOM_LIST\x10)\x12\x18\n\x13\x44ISSOLVE_PROXY_GAME\x10\xa9\x46\x12\x16\n\x11\x41PPLY_ENTER_MATCH\x10\x91N\x12\x16\n\x11\x41PPLY_LEAVE_MATCH\x10\x92N\x12\x16\n\x11UPDATE_MATCH_INFO\x10\x93N\x12\x17\n\x12UPDATE_CONSUME_VIP\x10\xf4N\x12\x12\n\rGET_SIGN_INFO\x10\xf9U\x12\x0f\n\nDO_SIGN_IN\x10\xfaU\x12\x15\n\x10GET_LOTTERY_INFO\x10\xfbU\x12\x0f\n\nDO_LOTTERY\x10\xfcU\x12\x0e\n\tMAIL_LIST\x10\xb1m\x12\x12\n\rMAIL_GET_ITEM\x10\xb2m\x12\r\n\x08MAIL_DEL\x10\xb3m\x12\x0e\n\tBANK_INFO\x10\x99u\x12\x11\n\x0c\x42\x41NK_DEPOSIT\x10\x9au\x12\r\n\x08\x42\x41NK_GET\x10\x9bu\x12\x1a\n\x15MISSION_PROGRESS_LIST\x10\x81}\x12\x19\n\x14MISSION_PROGRESS_GET\x10\x82}\x12\x15\n\x10REGISTER_SERVICE\x10\xe8\x07\x12\x19\n\x14\x43HANGE_SERVICE_STATE\x10\xe9\x07\x12\x16\n\x11GAME_ADD_CURRENCY\x10\xec\x07\x12\x12\n\rCHANGE_ONLINE\x10\xed\x07\x12\x15\n\x10GAME_SVR_OFFLINE\x10\xf0\x07*0\n\nLoginClass\x12\n\n\x06WECHAT\x10\x00\x12\x0c\n\x08OFFICIAL\x10\x01\x12\x08\n\x04TEMP\x10\x02*d\n\nLoginState\x12\x0b\n\x07SUCCESS\x10\x00\x12\x12\n\x0ePASSWORD_ERROR\x10\x01\x12\t\n\x05LIMIT\x10\x02\x12\x0f\n\x0bPHONE_ERROR\x10\x03\x12\x0e\n\nNO_ACCOUNT\x10\x04\x12\t\n\x05\x45RROR\x10\x05\x42\x02H\x03\x62\x06proto3')
 )
 
 _OPCODE = _descriptor.EnumDescriptor(
-  name='Opcode',
-  full_name='mahjong.Opcode',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='CHECK_VERSION', index=0, number=0,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='NOTICE_LOGIN', index=1, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='LOGIN_SVR', index=2, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REGISTER_ACCOUNT', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_USER_INFO', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_CURRENCY', index=5, number=5,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='CREATE_GAME', index=6, number=6,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='JOIN_GAME', index=7, number=7,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EXIT_GAME', index=8, number=8,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_GAME_PLAYER_INFO', index=9, number=9,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='READY_GAME', index=10, number=10,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='START_GAME', index=11, number=11,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SETTLE_GAME', index=12, number=12,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REENTER_GAME', index=13, number=13,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REENTER_GAME_INFO', index=14, number=14,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_OVER', index=15, number=15,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_START_ANIM', index=16, number=16,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='APPLY_DISMISS_GAME', index=17, number=17,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REPLY_DISMISS_GAME', index=18, number=18,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_ONLINE_STATE', index=19, number=19,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_SUMMARY', index=20, number=20,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='APPLY_RESET_GAME', index=21, number=21,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SVR_RESET_GAME', index=22, number=22,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_EVALUATION', index=23, number=23,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_RECORD', index=24, number=24,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_GAME_INFO', index=25, number=25,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SYSTEM_NOTICE', index=26, number=26,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='RELOGIN_SVR', index=27, number=27,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='ROUND_ACTION', index=28, number=28,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='ASK_ACTION', index=29, number=29,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='APPLY_ACTION', index=30, number=30,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EXECUTE_ACTION', index=31, number=31,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PLAYER_CHAT', index=32, number=32,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PLAYER_VOICE', index=33, number=33,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EVALUATION_PLAYER', index=34, number=34,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_RECORD_INFO', index=35, number=35,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_REPLAY_INFO', index=36, number=36,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GPS_INFO', index=37, number=37,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_PLAYER_INTERACTION', index=38, number=38,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SHARE_MOMENTS_EVENT', index=39, number=39,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='LOBBY_MSG_LIST', index=40, number=40,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SEND_CLIENT_LOG', index=41, number=42,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SEND_PING', index=42, number=43,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAHJONG_ASK_PLUNDER', index=43, number=44,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAHJONG_SELECT_PIAO', index=44, number=45,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAHJONG_UPDATE_PIAO', index=45, number=46,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_SVR_MATCH', index=46, number=47,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='HUAN_SAN_ZHANG', index=47, number=100,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='CHANGE_CARD_CONFIRM', index=48, number=101,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='APPLY_CHANGE_MATCH', index=49, number=102,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='CARD_NOT_ENOUGH', index=50, number=103,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='FIVE_IN_A_ROW_STAKE', index=51, number=104,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='FIVE_IN_A_ROW_GIVE_UP', index=52, number=105,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SEND_LOG', index=53, number=106,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BAOJIAO_OVER', index=54, number=107,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DING_QUE', index=55, number=111,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAI_PAO', index=56, number=112,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SEAT_DOWN', index=57, number=113,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SELF_INFO', index=58, number=114,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='POSITION_SCORE', index=59, number=115,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BANKER_LIST', index=60, number=116,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GET_BANKER', index=61, number=117,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='LEAVE_BANKER', index=62, number=118,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SELF_PLAYED', index=63, number=119,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='WATCH_SIZE', index=64, number=120,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='ASK_XIAZHUANG', index=65, number=121,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='JIXUDANGZHUANG', index=66, number=122,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='TREND', index=67, number=123,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='WATCH_LIST', index=68, number=124,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='YiBinPiao', index=69, number=130,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EXCHANGE_CARD', index=70, number=52,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EXCHANGE_GOLD', index=71, number=53,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GET_DEF_GAME_LIST', index=72, number=54,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_USER_REBATE', index=73, number=55,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_RANK', index=74, number=56,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BIND_ACCOUNT', index=75, number=57,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BIND_PHONE_NUMBER', index=76, number=58,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MODIFY_PLAYER_INFO', index=77, number=59,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SEARCH_GAME', index=78, number=60,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_INTRODUCE', index=79, number=61,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='HANDSEL_CURRENCY', index=80, number=62,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MATCH_RECORD_INFO', index=81, number=8000,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='LOBBY_OTHER_ROOM_LIST', index=82, number=41,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DISSOLVE_PROXY_GAME', index=83, number=9001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='APPLY_ENTER_MATCH', index=84, number=10001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='APPLY_LEAVE_MATCH', index=85, number=10002,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_MATCH_INFO', index=86, number=10003,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UPDATE_CONSUME_VIP', index=87, number=10100,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GET_SIGN_INFO', index=88, number=11001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DO_SIGN_IN', index=89, number=11002,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GET_LOTTERY_INFO', index=90, number=11003,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DO_LOTTERY', index=91, number=11004,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAIL_LIST', index=92, number=14001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAIL_GET_ITEM', index=93, number=14002,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MAIL_DEL', index=94, number=14003,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BANK_INFO', index=95, number=15001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BANK_DEPOSIT', index=96, number=15002,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BANK_GET', index=97, number=15003,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MISSION_PROGRESS_LIST', index=98, number=16001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='MISSION_PROGRESS_GET', index=99, number=16002,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REGISTER_SERVICE', index=100, number=1000,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='CHANGE_SERVICE_STATE', index=101, number=1001,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_ADD_CURRENCY', index=102, number=1004,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='CHANGE_ONLINE', index=103, number=1005,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='GAME_SVR_OFFLINE', index=104, number=1008,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=5499,
-  serialized_end=7621,
+    name='Opcode',
+    full_name='mahjong.Opcode',
+    filename=None,
+    file=DESCRIPTOR,
+    values=[
+        _descriptor.EnumValueDescriptor(
+            name='CHECK_VERSION', index=0, number=0,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='NOTICE_LOGIN', index=1, number=1,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='LOGIN_SVR', index=2, number=2,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='REGISTER_ACCOUNT', index=3, number=3,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_USER_INFO', index=4, number=4,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_CURRENCY', index=5, number=5,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='CREATE_GAME', index=6, number=6,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='JOIN_GAME', index=7, number=7,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='EXIT_GAME', index=8, number=8,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_GAME_PLAYER_INFO', index=9, number=9,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='READY_GAME', index=10, number=10,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='START_GAME', index=11, number=11,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SETTLE_GAME', index=12, number=12,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='REENTER_GAME', index=13, number=13,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='REENTER_GAME_INFO', index=14, number=14,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_OVER', index=15, number=15,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_START_ANIM', index=16, number=16,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='APPLY_DISMISS_GAME', index=17, number=17,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='REPLY_DISMISS_GAME', index=18, number=18,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_ONLINE_STATE', index=19, number=19,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_SUMMARY', index=20, number=20,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='APPLY_RESET_GAME', index=21, number=21,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SVR_RESET_GAME', index=22, number=22,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_EVALUATION', index=23, number=23,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_RECORD', index=24, number=24,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_GAME_INFO', index=25, number=25,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SYSTEM_NOTICE', index=26, number=26,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='RELOGIN_SVR', index=27, number=27,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='ROUND_ACTION', index=28, number=28,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='ASK_ACTION', index=29, number=29,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='APPLY_ACTION', index=30, number=30,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='EXECUTE_ACTION', index=31, number=31,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='PLAYER_CHAT', index=32, number=32,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='PLAYER_VOICE', index=33, number=33,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='EVALUATION_PLAYER', index=34, number=34,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_RECORD_INFO', index=35, number=35,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_REPLAY_INFO', index=36, number=36,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GPS_INFO', index=37, number=37,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_PLAYER_INTERACTION', index=38, number=38,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SHARE_MOMENTS_EVENT', index=39, number=39,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='LOBBY_MSG_LIST', index=40, number=40,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SEND_CLIENT_LOG', index=41, number=42,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SEND_PING', index=42, number=43,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAHJONG_ASK_PLUNDER', index=43, number=44,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAHJONG_SELECT_PIAO', index=44, number=45,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAHJONG_UPDATE_PIAO', index=45, number=46,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_SVR_MATCH', index=46, number=47,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='HUAN_SAN_ZHANG', index=47, number=100,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='CHANGE_CARD_CONFIRM', index=48, number=101,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='APPLY_CHANGE_MATCH', index=49, number=102,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='CARD_NOT_ENOUGH', index=50, number=103,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='FIVE_IN_A_ROW_STAKE', index=51, number=104,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='FIVE_IN_A_ROW_GIVE_UP', index=52, number=105,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SEND_LOG', index=53, number=106,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BAOJIAO_OVER', index=54, number=107,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='DING_QUE', index=55, number=111,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAI_PAO', index=56, number=112,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SEAT_DOWN', index=57, number=113,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SELF_INFO', index=58, number=114,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='POSITION_SCORE', index=59, number=115,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BANKER_LIST', index=60, number=116,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GET_BANKER', index=61, number=117,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='LEAVE_BANKER', index=62, number=118,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SELF_PLAYED', index=63, number=119,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='WATCH_SIZE', index=64, number=120,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='ASK_XIAZHUANG', index=65, number=121,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='JIXUDANGZHUANG', index=66, number=122,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='TREND', index=67, number=123,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='WATCH_LIST', index=68, number=124,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='YiBinPiao', index=69, number=130,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='EXCHANGE_CARD', index=70, number=52,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='EXCHANGE_GOLD', index=71, number=53,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GET_DEF_GAME_LIST', index=72, number=54,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_USER_REBATE', index=73, number=55,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_RANK', index=74, number=56,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BIND_ACCOUNT', index=75, number=57,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BIND_PHONE_NUMBER', index=76, number=58,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MODIFY_PLAYER_INFO', index=77, number=59,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='SEARCH_GAME', index=78, number=60,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_INTRODUCE', index=79, number=61,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='HANDSEL_CURRENCY', index=80, number=62,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MATCH_RECORD_INFO', index=81, number=8000,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='LOBBY_OTHER_ROOM_LIST', index=82, number=41,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='DISSOLVE_PROXY_GAME', index=83, number=9001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='APPLY_ENTER_MATCH', index=84, number=10001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='APPLY_LEAVE_MATCH', index=85, number=10002,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_MATCH_INFO', index=86, number=10003,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='UPDATE_CONSUME_VIP', index=87, number=10100,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GET_SIGN_INFO', index=88, number=11001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='DO_SIGN_IN', index=89, number=11002,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GET_LOTTERY_INFO', index=90, number=11003,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='DO_LOTTERY', index=91, number=11004,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAIL_LIST', index=92, number=14001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAIL_GET_ITEM', index=93, number=14002,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MAIL_DEL', index=94, number=14003,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BANK_INFO', index=95, number=15001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BANK_DEPOSIT', index=96, number=15002,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='BANK_GET', index=97, number=15003,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MISSION_PROGRESS_LIST', index=98, number=16001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='MISSION_PROGRESS_GET', index=99, number=16002,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='REGISTER_SERVICE', index=100, number=1000,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='CHANGE_SERVICE_STATE', index=101, number=1001,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_ADD_CURRENCY', index=102, number=1004,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='CHANGE_ONLINE', index=103, number=1005,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='GAME_SVR_OFFLINE', index=104, number=1008,
+            options=None,
+            type=None),
+    ],
+    containing_type=None,
+    options=None,
+    serialized_start=4711,
+    serialized_end=6833,
 )
 _sym_db.RegisterEnumDescriptor(_OPCODE)
 
 Opcode = enum_type_wrapper.EnumTypeWrapper(_OPCODE)
 _LOGINCLASS = _descriptor.EnumDescriptor(
-  name='LoginClass',
-  full_name='mahjong.LoginClass',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='WECHAT', index=0, number=0,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='OFFICIAL', index=1, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='TEMP', index=2, number=2,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=7623,
-  serialized_end=7671,
+    name='LoginClass',
+    full_name='mahjong.LoginClass',
+    filename=None,
+    file=DESCRIPTOR,
+    values=[
+        _descriptor.EnumValueDescriptor(
+            name='WECHAT', index=0, number=0,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='OFFICIAL', index=1, number=1,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='TEMP', index=2, number=2,
+            options=None,
+            type=None),
+    ],
+    containing_type=None,
+    options=None,
+    serialized_start=6835,
+    serialized_end=6883,
 )
 _sym_db.RegisterEnumDescriptor(_LOGINCLASS)
 
 LoginClass = enum_type_wrapper.EnumTypeWrapper(_LOGINCLASS)
 _LOGINSTATE = _descriptor.EnumDescriptor(
-  name='LoginState',
-  full_name='mahjong.LoginState',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='SUCCESS', index=0, number=0,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PASSWORD_ERROR', index=1, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='LIMIT', index=2, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PHONE_ERROR', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='NO_ACCOUNT', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='ERROR', index=5, number=5,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=7673,
-  serialized_end=7773,
+    name='LoginState',
+    full_name='mahjong.LoginState',
+    filename=None,
+    file=DESCRIPTOR,
+    values=[
+        _descriptor.EnumValueDescriptor(
+            name='SUCCESS', index=0, number=0,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='PASSWORD_ERROR', index=1, number=1,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='LIMIT', index=2, number=2,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='PHONE_ERROR', index=3, number=3,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='NO_ACCOUNT', index=4, number=4,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='ERROR', index=5, number=5,
+            options=None,
+            type=None),
+    ],
+    containing_type=None,
+    options=None,
+    serialized_start=6885,
+    serialized_end=6985,
 )
 _sym_db.RegisterEnumDescriptor(_LOGINSTATE)
 
@@ -639,3304 +639,2899 @@ PHONE_ERROR = 3
 NO_ACCOUNT = 4
 ERROR = 5
 
-
 _RECCREATEACCOUNT_CREATEACCOUNTSTATE = _descriptor.EnumDescriptor(
-  name='CreateAccountState',
-  full_name='mahjong.RecCreateAccount.CreateAccountState',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='SUCCESS', index=0, number=0,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REPEAT', index=1, number=1,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=480,
-  serialized_end=525,
+    name='CreateAccountState',
+    full_name='mahjong.RecCreateAccount.CreateAccountState',
+    filename=None,
+    file=DESCRIPTOR,
+    values=[
+        _descriptor.EnumValueDescriptor(
+            name='SUCCESS', index=0, number=0,
+            options=None,
+            type=None),
+        _descriptor.EnumValueDescriptor(
+            name='REPEAT', index=1, number=1,
+            options=None,
+            type=None),
+    ],
+    containing_type=None,
+    options=None,
+    serialized_start=480,
+    serialized_end=525,
 )
 _sym_db.RegisterEnumDescriptor(_RECCREATEACCOUNT_CREATEACCOUNTSTATE)
 
-
 _NETMESSAGE = _descriptor.Descriptor(
-  name='NetMessage',
-  full_name='mahjong.NetMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='opcode', full_name='mahjong.NetMessage.opcode', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='mahjong.NetMessage.data', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='id', full_name='mahjong.NetMessage.id', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=28,
-  serialized_end=99,
+    name='NetMessage',
+    full_name='mahjong.NetMessage',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='opcode', full_name='mahjong.NetMessage.opcode', index=0,
+            number=1, type=14, cpp_type=8, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='data', full_name='mahjong.NetMessage.data', index=1,
+            number=2, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='id', full_name='mahjong.NetMessage.id', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=28,
+    serialized_end=99,
 )
 
-
 _RECCHECKVERSION_GAMEINFO = _descriptor.Descriptor(
-  name='GameInfo',
-  full_name='mahjong.RecCheckVersion.GameInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.RecCheckVersion.GameInfo.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='version', full_name='mahjong.RecCheckVersion.GameInfo.version', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=184,
-  serialized_end=228,
+    name='GameInfo',
+    full_name='mahjong.RecCheckVersion.GameInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.RecCheckVersion.GameInfo.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='version', full_name='mahjong.RecCheckVersion.GameInfo.version', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=184,
+    serialized_end=228,
 )
 
 _RECCHECKVERSION = _descriptor.Descriptor(
-  name='RecCheckVersion',
-  full_name='mahjong.RecCheckVersion',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='games', full_name='mahjong.RecCheckVersion.games', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='keys', full_name='mahjong.RecCheckVersion.keys', index=1,
-      number=2, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECCHECKVERSION_GAMEINFO, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=101,
-  serialized_end=228,
+    name='RecCheckVersion',
+    full_name='mahjong.RecCheckVersion',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='games', full_name='mahjong.RecCheckVersion.games', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='keys', full_name='mahjong.RecCheckVersion.keys', index=1,
+            number=2, type=9, cpp_type=9, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECCHECKVERSION_GAMEINFO, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=101,
+    serialized_end=228,
 )
-
 
 _REQCHECKVERSION = _descriptor.Descriptor(
-  name='ReqCheckVersion',
-  full_name='mahjong.ReqCheckVersion',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='keyIndex', full_name='mahjong.ReqCheckVersion.keyIndex', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=230,
-  serialized_end=265,
+    name='ReqCheckVersion',
+    full_name='mahjong.ReqCheckVersion',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='keyIndex', full_name='mahjong.ReqCheckVersion.keyIndex', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=230,
+    serialized_end=265,
 )
-
 
 _RECNOTICELOGIN = _descriptor.Descriptor(
-  name='RecNoticeLogin',
-  full_name='mahjong.RecNoticeLogin',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecNoticeLogin.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=267,
-  serialized_end=298,
+    name='RecNoticeLogin',
+    full_name='mahjong.RecNoticeLogin',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecNoticeLogin.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=267,
+    serialized_end=298,
 )
-
 
 _REQCREATEACCOUNT = _descriptor.Descriptor(
-  name='ReqCreateAccount',
-  full_name='mahjong.ReqCreateAccount',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='account', full_name='mahjong.ReqCreateAccount.account', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='mahjong.ReqCreateAccount.password', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='mahjong.ReqCreateAccount.headUrl', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.ReqCreateAccount.nick', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sex', full_name='mahjong.ReqCreateAccount.sex', index=4,
-      number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=300,
-  serialized_end=397,
+    name='ReqCreateAccount',
+    full_name='mahjong.ReqCreateAccount',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='account', full_name='mahjong.ReqCreateAccount.account', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='password', full_name='mahjong.ReqCreateAccount.password', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='mahjong.ReqCreateAccount.headUrl', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nick', full_name='mahjong.ReqCreateAccount.nick', index=3,
+            number=4, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='sex', full_name='mahjong.ReqCreateAccount.sex', index=4,
+            number=5, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=300,
+    serialized_end=397,
 )
-
 
 _RECCREATEACCOUNT = _descriptor.Descriptor(
-  name='RecCreateAccount',
-  full_name='mahjong.RecCreateAccount',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecCreateAccount.state', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _RECCREATEACCOUNT_CREATEACCOUNTSTATE,
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=399,
-  serialized_end=525,
+    name='RecCreateAccount',
+    full_name='mahjong.RecCreateAccount',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecCreateAccount.state', index=0,
+            number=1, type=14, cpp_type=8, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+        _RECCREATEACCOUNT_CREATEACCOUNTSTATE,
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=399,
+    serialized_end=525,
 )
-
 
 _REQLOGINSERVER = _descriptor.Descriptor(
-  name='ReqLoginServer',
-  full_name='mahjong.ReqLoginServer',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='account', full_name='mahjong.ReqLoginServer.account', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='mahjong.ReqLoginServer.password', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='mahjong.ReqLoginServer.headUrl', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sex', full_name='mahjong.ReqLoginServer.sex', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.ReqLoginServer.nick', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='phone', full_name='mahjong.ReqLoginServer.phone', index=5,
-      number=6, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='cls', full_name='mahjong.ReqLoginServer.cls', index=6,
-      number=7, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='auto', full_name='mahjong.ReqLoginServer.auto', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=528,
-  serialized_end=686,
+    name='ReqLoginServer',
+    full_name='mahjong.ReqLoginServer',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='account', full_name='mahjong.ReqLoginServer.account', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='password', full_name='mahjong.ReqLoginServer.password', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='mahjong.ReqLoginServer.headUrl', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='sex', full_name='mahjong.ReqLoginServer.sex', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nick', full_name='mahjong.ReqLoginServer.nick', index=4,
+            number=5, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='phone', full_name='mahjong.ReqLoginServer.phone', index=5,
+            number=6, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='cls', full_name='mahjong.ReqLoginServer.cls', index=6,
+            number=7, type=14, cpp_type=8, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='auto', full_name='mahjong.ReqLoginServer.auto', index=7,
+            number=8, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=528,
+    serialized_end=686,
 )
-
 
 _RECLOGINSERVER = _descriptor.Descriptor(
-  name='RecLoginServer',
-  full_name='mahjong.RecLoginServer',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecLoginServer.state', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=688,
-  serialized_end=740,
+    name='RecLoginServer',
+    full_name='mahjong.RecLoginServer',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecLoginServer.state', index=0,
+            number=1, type=14, cpp_type=8, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=688,
+    serialized_end=740,
 )
-
 
 _RECUSERINFO = _descriptor.Descriptor(
-  name='RecUserInfo',
-  full_name='mahjong.RecUserInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='fristIn', full_name='mahjong.RecUserInfo.fristIn', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.RecUserInfo.playerId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='account', full_name='mahjong.RecUserInfo.account', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.RecUserInfo.nick', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='mahjong.RecUserInfo.headUrl', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sex', full_name='mahjong.RecUserInfo.sex', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='rootPower', full_name='mahjong.RecUserInfo.rootPower', index=6,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.RecUserInfo.allocId', index=7,
-      number=8, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecUserInfo.gameId', index=8,
-      number=9, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='registerTime', full_name='mahjong.RecUserInfo.registerTime', index=9,
-      number=10, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playTotal', full_name='mahjong.RecUserInfo.playTotal', index=10,
-      number=11, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='phone', full_name='mahjong.RecUserInfo.phone', index=11,
-      number=12, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='isContest', full_name='mahjong.RecUserInfo.isContest', index=12,
-      number=13, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='introduce', full_name='mahjong.RecUserInfo.introduce', index=13,
-      number=14, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='consumeVip', full_name='mahjong.RecUserInfo.consumeVip', index=14,
-      number=15, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='consumeVal', full_name='mahjong.RecUserInfo.consumeVal', index=15,
-      number=16, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=743,
-  serialized_end=1038,
+    name='RecUserInfo',
+    full_name='mahjong.RecUserInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='fristIn', full_name='mahjong.RecUserInfo.fristIn', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='mahjong.RecUserInfo.playerId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='account', full_name='mahjong.RecUserInfo.account', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nick', full_name='mahjong.RecUserInfo.nick', index=3,
+            number=4, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='mahjong.RecUserInfo.headUrl', index=4,
+            number=5, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='sex', full_name='mahjong.RecUserInfo.sex', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='rootPower', full_name='mahjong.RecUserInfo.rootPower', index=6,
+            number=7, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.RecUserInfo.allocId', index=7,
+            number=8, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.RecUserInfo.gameId', index=8,
+            number=9, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='registerTime', full_name='mahjong.RecUserInfo.registerTime', index=9,
+            number=10, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playTotal', full_name='mahjong.RecUserInfo.playTotal', index=10,
+            number=11, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='phone', full_name='mahjong.RecUserInfo.phone', index=11,
+            number=12, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='isContest', full_name='mahjong.RecUserInfo.isContest', index=12,
+            number=13, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='introduce', full_name='mahjong.RecUserInfo.introduce', index=13,
+            number=14, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='consumeVip', full_name='mahjong.RecUserInfo.consumeVip', index=14,
+            number=15, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='consumeVal', full_name='mahjong.RecUserInfo.consumeVal', index=15,
+            number=16, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=743,
+    serialized_end=1038,
 )
-
 
 _RECUPDATECURRENCY = _descriptor.Descriptor(
-  name='RecUpdateCurrency',
-  full_name='mahjong.RecUpdateCurrency',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='currency', full_name='mahjong.RecUpdateCurrency.currency', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='mahjong.RecUpdateCurrency.gold', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='integral', full_name='mahjong.RecUpdateCurrency.integral', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1040,
-  serialized_end=1109,
+    name='RecUpdateCurrency',
+    full_name='mahjong.RecUpdateCurrency',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='currency', full_name='mahjong.RecUpdateCurrency.currency', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='mahjong.RecUpdateCurrency.gold', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='integral', full_name='mahjong.RecUpdateCurrency.integral', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1040,
+    serialized_end=1109,
 )
-
 
 _RECUPDATEEVALUATE = _descriptor.Descriptor(
-  name='RecUpdateEvaluate',
-  full_name='mahjong.RecUpdateEvaluate',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='praise', full_name='mahjong.RecUpdateEvaluate.praise', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tread', full_name='mahjong.RecUpdateEvaluate.tread', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1111,
-  serialized_end=1161,
+    name='RecUpdateEvaluate',
+    full_name='mahjong.RecUpdateEvaluate',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='praise', full_name='mahjong.RecUpdateEvaluate.praise', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='tread', full_name='mahjong.RecUpdateEvaluate.tread', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1111,
+    serialized_end=1161,
 )
-
-
-_RECUPDATERECORD_URECORDPLAYER = _descriptor.Descriptor(
-  name='URecordPlayer',
-  full_name='mahjong.RecUpdateRecord.URecordPlayer',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.RecUpdateRecord.URecordPlayer.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.RecUpdateRecord.URecordPlayer.nick', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='score', full_name='mahjong.RecUpdateRecord.URecordPlayer.score', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1294,
-  serialized_end=1356,
-)
-
-_RECUPDATERECORD_URECORDSINGLE = _descriptor.Descriptor(
-  name='URecordSingle',
-  full_name='mahjong.RecUpdateRecord.URecordSingle',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='recordId', full_name='mahjong.RecUpdateRecord.URecordSingle.recordId', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.RecUpdateRecord.URecordSingle.allocId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecUpdateRecord.URecordSingle.gameId', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameNumber', full_name='mahjong.RecUpdateRecord.URecordSingle.gameNumber', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='totalNumber', full_name='mahjong.RecUpdateRecord.URecordSingle.totalNumber', index=4,
-      number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='time', full_name='mahjong.RecUpdateRecord.URecordSingle.time', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='players', full_name='mahjong.RecUpdateRecord.URecordSingle.players', index=6,
-      number=7, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='lookIds', full_name='mahjong.RecUpdateRecord.URecordSingle.lookIds', index=7,
-      number=8, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.RecUpdateRecord.URecordSingle.content', index=8,
-      number=9, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1359,
-  serialized_end=1571,
-)
-
-_RECUPDATERECORD = _descriptor.Descriptor(
-  name='RecUpdateRecord',
-  full_name='mahjong.RecUpdateRecord',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='normal', full_name='mahjong.RecUpdateRecord.normal', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='proxy', full_name='mahjong.RecUpdateRecord.proxy', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECUPDATERECORD_URECORDPLAYER, _RECUPDATERECORD_URECORDSINGLE, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1164,
-  serialized_end=1571,
-)
-
 
 _REQCREATEGAME = _descriptor.Descriptor(
-  name='ReqCreateGame',
-  full_name='mahjong.ReqCreateGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqCreateGame.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='teaHouseId', full_name='mahjong.ReqCreateGame.teaHouseId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='proxy', full_name='mahjong.ReqCreateGame.proxy', index=2,
-      number=3, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='maxPlayer', full_name='mahjong.ReqCreateGame.maxPlayer', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.ReqCreateGame.content', index=4,
-      number=5, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1573,
-  serialized_end=1676,
+    name='ReqCreateGame',
+    full_name='mahjong.ReqCreateGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqCreateGame.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='teaHouseId', full_name='mahjong.ReqCreateGame.teaHouseId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='proxy', full_name='mahjong.ReqCreateGame.proxy', index=2,
+            number=3, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='maxPlayer', full_name='mahjong.ReqCreateGame.maxPlayer', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='mahjong.ReqCreateGame.content', index=4,
+            number=5, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gamePlayCount', full_name='mahjong.ReqCreateGame.gamePlayCount', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1163,
+    serialized_end=1289,
 )
-
 
 _RECCREATEGAME = _descriptor.Descriptor(
-  name='RecCreateGame',
-  full_name='mahjong.RecCreateGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecCreateGame.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecCreateGame.gameId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1678,
-  serialized_end=1724,
+    name='RecCreateGame',
+    full_name='mahjong.RecCreateGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecCreateGame.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.RecCreateGame.gameId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1291,
+    serialized_end=1337,
 )
-
 
 _REQJOINGAME = _descriptor.Descriptor(
-  name='ReqJoinGame',
-  full_name='mahjong.ReqJoinGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.ReqJoinGame.gameId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.ReqJoinGame.content', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1726,
-  serialized_end=1772,
+    name='ReqJoinGame',
+    full_name='mahjong.ReqJoinGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.ReqJoinGame.gameId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='mahjong.ReqJoinGame.content', index=1,
+            number=2, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1339,
+    serialized_end=1385,
 )
-
 
 _RECJOINGAME = _descriptor.Descriptor(
-  name='RecJoinGame',
-  full_name='mahjong.RecJoinGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecJoinGame.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecJoinGame.gameId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1774,
-  serialized_end=1818,
+    name='RecJoinGame',
+    full_name='mahjong.RecJoinGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecJoinGame.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.RecJoinGame.gameId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1387,
+    serialized_end=1431,
 )
-
 
 _REQRELOGIN = _descriptor.Descriptor(
-  name='ReqRelogin',
-  full_name='mahjong.ReqRelogin',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.ReqRelogin.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='account', full_name='mahjong.ReqRelogin.account', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='mahjong.ReqRelogin.password', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='cls', full_name='mahjong.ReqRelogin.cls', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1820,
-  serialized_end=1919,
+    name='ReqRelogin',
+    full_name='mahjong.ReqRelogin',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='mahjong.ReqRelogin.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='account', full_name='mahjong.ReqRelogin.account', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='password', full_name='mahjong.ReqRelogin.password', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='cls', full_name='mahjong.ReqRelogin.cls', index=3,
+            number=4, type=14, cpp_type=8, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1433,
+    serialized_end=1532,
 )
-
 
 _RECRELOGIN = _descriptor.Descriptor(
-  name='RecRelogin',
-  full_name='mahjong.RecRelogin',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecRelogin.state', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1921,
-  serialized_end=1969,
+    name='RecRelogin',
+    full_name='mahjong.RecRelogin',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecRelogin.state', index=0,
+            number=1, type=14, cpp_type=8, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1534,
+    serialized_end=1582,
 )
-
 
 _REQLOBBYMSGLIST = _descriptor.Descriptor(
-  name='ReqLobbyMsgList',
-  full_name='mahjong.ReqLobbyMsgList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqLobbyMsgList.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1971,
-  serialized_end=2005,
+    name='ReqLobbyMsgList',
+    full_name='mahjong.ReqLobbyMsgList',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqLobbyMsgList.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1584,
+    serialized_end=1618,
 )
 
-
 _RECLOBBYMSGLIST_LOBBYMSGDATA = _descriptor.Descriptor(
-  name='LobbyMsgData',
-  full_name='mahjong.RecLobbyMsgList.LobbyMsgData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='time', full_name='mahjong.RecLobbyMsgList.LobbyMsgData.time', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='msg', full_name='mahjong.RecLobbyMsgList.LobbyMsgData.msg', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='type', full_name='mahjong.RecLobbyMsgList.LobbyMsgData.type', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2079,
-  serialized_end=2134,
+    name='LobbyMsgData',
+    full_name='mahjong.RecLobbyMsgList.LobbyMsgData',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='time', full_name='mahjong.RecLobbyMsgList.LobbyMsgData.time', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='msg', full_name='mahjong.RecLobbyMsgList.LobbyMsgData.msg', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='type', full_name='mahjong.RecLobbyMsgList.LobbyMsgData.type', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1692,
+    serialized_end=1747,
 )
 
 _RECLOBBYMSGLIST = _descriptor.Descriptor(
-  name='RecLobbyMsgList',
-  full_name='mahjong.RecLobbyMsgList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='msgs', full_name='mahjong.RecLobbyMsgList.msgs', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECLOBBYMSGLIST_LOBBYMSGDATA, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2007,
-  serialized_end=2134,
+    name='RecLobbyMsgList',
+    full_name='mahjong.RecLobbyMsgList',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='msgs', full_name='mahjong.RecLobbyMsgList.msgs', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECLOBBYMSGLIST_LOBBYMSGDATA, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1620,
+    serialized_end=1747,
 )
-
 
 _REQLOBBYPROXYGAMELIST = _descriptor.Descriptor(
-  name='ReqLobbyProxyGameList',
-  full_name='mahjong.ReqLobbyProxyGameList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqLobbyProxyGameList.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2136,
-  serialized_end=2176,
+    name='ReqLobbyProxyGameList',
+    full_name='mahjong.ReqLobbyProxyGameList',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqLobbyProxyGameList.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1749,
+    serialized_end=1789,
 )
-
 
 _REQDISSOLVEPROXYGAME = _descriptor.Descriptor(
-  name='ReqDissolveProxyGame',
-  full_name='mahjong.ReqDissolveProxyGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqDissolveProxyGame.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.ReqDissolveProxyGame.gameId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2178,
-  serialized_end=2233,
+    name='ReqDissolveProxyGame',
+    full_name='mahjong.ReqDissolveProxyGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqDissolveProxyGame.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.ReqDissolveProxyGame.gameId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1791,
+    serialized_end=1846,
 )
-
 
 _RECDISSOLVEPROXYGAME = _descriptor.Descriptor(
-  name='RecDissolveProxyGame',
-  full_name='mahjong.RecDissolveProxyGame',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecDissolveProxyGame.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2235,
-  serialized_end=2272,
+    name='RecDissolveProxyGame',
+    full_name='mahjong.RecDissolveProxyGame',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecDissolveProxyGame.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1848,
+    serialized_end=1885,
 )
-
 
 _REQSHAREMOMENTSEVENT = _descriptor.Descriptor(
-  name='ReqShareMomentsEvent',
-  full_name='mahjong.ReqShareMomentsEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqShareMomentsEvent.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2274,
-  serialized_end=2313,
+    name='ReqShareMomentsEvent',
+    full_name='mahjong.ReqShareMomentsEvent',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqShareMomentsEvent.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1887,
+    serialized_end=1926,
 )
-
 
 _RECSHAREMOMENTSEVENT = _descriptor.Descriptor(
-  name='RecShareMomentsEvent',
-  full_name='mahjong.RecShareMomentsEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecShareMomentsEvent.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2315,
-  serialized_end=2352,
+    name='RecShareMomentsEvent',
+    full_name='mahjong.RecShareMomentsEvent',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecShareMomentsEvent.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1928,
+    serialized_end=1965,
 )
-
 
 _REQEXCHANGECARD = _descriptor.Descriptor(
-  name='ReqExchangeCard',
-  full_name='mahjong.ReqExchangeCard',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='card', full_name='mahjong.ReqExchangeCard.card', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2354,
-  serialized_end=2385,
+    name='ReqExchangeCard',
+    full_name='mahjong.ReqExchangeCard',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='card', full_name='mahjong.ReqExchangeCard.card', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1967,
+    serialized_end=1998,
 )
-
 
 _RECEXCHANGECARD = _descriptor.Descriptor(
-  name='RecExchangeCard',
-  full_name='mahjong.RecExchangeCard',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecExchangeCard.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2387,
-  serialized_end=2419,
+    name='RecExchangeCard',
+    full_name='mahjong.RecExchangeCard',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecExchangeCard.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2000,
+    serialized_end=2032,
 )
-
 
 _REQEXCHANGEGOLD = _descriptor.Descriptor(
-  name='ReqExchangeGold',
-  full_name='mahjong.ReqExchangeGold',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='mahjong.ReqExchangeGold.gold', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2421,
-  serialized_end=2452,
+    name='ReqExchangeGold',
+    full_name='mahjong.ReqExchangeGold',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='mahjong.ReqExchangeGold.gold', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2034,
+    serialized_end=2065,
 )
-
 
 _RECEXCHANGEGOLD = _descriptor.Descriptor(
-  name='RecExchangeGold',
-  full_name='mahjong.RecExchangeGold',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecExchangeGold.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2454,
-  serialized_end=2486,
+    name='RecExchangeGold',
+    full_name='mahjong.RecExchangeGold',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecExchangeGold.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2067,
+    serialized_end=2099,
 )
-
 
 _REQGAMERECORDINFO = _descriptor.Descriptor(
-  name='ReqGameRecordInfo',
-  full_name='mahjong.ReqGameRecordInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='recordId', full_name='mahjong.ReqGameRecordInfo.recordId', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2488,
-  serialized_end=2525,
+    name='ReqGameRecordInfo',
+    full_name='mahjong.ReqGameRecordInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='recordId', full_name='mahjong.ReqGameRecordInfo.recordId', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2101,
+    serialized_end=2138,
 )
 
-
 _RECGAMERECORDINFO_GAMERECORDUSER = _descriptor.Descriptor(
-  name='GameRecordUser',
-  full_name='mahjong.RecGameRecordInfo.GameRecordUser',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.RecGameRecordInfo.GameRecordUser.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.RecGameRecordInfo.GameRecordUser.nick', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='score', full_name='mahjong.RecGameRecordInfo.GameRecordUser.score', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2664,
-  serialized_end=2727,
+    name='GameRecordUser',
+    full_name='mahjong.RecGameRecordInfo.GameRecordUser',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='mahjong.RecGameRecordInfo.GameRecordUser.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nick', full_name='mahjong.RecGameRecordInfo.GameRecordUser.nick', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='score', full_name='mahjong.RecGameRecordInfo.GameRecordUser.score', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2277,
+    serialized_end=2340,
 )
 
 _RECGAMERECORDINFO_GAMEONERECORDINFO = _descriptor.Descriptor(
-  name='GameOneRecordInfo',
-  full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='recordId', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.recordId', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='lookId', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.lookId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playTime', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.playTime', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerDatas', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.playerDatas', index=3,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.content', index=4,
-      number=5, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2730,
-  serialized_end=2882,
+    name='GameOneRecordInfo',
+    full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='recordId', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.recordId', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='lookId', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.lookId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playTime', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.playTime', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerDatas', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.playerDatas', index=3,
+            number=4, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='mahjong.RecGameRecordInfo.GameOneRecordInfo.content', index=4,
+            number=5, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2343,
+    serialized_end=2495,
 )
 
 _RECGAMERECORDINFO = _descriptor.Descriptor(
-  name='RecGameRecordInfo',
-  full_name='mahjong.RecGameRecordInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecGameRecordInfo.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.RecGameRecordInfo.allocId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecGameRecordInfo.gameId', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='recordInfos', full_name='mahjong.RecGameRecordInfo.recordInfos', index=3,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECGAMERECORDINFO_GAMERECORDUSER, _RECGAMERECORDINFO_GAMEONERECORDINFO, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2528,
-  serialized_end=2882,
+    name='RecGameRecordInfo',
+    full_name='mahjong.RecGameRecordInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecGameRecordInfo.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.RecGameRecordInfo.allocId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.RecGameRecordInfo.gameId', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='recordInfos', full_name='mahjong.RecGameRecordInfo.recordInfos', index=3,
+            number=4, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECGAMERECORDINFO_GAMERECORDUSER, _RECGAMERECORDINFO_GAMEONERECORDINFO, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2141,
+    serialized_end=2495,
 )
-
 
 _REQGAMEREPLAYINFO = _descriptor.Descriptor(
-  name='ReqGameReplayInfo',
-  full_name='mahjong.ReqGameReplayInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='replayId', full_name='mahjong.ReqGameReplayInfo.replayId', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='lookId', full_name='mahjong.ReqGameReplayInfo.lookId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='isMatch', full_name='mahjong.ReqGameReplayInfo.isMatch', index=2,
-      number=3, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2884,
-  serialized_end=2954,
+    name='ReqGameReplayInfo',
+    full_name='mahjong.ReqGameReplayInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='replayId', full_name='mahjong.ReqGameReplayInfo.replayId', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='lookId', full_name='mahjong.ReqGameReplayInfo.lookId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='isMatch', full_name='mahjong.ReqGameReplayInfo.isMatch', index=2,
+            number=3, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2497,
+    serialized_end=2567,
 )
-
 
 _RECGAMEREPLAYINFO = _descriptor.Descriptor(
-  name='RecGameReplayInfo',
-  full_name='mahjong.RecGameReplayInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecGameReplayInfo.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='time', full_name='mahjong.RecGameReplayInfo.time', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.RecGameReplayInfo.allocId', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecGameReplayInfo.gameId', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.RecGameReplayInfo.content', index=4,
-      number=5, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='adjunction', full_name='mahjong.RecGameReplayInfo.adjunction', index=5,
-      number=6, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2956,
-  serialized_end=3074,
+    name='RecGameReplayInfo',
+    full_name='mahjong.RecGameReplayInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecGameReplayInfo.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='time', full_name='mahjong.RecGameReplayInfo.time', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.RecGameReplayInfo.allocId', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.RecGameReplayInfo.gameId', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='content', full_name='mahjong.RecGameReplayInfo.content', index=4,
+            number=5, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='adjunction', full_name='mahjong.RecGameReplayInfo.adjunction', index=5,
+            number=6, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2569,
+    serialized_end=2687,
 )
-
 
 _RECSYSTEMNOTICE = _descriptor.Descriptor(
-  name='RecSystemNotice',
-  full_name='mahjong.RecSystemNotice',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='msg', full_name='mahjong.RecSystemNotice.msg', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3076,
-  serialized_end=3106,
+    name='RecSystemNotice',
+    full_name='mahjong.RecSystemNotice',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='msg', full_name='mahjong.RecSystemNotice.msg', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2689,
+    serialized_end=2719,
 )
-
 
 _REQDEFGAMELIST = _descriptor.Descriptor(
-  name='ReqDefGameList',
-  full_name='mahjong.ReqDefGameList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqDefGameList.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3108,
-  serialized_end=3141,
+    name='ReqDefGameList',
+    full_name='mahjong.ReqDefGameList',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqDefGameList.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2721,
+    serialized_end=2754,
 )
-
 
 _PLAYERDATA = _descriptor.Descriptor(
-  name='PlayerData',
-  full_name='mahjong.PlayerData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.PlayerData.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nickName', full_name='mahjong.PlayerData.nickName', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='mahjong.PlayerData.headUrl', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='sex', full_name='mahjong.PlayerData.sex', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ip_address', full_name='mahjong.PlayerData.ip_address', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='create_time', full_name='mahjong.PlayerData.create_time', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3143,
-  serialized_end=3262,
+    name='PlayerData',
+    full_name='mahjong.PlayerData',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='mahjong.PlayerData.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nickName', full_name='mahjong.PlayerData.nickName', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='mahjong.PlayerData.headUrl', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='sex', full_name='mahjong.PlayerData.sex', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='ip_address', full_name='mahjong.PlayerData.ip_address', index=4,
+            number=5, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='create_time', full_name='mahjong.PlayerData.create_time', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2756,
+    serialized_end=2875,
 )
-
 
 _DEFGAMELISTDATA = _descriptor.Descriptor(
-  name='DefGameListData',
-  full_name='mahjong.DefGameListData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.DefGameListData.gameId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='maxCount', full_name='mahjong.DefGameListData.maxCount', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='curCount', full_name='mahjong.DefGameListData.curCount', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='createInfo', full_name='mahjong.DefGameListData.createInfo', index=3,
-      number=4, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gamePlayCount', full_name='mahjong.DefGameListData.gamePlayCount', index=4,
-      number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerInfos', full_name='mahjong.DefGameListData.playerInfos', index=5,
-      number=6, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3265,
-  serialized_end=3419,
+    name='DefGameListData',
+    full_name='mahjong.DefGameListData',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.DefGameListData.gameId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='maxCount', full_name='mahjong.DefGameListData.maxCount', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='curCount', full_name='mahjong.DefGameListData.curCount', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='createInfo', full_name='mahjong.DefGameListData.createInfo', index=3,
+            number=4, type=12, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b(""),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gamePlayCount', full_name='mahjong.DefGameListData.gamePlayCount', index=4,
+            number=5, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerInfos', full_name='mahjong.DefGameListData.playerInfos', index=5,
+            number=6, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=2878,
+    serialized_end=3032,
 )
-
 
 _RECDEFGAMELIST = _descriptor.Descriptor(
-  name='RecDefGameList',
-  full_name='mahjong.RecDefGameList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameDatas', full_name='mahjong.RecDefGameList.gameDatas', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3421,
-  serialized_end=3482,
+    name='RecDefGameList',
+    full_name='mahjong.RecDefGameList',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameDatas', full_name='mahjong.RecDefGameList.gameDatas', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3034,
+    serialized_end=3095,
 )
-
 
 _REQSEARCHGAMEDATA = _descriptor.Descriptor(
-  name='ReqSearchGameData',
-  full_name='mahjong.ReqSearchGameData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqSearchGameData.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.ReqSearchGameData.gameId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3484,
-  serialized_end=3536,
+    name='ReqSearchGameData',
+    full_name='mahjong.ReqSearchGameData',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='allocId', full_name='mahjong.ReqSearchGameData.allocId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gameId', full_name='mahjong.ReqSearchGameData.gameId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3097,
+    serialized_end=3149,
 )
-
 
 _RECSEARCHGAMEDATA = _descriptor.Descriptor(
-  name='RecSearchGameData',
-  full_name='mahjong.RecSearchGameData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='gameData', full_name='mahjong.RecSearchGameData.gameData', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3538,
-  serialized_end=3601,
+    name='RecSearchGameData',
+    full_name='mahjong.RecSearchGameData',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='gameData', full_name='mahjong.RecSearchGameData.gameData', index=0,
+            number=1, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3151,
+    serialized_end=3214,
 )
-
 
 _RECUPDATEREBATE = _descriptor.Descriptor(
-  name='RecUpdateRebate',
-  full_name='mahjong.RecUpdateRebate',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='rebate', full_name='mahjong.RecUpdateRebate.rebate', index=0,
-      number=1, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='number', full_name='mahjong.RecUpdateRebate.number', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3603,
-  serialized_end=3652,
+    name='RecUpdateRebate',
+    full_name='mahjong.RecUpdateRebate',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='rebate', full_name='mahjong.RecUpdateRebate.rebate', index=0,
+            number=1, type=2, cpp_type=6, label=1,
+            has_default_value=False, default_value=float(0),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='number', full_name='mahjong.RecUpdateRebate.number', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3216,
+    serialized_end=3265,
 )
-
 
 _RECGETLOTTERYINFO = _descriptor.Descriptor(
-  name='RecGetLotteryInfo',
-  full_name='mahjong.RecGetLotteryInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='json', full_name='mahjong.RecGetLotteryInfo.json', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='round', full_name='mahjong.RecGetLotteryInfo.round', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3654,
-  serialized_end=3702,
+    name='RecGetLotteryInfo',
+    full_name='mahjong.RecGetLotteryInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='json', full_name='mahjong.RecGetLotteryInfo.json', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='round', full_name='mahjong.RecGetLotteryInfo.round', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3267,
+    serialized_end=3315,
 )
-
 
 _RECDOLOTTERY = _descriptor.Descriptor(
-  name='RecDoLottery',
-  full_name='mahjong.RecDoLottery',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecDoLottery.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='cfg_id', full_name='mahjong.RecDoLottery.cfg_id', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3704,
-  serialized_end=3749,
+    name='RecDoLottery',
+    full_name='mahjong.RecDoLottery',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecDoLottery.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='cfg_id', full_name='mahjong.RecDoLottery.cfg_id', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3317,
+    serialized_end=3362,
 )
 
+_PLAYERRANKINFO = _descriptor.Descriptor(
+    name='PlayerRankInfo',
+    full_name='mahjong.PlayerRankInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='rankId', full_name='mahjong.PlayerRankInfo.rankId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='mahjong.PlayerRankInfo.playerId', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='rankVal', full_name='mahjong.PlayerRankInfo.rankVal', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nick', full_name='mahjong.PlayerRankInfo.nick', index=3,
+            number=4, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='mahjong.PlayerRankInfo.headUrl', index=4,
+            number=5, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='introduce', full_name='mahjong.PlayerRankInfo.introduce', index=5,
+            number=6, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='consumeVip', full_name='mahjong.PlayerRankInfo.consumeVip', index=6,
+            number=7, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3365,
+    serialized_end=3502,
+)
 
 _REQGAMERANK = _descriptor.Descriptor(
-  name='ReqGameRank',
-  full_name='mahjong.ReqGameRank',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='type', full_name='mahjong.ReqGameRank.type', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='number', full_name='mahjong.ReqGameRank.number', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3751,
-  serialized_end=3794,
-)
-
-
-_RECGAMERANK_PLAYERRANKINFO = _descriptor.Descriptor(
-  name='PlayerRankInfo',
-  full_name='mahjong.RecGameRank.PlayerRankInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='rankId', full_name='mahjong.RecGameRank.PlayerRankInfo.rankId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.RecGameRank.PlayerRankInfo.playerId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='currency', full_name='mahjong.RecGameRank.PlayerRankInfo.currency', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.RecGameRank.PlayerRankInfo.nick', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='mahjong.RecGameRank.PlayerRankInfo.headUrl', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='introduce', full_name='mahjong.RecGameRank.PlayerRankInfo.introduce', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='consumeVip', full_name='mahjong.RecGameRank.PlayerRankInfo.consumeVip', index=6,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3871,
-  serialized_end=4009,
+    name='ReqGameRank',
+    full_name='mahjong.ReqGameRank',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='type', full_name='mahjong.ReqGameRank.type', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='number', full_name='mahjong.ReqGameRank.number', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3504,
+    serialized_end=3547,
 )
 
 _RECGAMERANK = _descriptor.Descriptor(
-  name='RecGameRank',
-  full_name='mahjong.RecGameRank',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerDatas', full_name='mahjong.RecGameRank.playerDatas', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECGAMERANK_PLAYERRANKINFO, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3797,
-  serialized_end=4009,
+    name='RecGameRank',
+    full_name='mahjong.RecGameRank',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerDatas', full_name='mahjong.RecGameRank.playerDatas', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3549,
+    serialized_end=3608,
 )
-
 
 _REQBINDPHONE = _descriptor.Descriptor(
-  name='ReqBindPhone',
-  full_name='mahjong.ReqBindPhone',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='phone', full_name='mahjong.ReqBindPhone.phone', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4011,
-  serialized_end=4040,
+    name='ReqBindPhone',
+    full_name='mahjong.ReqBindPhone',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='phone', full_name='mahjong.ReqBindPhone.phone', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3610,
+    serialized_end=3639,
 )
-
 
 _RECBINDPHONE = _descriptor.Descriptor(
-  name='RecBindPhone',
-  full_name='mahjong.RecBindPhone',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecBindPhone.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4042,
-  serialized_end=4071,
+    name='RecBindPhone',
+    full_name='mahjong.RecBindPhone',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecBindPhone.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3641,
+    serialized_end=3670,
 )
-
 
 _REQBINDACCOUNT = _descriptor.Descriptor(
-  name='ReqBindAccount',
-  full_name='mahjong.ReqBindAccount',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='account', full_name='mahjong.ReqBindAccount.account', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='mahjong.ReqBindAccount.password', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4073,
-  serialized_end=4124,
+    name='ReqBindAccount',
+    full_name='mahjong.ReqBindAccount',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='account', full_name='mahjong.ReqBindAccount.account', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='password', full_name='mahjong.ReqBindAccount.password', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3672,
+    serialized_end=3723,
 )
-
 
 _RECBINDACCOUNT = _descriptor.Descriptor(
-  name='RecBindAccount',
-  full_name='mahjong.RecBindAccount',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecBindAccount.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4126,
-  serialized_end=4157,
+    name='RecBindAccount',
+    full_name='mahjong.RecBindAccount',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecBindAccount.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3725,
+    serialized_end=3756,
 )
-
 
 _REQMODIFYUSERINFO = _descriptor.Descriptor(
-  name='ReqModifyUserInfo',
-  full_name='mahjong.ReqModifyUserInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='sex', full_name='mahjong.ReqModifyUserInfo.sex', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nickName', full_name='mahjong.ReqModifyUserInfo.nickName', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='headUrl', full_name='mahjong.ReqModifyUserInfo.headUrl', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4159,
-  serialized_end=4226,
+    name='ReqModifyUserInfo',
+    full_name='mahjong.ReqModifyUserInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='sex', full_name='mahjong.ReqModifyUserInfo.sex', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='nickName', full_name='mahjong.ReqModifyUserInfo.nickName', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='headUrl', full_name='mahjong.ReqModifyUserInfo.headUrl', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3758,
+    serialized_end=3825,
 )
-
 
 _RECMODIFYUSERINFO = _descriptor.Descriptor(
-  name='RecModifyUserInfo',
-  full_name='mahjong.RecModifyUserInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecModifyUserInfo.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4228,
-  serialized_end=4262,
+    name='RecModifyUserInfo',
+    full_name='mahjong.RecModifyUserInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecModifyUserInfo.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3827,
+    serialized_end=3861,
 )
 
-
 _RECMAILLIST_MAIL = _descriptor.Descriptor(
-  name='Mail',
-  full_name='mahjong.RecMailList.Mail',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='mahjong.RecMailList.Mail.id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='title', full_name='mahjong.RecMailList.Mail.title', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='text', full_name='mahjong.RecMailList.Mail.text', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='card', full_name='mahjong.RecMailList.Mail.card', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='mahjong.RecMailList.Mail.gold', index=4,
-      number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='integral', full_name='mahjong.RecMailList.Mail.integral', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecMailList.Mail.state', index=6,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='time', full_name='mahjong.RecMailList.Mail.time', index=7,
-      number=8, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4322,
-  serialized_end=4444,
+    name='Mail',
+    full_name='mahjong.RecMailList.Mail',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='id', full_name='mahjong.RecMailList.Mail.id', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='title', full_name='mahjong.RecMailList.Mail.title', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='text', full_name='mahjong.RecMailList.Mail.text', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='card', full_name='mahjong.RecMailList.Mail.card', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='mahjong.RecMailList.Mail.gold', index=4,
+            number=5, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='integral', full_name='mahjong.RecMailList.Mail.integral', index=5,
+            number=6, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecMailList.Mail.state', index=6,
+            number=7, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='time', full_name='mahjong.RecMailList.Mail.time', index=7,
+            number=8, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3921,
+    serialized_end=4043,
 )
 
 _RECMAILLIST = _descriptor.Descriptor(
-  name='RecMailList',
-  full_name='mahjong.RecMailList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='mails', full_name='mahjong.RecMailList.mails', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECMAILLIST_MAIL, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4265,
-  serialized_end=4444,
+    name='RecMailList',
+    full_name='mahjong.RecMailList',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='mails', full_name='mahjong.RecMailList.mails', index=0,
+            number=1, type=11, cpp_type=10, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[_RECMAILLIST_MAIL, ],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=3864,
+    serialized_end=4043,
 )
-
 
 _REQMAILREADITEM = _descriptor.Descriptor(
-  name='ReqMailReadItem',
-  full_name='mahjong.ReqMailReadItem',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='ids', full_name='mahjong.ReqMailReadItem.ids', index=0,
-      number=1, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4446,
-  serialized_end=4476,
+    name='ReqMailReadItem',
+    full_name='mahjong.ReqMailReadItem',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='ids', full_name='mahjong.ReqMailReadItem.ids', index=0,
+            number=1, type=5, cpp_type=1, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4045,
+    serialized_end=4075,
 )
-
 
 _RECMAILREADITEM = _descriptor.Descriptor(
-  name='RecMailReadItem',
-  full_name='mahjong.RecMailReadItem',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecMailReadItem.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ids', full_name='mahjong.RecMailReadItem.ids', index=1,
-      number=2, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4478,
-  serialized_end=4523,
+    name='RecMailReadItem',
+    full_name='mahjong.RecMailReadItem',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecMailReadItem.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='ids', full_name='mahjong.RecMailReadItem.ids', index=1,
+            number=2, type=5, cpp_type=1, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4077,
+    serialized_end=4122,
 )
-
 
 _REQMAILGETITEM = _descriptor.Descriptor(
-  name='ReqMailGetItem',
-  full_name='mahjong.ReqMailGetItem',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='ids', full_name='mahjong.ReqMailGetItem.ids', index=0,
-      number=1, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4525,
-  serialized_end=4554,
+    name='ReqMailGetItem',
+    full_name='mahjong.ReqMailGetItem',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='ids', full_name='mahjong.ReqMailGetItem.ids', index=0,
+            number=1, type=5, cpp_type=1, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4124,
+    serialized_end=4153,
 )
-
 
 _RECMAILGETITEM = _descriptor.Descriptor(
-  name='RecMailGetItem',
-  full_name='mahjong.RecMailGetItem',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecMailGetItem.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ids', full_name='mahjong.RecMailGetItem.ids', index=1,
-      number=2, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4556,
-  serialized_end=4600,
+    name='RecMailGetItem',
+    full_name='mahjong.RecMailGetItem',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecMailGetItem.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='ids', full_name='mahjong.RecMailGetItem.ids', index=1,
+            number=2, type=5, cpp_type=1, label=3,
+            has_default_value=False, default_value=[],
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4155,
+    serialized_end=4199,
 )
-
 
 _REQMAILDELETE = _descriptor.Descriptor(
-  name='ReqMailDelete',
-  full_name='mahjong.ReqMailDelete',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='mahjong.ReqMailDelete.id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4602,
-  serialized_end=4629,
+    name='ReqMailDelete',
+    full_name='mahjong.ReqMailDelete',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='id', full_name='mahjong.ReqMailDelete.id', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4201,
+    serialized_end=4228,
 )
-
 
 _RECMAILDELETE = _descriptor.Descriptor(
-  name='RecMailDelete',
-  full_name='mahjong.RecMailDelete',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecMailDelete.state', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4631,
-  serialized_end=4661,
+    name='RecMailDelete',
+    full_name='mahjong.RecMailDelete',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecMailDelete.state', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4230,
+    serialized_end=4260,
 )
-
 
 _REQUPDATEINTRODUCE = _descriptor.Descriptor(
-  name='ReqUpdateIntroduce',
-  full_name='mahjong.ReqUpdateIntroduce',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.ReqUpdateIntroduce.content', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4663,
-  serialized_end=4700,
+    name='ReqUpdateIntroduce',
+    full_name='mahjong.ReqUpdateIntroduce',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='content', full_name='mahjong.ReqUpdateIntroduce.content', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4262,
+    serialized_end=4299,
 )
-
 
 _REQBANKINFO = _descriptor.Descriptor(
-  name='ReqBankInfo',
-  full_name='mahjong.ReqBankInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='password', full_name='mahjong.ReqBankInfo.password', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4702,
-  serialized_end=4733,
+    name='ReqBankInfo',
+    full_name='mahjong.ReqBankInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='password', full_name='mahjong.ReqBankInfo.password', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4301,
+    serialized_end=4332,
 )
-
 
 _RECBANKINFO = _descriptor.Descriptor(
-  name='RecBankInfo',
-  full_name='mahjong.RecBankInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecBankInfo.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='card', full_name='mahjong.RecBankInfo.card', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='mahjong.RecBankInfo.gold', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='integral', full_name='mahjong.RecBankInfo.integral', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4735,
-  serialized_end=4809,
+    name='RecBankInfo',
+    full_name='mahjong.RecBankInfo',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecBankInfo.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='card', full_name='mahjong.RecBankInfo.card', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='mahjong.RecBankInfo.gold', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='integral', full_name='mahjong.RecBankInfo.integral', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4334,
+    serialized_end=4408,
 )
-
 
 _REQOPERATEBANK = _descriptor.Descriptor(
-  name='ReqOperateBank',
-  full_name='mahjong.ReqOperateBank',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='card', full_name='mahjong.ReqOperateBank.card', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='mahjong.ReqOperateBank.gold', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='integral', full_name='mahjong.ReqOperateBank.integral', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='mahjong.ReqOperateBank.password', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4811,
-  serialized_end=4891,
+    name='ReqOperateBank',
+    full_name='mahjong.ReqOperateBank',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='card', full_name='mahjong.ReqOperateBank.card', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='mahjong.ReqOperateBank.gold', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='integral', full_name='mahjong.ReqOperateBank.integral', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='password', full_name='mahjong.ReqOperateBank.password', index=3,
+            number=4, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=_b("").decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4410,
+    serialized_end=4490,
 )
-
 
 _RECOPRATEBANK = _descriptor.Descriptor(
-  name='RecOprateBank',
-  full_name='mahjong.RecOprateBank',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecOprateBank.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4893,
-  serialized_end=4923,
+    name='RecOprateBank',
+    full_name='mahjong.RecOprateBank',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecOprateBank.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4492,
+    serialized_end=4522,
 )
-
-
-_REQMATCHRECORDINFO = _descriptor.Descriptor(
-  name='ReqMatchRecordInfo',
-  full_name='mahjong.ReqMatchRecordInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.ReqMatchRecordInfo.allocId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4925,
-  serialized_end=4962,
-)
-
-
-_RECMATCHRECORDINFO_MATCHRECORDUSER = _descriptor.Descriptor(
-  name='MatchRecordUser',
-  full_name='mahjong.RecMatchRecordInfo.MatchRecordUser',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.RecMatchRecordInfo.MatchRecordUser.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nick', full_name='mahjong.RecMatchRecordInfo.MatchRecordUser.nick', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='score', full_name='mahjong.RecMatchRecordInfo.MatchRecordUser.score', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=5088,
-  serialized_end=5152,
-)
-
-_RECMATCHRECORDINFO_MATCHONERECORDINFO = _descriptor.Descriptor(
-  name='MatchOneRecordInfo',
-  full_name='mahjong.RecMatchRecordInfo.MatchOneRecordInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='recordId', full_name='mahjong.RecMatchRecordInfo.MatchOneRecordInfo.recordId', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playTime', full_name='mahjong.RecMatchRecordInfo.MatchOneRecordInfo.playTime', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gameId', full_name='mahjong.RecMatchRecordInfo.MatchOneRecordInfo.gameId', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerDatas', full_name='mahjong.RecMatchRecordInfo.MatchOneRecordInfo.playerDatas', index=3,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='mahjong.RecMatchRecordInfo.MatchOneRecordInfo.content', index=4,
-      number=5, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=5155,
-  serialized_end=5310,
-)
-
-_RECMATCHRECORDINFO = _descriptor.Descriptor(
-  name='RecMatchRecordInfo',
-  full_name='mahjong.RecMatchRecordInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecMatchRecordInfo.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='allocId', full_name='mahjong.RecMatchRecordInfo.allocId', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='recordInfos', full_name='mahjong.RecMatchRecordInfo.recordInfos', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_RECMATCHRECORDINFO_MATCHRECORDUSER, _RECMATCHRECORDINFO_MATCHONERECORDINFO, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4965,
-  serialized_end=5310,
-)
-
 
 _REQHANDSELCURRENCY = _descriptor.Descriptor(
-  name='ReqHandselCurrency',
-  full_name='mahjong.ReqHandselCurrency',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='playerId', full_name='mahjong.ReqHandselCurrency.playerId', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='card', full_name='mahjong.ReqHandselCurrency.card', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gold', full_name='mahjong.ReqHandselCurrency.gold', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='integral', full_name='mahjong.ReqHandselCurrency.integral', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=5312,
-  serialized_end=5396,
+    name='ReqHandselCurrency',
+    full_name='mahjong.ReqHandselCurrency',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='playerId', full_name='mahjong.ReqHandselCurrency.playerId', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='card', full_name='mahjong.ReqHandselCurrency.card', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='gold', full_name='mahjong.ReqHandselCurrency.gold', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='integral', full_name='mahjong.ReqHandselCurrency.integral', index=3,
+            number=4, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4524,
+    serialized_end=4608,
 )
-
 
 _RECHANDSELCURRENCY = _descriptor.Descriptor(
-  name='RecHandselCurrency',
-  full_name='mahjong.RecHandselCurrency',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='state', full_name='mahjong.RecHandselCurrency.state', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=5398,
-  serialized_end=5433,
+    name='RecHandselCurrency',
+    full_name='mahjong.RecHandselCurrency',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='state', full_name='mahjong.RecHandselCurrency.state', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4610,
+    serialized_end=4645,
 )
 
-
 _RECUPDATECONSUMEVIP = _descriptor.Descriptor(
-  name='RecUpdateConsumeVip',
-  full_name='mahjong.RecUpdateConsumeVip',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='consumeVip', full_name='mahjong.RecUpdateConsumeVip.consumeVip', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='consumeVal', full_name='mahjong.RecUpdateConsumeVip.consumeVal', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=5435,
-  serialized_end=5496,
+    name='RecUpdateConsumeVip',
+    full_name='mahjong.RecUpdateConsumeVip',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='consumeVip', full_name='mahjong.RecUpdateConsumeVip.consumeVip', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='consumeVal', full_name='mahjong.RecUpdateConsumeVip.consumeVal', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=4647,
+    serialized_end=4708,
 )
 
 _NETMESSAGE.fields_by_name['opcode'].enum_type = _OPCODE
@@ -3946,11 +3541,6 @@ _RECCREATEACCOUNT.fields_by_name['state'].enum_type = _RECCREATEACCOUNT_CREATEAC
 _RECCREATEACCOUNT_CREATEACCOUNTSTATE.containing_type = _RECCREATEACCOUNT
 _REQLOGINSERVER.fields_by_name['cls'].enum_type = _LOGINCLASS
 _RECLOGINSERVER.fields_by_name['state'].enum_type = _LOGINSTATE
-_RECUPDATERECORD_URECORDPLAYER.containing_type = _RECUPDATERECORD
-_RECUPDATERECORD_URECORDSINGLE.fields_by_name['players'].message_type = _RECUPDATERECORD_URECORDPLAYER
-_RECUPDATERECORD_URECORDSINGLE.containing_type = _RECUPDATERECORD
-_RECUPDATERECORD.fields_by_name['normal'].message_type = _RECUPDATERECORD_URECORDSINGLE
-_RECUPDATERECORD.fields_by_name['proxy'].message_type = _RECUPDATERECORD_URECORDSINGLE
 _REQRELOGIN.fields_by_name['cls'].enum_type = _LOGINCLASS
 _RECRELOGIN.fields_by_name['state'].enum_type = _LOGINSTATE
 _RECLOBBYMSGLIST_LOBBYMSGDATA.containing_type = _RECLOBBYMSGLIST
@@ -3962,14 +3552,9 @@ _RECGAMERECORDINFO.fields_by_name['recordInfos'].message_type = _RECGAMERECORDIN
 _DEFGAMELISTDATA.fields_by_name['playerInfos'].message_type = _PLAYERDATA
 _RECDEFGAMELIST.fields_by_name['gameDatas'].message_type = _DEFGAMELISTDATA
 _RECSEARCHGAMEDATA.fields_by_name['gameData'].message_type = _DEFGAMELISTDATA
-_RECGAMERANK_PLAYERRANKINFO.containing_type = _RECGAMERANK
-_RECGAMERANK.fields_by_name['playerDatas'].message_type = _RECGAMERANK_PLAYERRANKINFO
+_RECGAMERANK.fields_by_name['playerDatas'].message_type = _PLAYERRANKINFO
 _RECMAILLIST_MAIL.containing_type = _RECMAILLIST
 _RECMAILLIST.fields_by_name['mails'].message_type = _RECMAILLIST_MAIL
-_RECMATCHRECORDINFO_MATCHRECORDUSER.containing_type = _RECMATCHRECORDINFO
-_RECMATCHRECORDINFO_MATCHONERECORDINFO.fields_by_name['playerDatas'].message_type = _RECMATCHRECORDINFO_MATCHRECORDUSER
-_RECMATCHRECORDINFO_MATCHONERECORDINFO.containing_type = _RECMATCHRECORDINFO
-_RECMATCHRECORDINFO.fields_by_name['recordInfos'].message_type = _RECMATCHRECORDINFO_MATCHONERECORDINFO
 DESCRIPTOR.message_types_by_name['NetMessage'] = _NETMESSAGE
 DESCRIPTOR.message_types_by_name['RecCheckVersion'] = _RECCHECKVERSION
 DESCRIPTOR.message_types_by_name['ReqCheckVersion'] = _REQCHECKVERSION
@@ -3981,7 +3566,6 @@ DESCRIPTOR.message_types_by_name['RecLoginServer'] = _RECLOGINSERVER
 DESCRIPTOR.message_types_by_name['RecUserInfo'] = _RECUSERINFO
 DESCRIPTOR.message_types_by_name['RecUpdateCurrency'] = _RECUPDATECURRENCY
 DESCRIPTOR.message_types_by_name['RecUpdateEvaluate'] = _RECUPDATEEVALUATE
-DESCRIPTOR.message_types_by_name['RecUpdateRecord'] = _RECUPDATERECORD
 DESCRIPTOR.message_types_by_name['ReqCreateGame'] = _REQCREATEGAME
 DESCRIPTOR.message_types_by_name['RecCreateGame'] = _RECCREATEGAME
 DESCRIPTOR.message_types_by_name['ReqJoinGame'] = _REQJOINGAME
@@ -4013,6 +3597,7 @@ DESCRIPTOR.message_types_by_name['RecSearchGameData'] = _RECSEARCHGAMEDATA
 DESCRIPTOR.message_types_by_name['RecUpdateRebate'] = _RECUPDATEREBATE
 DESCRIPTOR.message_types_by_name['RecGetLotteryInfo'] = _RECGETLOTTERYINFO
 DESCRIPTOR.message_types_by_name['RecDoLottery'] = _RECDOLOTTERY
+DESCRIPTOR.message_types_by_name['PlayerRankInfo'] = _PLAYERRANKINFO
 DESCRIPTOR.message_types_by_name['ReqGameRank'] = _REQGAMERANK
 DESCRIPTOR.message_types_by_name['RecGameRank'] = _RECGAMERANK
 DESCRIPTOR.message_types_by_name['ReqBindPhone'] = _REQBINDPHONE
@@ -4033,8 +3618,6 @@ DESCRIPTOR.message_types_by_name['ReqBankInfo'] = _REQBANKINFO
 DESCRIPTOR.message_types_by_name['RecBankInfo'] = _RECBANKINFO
 DESCRIPTOR.message_types_by_name['ReqOperateBank'] = _REQOPERATEBANK
 DESCRIPTOR.message_types_by_name['RecOprateBank'] = _RECOPRATEBANK
-DESCRIPTOR.message_types_by_name['ReqMatchRecordInfo'] = _REQMATCHRECORDINFO
-DESCRIPTOR.message_types_by_name['RecMatchRecordInfo'] = _RECMATCHRECORDINFO
 DESCRIPTOR.message_types_by_name['ReqHandselCurrency'] = _REQHANDSELCURRENCY
 DESCRIPTOR.message_types_by_name['RecHandselCurrency'] = _RECHANDSELCURRENCY
 DESCRIPTOR.message_types_by_name['RecUpdateConsumeVip'] = _RECUPDATECONSUMEVIP
@@ -4044,562 +3627,507 @@ DESCRIPTOR.enum_types_by_name['LoginState'] = _LOGINSTATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 NetMessage = _reflection.GeneratedProtocolMessageType('NetMessage', (_message.Message,), dict(
-  DESCRIPTOR = _NETMESSAGE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.NetMessage)
-  ))
+    DESCRIPTOR=_NETMESSAGE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.NetMessage)
+))
 _sym_db.RegisterMessage(NetMessage)
 
 RecCheckVersion = _reflection.GeneratedProtocolMessageType('RecCheckVersion', (_message.Message,), dict(
 
-  GameInfo = _reflection.GeneratedProtocolMessageType('GameInfo', (_message.Message,), dict(
-    DESCRIPTOR = _RECCHECKVERSION_GAMEINFO,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecCheckVersion.GameInfo)
+    GameInfo=_reflection.GeneratedProtocolMessageType('GameInfo', (_message.Message,), dict(
+        DESCRIPTOR=_RECCHECKVERSION_GAMEINFO,
+        __module__='base.base_pb2'
+        # @@protoc_insertion_point(class_scope:mahjong.RecCheckVersion.GameInfo)
     ))
-  ,
-  DESCRIPTOR = _RECCHECKVERSION,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecCheckVersion)
-  ))
+    ,
+    DESCRIPTOR=_RECCHECKVERSION,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecCheckVersion)
+))
 _sym_db.RegisterMessage(RecCheckVersion)
 _sym_db.RegisterMessage(RecCheckVersion.GameInfo)
 
 ReqCheckVersion = _reflection.GeneratedProtocolMessageType('ReqCheckVersion', (_message.Message,), dict(
-  DESCRIPTOR = _REQCHECKVERSION,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqCheckVersion)
-  ))
+    DESCRIPTOR=_REQCHECKVERSION,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqCheckVersion)
+))
 _sym_db.RegisterMessage(ReqCheckVersion)
 
 RecNoticeLogin = _reflection.GeneratedProtocolMessageType('RecNoticeLogin', (_message.Message,), dict(
-  DESCRIPTOR = _RECNOTICELOGIN,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecNoticeLogin)
-  ))
+    DESCRIPTOR=_RECNOTICELOGIN,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecNoticeLogin)
+))
 _sym_db.RegisterMessage(RecNoticeLogin)
 
 ReqCreateAccount = _reflection.GeneratedProtocolMessageType('ReqCreateAccount', (_message.Message,), dict(
-  DESCRIPTOR = _REQCREATEACCOUNT,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqCreateAccount)
-  ))
+    DESCRIPTOR=_REQCREATEACCOUNT,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqCreateAccount)
+))
 _sym_db.RegisterMessage(ReqCreateAccount)
 
 RecCreateAccount = _reflection.GeneratedProtocolMessageType('RecCreateAccount', (_message.Message,), dict(
-  DESCRIPTOR = _RECCREATEACCOUNT,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecCreateAccount)
-  ))
+    DESCRIPTOR=_RECCREATEACCOUNT,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecCreateAccount)
+))
 _sym_db.RegisterMessage(RecCreateAccount)
 
 ReqLoginServer = _reflection.GeneratedProtocolMessageType('ReqLoginServer', (_message.Message,), dict(
-  DESCRIPTOR = _REQLOGINSERVER,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqLoginServer)
-  ))
+    DESCRIPTOR=_REQLOGINSERVER,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqLoginServer)
+))
 _sym_db.RegisterMessage(ReqLoginServer)
 
 RecLoginServer = _reflection.GeneratedProtocolMessageType('RecLoginServer', (_message.Message,), dict(
-  DESCRIPTOR = _RECLOGINSERVER,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecLoginServer)
-  ))
+    DESCRIPTOR=_RECLOGINSERVER,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecLoginServer)
+))
 _sym_db.RegisterMessage(RecLoginServer)
 
 RecUserInfo = _reflection.GeneratedProtocolMessageType('RecUserInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECUSERINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecUserInfo)
-  ))
+    DESCRIPTOR=_RECUSERINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecUserInfo)
+))
 _sym_db.RegisterMessage(RecUserInfo)
 
 RecUpdateCurrency = _reflection.GeneratedProtocolMessageType('RecUpdateCurrency', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATECURRENCY,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecUpdateCurrency)
-  ))
+    DESCRIPTOR=_RECUPDATECURRENCY,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateCurrency)
+))
 _sym_db.RegisterMessage(RecUpdateCurrency)
 
 RecUpdateEvaluate = _reflection.GeneratedProtocolMessageType('RecUpdateEvaluate', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATEEVALUATE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecUpdateEvaluate)
-  ))
+    DESCRIPTOR=_RECUPDATEEVALUATE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateEvaluate)
+))
 _sym_db.RegisterMessage(RecUpdateEvaluate)
 
-RecUpdateRecord = _reflection.GeneratedProtocolMessageType('RecUpdateRecord', (_message.Message,), dict(
-
-  URecordPlayer = _reflection.GeneratedProtocolMessageType('URecordPlayer', (_message.Message,), dict(
-    DESCRIPTOR = _RECUPDATERECORD_URECORDPLAYER,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateRecord.URecordPlayer)
-    ))
-  ,
-
-  URecordSingle = _reflection.GeneratedProtocolMessageType('URecordSingle', (_message.Message,), dict(
-    DESCRIPTOR = _RECUPDATERECORD_URECORDSINGLE,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateRecord.URecordSingle)
-    ))
-  ,
-  DESCRIPTOR = _RECUPDATERECORD,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecUpdateRecord)
-  ))
-_sym_db.RegisterMessage(RecUpdateRecord)
-_sym_db.RegisterMessage(RecUpdateRecord.URecordPlayer)
-_sym_db.RegisterMessage(RecUpdateRecord.URecordSingle)
-
 ReqCreateGame = _reflection.GeneratedProtocolMessageType('ReqCreateGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQCREATEGAME,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqCreateGame)
-  ))
+    DESCRIPTOR=_REQCREATEGAME,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqCreateGame)
+))
 _sym_db.RegisterMessage(ReqCreateGame)
 
 RecCreateGame = _reflection.GeneratedProtocolMessageType('RecCreateGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECCREATEGAME,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecCreateGame)
-  ))
+    DESCRIPTOR=_RECCREATEGAME,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecCreateGame)
+))
 _sym_db.RegisterMessage(RecCreateGame)
 
 ReqJoinGame = _reflection.GeneratedProtocolMessageType('ReqJoinGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQJOINGAME,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqJoinGame)
-  ))
+    DESCRIPTOR=_REQJOINGAME,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqJoinGame)
+))
 _sym_db.RegisterMessage(ReqJoinGame)
 
 RecJoinGame = _reflection.GeneratedProtocolMessageType('RecJoinGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECJOINGAME,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecJoinGame)
-  ))
+    DESCRIPTOR=_RECJOINGAME,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecJoinGame)
+))
 _sym_db.RegisterMessage(RecJoinGame)
 
 ReqRelogin = _reflection.GeneratedProtocolMessageType('ReqRelogin', (_message.Message,), dict(
-  DESCRIPTOR = _REQRELOGIN,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqRelogin)
-  ))
+    DESCRIPTOR=_REQRELOGIN,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqRelogin)
+))
 _sym_db.RegisterMessage(ReqRelogin)
 
 RecRelogin = _reflection.GeneratedProtocolMessageType('RecRelogin', (_message.Message,), dict(
-  DESCRIPTOR = _RECRELOGIN,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecRelogin)
-  ))
+    DESCRIPTOR=_RECRELOGIN,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecRelogin)
+))
 _sym_db.RegisterMessage(RecRelogin)
 
 ReqLobbyMsgList = _reflection.GeneratedProtocolMessageType('ReqLobbyMsgList', (_message.Message,), dict(
-  DESCRIPTOR = _REQLOBBYMSGLIST,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqLobbyMsgList)
-  ))
+    DESCRIPTOR=_REQLOBBYMSGLIST,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqLobbyMsgList)
+))
 _sym_db.RegisterMessage(ReqLobbyMsgList)
 
 RecLobbyMsgList = _reflection.GeneratedProtocolMessageType('RecLobbyMsgList', (_message.Message,), dict(
 
-  LobbyMsgData = _reflection.GeneratedProtocolMessageType('LobbyMsgData', (_message.Message,), dict(
-    DESCRIPTOR = _RECLOBBYMSGLIST_LOBBYMSGDATA,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecLobbyMsgList.LobbyMsgData)
+    LobbyMsgData=_reflection.GeneratedProtocolMessageType('LobbyMsgData', (_message.Message,), dict(
+        DESCRIPTOR=_RECLOBBYMSGLIST_LOBBYMSGDATA,
+        __module__='base.base_pb2'
+        # @@protoc_insertion_point(class_scope:mahjong.RecLobbyMsgList.LobbyMsgData)
     ))
-  ,
-  DESCRIPTOR = _RECLOBBYMSGLIST,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecLobbyMsgList)
-  ))
+    ,
+    DESCRIPTOR=_RECLOBBYMSGLIST,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecLobbyMsgList)
+))
 _sym_db.RegisterMessage(RecLobbyMsgList)
 _sym_db.RegisterMessage(RecLobbyMsgList.LobbyMsgData)
 
 ReqLobbyProxyGameList = _reflection.GeneratedProtocolMessageType('ReqLobbyProxyGameList', (_message.Message,), dict(
-  DESCRIPTOR = _REQLOBBYPROXYGAMELIST,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqLobbyProxyGameList)
-  ))
+    DESCRIPTOR=_REQLOBBYPROXYGAMELIST,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqLobbyProxyGameList)
+))
 _sym_db.RegisterMessage(ReqLobbyProxyGameList)
 
 ReqDissolveProxyGame = _reflection.GeneratedProtocolMessageType('ReqDissolveProxyGame', (_message.Message,), dict(
-  DESCRIPTOR = _REQDISSOLVEPROXYGAME,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqDissolveProxyGame)
-  ))
+    DESCRIPTOR=_REQDISSOLVEPROXYGAME,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqDissolveProxyGame)
+))
 _sym_db.RegisterMessage(ReqDissolveProxyGame)
 
 RecDissolveProxyGame = _reflection.GeneratedProtocolMessageType('RecDissolveProxyGame', (_message.Message,), dict(
-  DESCRIPTOR = _RECDISSOLVEPROXYGAME,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecDissolveProxyGame)
-  ))
+    DESCRIPTOR=_RECDISSOLVEPROXYGAME,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecDissolveProxyGame)
+))
 _sym_db.RegisterMessage(RecDissolveProxyGame)
 
 ReqShareMomentsEvent = _reflection.GeneratedProtocolMessageType('ReqShareMomentsEvent', (_message.Message,), dict(
-  DESCRIPTOR = _REQSHAREMOMENTSEVENT,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqShareMomentsEvent)
-  ))
+    DESCRIPTOR=_REQSHAREMOMENTSEVENT,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqShareMomentsEvent)
+))
 _sym_db.RegisterMessage(ReqShareMomentsEvent)
 
 RecShareMomentsEvent = _reflection.GeneratedProtocolMessageType('RecShareMomentsEvent', (_message.Message,), dict(
-  DESCRIPTOR = _RECSHAREMOMENTSEVENT,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecShareMomentsEvent)
-  ))
+    DESCRIPTOR=_RECSHAREMOMENTSEVENT,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecShareMomentsEvent)
+))
 _sym_db.RegisterMessage(RecShareMomentsEvent)
 
 ReqExchangeCard = _reflection.GeneratedProtocolMessageType('ReqExchangeCard', (_message.Message,), dict(
-  DESCRIPTOR = _REQEXCHANGECARD,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqExchangeCard)
-  ))
+    DESCRIPTOR=_REQEXCHANGECARD,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqExchangeCard)
+))
 _sym_db.RegisterMessage(ReqExchangeCard)
 
 RecExchangeCard = _reflection.GeneratedProtocolMessageType('RecExchangeCard', (_message.Message,), dict(
-  DESCRIPTOR = _RECEXCHANGECARD,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecExchangeCard)
-  ))
+    DESCRIPTOR=_RECEXCHANGECARD,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecExchangeCard)
+))
 _sym_db.RegisterMessage(RecExchangeCard)
 
 ReqExchangeGold = _reflection.GeneratedProtocolMessageType('ReqExchangeGold', (_message.Message,), dict(
-  DESCRIPTOR = _REQEXCHANGEGOLD,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqExchangeGold)
-  ))
+    DESCRIPTOR=_REQEXCHANGEGOLD,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqExchangeGold)
+))
 _sym_db.RegisterMessage(ReqExchangeGold)
 
 RecExchangeGold = _reflection.GeneratedProtocolMessageType('RecExchangeGold', (_message.Message,), dict(
-  DESCRIPTOR = _RECEXCHANGEGOLD,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecExchangeGold)
-  ))
+    DESCRIPTOR=_RECEXCHANGEGOLD,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecExchangeGold)
+))
 _sym_db.RegisterMessage(RecExchangeGold)
 
 ReqGameRecordInfo = _reflection.GeneratedProtocolMessageType('ReqGameRecordInfo', (_message.Message,), dict(
-  DESCRIPTOR = _REQGAMERECORDINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqGameRecordInfo)
-  ))
+    DESCRIPTOR=_REQGAMERECORDINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqGameRecordInfo)
+))
 _sym_db.RegisterMessage(ReqGameRecordInfo)
 
 RecGameRecordInfo = _reflection.GeneratedProtocolMessageType('RecGameRecordInfo', (_message.Message,), dict(
 
-  GameRecordUser = _reflection.GeneratedProtocolMessageType('GameRecordUser', (_message.Message,), dict(
-    DESCRIPTOR = _RECGAMERECORDINFO_GAMERECORDUSER,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecGameRecordInfo.GameRecordUser)
+    GameRecordUser=_reflection.GeneratedProtocolMessageType('GameRecordUser', (_message.Message,), dict(
+        DESCRIPTOR=_RECGAMERECORDINFO_GAMERECORDUSER,
+        __module__='base.base_pb2'
+        # @@protoc_insertion_point(class_scope:mahjong.RecGameRecordInfo.GameRecordUser)
     ))
-  ,
+    ,
 
-  GameOneRecordInfo = _reflection.GeneratedProtocolMessageType('GameOneRecordInfo', (_message.Message,), dict(
-    DESCRIPTOR = _RECGAMERECORDINFO_GAMEONERECORDINFO,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecGameRecordInfo.GameOneRecordInfo)
+    GameOneRecordInfo=_reflection.GeneratedProtocolMessageType('GameOneRecordInfo', (_message.Message,), dict(
+        DESCRIPTOR=_RECGAMERECORDINFO_GAMEONERECORDINFO,
+        __module__='base.base_pb2'
+        # @@protoc_insertion_point(class_scope:mahjong.RecGameRecordInfo.GameOneRecordInfo)
     ))
-  ,
-  DESCRIPTOR = _RECGAMERECORDINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecGameRecordInfo)
-  ))
+    ,
+    DESCRIPTOR=_RECGAMERECORDINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecGameRecordInfo)
+))
 _sym_db.RegisterMessage(RecGameRecordInfo)
 _sym_db.RegisterMessage(RecGameRecordInfo.GameRecordUser)
 _sym_db.RegisterMessage(RecGameRecordInfo.GameOneRecordInfo)
 
 ReqGameReplayInfo = _reflection.GeneratedProtocolMessageType('ReqGameReplayInfo', (_message.Message,), dict(
-  DESCRIPTOR = _REQGAMEREPLAYINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqGameReplayInfo)
-  ))
+    DESCRIPTOR=_REQGAMEREPLAYINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqGameReplayInfo)
+))
 _sym_db.RegisterMessage(ReqGameReplayInfo)
 
 RecGameReplayInfo = _reflection.GeneratedProtocolMessageType('RecGameReplayInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECGAMEREPLAYINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecGameReplayInfo)
-  ))
+    DESCRIPTOR=_RECGAMEREPLAYINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecGameReplayInfo)
+))
 _sym_db.RegisterMessage(RecGameReplayInfo)
 
 RecSystemNotice = _reflection.GeneratedProtocolMessageType('RecSystemNotice', (_message.Message,), dict(
-  DESCRIPTOR = _RECSYSTEMNOTICE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecSystemNotice)
-  ))
+    DESCRIPTOR=_RECSYSTEMNOTICE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecSystemNotice)
+))
 _sym_db.RegisterMessage(RecSystemNotice)
 
 ReqDefGameList = _reflection.GeneratedProtocolMessageType('ReqDefGameList', (_message.Message,), dict(
-  DESCRIPTOR = _REQDEFGAMELIST,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqDefGameList)
-  ))
+    DESCRIPTOR=_REQDEFGAMELIST,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqDefGameList)
+))
 _sym_db.RegisterMessage(ReqDefGameList)
 
 PlayerData = _reflection.GeneratedProtocolMessageType('PlayerData', (_message.Message,), dict(
-  DESCRIPTOR = _PLAYERDATA,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.PlayerData)
-  ))
+    DESCRIPTOR=_PLAYERDATA,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.PlayerData)
+))
 _sym_db.RegisterMessage(PlayerData)
 
 DefGameListData = _reflection.GeneratedProtocolMessageType('DefGameListData', (_message.Message,), dict(
-  DESCRIPTOR = _DEFGAMELISTDATA,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.DefGameListData)
-  ))
+    DESCRIPTOR=_DEFGAMELISTDATA,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.DefGameListData)
+))
 _sym_db.RegisterMessage(DefGameListData)
 
 RecDefGameList = _reflection.GeneratedProtocolMessageType('RecDefGameList', (_message.Message,), dict(
-  DESCRIPTOR = _RECDEFGAMELIST,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecDefGameList)
-  ))
+    DESCRIPTOR=_RECDEFGAMELIST,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecDefGameList)
+))
 _sym_db.RegisterMessage(RecDefGameList)
 
 ReqSearchGameData = _reflection.GeneratedProtocolMessageType('ReqSearchGameData', (_message.Message,), dict(
-  DESCRIPTOR = _REQSEARCHGAMEDATA,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqSearchGameData)
-  ))
+    DESCRIPTOR=_REQSEARCHGAMEDATA,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqSearchGameData)
+))
 _sym_db.RegisterMessage(ReqSearchGameData)
 
 RecSearchGameData = _reflection.GeneratedProtocolMessageType('RecSearchGameData', (_message.Message,), dict(
-  DESCRIPTOR = _RECSEARCHGAMEDATA,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecSearchGameData)
-  ))
+    DESCRIPTOR=_RECSEARCHGAMEDATA,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecSearchGameData)
+))
 _sym_db.RegisterMessage(RecSearchGameData)
 
 RecUpdateRebate = _reflection.GeneratedProtocolMessageType('RecUpdateRebate', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATEREBATE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecUpdateRebate)
-  ))
+    DESCRIPTOR=_RECUPDATEREBATE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateRebate)
+))
 _sym_db.RegisterMessage(RecUpdateRebate)
 
 RecGetLotteryInfo = _reflection.GeneratedProtocolMessageType('RecGetLotteryInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECGETLOTTERYINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecGetLotteryInfo)
-  ))
+    DESCRIPTOR=_RECGETLOTTERYINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecGetLotteryInfo)
+))
 _sym_db.RegisterMessage(RecGetLotteryInfo)
 
 RecDoLottery = _reflection.GeneratedProtocolMessageType('RecDoLottery', (_message.Message,), dict(
-  DESCRIPTOR = _RECDOLOTTERY,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecDoLottery)
-  ))
+    DESCRIPTOR=_RECDOLOTTERY,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecDoLottery)
+))
 _sym_db.RegisterMessage(RecDoLottery)
 
+PlayerRankInfo = _reflection.GeneratedProtocolMessageType('PlayerRankInfo', (_message.Message,), dict(
+    DESCRIPTOR=_PLAYERRANKINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.PlayerRankInfo)
+))
+_sym_db.RegisterMessage(PlayerRankInfo)
+
 ReqGameRank = _reflection.GeneratedProtocolMessageType('ReqGameRank', (_message.Message,), dict(
-  DESCRIPTOR = _REQGAMERANK,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqGameRank)
-  ))
+    DESCRIPTOR=_REQGAMERANK,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqGameRank)
+))
 _sym_db.RegisterMessage(ReqGameRank)
 
 RecGameRank = _reflection.GeneratedProtocolMessageType('RecGameRank', (_message.Message,), dict(
-
-  PlayerRankInfo = _reflection.GeneratedProtocolMessageType('PlayerRankInfo', (_message.Message,), dict(
-    DESCRIPTOR = _RECGAMERANK_PLAYERRANKINFO,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecGameRank.PlayerRankInfo)
-    ))
-  ,
-  DESCRIPTOR = _RECGAMERANK,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecGameRank)
-  ))
+    DESCRIPTOR=_RECGAMERANK,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecGameRank)
+))
 _sym_db.RegisterMessage(RecGameRank)
-_sym_db.RegisterMessage(RecGameRank.PlayerRankInfo)
 
 ReqBindPhone = _reflection.GeneratedProtocolMessageType('ReqBindPhone', (_message.Message,), dict(
-  DESCRIPTOR = _REQBINDPHONE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqBindPhone)
-  ))
+    DESCRIPTOR=_REQBINDPHONE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqBindPhone)
+))
 _sym_db.RegisterMessage(ReqBindPhone)
 
 RecBindPhone = _reflection.GeneratedProtocolMessageType('RecBindPhone', (_message.Message,), dict(
-  DESCRIPTOR = _RECBINDPHONE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecBindPhone)
-  ))
+    DESCRIPTOR=_RECBINDPHONE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecBindPhone)
+))
 _sym_db.RegisterMessage(RecBindPhone)
 
 ReqBindAccount = _reflection.GeneratedProtocolMessageType('ReqBindAccount', (_message.Message,), dict(
-  DESCRIPTOR = _REQBINDACCOUNT,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqBindAccount)
-  ))
+    DESCRIPTOR=_REQBINDACCOUNT,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqBindAccount)
+))
 _sym_db.RegisterMessage(ReqBindAccount)
 
 RecBindAccount = _reflection.GeneratedProtocolMessageType('RecBindAccount', (_message.Message,), dict(
-  DESCRIPTOR = _RECBINDACCOUNT,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecBindAccount)
-  ))
+    DESCRIPTOR=_RECBINDACCOUNT,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecBindAccount)
+))
 _sym_db.RegisterMessage(RecBindAccount)
 
 ReqModifyUserInfo = _reflection.GeneratedProtocolMessageType('ReqModifyUserInfo', (_message.Message,), dict(
-  DESCRIPTOR = _REQMODIFYUSERINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqModifyUserInfo)
-  ))
+    DESCRIPTOR=_REQMODIFYUSERINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqModifyUserInfo)
+))
 _sym_db.RegisterMessage(ReqModifyUserInfo)
 
 RecModifyUserInfo = _reflection.GeneratedProtocolMessageType('RecModifyUserInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECMODIFYUSERINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecModifyUserInfo)
-  ))
+    DESCRIPTOR=_RECMODIFYUSERINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecModifyUserInfo)
+))
 _sym_db.RegisterMessage(RecModifyUserInfo)
 
 RecMailList = _reflection.GeneratedProtocolMessageType('RecMailList', (_message.Message,), dict(
 
-  Mail = _reflection.GeneratedProtocolMessageType('Mail', (_message.Message,), dict(
-    DESCRIPTOR = _RECMAILLIST_MAIL,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecMailList.Mail)
+    Mail=_reflection.GeneratedProtocolMessageType('Mail', (_message.Message,), dict(
+        DESCRIPTOR=_RECMAILLIST_MAIL,
+        __module__='base.base_pb2'
+        # @@protoc_insertion_point(class_scope:mahjong.RecMailList.Mail)
     ))
-  ,
-  DESCRIPTOR = _RECMAILLIST,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecMailList)
-  ))
+    ,
+    DESCRIPTOR=_RECMAILLIST,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecMailList)
+))
 _sym_db.RegisterMessage(RecMailList)
 _sym_db.RegisterMessage(RecMailList.Mail)
 
 ReqMailReadItem = _reflection.GeneratedProtocolMessageType('ReqMailReadItem', (_message.Message,), dict(
-  DESCRIPTOR = _REQMAILREADITEM,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqMailReadItem)
-  ))
+    DESCRIPTOR=_REQMAILREADITEM,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqMailReadItem)
+))
 _sym_db.RegisterMessage(ReqMailReadItem)
 
 RecMailReadItem = _reflection.GeneratedProtocolMessageType('RecMailReadItem', (_message.Message,), dict(
-  DESCRIPTOR = _RECMAILREADITEM,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecMailReadItem)
-  ))
+    DESCRIPTOR=_RECMAILREADITEM,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecMailReadItem)
+))
 _sym_db.RegisterMessage(RecMailReadItem)
 
 ReqMailGetItem = _reflection.GeneratedProtocolMessageType('ReqMailGetItem', (_message.Message,), dict(
-  DESCRIPTOR = _REQMAILGETITEM,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqMailGetItem)
-  ))
+    DESCRIPTOR=_REQMAILGETITEM,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqMailGetItem)
+))
 _sym_db.RegisterMessage(ReqMailGetItem)
 
 RecMailGetItem = _reflection.GeneratedProtocolMessageType('RecMailGetItem', (_message.Message,), dict(
-  DESCRIPTOR = _RECMAILGETITEM,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecMailGetItem)
-  ))
+    DESCRIPTOR=_RECMAILGETITEM,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecMailGetItem)
+))
 _sym_db.RegisterMessage(RecMailGetItem)
 
 ReqMailDelete = _reflection.GeneratedProtocolMessageType('ReqMailDelete', (_message.Message,), dict(
-  DESCRIPTOR = _REQMAILDELETE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqMailDelete)
-  ))
+    DESCRIPTOR=_REQMAILDELETE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqMailDelete)
+))
 _sym_db.RegisterMessage(ReqMailDelete)
 
 RecMailDelete = _reflection.GeneratedProtocolMessageType('RecMailDelete', (_message.Message,), dict(
-  DESCRIPTOR = _RECMAILDELETE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecMailDelete)
-  ))
+    DESCRIPTOR=_RECMAILDELETE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecMailDelete)
+))
 _sym_db.RegisterMessage(RecMailDelete)
 
 ReqUpdateIntroduce = _reflection.GeneratedProtocolMessageType('ReqUpdateIntroduce', (_message.Message,), dict(
-  DESCRIPTOR = _REQUPDATEINTRODUCE,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqUpdateIntroduce)
-  ))
+    DESCRIPTOR=_REQUPDATEINTRODUCE,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqUpdateIntroduce)
+))
 _sym_db.RegisterMessage(ReqUpdateIntroduce)
 
 ReqBankInfo = _reflection.GeneratedProtocolMessageType('ReqBankInfo', (_message.Message,), dict(
-  DESCRIPTOR = _REQBANKINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqBankInfo)
-  ))
+    DESCRIPTOR=_REQBANKINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqBankInfo)
+))
 _sym_db.RegisterMessage(ReqBankInfo)
 
 RecBankInfo = _reflection.GeneratedProtocolMessageType('RecBankInfo', (_message.Message,), dict(
-  DESCRIPTOR = _RECBANKINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecBankInfo)
-  ))
+    DESCRIPTOR=_RECBANKINFO,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecBankInfo)
+))
 _sym_db.RegisterMessage(RecBankInfo)
 
 ReqOperateBank = _reflection.GeneratedProtocolMessageType('ReqOperateBank', (_message.Message,), dict(
-  DESCRIPTOR = _REQOPERATEBANK,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqOperateBank)
-  ))
+    DESCRIPTOR=_REQOPERATEBANK,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqOperateBank)
+))
 _sym_db.RegisterMessage(ReqOperateBank)
 
 RecOprateBank = _reflection.GeneratedProtocolMessageType('RecOprateBank', (_message.Message,), dict(
-  DESCRIPTOR = _RECOPRATEBANK,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecOprateBank)
-  ))
+    DESCRIPTOR=_RECOPRATEBANK,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecOprateBank)
+))
 _sym_db.RegisterMessage(RecOprateBank)
 
-ReqMatchRecordInfo = _reflection.GeneratedProtocolMessageType('ReqMatchRecordInfo', (_message.Message,), dict(
-  DESCRIPTOR = _REQMATCHRECORDINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqMatchRecordInfo)
-  ))
-_sym_db.RegisterMessage(ReqMatchRecordInfo)
-
-RecMatchRecordInfo = _reflection.GeneratedProtocolMessageType('RecMatchRecordInfo', (_message.Message,), dict(
-
-  MatchRecordUser = _reflection.GeneratedProtocolMessageType('MatchRecordUser', (_message.Message,), dict(
-    DESCRIPTOR = _RECMATCHRECORDINFO_MATCHRECORDUSER,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecMatchRecordInfo.MatchRecordUser)
-    ))
-  ,
-
-  MatchOneRecordInfo = _reflection.GeneratedProtocolMessageType('MatchOneRecordInfo', (_message.Message,), dict(
-    DESCRIPTOR = _RECMATCHRECORDINFO_MATCHONERECORDINFO,
-    __module__ = 'base.base_pb2'
-    # @@protoc_insertion_point(class_scope:mahjong.RecMatchRecordInfo.MatchOneRecordInfo)
-    ))
-  ,
-  DESCRIPTOR = _RECMATCHRECORDINFO,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecMatchRecordInfo)
-  ))
-_sym_db.RegisterMessage(RecMatchRecordInfo)
-_sym_db.RegisterMessage(RecMatchRecordInfo.MatchRecordUser)
-_sym_db.RegisterMessage(RecMatchRecordInfo.MatchOneRecordInfo)
-
 ReqHandselCurrency = _reflection.GeneratedProtocolMessageType('ReqHandselCurrency', (_message.Message,), dict(
-  DESCRIPTOR = _REQHANDSELCURRENCY,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.ReqHandselCurrency)
-  ))
+    DESCRIPTOR=_REQHANDSELCURRENCY,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.ReqHandselCurrency)
+))
 _sym_db.RegisterMessage(ReqHandselCurrency)
 
 RecHandselCurrency = _reflection.GeneratedProtocolMessageType('RecHandselCurrency', (_message.Message,), dict(
-  DESCRIPTOR = _RECHANDSELCURRENCY,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecHandselCurrency)
-  ))
+    DESCRIPTOR=_RECHANDSELCURRENCY,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecHandselCurrency)
+))
 _sym_db.RegisterMessage(RecHandselCurrency)
 
 RecUpdateConsumeVip = _reflection.GeneratedProtocolMessageType('RecUpdateConsumeVip', (_message.Message,), dict(
-  DESCRIPTOR = _RECUPDATECONSUMEVIP,
-  __module__ = 'base.base_pb2'
-  # @@protoc_insertion_point(class_scope:mahjong.RecUpdateConsumeVip)
-  ))
+    DESCRIPTOR=_RECUPDATECONSUMEVIP,
+    __module__='base.base_pb2'
+    # @@protoc_insertion_point(class_scope:mahjong.RecUpdateConsumeVip)
+))
 _sym_db.RegisterMessage(RecUpdateConsumeVip)
 
-
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003\252\002\020ChuangMi.Base.V1'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003'))
 # @@protoc_insertion_point(module_scope)
