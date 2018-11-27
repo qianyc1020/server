@@ -139,7 +139,7 @@ class UserMessageHandle(object):
                         playerRankInfo = recGameRank.playerDatas.add()
                         playerRankInfo.rankId = i
                         playerRankInfo.playerId = a.id
-                        playerRankInfo.currency = int(a.gold.quantize(Decimal('0')))
+                        playerRankInfo.rankVal = int(a.gold.quantize(Decimal('0')))
                         playerRankInfo.nick = a.nick_name
                         playerRankInfo.headUrl = a.head_url
                         if a.introduce is not None:
