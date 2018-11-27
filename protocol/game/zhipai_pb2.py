@@ -2,429 +2,441 @@
 # source: game/zhipai.proto
 
 import sys
-
-_b = sys.version_info[0] < 3 and (lambda x: x) or (lambda x: x.encode('latin1'))
+_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf import descriptor_pb2
-
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
+
+
+
 DESCRIPTOR = _descriptor.FileDescriptor(
-    name='game/zhipai.proto',
-    package='',
-    syntax='proto3',
-    serialized_pb=_b(
-        '\n\x11game/zhipai.proto\"i\n\nSettleData\x12\x0f\n\x07\x61llocid\x18\x01 \x01(\x05\x12\x0e\n\x06\x62\x61nker\x18\x02 \x01(\x05\x12\'\n\x0euserSettleData\x18\x03 \x03(\x0b\x32\x0f.UserSettleData\x12\x11\n\textraData\x18\x04 \x01(\x0c\"K\n\x10NiuniuSettleData\x12\x10\n\x08playRule\x18\x01 \x01(\x05\x12\x12\n\ndoubleRule\x18\x02 \x01(\x05\x12\x11\n\tgameRules\x18\x03 \x01(\x05\"7\n\x12PiBanBanSettleData\x12\x10\n\x08playType\x18\x01 \x01(\x05\x12\x0f\n\x07jackpot\x18\x02 \x01(\x05\"O\n\x0eUserSettleData\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x10\n\x08\x63\x61rdlist\x18\x02 \x03(\x05\x12\r\n\x05score\x18\x03 \x01(\x05\x12\x0c\n\x04grab\x18\x04 \x01(\x05\";\n\x0cSettleResult\x12+\n\x10userSettleResule\x18\x01 \x03(\x0b\x32\x11.UserSettleResult\"B\n\x10UserSettleResult\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x11\n\tcardValue\x18\x02 \x01(\x05\x12\x0b\n\x03win\x18\x03 \x01(\x05\"P\n\x0bShuffleData\x12\x0f\n\x07\x61llocid\x18\x01 \x01(\x05\x12\x11\n\textraData\x18\x02 \x01(\x0c\x12\x1d\n\tcheatData\x18\x03 \x03(\x0b\x32\n.CheatData\"!\n\rShuffleResult\x12\x10\n\x08\x63\x61rdlist\x18\x01 \x03(\x05\"\x1e\n\nJinhuaData\x12\x10\n\x08gameType\x18\x01 \x01(\x08\":\n\tCheatData\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x0b\n\x03loc\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05\x32[\n\x06Zhipai\x12&\n\x06settle\x12\x0b.SettleData\x1a\r.SettleResult\"\x00\x12)\n\x07shuffle\x12\x0c.ShuffleData\x1a\x0e.ShuffleResult\"\x00\x42\x02H\x03\x62\x06proto3')
+  name='game/zhipai.proto',
+  package='',
+  syntax='proto3',
+  serialized_pb=_b('\n\x11game/zhipai.proto\"i\n\nSettleData\x12\x0f\n\x07\x61llocid\x18\x01 \x01(\x05\x12\x0e\n\x06\x62\x61nker\x18\x02 \x01(\x05\x12\'\n\x0euserSettleData\x18\x03 \x03(\x0b\x32\x0f.UserSettleData\x12\x11\n\textraData\x18\x04 \x01(\x0c\"K\n\x10NiuniuSettleData\x12\x10\n\x08playRule\x18\x01 \x01(\x05\x12\x12\n\ndoubleRule\x18\x02 \x01(\x05\x12\x11\n\tgameRules\x18\x03 \x01(\x05\"7\n\x12PiBanBanSettleData\x12\x10\n\x08playType\x18\x01 \x01(\x05\x12\x0f\n\x07jackpot\x18\x02 \x01(\x05\"O\n\x0eUserSettleData\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x10\n\x08\x63\x61rdlist\x18\x02 \x03(\x05\x12\r\n\x05score\x18\x03 \x01(\x05\x12\x0c\n\x04grab\x18\x04 \x01(\x05\";\n\x0cSettleResult\x12+\n\x10userSettleResule\x18\x01 \x03(\x0b\x32\x11.UserSettleResult\"B\n\x10UserSettleResult\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x11\n\tcardValue\x18\x02 \x01(\x05\x12\x0b\n\x03win\x18\x03 \x01(\x05\"P\n\x0bShuffleData\x12\x0f\n\x07\x61llocid\x18\x01 \x01(\x05\x12\x11\n\textraData\x18\x02 \x01(\x0c\x12\x1d\n\tcheatData\x18\x03 \x03(\x0b\x32\n.CheatData\"!\n\rShuffleResult\x12\x10\n\x08\x63\x61rdlist\x18\x01 \x03(\x05\"\x1e\n\nJinhuaData\x12\x10\n\x08gameType\x18\x01 \x01(\x08\":\n\tCheatData\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x0b\n\x03loc\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05\x32[\n\x06Zhipai\x12&\n\x06settle\x12\x0b.SettleData\x1a\r.SettleResult\"\x00\x12)\n\x07shuffle\x12\x0c.ShuffleData\x1a\x0e.ShuffleResult\"\x00\x62\x06proto3')
 )
+
+
+
 
 _SETTLEDATA = _descriptor.Descriptor(
-    name='SettleData',
-    full_name='SettleData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='allocid', full_name='SettleData.allocid', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='banker', full_name='SettleData.banker', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='userSettleData', full_name='SettleData.userSettleData', index=2,
-            number=3, type=11, cpp_type=10, label=3,
-            has_default_value=False, default_value=[],
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='extraData', full_name='SettleData.extraData', index=3,
-            number=4, type=12, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b(""),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=21,
-    serialized_end=126,
+  name='SettleData',
+  full_name='SettleData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='allocid', full_name='SettleData.allocid', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='banker', full_name='SettleData.banker', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='userSettleData', full_name='SettleData.userSettleData', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extraData', full_name='SettleData.extraData', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=21,
+  serialized_end=126,
 )
+
 
 _NIUNIUSETTLEDATA = _descriptor.Descriptor(
-    name='NiuniuSettleData',
-    full_name='NiuniuSettleData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='playRule', full_name='NiuniuSettleData.playRule', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='doubleRule', full_name='NiuniuSettleData.doubleRule', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='gameRules', full_name='NiuniuSettleData.gameRules', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=128,
-    serialized_end=203,
+  name='NiuniuSettleData',
+  full_name='NiuniuSettleData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='playRule', full_name='NiuniuSettleData.playRule', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='doubleRule', full_name='NiuniuSettleData.doubleRule', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='gameRules', full_name='NiuniuSettleData.gameRules', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=128,
+  serialized_end=203,
 )
+
 
 _PIBANBANSETTLEDATA = _descriptor.Descriptor(
-    name='PiBanBanSettleData',
-    full_name='PiBanBanSettleData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='playType', full_name='PiBanBanSettleData.playType', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='jackpot', full_name='PiBanBanSettleData.jackpot', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=205,
-    serialized_end=260,
+  name='PiBanBanSettleData',
+  full_name='PiBanBanSettleData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='playType', full_name='PiBanBanSettleData.playType', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jackpot', full_name='PiBanBanSettleData.jackpot', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=205,
+  serialized_end=260,
 )
+
 
 _USERSETTLEDATA = _descriptor.Descriptor(
-    name='UserSettleData',
-    full_name='UserSettleData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='userId', full_name='UserSettleData.userId', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='cardlist', full_name='UserSettleData.cardlist', index=1,
-            number=2, type=5, cpp_type=1, label=3,
-            has_default_value=False, default_value=[],
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='score', full_name='UserSettleData.score', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='grab', full_name='UserSettleData.grab', index=3,
-            number=4, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=262,
-    serialized_end=341,
+  name='UserSettleData',
+  full_name='UserSettleData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='UserSettleData.userId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cardlist', full_name='UserSettleData.cardlist', index=1,
+      number=2, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='score', full_name='UserSettleData.score', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='grab', full_name='UserSettleData.grab', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=262,
+  serialized_end=341,
 )
+
 
 _SETTLERESULT = _descriptor.Descriptor(
-    name='SettleResult',
-    full_name='SettleResult',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='userSettleResule', full_name='SettleResult.userSettleResule', index=0,
-            number=1, type=11, cpp_type=10, label=3,
-            has_default_value=False, default_value=[],
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=343,
-    serialized_end=402,
+  name='SettleResult',
+  full_name='SettleResult',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userSettleResule', full_name='SettleResult.userSettleResule', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=343,
+  serialized_end=402,
 )
+
 
 _USERSETTLERESULT = _descriptor.Descriptor(
-    name='UserSettleResult',
-    full_name='UserSettleResult',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='userId', full_name='UserSettleResult.userId', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='cardValue', full_name='UserSettleResult.cardValue', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='win', full_name='UserSettleResult.win', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=404,
-    serialized_end=470,
+  name='UserSettleResult',
+  full_name='UserSettleResult',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='UserSettleResult.userId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cardValue', full_name='UserSettleResult.cardValue', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='win', full_name='UserSettleResult.win', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=404,
+  serialized_end=470,
 )
+
 
 _SHUFFLEDATA = _descriptor.Descriptor(
-    name='ShuffleData',
-    full_name='ShuffleData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='allocid', full_name='ShuffleData.allocid', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='extraData', full_name='ShuffleData.extraData', index=1,
-            number=2, type=12, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b(""),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='cheatData', full_name='ShuffleData.cheatData', index=2,
-            number=3, type=11, cpp_type=10, label=3,
-            has_default_value=False, default_value=[],
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=472,
-    serialized_end=552,
+  name='ShuffleData',
+  full_name='ShuffleData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='allocid', full_name='ShuffleData.allocid', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extraData', full_name='ShuffleData.extraData', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cheatData', full_name='ShuffleData.cheatData', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=472,
+  serialized_end=552,
 )
+
 
 _SHUFFLERESULT = _descriptor.Descriptor(
-    name='ShuffleResult',
-    full_name='ShuffleResult',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='cardlist', full_name='ShuffleResult.cardlist', index=0,
-            number=1, type=5, cpp_type=1, label=3,
-            has_default_value=False, default_value=[],
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=554,
-    serialized_end=587,
+  name='ShuffleResult',
+  full_name='ShuffleResult',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cardlist', full_name='ShuffleResult.cardlist', index=0,
+      number=1, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=554,
+  serialized_end=587,
 )
+
 
 _JINHUADATA = _descriptor.Descriptor(
-    name='JinhuaData',
-    full_name='JinhuaData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='gameType', full_name='JinhuaData.gameType', index=0,
-            number=1, type=8, cpp_type=7, label=1,
-            has_default_value=False, default_value=False,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=589,
-    serialized_end=619,
+  name='JinhuaData',
+  full_name='JinhuaData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='gameType', full_name='JinhuaData.gameType', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=589,
+  serialized_end=619,
 )
 
+
 _CHEATDATA = _descriptor.Descriptor(
-    name='CheatData',
-    full_name='CheatData',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='player_id', full_name='CheatData.player_id', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='loc', full_name='CheatData.loc', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='level', full_name='CheatData.level', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=621,
-    serialized_end=679,
+  name='CheatData',
+  full_name='CheatData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='player_id', full_name='CheatData.player_id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='loc', full_name='CheatData.loc', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='CheatData.level', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=621,
+  serialized_end=679,
 )
 
 _SETTLEDATA.fields_by_name['userSettleData'].message_type = _USERSETTLEDATA
@@ -443,106 +455,105 @@ DESCRIPTOR.message_types_by_name['CheatData'] = _CHEATDATA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SettleData = _reflection.GeneratedProtocolMessageType('SettleData', (_message.Message,), dict(
-    DESCRIPTOR=_SETTLEDATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:SettleData)
-))
+  DESCRIPTOR = _SETTLEDATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:SettleData)
+  ))
 _sym_db.RegisterMessage(SettleData)
 
 NiuniuSettleData = _reflection.GeneratedProtocolMessageType('NiuniuSettleData', (_message.Message,), dict(
-    DESCRIPTOR=_NIUNIUSETTLEDATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:NiuniuSettleData)
-))
+  DESCRIPTOR = _NIUNIUSETTLEDATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:NiuniuSettleData)
+  ))
 _sym_db.RegisterMessage(NiuniuSettleData)
 
 PiBanBanSettleData = _reflection.GeneratedProtocolMessageType('PiBanBanSettleData', (_message.Message,), dict(
-    DESCRIPTOR=_PIBANBANSETTLEDATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:PiBanBanSettleData)
-))
+  DESCRIPTOR = _PIBANBANSETTLEDATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:PiBanBanSettleData)
+  ))
 _sym_db.RegisterMessage(PiBanBanSettleData)
 
 UserSettleData = _reflection.GeneratedProtocolMessageType('UserSettleData', (_message.Message,), dict(
-    DESCRIPTOR=_USERSETTLEDATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:UserSettleData)
-))
+  DESCRIPTOR = _USERSETTLEDATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:UserSettleData)
+  ))
 _sym_db.RegisterMessage(UserSettleData)
 
 SettleResult = _reflection.GeneratedProtocolMessageType('SettleResult', (_message.Message,), dict(
-    DESCRIPTOR=_SETTLERESULT,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:SettleResult)
-))
+  DESCRIPTOR = _SETTLERESULT,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:SettleResult)
+  ))
 _sym_db.RegisterMessage(SettleResult)
 
 UserSettleResult = _reflection.GeneratedProtocolMessageType('UserSettleResult', (_message.Message,), dict(
-    DESCRIPTOR=_USERSETTLERESULT,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:UserSettleResult)
-))
+  DESCRIPTOR = _USERSETTLERESULT,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:UserSettleResult)
+  ))
 _sym_db.RegisterMessage(UserSettleResult)
 
 ShuffleData = _reflection.GeneratedProtocolMessageType('ShuffleData', (_message.Message,), dict(
-    DESCRIPTOR=_SHUFFLEDATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:ShuffleData)
-))
+  DESCRIPTOR = _SHUFFLEDATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:ShuffleData)
+  ))
 _sym_db.RegisterMessage(ShuffleData)
 
 ShuffleResult = _reflection.GeneratedProtocolMessageType('ShuffleResult', (_message.Message,), dict(
-    DESCRIPTOR=_SHUFFLERESULT,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:ShuffleResult)
-))
+  DESCRIPTOR = _SHUFFLERESULT,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:ShuffleResult)
+  ))
 _sym_db.RegisterMessage(ShuffleResult)
 
 JinhuaData = _reflection.GeneratedProtocolMessageType('JinhuaData', (_message.Message,), dict(
-    DESCRIPTOR=_JINHUADATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:JinhuaData)
-))
+  DESCRIPTOR = _JINHUADATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:JinhuaData)
+  ))
 _sym_db.RegisterMessage(JinhuaData)
 
 CheatData = _reflection.GeneratedProtocolMessageType('CheatData', (_message.Message,), dict(
-    DESCRIPTOR=_CHEATDATA,
-    __module__='game.zhipai_pb2'
-    # @@protoc_insertion_point(class_scope:CheatData)
-))
+  DESCRIPTOR = _CHEATDATA,
+  __module__ = 'game.zhipai_pb2'
+  # @@protoc_insertion_point(class_scope:CheatData)
+  ))
 _sym_db.RegisterMessage(CheatData)
 
-DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('H\003'))
+
 
 _ZHIPAI = _descriptor.ServiceDescriptor(
-    name='Zhipai',
-    full_name='Zhipai',
-    file=DESCRIPTOR,
+  name='Zhipai',
+  full_name='Zhipai',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=681,
+  serialized_end=772,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='settle',
+    full_name='Zhipai.settle',
     index=0,
+    containing_service=None,
+    input_type=_SETTLEDATA,
+    output_type=_SETTLERESULT,
     options=None,
-    serialized_start=681,
-    serialized_end=772,
-    methods=[
-        _descriptor.MethodDescriptor(
-            name='settle',
-            full_name='Zhipai.settle',
-            index=0,
-            containing_service=None,
-            input_type=_SETTLEDATA,
-            output_type=_SETTLERESULT,
-            options=None,
-        ),
-        _descriptor.MethodDescriptor(
-            name='shuffle',
-            full_name='Zhipai.shuffle',
-            index=1,
-            containing_service=None,
-            input_type=_SHUFFLEDATA,
-            output_type=_SHUFFLERESULT,
-            options=None,
-        ),
-    ])
+  ),
+  _descriptor.MethodDescriptor(
+    name='shuffle',
+    full_name='Zhipai.shuffle',
+    index=1,
+    containing_service=None,
+    input_type=_SHUFFLEDATA,
+    output_type=_SHUFFLERESULT,
+    options=None,
+  ),
+])
 _sym_db.RegisterServiceDescriptor(_ZHIPAI)
 
 DESCRIPTOR.services_by_name['Zhipai'] = _ZHIPAI

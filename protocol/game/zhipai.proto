@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-option optimize_for = LITE_RUNTIME;
-
 service Zhipai {
     //结算
     rpc settle (SettleData) returns (SettleResult) {
