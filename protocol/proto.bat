@@ -8,5 +8,6 @@ python -m grpc_tools.protoc -I./ --python_out=./ ./game/bairen.proto
 python -m grpc_tools.protoc -I./ --python_out=./ ./game/hongbao.proto
 python -m grpc_tools.protoc -I./ --python_out=./ ./game/wuziqi.proto
 python -m grpc_tools.protoc -I./ --python_out=./ ./game/jinhua.proto
+python -m grpc_tools.protoc -I./ --python_out=./ ./game/douniu.proto
 python -m grpc_tools.protoc -I./ --python_out=./ --grpc_python_out=./ ./game/zhipai.proto
 pause

@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option optimize_for = LITE_RUNTIME;
+
+// 创建房间
+message DouniuCreateRoom {
+    int32 baseScore = 1; // 底注设定
+    int32 inScore = 2; // 入场设定
+    int32 leaveScore = 3; // 离场场设定
+    bool sameIp = 4; // 同ip进入
+    bool autoCompare = 5; // Ture 自动拼排 False 手动拼排
+    bool match = 6; // True 匹配场 Flase 房卡
+    bool isGold = 7; //金币场
+    int32 type = 8; // 游戏类型 0=>明牌抢庄 1=>自由抢庄
+    bool private = 9; // True私人房间 Flase普通房间
+    uint32 gameRules = 10; // 低位到高位顺序(坎顺斗 1，疯狂模式 2，私密房间 4,特殊牛检测 8,搓牌选项 16)
+    int32 betType = 11; //下注倍数(1(小倍(1,2,3,4)),2(中倍(2,4,6,8)),3(3,6,8,10))
+}
+
+// 确认庄家
+message DouniuBankerConfirm {
+    int32 bankerId = 1; // 庄家ID
+}
+
+// 询问
+message DouniuRecAsk {
+    int32 randId = 1;
+    int32 type = 2; // 1=>抢庄，2=>下注，3=>亮牌
+    int32 tuiZhuScore = 3; // 推注分数
+}
+
+// 发牌
+message DouniuCardAction {
+    repeated int32 cards = 1;
+}
+
+// 下注
+message DouniuScoreAction {
+    int32 score = 1;
+}
+
+//单局结算
+message DouniuPlayerOneSetResult {
+    repeated DouniuSettlePlayerInfo players = 1;
+    repeated PlayerGetJackpot playerGetJackpot = 2;
+    message PlayerGetJackpot {
+        int32 playerId = 1;
+        int32 jackpot = 2;
+        int32 cardType = 3;
+    }
+}
+
+message DouniuSettlePlayerInfo {
+    int32 playerId = 1;
+    repeated int32 card = 2;
+    int32 totalScore = 3; // 总输赢分数
+    int32 score = 4; // 当局分数
+    int32 cardType = 5; // 牌型
+}
+
+//  重连玩家数据
+message DouniuReEnterPlayerInfo {
+    int32 playerId = 1;
+    repeated int32 cards = 2;
+}
+
+message NiuNiuRecordContent {
+    int32 banker = 1;
+    repeated RecordPlayerContent playerContent = 2;
+    int32 gameRules = 3;
+    message RecordPlayerContent {
+        int32 playerId = 1;
+        repeated int32 cards = 2;
+        int32 grabMultiple = 3; //抢庄倍数
+        int32 playedScore = 4; //下注分数
+    }
+}

@@ -44,7 +44,7 @@ def execute(room, messageHandle, wins):
             kou = True
             recSettleSingle.content = jinhuaPlayerOneSetResult.SerializeToString()
             messageHandle.send_to_gateway(SETTLE_GAME, recSettleSingle, s.userId)
-        record_cmd.execute(room, users, scores)
+        record_cmd.execute(room, users[1:], scores[1:])
         room.clear()
 
         levelSeat = []

@@ -27,11 +27,13 @@ def execute(userId, message, messageHandle):
             if redis.exists("room_" + str(r)):
                 redis.lock("lockroom_" + str(r), 5000)
                 room = redis.getobj("room_" + str(r), HongbaoRoom(), HongbaoRoom().object_to_dict)
-                if room.roomNo != reqApplyEnterMatch.reject and (room.count == -1 or 0 < len(room.seatNos)):
+                if room.roomNo != reqApplyEnterMatch.reject and room.matchLevel == reqApplyEnterMatch.level and (
+                        room.count == -1 or 0 < len(room.seatNos)):
                     join_match_room_cmd.execute(userId, message, messageHandle, room)
+                    redis.unlock("lockroom_" + str(r))
+                    join = True
+                    break
                 redis.unlock("lockroom_" + str(r))
-                join = True
-                break
         if not join:
             create_match_room_cmd.execute(userId, message, messageHandle)
     except:
