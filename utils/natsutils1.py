@@ -19,13 +19,11 @@ class NatsUtils(object):
                 self.__nc__.subscribe(self.__subject__[i], cb=self.__handle__[i])
 
     def startNats(self):
-        self.main()
-        tornado.ioloop.IOLoop.instance().start()
+        tornado.ioloop.IOLoop.current().run_sync(self.main)
 
     def publish(self, subject, data):
         if self.__nc__.is_connected:
             self.__nc__.publish(subject, data)
-            self.__nc__.flush()
 
     def isConnect(self):
         return self.__nc__.is_connected

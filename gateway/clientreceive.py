@@ -103,7 +103,7 @@ class ClientReceive(object):
         except:
             print traceback.print_exc()
         if self.userId is not None and self.userId in gl.get_v("clients") and gl.get_v("clients")[self.userId] == self:
-            del self
+            del gl.get_v("clients")[self.userId]
         gl.get_v("serverlogger").logger.info("client close")
 
     def readInt(self, conn):
