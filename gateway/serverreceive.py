@@ -20,9 +20,9 @@ class ServerReceive(object):
                 message = queue.get(True, 20)
                 s = GateWayMessage()
                 s.ParseFromString(message)
-
-                gl.get_v("clients")[s.userId].send(s.data)
                 gl.get_v("serverlogger").logger.info("转发消息给%d" % s.userId)
+                if s.userId in gl.get_v("clients"):
+                    gl.get_v("clients")[s.userId].send(s.data)
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

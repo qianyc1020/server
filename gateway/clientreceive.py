@@ -91,13 +91,20 @@ class ClientReceive(object):
         except:
             print traceback.print_exc()
         finally:
-            conn.shutdown(socket.SHUT_RDWR)
-            conn.close()
-            if self.messageHandle is not None:
-                self.messageHandle.close()
-            if self.userId is not None:
-                del gl.get_v("clients")[self.userId]
-            gl.get_v("serverlogger").logger.info("client close")
+            self.close()
+
+    def close(self):
+        if self.messageHandle is not None:
+            self.messageHandle.close()
+        try:
+            if self.conns is not None:
+                self.conns.shutdown(socket.SHUT_RDWR)
+                self.conns.close()
+        except:
+            print traceback.print_exc()
+        if self.userId is not None and self.userId in gl.get_v("clients") and gl.get_v("clients")[self.userId] == self:
+            del self
+        gl.get_v("serverlogger").logger.info("client close")
 
     def readInt(self, conn):
         msg = conn.recv(4)  # total data length
@@ -162,8 +169,7 @@ class ClientReceive(object):
         if account is not None:
             self.checkLogin(account)
         else:
-            self.conns.shutdown(socket.SHUT_RDWR)
-            self.conns.close()
+            self.close()
             gl.get_v("serverlogger").logger.info("login fail")
 
     def checkLogin(self, account):
@@ -177,6 +183,8 @@ class ClientReceive(object):
             else:
                 self.send_data(LOGIN_SVR, reclogin)
                 self.userId = account.id
+                if self.userId in gl.get_v("clients"):
+                    gl.get_v("clients")[self.userId].close()
                 gl.get_v("clients")[self.userId] = self
                 self.messageQueue = Queue.Queue()
                 self.messageHandle = MessageHandle(self.userId)
@@ -232,6 +240,5 @@ class ClientReceive(object):
         if account is not None:
             self.checkLogin(account)
         else:
-            self.conns.shutdown(socket.SHUT_RDWR)
-            self.conns.close()
+            self.close()
             gl.get_v("serverlogger").logger.info("login fail")

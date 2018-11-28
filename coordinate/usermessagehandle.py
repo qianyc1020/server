@@ -78,11 +78,13 @@ class UserMessageHandle(object):
                     reqUpdateMatchInfo.ParseFromString(message.data)
 
                     recUpdateMatchInfo = RecUpdateMatchInfo()
-                    recUpdateMatchInfo.allocId = reqUpdateMatchInfo.allocId
-                    recUpdateMatchInfo.level = reqUpdateMatchInfo.level
-                    recUpdateMatchInfo.games = 1
-                    recUpdateMatchInfo.players = 5
-                    recUpdateMatchInfo.totalPlayers = 10
+                    for info in reqUpdateMatchInfo.infos:
+                        infos = recUpdateMatchInfo.infos.add()
+                        infos.allocId = info.allocId
+                        infos.level = info.level
+                        infos.games = 1
+                        infos.players = 5
+                        infos.totalPlayers = 10
                     self.send_to_gateway(UPDATE_MATCH_INFO, recUpdateMatchInfo)
 
                 elif message.opcode == BANK_INFO:
