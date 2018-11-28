@@ -1,5 +1,6 @@
 # coding=utf-8
 import Queue
+import os
 import socket
 import threading
 import traceback
@@ -22,35 +23,37 @@ class Server(object):
 
     @staticmethod
     def start():
-        gl.set_v("serverlogger", LoggerUtils("gateway"))
-        gl.set_v("serverqueue", Queue.Queue())
-        gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], ["server-gateway"], [messagehandle]))
-        gl.set_v("redis", RedisUtils())
-        gl.set_v("clients", {})
+        try:
+            gl.set_v("serverlogger", LoggerUtils("gateway"))
+            gl.set_v("serverqueue", Queue.Queue())
+            gl.set_v("natsobj", NatsUtils([config.get("nats", "nats")], ["server-gateway"], [messagehandle]))
+            gl.set_v("redis", RedisUtils())
+            gl.set_v("clients", {})
 
-        natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
-        natsthread.start()
-        gl.get_v("serverlogger").logger.info("natsthread started")
+            natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
+            natsthread.start()
+            gl.get_v("serverlogger").logger.info("natsthread started")
 
-        t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
-                             name='handle')
-        t.start()
-        gl.get_v("serverlogger").logger.info("serverqueue started")
+            t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
+                                 name='handle')
+            t.start()
+            gl.get_v("serverlogger").logger.info("serverqueue started")
 
-        ip_port = ('', 10000)
-        sk = socket.socket()
-        sk.bind(ip_port)
-        sk.listen(5)
-        gl.get_v("serverlogger").logger.info("server started")
-        while True:
-            try:
+            ip_port = ('', 10000)
+            sk = socket.socket()
+            sk.bind(ip_port)
+            sk.listen(5)
+            gl.get_v("serverlogger").logger.info("server started")
+            while True:
                 reload(gateway.clientreceive)
                 from gateway.clientreceive import ClientReceive
-
                 conn, address = sk.accept()
                 t = threading.Thread(target=ClientReceive.receive,
                                      args=(ClientReceive(), conn, '''%s:%d''' % (address[0], address[1]),),
                                      name='clientreceive')  # 线程对象.
                 t.start()
-            except:
-                print traceback.print_exc()
+        except:
+            print traceback.print_exc()
+            for (c, v) in gl.get_v("clients").items():
+                v.close()
+        os._exit(0)

@@ -27,7 +27,7 @@ class Server(object):
 
     @staticmethod
     def start():
-        gl.set_v("serverlogger", LoggerUtils("game"))
+        gl.set_v("serverlogger", LoggerUtils("tuitongzi"))
         gl.set_v("message-handle-queue", Queue.Queue())
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
