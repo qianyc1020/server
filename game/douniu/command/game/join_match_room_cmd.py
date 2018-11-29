@@ -57,7 +57,7 @@ def execute(userId, message, messageHandle, room):
         douniuSeat.level = account.level
         douniuSeat.experience = account.experience
         douniuSeat.intoDate = int(time.time())
-        douniuSeat.guanzhan = room.gameStatus == GameStatus.PLAYING
+        douniuSeat.guanzhan = room.gameStatus > GameStatus.WAITING
         room.seats.append(douniuSeat)
 
         t = threading.Thread(target=ready_timeout.execute,

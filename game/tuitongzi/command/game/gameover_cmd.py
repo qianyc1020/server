@@ -96,7 +96,7 @@ def execute(room, messageHandle):
                 # TODO 经验值和返利
 
         room.trend.append(tuitongziPlayerOneSetResult.positionWin)
-        if len(room.trend) > 20:
+        if len(room.trend) > 10:
             room.trend.remove(room.trend[0])
         room.updateTrend(messageHandle, 0)
 
