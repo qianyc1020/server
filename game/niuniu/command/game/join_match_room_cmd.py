@@ -49,7 +49,7 @@ def execute(userId, message, messageHandle, room):
     room.sendBetScore(messageHandle)
 
     room.recUpdateGameInfo(messageHandle)
-    room.recUpdateScore(messageHandle, 0)
+    room.recUpdateScore(messageHandle, userId)
     room.updateBankerList(messageHandle, userId)
     room.updateWatchSize(messageHandle, 0)
     room.updateTrend(messageHandle, userId)
