@@ -205,7 +205,7 @@ class JinhuaRoom(Room):
         if 0 == userId:
             messageHandle.broadcast_seat_to_gateway(ASK_ACTION, jinhuaRecAsk, self)
         else:
-            messageHandle.send_to_gateway(ASK_ACTION, jinhuaRecAsk)
+            messageHandle.send_to_gateway(ASK_ACTION, jinhuaRecAsk, userId)
 
     def exit(self, userId, messageHandle):
         seat = self.getSeatByUserId(userId)

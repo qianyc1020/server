@@ -1,5 +1,4 @@
 # coding=utf-8
-from decimal import Decimal
 
 import core.globalvar as gl
 from game.hongbao.mode.hongbao_room import HongbaoRoom

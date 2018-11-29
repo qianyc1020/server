@@ -313,7 +313,7 @@ class TuitongziRoom(Room):
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(ASK_ACTION, tuitongziRecAsk, self)
         else:
-            messageHandle.send_to_gateway(ASK_ACTION, tuitongziRecAsk)
+            messageHandle.send_to_gateway(ASK_ACTION, tuitongziRecAsk, userId)
 
     def exit(self, userId, messageHandle):
         seat = self.getWatchSeatByUserId(userId)

@@ -1,5 +1,4 @@
 # coding=utf-8
-from decimal import Decimal
 
 import core.globalvar as gl
 from game.longhu.mode.longhu_room import LonghuRoom

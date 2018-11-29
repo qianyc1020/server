@@ -173,7 +173,7 @@ class DouniuRoom(Room):
         if 0 == userId:
             messageHandle.broadcast_seat_to_gateway(ASK_ACTION, douniuRecAsk, self)
         else:
-            messageHandle.send_to_gateway(ASK_ACTION, douniuRecAsk)
+            messageHandle.send_to_gateway(ASK_ACTION, douniuRecAsk, userId)
 
     def exit(self, userId, messageHandle):
         seat = self.getSeatByUserId(userId)

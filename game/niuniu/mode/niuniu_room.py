@@ -314,7 +314,7 @@ class NiuniuRoom(Room):
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(ASK_ACTION, niuniuRecAsk, self)
         else:
-            messageHandle.send_to_gateway(ASK_ACTION, niuniuRecAsk)
+            messageHandle.send_to_gateway(ASK_ACTION, niuniuRecAsk, userId)
 
     def exit(self, userId, messageHandle):
         seat = self.getWatchSeatByUserId(userId)

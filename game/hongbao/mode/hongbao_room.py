@@ -249,7 +249,7 @@ class HongbaoRoom(Room):
         if 0 == userId:
             messageHandle.broadcast_watch_to_gateway(ASK_ACTION, hongbaoRecAsk, self)
         else:
-            messageHandle.send_to_gateway(ASK_ACTION, hongbaoRecAsk)
+            messageHandle.send_to_gateway(ASK_ACTION, hongbaoRecAsk, userId)
 
     def bankerSelectNum(self, num, messageHandle):
         selectNum = BaiRenHongbaoScore()
