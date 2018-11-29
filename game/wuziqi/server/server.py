@@ -7,7 +7,7 @@ from core import config
 from game.wuziqi.command.client import reconnection_cmd, exit_cmd, create_room_cmd, join_room_cmd, set_amount_cmd, \
     ready_cmd, lose_cmd
 from game.base.game_handle import ReceiveHandle as game_handle
-from game.wuziqi.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd
+from game.wuziqi.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
@@ -45,14 +45,15 @@ class Server(object):
         gl.get_v("command")["7"] = join_room_cmd
         gl.get_v("command")["8"] = exit_cmd
         gl.get_v("command")["10"] = ready_cmd
+        gl.get_v("command")["13"] = reconnection_cmd
         gl.get_v("command")["30"] = action_cmd
         gl.get_v("command")["32"] = chat_cmd
         gl.get_v("command")["33"] = voice_cmd
         gl.get_v("command")["37"] = gps_cmd
         gl.get_v("command")["38"] = interaction_cmd
-        gl.get_v("command")["13"] = reconnection_cmd
         gl.get_v("command")["104"] = set_amount_cmd
         gl.get_v("command")["105"] = lose_cmd
+        gl.get_v("command")["1004"] = currency_cmd
 
     @staticmethod
     def send_to_gateway(self, opcode, data):

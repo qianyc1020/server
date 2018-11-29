@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"\xc5\x02\n\x0cMutualPlayer\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x02 \x01(\t\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x10\n\x08head_url\x18\x04 \x01(\t\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x12\n\nip_address\x18\x06 \x01(\t\x12\x13\n\x0b\x63heat_level\x18\x07 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x08 \x01(\x05\x12\x0c\n\x04gold\x18\t \x01(\x05\x12\x10\n\x08integral\x18\n \x01(\x05\x12\x0e\n\x06praise\x18\x0b \x01(\x05\x12\r\n\x05tread\x18\x0c \x01(\x05\x12\x13\n\x0b\x63reate_time\x18\r \x01(\x05\x12\x15\n\rcontest_score\x18\x0e \x01(\x05\x12\x11\n\tintroduce\x18\x0f \x01(\t\x12\x12\n\nconsumeVip\x18\x10 \x01(\x05\x12\x11\n\tauthority\x18\x11 \x01(\x05\"\x9d\x01\n\rReqCreateGame\x12\x1e\n\x07\x63reater\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x19\n\x05gener\x18\x02 \x01(\x0e\x32\n.GameGener\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\x0c\x12\x1c\n\x05\x65nter\x18\x05 \x01(\x0b\x32\r.MutualPlayer\x12\x11\n\tmaxPlayer\x18\x06 \x01(\x05\"N\n\x0cReqEnterGame\x12\x1c\n\x05\x65nter\x18\x01 \x01(\x0b\x32\r.MutualPlayer\x12\x0f\n\x07game_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\x0c\"x\n\x12ReqGameAddCurrency\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\x10\n\x08\x61lloc_id\x18\x02 \x01(\x05\x12\x0c\n\x04\x63\x61rd\x18\x03 \x01(\x05\x12\x0f\n\x07game_id\x18\x04 \x01(\x05\x12\x0c\n\x04gold\x18\x05 \x01(\x05\x12\x10\n\x08integral\x18\x06 \x01(\x05\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05\"\x1c\n\x08UserExit\x12\x10\n\x08playerId\x18\x01 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02*F\n\tGameGener\x12\x08\n\x04\x43\x41RD\x10\x00\x12\t\n\x05MATCH\x10\x01\x12\t\n\x05PROXY\x10\x02\x12\x0c\n\x08TEAHOUSE\x10\x03\x12\x0b\n\x07\x43ONTEST\x10\x04\x42\x02H\x03\x62\x06proto3')
+        '\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05\"\x1c\n\x08UserExit\x12\x10\n\x08playerId\x18\x01 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02\x42\x02H\x03\x62\x06proto3')
 )
 
 _SERVERSTATE = _descriptor.EnumDescriptor(
@@ -44,55 +44,15 @@ _SERVERSTATE = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     options=None,
-    serialized_start=1002,
-    serialized_end=1055,
+    serialized_start=312,
+    serialized_end=365,
 )
 _sym_db.RegisterEnumDescriptor(_SERVERSTATE)
 
 ServerState = enum_type_wrapper.EnumTypeWrapper(_SERVERSTATE)
-_GAMEGENER = _descriptor.EnumDescriptor(
-    name='GameGener',
-    full_name='GameGener',
-    filename=None,
-    file=DESCRIPTOR,
-    values=[
-        _descriptor.EnumValueDescriptor(
-            name='CARD', index=0, number=0,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='MATCH', index=1, number=1,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='PROXY', index=2, number=2,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='TEAHOUSE', index=3, number=3,
-            options=None,
-            type=None),
-        _descriptor.EnumValueDescriptor(
-            name='CONTEST', index=4, number=4,
-            options=None,
-            type=None),
-    ],
-    containing_type=None,
-    options=None,
-    serialized_start=1057,
-    serialized_end=1127,
-)
-_sym_db.RegisterEnumDescriptor(_GAMEGENER)
-
-GameGener = enum_type_wrapper.EnumTypeWrapper(_GAMEGENER)
 RUNNING = 0
 BLOCKING = 1
 EXITING = 2
-CARD = 0
-MATCH = 1
-PROXY = 2
-TEAHOUSE = 3
-CONTEST = 4
 
 _REQREGISTERGAME = _descriptor.Descriptor(
     name='ReqRegisterGame',
@@ -198,322 +158,6 @@ _REQSERVICESTATE = _descriptor.Descriptor(
     serialized_end=178,
 )
 
-_MUTUALPLAYER = _descriptor.Descriptor(
-    name='MutualPlayer',
-    full_name='MutualPlayer',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='player_id', full_name='MutualPlayer.player_id', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='account_name', full_name='MutualPlayer.account_name', index=1,
-            number=2, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b("").decode('utf-8'),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='nick_name', full_name='MutualPlayer.nick_name', index=2,
-            number=3, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b("").decode('utf-8'),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='head_url', full_name='MutualPlayer.head_url', index=3,
-            number=4, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b("").decode('utf-8'),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='sex', full_name='MutualPlayer.sex', index=4,
-            number=5, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='ip_address', full_name='MutualPlayer.ip_address', index=5,
-            number=6, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b("").decode('utf-8'),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='cheat_level', full_name='MutualPlayer.cheat_level', index=6,
-            number=7, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='card', full_name='MutualPlayer.card', index=7,
-            number=8, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='gold', full_name='MutualPlayer.gold', index=8,
-            number=9, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='integral', full_name='MutualPlayer.integral', index=9,
-            number=10, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='praise', full_name='MutualPlayer.praise', index=10,
-            number=11, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='tread', full_name='MutualPlayer.tread', index=11,
-            number=12, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='create_time', full_name='MutualPlayer.create_time', index=12,
-            number=13, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='contest_score', full_name='MutualPlayer.contest_score', index=13,
-            number=14, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='introduce', full_name='MutualPlayer.introduce', index=14,
-            number=15, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b("").decode('utf-8'),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='consumeVip', full_name='MutualPlayer.consumeVip', index=15,
-            number=16, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='authority', full_name='MutualPlayer.authority', index=16,
-            number=17, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=181,
-    serialized_end=506,
-)
-
-_REQCREATEGAME = _descriptor.Descriptor(
-    name='ReqCreateGame',
-    full_name='ReqCreateGame',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='creater', full_name='ReqCreateGame.creater', index=0,
-            number=1, type=11, cpp_type=10, label=1,
-            has_default_value=False, default_value=None,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='gener', full_name='ReqCreateGame.gener', index=1,
-            number=2, type=14, cpp_type=8, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='game_id', full_name='ReqCreateGame.game_id', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='content', full_name='ReqCreateGame.content', index=3,
-            number=4, type=12, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b(""),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='enter', full_name='ReqCreateGame.enter', index=4,
-            number=5, type=11, cpp_type=10, label=1,
-            has_default_value=False, default_value=None,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='maxPlayer', full_name='ReqCreateGame.maxPlayer', index=5,
-            number=6, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=509,
-    serialized_end=666,
-)
-
-_REQENTERGAME = _descriptor.Descriptor(
-    name='ReqEnterGame',
-    full_name='ReqEnterGame',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='enter', full_name='ReqEnterGame.enter', index=0,
-            number=1, type=11, cpp_type=10, label=1,
-            has_default_value=False, default_value=None,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='game_id', full_name='ReqEnterGame.game_id', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='content', full_name='ReqEnterGame.content', index=2,
-            number=3, type=12, cpp_type=9, label=1,
-            has_default_value=False, default_value=_b(""),
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=668,
-    serialized_end=746,
-)
-
-_REQGAMEADDCURRENCY = _descriptor.Descriptor(
-    name='ReqGameAddCurrency',
-    full_name='ReqGameAddCurrency',
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name='player_id', full_name='ReqGameAddCurrency.player_id', index=0,
-            number=1, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='alloc_id', full_name='ReqGameAddCurrency.alloc_id', index=1,
-            number=2, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='card', full_name='ReqGameAddCurrency.card', index=2,
-            number=3, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='game_id', full_name='ReqGameAddCurrency.game_id', index=3,
-            number=4, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='gold', full_name='ReqGameAddCurrency.gold', index=4,
-            number=5, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-        _descriptor.FieldDescriptor(
-            name='integral', full_name='ReqGameAddCurrency.integral', index=5,
-            number=6, type=5, cpp_type=1, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None, file=DESCRIPTOR),
-    ],
-    extensions=[
-    ],
-    nested_types=[],
-    enum_types=[
-    ],
-    options=None,
-    is_extendable=False,
-    syntax='proto3',
-    extension_ranges=[],
-    oneofs=[
-    ],
-    serialized_start=748,
-    serialized_end=868,
-)
-
 _REQCHANGEONLINE = _descriptor.Descriptor(
     name='ReqChangeOnline',
     full_name='ReqChangeOnline',
@@ -554,8 +198,8 @@ _REQCHANGEONLINE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=870,
-    serialized_end=938,
+    serialized_start=180,
+    serialized_end=248,
 )
 
 _DISMISSGAME = _descriptor.Descriptor(
@@ -584,8 +228,8 @@ _DISMISSGAME = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=940,
-    serialized_end=970,
+    serialized_start=250,
+    serialized_end=280,
 )
 
 _USEREXIT = _descriptor.Descriptor(
@@ -614,27 +258,18 @@ _USEREXIT = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=972,
-    serialized_end=1000,
+    serialized_start=282,
+    serialized_end=310,
 )
 
 _REQSERVICESTATE.fields_by_name['state'].enum_type = _SERVERSTATE
-_REQCREATEGAME.fields_by_name['creater'].message_type = _MUTUALPLAYER
-_REQCREATEGAME.fields_by_name['gener'].enum_type = _GAMEGENER
-_REQCREATEGAME.fields_by_name['enter'].message_type = _MUTUALPLAYER
-_REQENTERGAME.fields_by_name['enter'].message_type = _MUTUALPLAYER
 DESCRIPTOR.message_types_by_name['ReqRegisterGame'] = _REQREGISTERGAME
 DESCRIPTOR.message_types_by_name['ResRegisterGame'] = _RESREGISTERGAME
 DESCRIPTOR.message_types_by_name['ReqServiceState'] = _REQSERVICESTATE
-DESCRIPTOR.message_types_by_name['MutualPlayer'] = _MUTUALPLAYER
-DESCRIPTOR.message_types_by_name['ReqCreateGame'] = _REQCREATEGAME
-DESCRIPTOR.message_types_by_name['ReqEnterGame'] = _REQENTERGAME
-DESCRIPTOR.message_types_by_name['ReqGameAddCurrency'] = _REQGAMEADDCURRENCY
 DESCRIPTOR.message_types_by_name['ReqChangeOnline'] = _REQCHANGEONLINE
 DESCRIPTOR.message_types_by_name['DismissGame'] = _DISMISSGAME
 DESCRIPTOR.message_types_by_name['UserExit'] = _USEREXIT
 DESCRIPTOR.enum_types_by_name['ServerState'] = _SERVERSTATE
-DESCRIPTOR.enum_types_by_name['GameGener'] = _GAMEGENER
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ReqRegisterGame = _reflection.GeneratedProtocolMessageType('ReqRegisterGame', (_message.Message,), dict(
@@ -657,34 +292,6 @@ ReqServiceState = _reflection.GeneratedProtocolMessageType('ReqServiceState', (_
     # @@protoc_insertion_point(class_scope:ReqServiceState)
 ))
 _sym_db.RegisterMessage(ReqServiceState)
-
-MutualPlayer = _reflection.GeneratedProtocolMessageType('MutualPlayer', (_message.Message,), dict(
-    DESCRIPTOR=_MUTUALPLAYER,
-    __module__='base.server_to_game_pb2'
-    # @@protoc_insertion_point(class_scope:MutualPlayer)
-))
-_sym_db.RegisterMessage(MutualPlayer)
-
-ReqCreateGame = _reflection.GeneratedProtocolMessageType('ReqCreateGame', (_message.Message,), dict(
-    DESCRIPTOR=_REQCREATEGAME,
-    __module__='base.server_to_game_pb2'
-    # @@protoc_insertion_point(class_scope:ReqCreateGame)
-))
-_sym_db.RegisterMessage(ReqCreateGame)
-
-ReqEnterGame = _reflection.GeneratedProtocolMessageType('ReqEnterGame', (_message.Message,), dict(
-    DESCRIPTOR=_REQENTERGAME,
-    __module__='base.server_to_game_pb2'
-    # @@protoc_insertion_point(class_scope:ReqEnterGame)
-))
-_sym_db.RegisterMessage(ReqEnterGame)
-
-ReqGameAddCurrency = _reflection.GeneratedProtocolMessageType('ReqGameAddCurrency', (_message.Message,), dict(
-    DESCRIPTOR=_REQGAMEADDCURRENCY,
-    __module__='base.server_to_game_pb2'
-    # @@protoc_insertion_point(class_scope:ReqGameAddCurrency)
-))
-_sym_db.RegisterMessage(ReqGameAddCurrency)
 
 ReqChangeOnline = _reflection.GeneratedProtocolMessageType('ReqChangeOnline', (_message.Message,), dict(
     DESCRIPTOR=_REQCHANGEONLINE,

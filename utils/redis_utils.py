@@ -16,6 +16,8 @@ class RedisUtils(object):
         self.__pool = redis.ConnectionPool(host=config.get("redis", "host"), port=int(config.get("redis", "port")),
                                            db=0)
         self.__redis = redis.Redis(connection_pool=self.__pool)
+        redis_ping = threading.Thread(target=self._ping, name="redis_ping")
+        redis_ping.start()
 
     def lock(self, key, timeout):
         """
@@ -115,3 +117,16 @@ class RedisUtils(object):
         for i in range(0, len(subject)):
             t = threading.Thread(target=self.sigleSubscribe, args=(subject[i], handle[i],), name=subject[i])
             t.start()
+
+    def _ping(self):
+        while True:
+            time.sleep(60)
+            # 尝试向redis-server发一条消息
+            if not self.__redis.ping():
+                print("oops~ redis-server get lost. call him back now!")
+                del self.__pool
+                del self.__redis
+                self.__pool = redis.ConnectionPool(host=config.get("redis", "host"),
+                                                   port=int(config.get("redis", "port")),
+                                                   db=0)
+                self.__redis = redis.Redis(connection_pool=self.__pool)

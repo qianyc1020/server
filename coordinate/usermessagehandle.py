@@ -130,6 +130,13 @@ class UserMessageHandle(object):
                     recOprateBank = RecOprateBank()
                     self.send_to_gateway(message.opcode, recOprateBank)
                     self.update_currency(self.__userId)
+                    if self.__redis.exists(str(self.__userId) + "_room"):
+                        roomNo = self.__redis.get(str(self.__userId) + "_room")
+                        gameId = self.__redis.get(str(roomNo) + "_gameId")
+                        for g in gl.get_v("games"):
+                            if g.alloc_id == gameId and g.state == RUNNING:
+                                self.sendToGame(g.uuid, GAME_UPDATE_CURRENCY, None)
+                                break
                 elif message.opcode == UPDATE_RANK:
                     reqGameRank = ReqGameRank()
                     reqGameRank.ParseFromString(message.data)

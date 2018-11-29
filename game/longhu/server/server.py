@@ -8,7 +8,7 @@ from core import config
 from game.longhu.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
     jixudangzhuang_cmd, watchseat_cmd
 from game.base.game_handle import ReceiveHandle as game_handle
-from game.longhu.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd
+from game.longhu.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
@@ -43,18 +43,19 @@ class Server(object):
     @staticmethod
     def initCommand():
         gl.set_v("command", {})
-        gl.get_v("command")["10001"] = match_cmd
+        gl.get_v("command")["8"] = exit_cmd
+        gl.get_v("command")["13"] = reconnection_cmd
         gl.get_v("command")["30"] = action_cmd
         gl.get_v("command")["32"] = chat_cmd
         gl.get_v("command")["33"] = voice_cmd
         gl.get_v("command")["37"] = gps_cmd
         gl.get_v("command")["38"] = interaction_cmd
-        gl.get_v("command")["13"] = reconnection_cmd
-        gl.get_v("command")["8"] = exit_cmd
         gl.get_v("command")["117"] = shangzhuang_cmd
         gl.get_v("command")["118"] = xiazhuang_cmd
         gl.get_v("command")["122"] = jixudangzhuang_cmd
         gl.get_v("command")["124"] = watchseat_cmd
+        gl.get_v("command")["1004"] = currency_cmd
+        gl.get_v("command")["10001"] = match_cmd
 
     @staticmethod
     def send_to_gateway(self, opcode, data):

@@ -48,7 +48,7 @@ def execute(userId, message, messageHandle, room):
         room.watchSeats.append(hongbaoSeat)
 
     room.recUpdateGameInfo(messageHandle)
-    room.recUpdateScore(messageHandle, userId)
+    room.recUpdateScore(messageHandle, 0)
     room.updateBankerList(messageHandle, userId)
     room.updateWatchSize(messageHandle, 0)
     if 0 == room.gameStatus == GameStatus.PLAYING or room.started:

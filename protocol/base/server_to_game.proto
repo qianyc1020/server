@@ -24,63 +24,6 @@ message ReqServiceState {
     ServerState state = 1;
 }
 
-//内部通信玩家数据
-message MutualPlayer {
-    int32 player_id = 1;
-    string account_name = 2;
-    string nick_name = 3;
-    string head_url = 4;
-    int32 sex = 5;
-    string ip_address = 6;
-    int32 cheat_level = 7;
-    int32 card = 8;
-    int32 gold = 9;
-    int32 integral = 10; //积分
-    int32 praise = 11;
-    int32 tread = 12;
-    int32 create_time = 13;
-    int32 contest_score = 14;
-    string introduce = 15; //个性签名
-    int32 consumeVip = 16; //累计消费VIP等级
-    int32 authority = 17; //权限
-}
-
-enum GameGener {
-    CARD = 0; //房卡模式
-    MATCH = 1; //匹配模式
-    PROXY = 2; //代开房模式
-    TEAHOUSE = 3; //茶馆模式
-    CONTEST = 4; //比赛模式
-}
-
-//登陆服务器发送到游戏服务器   创建房间
-message ReqCreateGame {
-
-    MutualPlayer creater = 1; //创建房间，扣卡的人
-    GameGener gener = 2;
-    int32 game_id = 3;
-    bytes content = 4; //客户端发送的创建房间二进制内容
-    MutualPlayer enter = 5; //需要进入游戏的人
-    int32 maxPlayer = 6;
-}
-
-//申请进入游戏
-message ReqEnterGame {
-    MutualPlayer enter = 1;
-    int32 game_id = 2;
-    bytes content = 3;
-}
-
-//游戏系统申请给玩家添加货币
-message ReqGameAddCurrency {
-    int32 player_id = 1;
-    int32 alloc_id = 2;
-    int32 card = 3;
-    int32 game_id = 4;
-    int32 gold = 5;
-    int32 integral = 6;
-}
-
 message ReqChangeOnline {
     int32 player_id = 1;
     bool state = 2;
