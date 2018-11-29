@@ -46,7 +46,7 @@ class UserMessageHandle(object):
         else:
             s.userId = userId
         s.data = send_data.SerializeToString()
-        gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
+        gl.get_v("redis").publish("server-gateway", s.SerializeToString())
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId if userId is None else userId))
 
     def game_update_currency(self, gold, id, roomNo):

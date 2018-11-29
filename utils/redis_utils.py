@@ -1,6 +1,7 @@
 # coding=utf-8
 import ast
 import json
+import threading
 import time
 
 import redis
@@ -93,3 +94,24 @@ class RedisUtils(object):
 
     def exists(self, key):
         return self.__redis.exists(key)
+
+    def publish(self, chan, msg):
+        self.__redis.publish(chan, msg)
+        return True
+
+    def subscribe(self, chan):
+        pub = self.__redis.pubsub()
+        pub.subscribe(chan)
+        pub.parse_response()
+        return pub
+
+    def sigleSubscribe(self, subject, handle):
+        redis_sub = self.subscribe(subject)
+        while True:
+            msg = redis_sub.parse_response()
+            handle(msg[2])
+
+    def startSubscribe(self, subject, handle):
+        for i in range(0, len(subject)):
+            t = threading.Thread(target=self.sigleSubscribe, args=(subject[i], handle[i],), name=subject[i])
+            t.start()

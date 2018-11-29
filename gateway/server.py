@@ -5,21 +5,16 @@ import socket
 import threading
 import traceback
 
-import tornado.gen
-
 import core.globalvar as gl
 import gateway
 import gateway.clientreceive
-from core import config
 from gateway.serverreceive import ServerReceive
 from utils.logger_utils import LoggerUtils
-from utils.natsutils import NatsUtils
 from utils.redis_utils import RedisUtils
 
 
-@tornado.gen.coroutine
 def messagehandle(msg):
-    gl.get_v("serverqueue").put(msg.data)
+    gl.get_v("serverqueue").put(msg)
 
 
 class Server(object):
@@ -29,13 +24,9 @@ class Server(object):
         try:
             gl.set_v("serverlogger", LoggerUtils("gateway"))
             gl.set_v("serverqueue", Queue.Queue())
-            gl.set_v("natsobj", NatsUtils(config.get("nats", "nats"), ["server-gateway"], [messagehandle]))
             gl.set_v("redis", RedisUtils())
+            gl.get_v("redis").startSubscribe(["server-gateway"], [messagehandle])
             gl.set_v("clients", {})
-
-            natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
-            natsthread.start()
-            gl.get_v("serverlogger").logger.info("natsthread started")
 
             t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
                                  name='handle')

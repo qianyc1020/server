@@ -63,7 +63,7 @@ class ReceiveHandle(object):
         if data is not None:
             message.data = data.SerializeToString()
         gl.get_v("serverlogger").logger.info("发送%d给游戏服" % opcode)
-        gl.get_v("natsobj").publish(uuid, message.SerializeToString())
+        gl.get_v("redis").publish(uuid, message.SerializeToString())
 
     def update_currency(self, userId):
         account = data_account.query_account_by_id(None, userId)
@@ -83,5 +83,5 @@ class ReceiveHandle(object):
         s = GateWayMessage()
         s.userId = userId
         s.data = send_data.SerializeToString()
-        gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
+        gl.get_v("redis").publish("server-gateway", s.SerializeToString())
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, userId))

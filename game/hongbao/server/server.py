@@ -2,9 +2,6 @@
 import Queue
 import json
 import threading
-import time
-
-import tornado.gen
 
 import core.globalvar as gl
 from core import config
@@ -16,14 +13,12 @@ from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
 from utils.logger_utils import LoggerUtils
-from utils.natsutils import NatsUtils
 from utils.redis_utils import RedisUtils
 from utils.stringutils import StringUtils
 
 
-@tornado.gen.coroutine
 def message_handle(msg):
-    gl.get_v("message-handle-queue").put(msg.data)
+    gl.get_v("message-handle-queue").put(msg)
 
 
 class Server(object):
@@ -34,8 +29,8 @@ class Server(object):
         gl.set_v("message-handle-queue", Queue.Queue())
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
-        gl.set_v("natsobj", NatsUtils(config.get("nats", "nats"), [uuid], [message_handle]))
         gl.set_v("redis", RedisUtils())
+        gl.get_v("redis").startSubscribe([uuid], [message_handle])
         gl.set_v("match_info", json.loads(config.get("hongbao", "match")))
 
         t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
@@ -43,11 +38,6 @@ class Server(object):
         t.start()
 
         Server.initCommand()
-        natsthread = threading.Thread(target=NatsUtils.startNats, args=(gl.get_v("natsobj"),), name='natsthread')
-        natsthread.start()
-
-        while not gl.get_v("natsobj").isConnect():
-            time.sleep(2)
         Server.register()
 
     @staticmethod
@@ -75,7 +65,7 @@ class Server(object):
         s = GateWayMessage()
         s.userId = self.__userId
         s.data = send_data.SerializeToString()
-        gl.get_v("natsobj").publish("server-gateway", s.SerializeToString())
+        gl.get_v("redis").publish("server-gateway", s.SerializeToString())
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId))
 
     @staticmethod
@@ -84,7 +74,7 @@ class Server(object):
         send_data.opcode = opcode
         send_data.data = data.SerializeToString()
         send_data.id = gl.get_v("uuid")
-        gl.get_v("natsobj").publish("game-coordinate", send_data.SerializeToString())
+        gl.get_v("redis").publish("game-coordinate", send_data.SerializeToString())
 
     @staticmethod
     def register():

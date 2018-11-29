@@ -58,7 +58,7 @@ class ReceiveHandle(object):
         message.data = netMessage.SerializeToString()
 
         gl.get_v("serverlogger").logger.info("发送%d给%d" % (opcode, userid))
-        gl.get_v("natsobj").publish("server-gateway", message.SerializeToString())
+        gl.get_v("redis").publish("server-gateway", message.SerializeToString())
 
     def remove(self, userid):
         self.__lock.acquire()
