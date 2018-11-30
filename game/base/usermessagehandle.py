@@ -23,7 +23,7 @@ class UserMessageHandle(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
-                if gl.get_v("command").has_key(str(message.opcode)):
+                if str(message.opcode) in gl.get_v("command"):
                     gl.get_v("command")[str(message.opcode)].execute(self.__userId, message, self)
                 else:
                     gl.get_v("serverlogger").logger.info("%d消息头不存在%d" % (self.__userId, message.opcode))

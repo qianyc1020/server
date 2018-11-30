@@ -26,6 +26,10 @@ class ClientReceive(object):
         self.messageQueue = None
         self.messageHandle = None
         self.lock = threading.Lock()
+        self.sendQueue = Queue.Queue()
+        self._close = False
+        threading.Thread(target=self.relSend, name="clientsend").start()
+        self.logining = False
 
     def receive(self, conn, address):
         """
@@ -86,7 +90,7 @@ class ClientReceive(object):
                     gl.get_v("serverlogger").logger.info("client close")
 
         except socket.error, e:
-            print e
+            print traceback.print_exc()
             gl.get_v("serverlogger").logger.info(e)
         except:
             print traceback.print_exc()
@@ -94,6 +98,12 @@ class ClientReceive(object):
             self.close()
 
     def close(self):
+        if self.logining:
+            self.logining = False
+            return
+        if self._close:
+            return
+        self._close = True
         if self.messageHandle is not None:
             self.messageHandle.close()
         try:
@@ -141,14 +151,24 @@ class ClientReceive(object):
         self.conns.sendall(datalen)
         self.conns.sendall(data)
 
+    def relSend(self):
+        while not self._close:
+            try:
+                data = self.sendQueue.get(True, 20)
+                md5str = StringUtils.md5(self.newmd5keyBytes + data)
+                md5bytes = md5str.decode("utf-8")
+                datalen = struct.pack(">i", len(data) + len(md5bytes) + 4)
+                self.conns.sendall(datalen)
+                self.write(md5bytes)
+                self.conns.sendall(data)
+            except Queue.Empty:
+                gl.get_v("serverlogger").logger.info("Received timeout")
+            except:
+                print traceback.print_exc()
+
     def send(self, data):
         if len(data) > 0:
-            md5str = StringUtils.md5(self.newmd5keyBytes + data)
-            md5bytes = md5str.decode("utf-8")
-            datalen = struct.pack(">i", len(data) + len(md5bytes) + 4)
-            self.conns.sendall(datalen)
-            self.write(md5bytes)
-            self.conns.sendall(data)
+            self.sendQueue.put(data)
 
     def send_data(self, opcode, data):
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.userId))
@@ -193,6 +213,11 @@ class ClientReceive(object):
                 t.start()
                 self.update_user_info(account)
                 self.update_currency(account)
+
+                data = NetMessage()
+                data.opcode = LOGIN_SVR
+                self.messageQueue.put(data)
+                self.logining = True
                 return
         else:
             reclogin.state = ERROR

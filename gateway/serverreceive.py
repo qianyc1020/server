@@ -3,7 +3,7 @@ import traceback
 from Queue import Empty
 
 import core.globalvar as gl
-from protocol.base.base_pb2 import NetMessage
+from protocol.base.base_pb2 import NetMessage, LOGIN_SVR
 from protocol.base.gateway_pb2 import GateWayMessage
 
 
@@ -23,9 +23,13 @@ class ServerReceive(object):
                 s.ParseFromString(message)
                 netMessage = NetMessage()
                 netMessage.ParseFromString(s.data)
-                gl.get_v("serverlogger").logger.info("转发%d消息给%d" % (netMessage.opcode, s.userId))
                 if s.userId in gl.get_v("clients"):
-                    gl.get_v("clients")[s.userId].send(s.data)
+                    if netMessage.opcode == LOGIN_SVR:
+                        gl.get_v("clients")[s.userId].close()
+                    else:
+                        gl.get_v("serverlogger").logger.info("转发%d消息给%d" % (netMessage.opcode, s.userId))
+                        gl.get_v("clients")[s.userId].send(s.data)
+
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

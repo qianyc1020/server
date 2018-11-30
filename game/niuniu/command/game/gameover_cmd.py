@@ -63,7 +63,7 @@ def execute(room, messageHandle):
                 position = room.positions[u.userId]
                 for k in position.playScores:
                     bankerWin -= win * position.playScores[k]
-                    if userScore.has_key(k):
+                    if k in userScore:
                         userScore[k] += win * position.playScores[k]
                     else:
                         userScore[k] = win * position.playScores[k]

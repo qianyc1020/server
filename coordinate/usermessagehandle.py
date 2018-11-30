@@ -27,7 +27,9 @@ class UserMessageHandle(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
-                if message.opcode == CREATE_GAME:
+                if message.opcode == LOGIN_SVR:
+                    self.send_to_gateway(LOGIN_SVR, None)
+                elif message.opcode == CREATE_GAME:
                     reqCreateGame = ReqCreateGame()
                     reqCreateGame.ParseFromString(message.data)
                     find = False
@@ -188,7 +190,9 @@ class UserMessageHandle(object):
     def send_to_gateway(self, opcode, data):
         send_data = NetMessage()
         send_data.opcode = opcode
-        send_data.data = data.SerializeToString()
+
+        if data is not None:
+            send_data.data = data.SerializeToString()
 
         s = GateWayMessage()
         s.userId = self.__userId

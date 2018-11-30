@@ -21,14 +21,10 @@ enum Opcode {
     REENTER_GAME = 13; //重新进入游戏
     REENTER_GAME_INFO = 14; //重新进入游戏的信息推送
     GAME_OVER = 15; //游戏结束
-    GAME_START_ANIM = 16; //游戏开始 过场准备
-    APPLY_DISMISS_GAME = 17; //发起解散游戏
-    REPLY_DISMISS_GAME = 18; //回复解散房间
     UPDATE_ONLINE_STATE = 19; //更新玩家在线状态
     GAME_SUMMARY = 20; //游戏总结
     APPLY_RESET_GAME = 21; //重置游戏
     SVR_RESET_GAME = 22; //系统广播游戏重置消息
-    UPDATE_EVALUATION = 23; //更新玩家评价
     UPDATE_RECORD = 24; //更新玩家游戏记录（历史战绩）
     UPDATE_GAME_INFO = 25; //更新游戏设置
     SYSTEM_NOTICE = 26; //更新系统公告
@@ -39,9 +35,6 @@ enum Opcode {
     EXECUTE_ACTION = 31; //通知操作(执行操作)
     PLAYER_CHAT = 32; //文字聊天
     PLAYER_VOICE = 33; //语音聊天
-    EVALUATION_PLAYER = 34; //评价玩家
-    GAME_RECORD_INFO = 35; //获取一局战绩详细信息
-    GAME_REPLAY_INFO = 36; //单局详细回放信息
     GPS_INFO = 37;
     GAME_PLAYER_INTERACTION = 38; //互动特效
     SHARE_MOMENTS_EVENT = 39; //客户端分享
@@ -101,23 +94,10 @@ enum Opcode {
 
     MATCH_RECORD_INFO = 8000; //获取匹配场战绩详情
 
-    //代开房
-    LOBBY_OTHER_ROOM_LIST = 41; //代开房信息
-    DISSOLVE_PROXY_GAME = 9001; //解散代开房
-
     //匹配系统
     APPLY_ENTER_MATCH = 10001; //申请进入匹配系统
     APPLY_LEAVE_MATCH = 10002; //申请离开匹配系统
     UPDATE_MATCH_INFO = 10003; //更新匹配信息
-
-    //消费累计VIP系统
-    UPDATE_CONSUME_VIP = 10100; //更新当前VIP等级
-
-    //签到系统
-    GET_SIGN_INFO = 11001; //获取玩家的签到信息
-    DO_SIGN_IN = 11002; //签到
-    GET_LOTTERY_INFO = 11003; //取得抽奖信息
-    DO_LOTTERY = 11004; //抽奖
 
     //邮件系统
     MAIL_LIST = 14001; //更新玩家邮件列表
@@ -128,10 +108,6 @@ enum Opcode {
     BANK_INFO = 15001; //
     BANK_DEPOSIT = 15002; //存
     BANK_GET = 15003; //取
-
-    //任务系统
-    MISSION_PROGRESS_LIST = 16001; //任务列表
-    MISSION_PROGRESS_GET = 16002; //领取奖励
 
 
     REGISTER_SERVICE = 1000;
@@ -239,12 +215,6 @@ message RecUpdateCurrency {
     int32 integral = 3; //积分
 }
 
-//更新玩家评价信息
-message RecUpdateEvaluate {
-    int32 praise = 1;
-    int32 tread = 2;
-}
-
 message ReqCreateGame {
     int32 allocId = 1; //游戏的配置ID
     int32 teaHouseId = 2; //可为0
@@ -292,85 +262,6 @@ message RecLobbyMsgList {
     }
 
     repeated LobbyMsgData msgs = 1;
-}
-
-message ReqLobbyProxyGameList {
-    int32 allocId = 1; //配置ID
-}
-
-message ReqDissolveProxyGame {
-    int32 allocId = 1; //配置ID
-    int32 gameId = 2; //房间号
-}
-
-message RecDissolveProxyGame {
-    int32 state = 1; //0-成功 other-游戏服定义
-}
-
-message ReqShareMomentsEvent {
-    int32 allocId = 1;
-}
-
-message RecShareMomentsEvent {
-    int32 state = 1;
-}
-
-message ReqExchangeCard {
-    int32 card = 1; //申请兑换房卡的数量
-}
-
-message RecExchangeCard {
-    bool state = 1; //兑换状态
-}
-
-message ReqExchangeGold {
-    int32 gold = 1; //申请兑换金币的数量
-}
-
-message RecExchangeGold {
-    bool state = 1; //兑换状态
-}
-
-// 获取一局战绩详细信息
-message ReqGameRecordInfo {
-    string recordId = 1;
-}
-
-message RecGameRecordInfo {
-    message GameRecordUser {
-        int32 playerId = 1;
-        string nick = 2;
-        int32 score = 3;
-    }
-
-    message GameOneRecordInfo {
-        string recordId = 1;
-        int32 lookId = 2;
-        int32 playTime = 3;
-        repeated GameRecordUser playerDatas = 4;
-        bytes content = 5;
-    }
-
-    int32 state = 1;
-    int32 allocId = 2;
-    int32 gameId = 3;
-    repeated GameOneRecordInfo recordInfos = 4;
-}
-
-//回放
-message ReqGameReplayInfo {
-    string replayId = 1;
-    int32 lookId = 2;
-    bool isMatch = 3;
-}
-
-message RecGameReplayInfo {
-    int32 state = 1; // 0成功， 1失败
-    int32 time = 2;
-    int32 allocId = 3;
-    int32 gameId = 4;
-    bytes content = 5;
-    bytes adjunction = 6;
 }
 
 message RecSystemNotice {
@@ -560,11 +451,4 @@ message ReqHandselCurrency {
 
 message RecHandselCurrency {
     int32 state = 1; //0 成功， 1 没找到玩家 2 金额不够
-}
-
-//UPDATE_CONSUME_VIP
-//请求更新消费累计VIP信息(主动请求更新)
-message RecUpdateConsumeVip {
-    int32 consumeVip = 1;
-    int32 consumeVal = 2;
 }

@@ -60,7 +60,7 @@ def execute(room, messageHandle):
                 position = room.positions[u.userId]
                 for k in position.playScores:
                     bankerWin -= win * position.playScores[k]
-                    if userScore.has_key(k):
+                    if k in userScore:
                         userScore[k] += win * position.playScores[k]
                     else:
                         userScore[k] = win * position.playScores[k]
@@ -75,10 +75,10 @@ def execute(room, messageHandle):
 
         for k in room.positions[2].playScores:
             bankerWin -= win * room.positions[2].playScores[k]
-            if userScore.has_key(k):
-                userScore[k] += win * room.positions[2].playScores[k]
+            if k in userScore:
+                userScore[k] += int(win * room.positions[2].playScores[k])
             else:
-                userScore[k] = win * room.positions[2].playScores[k]
+                userScore[k] = int(win * room.positions[2].playScores[k])
 
         pingReturn = float(config.get("longhu", "pingReturn"))
         if 1 != pingReturn:
@@ -86,13 +86,13 @@ def execute(room, messageHandle):
                 win = -(1 - pingReturn)
                 for k in room.positions[0].playScores:
                     bankerWin -= int(win * room.positions[0].playScores[k])
-                    if userScore.has_key(k):
+                    if k in userScore:
                         userScore[k] += int(win * room.positions[0].playScores[k])
                     else:
                         userScore[k] = int(win * room.positions[0].playScores[k])
                 for k in room.positions[1].playScores:
                     bankerWin -= int(win * room.positions[1].playScores[k])
-                    if userScore.has_key(k):
+                    if k in userScore:
                         userScore[k] += int(win * room.positions[1].playScores[k])
                     else:
                         userScore[k] = int(win * room.positions[1].playScores[k])
