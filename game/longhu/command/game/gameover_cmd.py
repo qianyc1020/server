@@ -97,7 +97,7 @@ def execute(room, messageHandle):
                     else:
                         userScore[k] = int(win * room.positions[1].playScores[k])
 
-        scores = str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
+        scores = str(int(bankerWin) if bankerWin <= 0 else int((bankerWin * (1 - rate))))
         users = str(room.banker)
 
         dayingjia = 0
@@ -153,7 +153,7 @@ def execute(room, messageHandle):
         daerSettlePlayerInfo = tuitongziPlayerOneSetResult.players.add()
         banker = None
         if 1 != room.banker:
-            bankerFinalWin = bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))
+            bankerFinalWin = int(bankerWin) if bankerWin <= 0 else int((bankerWin * (1 - rate)))
             if 0 != bankerFinalWin:
                 messageHandle.game_update_currency(bankerFinalWin, room.banker, room.roomNo)
             banker = room.getWatchSeatByUserId(room.banker)
