@@ -10,6 +10,7 @@ class TuitongziSeat(Seat):
         self.playScore = 0
         self.intoDate = None
         self.shangzhuangScore = 0
+        self.lianzhuang = 0
 
     def clear(self):
         self.playScore = 0

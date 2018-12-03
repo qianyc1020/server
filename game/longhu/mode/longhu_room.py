@@ -126,6 +126,7 @@ class LonghuRoom(Room):
                 bankerSeat = self.getWatchSeatByUserId(bankerId)
                 if bankerSeat is not None and bankerSeat.score >= bankerSeat.shangzhuangScore >= int(
                         config.get("longhu", "getBankerScore")):
+                    bankerSeat.lianzhuang = 0
                     self.banker = bankerId
                     break
 
@@ -154,6 +155,7 @@ class LonghuRoom(Room):
             userInfo.totalCount = s.total_count
             userInfo.loc = 0
             userInfo.consumeVip = s.level
+            bankerConfirm.bankerTimes = s.lianzhuang + 1
             self.bankerScore = s.shangzhuangScore
         messageHandle.broadcast_watch_to_gateway(START_GAME, None, self)
         self.started = True

@@ -182,7 +182,10 @@ def execute(room, messageHandle):
                 niuniuPlayerOneSetResult.players.remove(daerSettlePlayerInfo)
 
         if banker is not None:
-            if room.bankerScore >= int(config.get("niuniu", "getBankerScore")):
+            banker.lianzhuang += 1
+            if banker.lianzhuang >= int(config.get("niuniu", "maxBankerTimes")):
+                room.xiazhuang = True
+            elif room.bankerScore >= int(config.get("niuniu", "getBankerScore")):
                 room.xiazhuang = True
                 messageHandle.send_to_gateway(ASK_XIAZHUANG, None, room.banker)
 
