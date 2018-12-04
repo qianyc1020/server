@@ -2,7 +2,6 @@ import time
 import traceback
 
 import core.globalvar as gl
-from game.tuitongzi.command.game import gameover_cmd
 from game.tuitongzi.mode.game_status import GameStatus
 from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
 

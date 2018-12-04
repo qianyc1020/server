@@ -36,7 +36,7 @@ def execute(room, messageHandle):
             room.gameStatus = GameStatus.PLAYING
             room.historyActions.append(executeAction.SerializeToString())
             room.executeAsk(messageHandle, 0, 2)
-            t = threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle,),
+            t = threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle, room.gameCount,),
                                  name='play_timeout')  # 线程对象.
             t.start()
             gl.get_v("serverlogger").logger.info("开始下注")
