@@ -137,6 +137,7 @@ class JinhuaRoom(Room):
         jinhuaCreateRoom.leaveScore = self.leaveScore
         jinhuaCreateRoom.gameType = self.gameType
         jinhuaCreateRoom.gameRules = self.gameRules
+        jinhuaCreateRoom.match = True
         recUpdateGameInfo.content = jinhuaCreateRoom.SerializeToString()
         messageHandle.send_to_gateway(UPDATE_GAME_INFO, recUpdateGameInfo)
 

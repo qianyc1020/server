@@ -104,6 +104,7 @@ class DouniuRoom(Room):
         douniuCreateRoom.type = self.gameType
         douniuCreateRoom.gameRules = self.gameRules
         douniuCreateRoom.betType = self.betType
+        douniuCreateRoom.match = True
         recUpdateGameInfo.content = douniuCreateRoom.SerializeToString()
         messageHandle.send_to_gateway(UPDATE_GAME_INFO, recUpdateGameInfo)
 
