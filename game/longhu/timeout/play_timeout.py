@@ -7,7 +7,7 @@ from game.longhu.mode.game_status import GameStatus
 from game.longhu.mode.longhu_room import LonghuRoom
 
 
-def execute(roomNo, messageHandle):
+def execute(roomNo, messageHandle, round):
     time.sleep(12)
 
     redis = gl.get_v("redis")
