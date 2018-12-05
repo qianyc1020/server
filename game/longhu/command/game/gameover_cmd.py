@@ -8,8 +8,8 @@ import core.globalvar as gl
 from core import config
 from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
-from game.longhu.timeout import start_timeout
 from game.longhu.server.command import record_cmd
+from game.longhu.timeout import start_timeout
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -74,7 +74,7 @@ def execute(room, messageHandle):
             tuitongziPlayerOneSetResult.positionWin[2] = 2
 
         for k in room.positions[2].playScores:
-            bankerWin -= win * room.positions[2].playScores[k]
+            bankerWin -= int(win * room.positions[2].playScores[k])
             if k in userScore:
                 userScore[k] += int(win * room.positions[2].playScores[k])
             else:
