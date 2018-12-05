@@ -56,4 +56,4 @@ def execute(userId, message, messageHandle, room):
         if room.started:
             room.executeAsk(messageHandle, userId, 2)
     redis.set(str(userId) + "_room", room.roomNo)
-    redis.setobj("room_" + str(room.roomNo), room)
+    room.save(redis)

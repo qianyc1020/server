@@ -70,4 +70,4 @@ def execute(userId, message, messageHandle, room):
     if room.gameStatus == GameStatus.PLAYING:
         room.recReEnterGameInfo(messageHandle, userId)
     redis.set(str(userId) + "_room", room.roomNo)
-    redis.setobj("room_" + str(room.roomNo), room)
+    room.save(redis)

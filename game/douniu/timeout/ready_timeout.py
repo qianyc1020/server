@@ -18,7 +18,7 @@ def execute(round, roomNo, messageHandle, userId, intoDate):
                 seat = room.getSeatByUserId(userId)
                 if seat is not None and not seat.ready and seat.intoDate == intoDate:
                     room.exit(userId, messageHandle)
-                    redis.setobj("room_" + str(roomNo), room)
+                    room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

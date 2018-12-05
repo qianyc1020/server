@@ -15,7 +15,7 @@ def execute(roomNo, messageHandle):
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
             from game.longhu.command.game import gamestart_cmd
             gamestart_cmd.execute(room, messageHandle)
-            redis.setobj("room_" + str(roomNo), room)
+            room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

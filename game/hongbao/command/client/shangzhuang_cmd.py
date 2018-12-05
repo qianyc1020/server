@@ -29,7 +29,7 @@ def execute(userId, message, messageHandle):
                 if bool(config.get("hongbao",
                                    "onlyPlayerBanker")) and room.gameStatus == GameStatus.WAITING and 1 == room.banker:
                     gamestart_cmd.execute(room, messageHandle)
-            redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

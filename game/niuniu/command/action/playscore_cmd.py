@@ -54,7 +54,7 @@ def execute(userId, message, messageHandle):
                     dealcard_cmd.execute(room, messageHandle)
                     break
 
-            redis.setobj("room_" + str(roomNo), room)
+            room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

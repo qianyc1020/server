@@ -60,4 +60,4 @@ def execute(userId, message, messageHandle, room):
         else:
             room.executeAsk(messageHandle, userId, 1)
     redis.set(str(userId) + "_room", room.roomNo)
-    redis.setobj("room_" + str(room.roomNo), room)
+    room.save(redis)

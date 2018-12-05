@@ -9,6 +9,7 @@ from core import config
 from data.database import data_account
 from mode.base.game_item import Game
 from protocol.base.base_pb2 import *
+from protocol.base.game_base_pb2 import RecApplyChangeMatch
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import *
 
@@ -43,6 +44,14 @@ class ReceiveHandle(object):
                     userExit.ParseFromString(netMessage.data)
                     self.update_currency(userExit.playerId)
                     self.send_to_gateway(EXIT_GAME, None, userExit.playerId)
+                if netMessage.opcode == APPLY_CHANGE_MATCH:
+                    userExit = UserExit()
+                    userExit.ParseFromString(netMessage.data)
+                    self.update_currency(userExit.playerId)
+                    recApplyChangeMatch = RecApplyChangeMatch()
+                    recApplyChangeMatch.gameId = userExit.roomNo
+                    recApplyChangeMatch.level = userExit.level
+                    self.send_to_gateway(APPLY_CHANGE_MATCH, recApplyChangeMatch, userExit.playerId)
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

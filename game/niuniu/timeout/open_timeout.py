@@ -17,7 +17,7 @@ def execute(roomNo, round, messageHandle):
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING:
                 room.executeAction(0, 5, None, messageHandle)
                 room.opencard = True
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

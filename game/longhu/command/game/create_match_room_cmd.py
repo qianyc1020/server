@@ -35,7 +35,7 @@ def execute(userId, message, messageHandle):
                         roomNo = random.randint(100000, 999999)
                     rooms.append(roomNo)
                     room.roomNo = roomNo
-                    redis.setobj("room_" + str(roomNo), room)
+                    room.save(redis)
                     redis.set(str(roomNo) + "_gameId", 8)
                     redis.set("8_rooms", rooms)
                     redis.lock("lockroom_" + str(roomNo), 5000)

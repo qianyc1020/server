@@ -24,7 +24,7 @@ def execute(userId, message, messageHandle):
             roomNo = random.randint(100000, 999999)
         rooms.append(roomNo)
         room.roomNo = roomNo
-        redis.setobj("room_" + str(roomNo), room)
+        room.save(redis)
         redis.set(str(roomNo) + "_gameId", 3)
         redis.set("3_rooms", rooms)
         recCreateGame = RecCreateGame()

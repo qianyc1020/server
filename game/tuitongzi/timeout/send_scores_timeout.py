@@ -27,7 +27,7 @@ class SendScores(object):
                     room = redis.getobj("room_" + str(self.roomNo), TuitongziRoom(), TuitongziRoom().object_to_dict)
                     if 0 != len(room.betScores):
                         room.sendBetScore(self.messageHandle)
-                        redis.setobj("room_" + str(self.roomNo), room)
+                        room.save(redis)
                 except:
                     print traceback.print_exc()
                 redis.unlock("lockroom_" + str(self.roomNo))

@@ -29,7 +29,7 @@ def execute(userId, message, messageHandle):
                 betScoreAction.score = playScore
                 room.executeAction(userId, 2, betScoreAction, messageHandle)
                 room.checkPlay(messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

@@ -46,7 +46,7 @@ def joinGame(room, messageHandle, userId, redis):
         room.recReEnterGameInfo(messageHandle, userId)
 
     redis.set(str(userId) + "_room", room.roomNo)
-    redis.setobj("room_" + str(room.roomNo), room)
+    room.save(redis)
 
 
 def execute(userId, message, messageHandle, room=None):

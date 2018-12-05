@@ -20,7 +20,7 @@ def execute(userId, message, messageHandle):
             seat = room.getSeatByUserId(userId)
             if seat is not None and not seat.end:
                 room.abandon(messageHandle, seat)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

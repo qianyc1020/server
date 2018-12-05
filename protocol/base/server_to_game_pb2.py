@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05\"\x1c\n\x08UserExit\x12\x10\n\x08playerId\x18\x01 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02\x42\x02H\x03\x62\x06proto3')
+        '\n\x19\x62\x61se/server_to_game.proto\"C\n\x0fReqRegisterGame\x12\x10\n\x08\x61lloc_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\" \n\x0fResRegisterGame\x12\r\n\x05state\x18\x01 \x01(\x08\".\n\x0fReqServiceState\x12\x1b\n\x05state\x18\x01 \x01(\x0e\x32\x0c.ServerState\"D\n\x0fReqChangeOnline\x12\x11\n\tplayer_id\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x08\x12\x0f\n\x07game_id\x18\x03 \x01(\x05\"\x1e\n\x0b\x44ismissGame\x12\x0f\n\x07game_id\x18\x01 \x01(\x05\";\n\x08UserExit\x12\x10\n\x08playerId\x18\x01 \x01(\x05\x12\x0e\n\x06roomNo\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05*5\n\x0bServerState\x12\x0b\n\x07RUNNING\x10\x00\x12\x0c\n\x08\x42LOCKING\x10\x01\x12\x0b\n\x07\x45XITING\x10\x02\x42\x02H\x03\x62\x06proto3')
 )
 
 _SERVERSTATE = _descriptor.EnumDescriptor(
@@ -44,8 +44,8 @@ _SERVERSTATE = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     options=None,
-    serialized_start=312,
-    serialized_end=365,
+    serialized_start=343,
+    serialized_end=396,
 )
 _sym_db.RegisterEnumDescriptor(_SERVERSTATE)
 
@@ -246,6 +246,20 @@ _USEREXIT = _descriptor.Descriptor(
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='roomNo', full_name='UserExit.roomNo', index=1,
+            number=2, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='level', full_name='UserExit.level', index=2,
+            number=3, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None, file=DESCRIPTOR),
     ],
     extensions=[
     ],
@@ -259,7 +273,7 @@ _USEREXIT = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=282,
-    serialized_end=310,
+    serialized_end=341,
 )
 
 _REQSERVICESTATE.fields_by_name['state'].enum_type = _SERVERSTATE

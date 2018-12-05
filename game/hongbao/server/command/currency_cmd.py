@@ -25,7 +25,7 @@ def execute(userId, message, messageHandle):
                     inseat = True
                     seat.score = int(account.gold.quantize(Decimal('0')))
                 room.sendBetScore(messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
                 room.recUpdateScore(messageHandle, userId)
                 if inseat:
                     room.recUpdateScore(messageHandle, 0)

@@ -23,6 +23,10 @@ class WuziqiRoom(Room):
         self.historyActions = []
         self.operationSeatNo = 0
 
+    def save(self, redis):
+        if self.gameStatus != GameStatus.DESTORY:
+            redis.setobj("room_" + str(self.roomNo), self)
+
     def object_to_dict(self, d):
         if "seats" in d:
             seat = []

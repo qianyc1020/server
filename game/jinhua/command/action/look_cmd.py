@@ -32,7 +32,7 @@ def execute(userId, message, messageHandle):
                         room.historyActions.append(recExecuteAction.SerializeToString())
                     recExecuteAction.data = lookCardAction.SerializeToString()
                     messageHandle.send_to_gateway(EXECUTE_ACTION, recExecuteAction, s.userId)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

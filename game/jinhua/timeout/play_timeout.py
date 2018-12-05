@@ -18,7 +18,7 @@ def execute(roomNo, messageHandle, userId, gameCount, round):
                 seat = room.getSeatByUserId(userId)
                 if not seat.end and seat.round == round:
                     room.abandon(messageHandle, seat)
-                    redis.setobj("room_" + str(roomNo), room)
+                    room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

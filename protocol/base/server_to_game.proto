@@ -36,4 +36,6 @@ message DismissGame {
 
 message UserExit {
     int32 playerId = 1;
+    int32 roomNo = 2;
+    int32 level = 3;
 }

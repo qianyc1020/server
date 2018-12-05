@@ -31,7 +31,7 @@ def execute(userId, message, messageHandle):
                 messageHandle.broadcast_seat_to_gateway(READY_GAME, recReadyGame, room)
                 if allReady and len(room.seats) > 1:
                     gamestart_cmd.execute(room, messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

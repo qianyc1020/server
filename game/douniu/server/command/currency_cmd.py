@@ -20,7 +20,7 @@ def execute(userId, message, messageHandle):
                 if seat is not None:
                     seat.score = int(account.gold.quantize(Decimal('0')))
                 room.sendBetScore(messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
                 room.recUpdateScore(messageHandle, 0)
 
             except:

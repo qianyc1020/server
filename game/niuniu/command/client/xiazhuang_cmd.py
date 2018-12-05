@@ -17,7 +17,7 @@ def execute(userId, message, messageHandle):
                 room.updateBankerList(messageHandle, 0)
             elif room.banker == userId:
                 room.xaizhuang = True
-            redis.setobj("room_" + str(roomNo), room)
+            room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

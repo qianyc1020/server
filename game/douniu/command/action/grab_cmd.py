@@ -30,7 +30,7 @@ def execute(userId, message, messageHandle):
                 seat.grab = maxGrab
                 room.executeAction(userId, 1, grabAction, messageHandle)
                 room.checkGrab(messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

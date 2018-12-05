@@ -55,7 +55,7 @@ def execute(userId, message, messageHandle):
                 betScore.playerId = userId
                 room.betScores.append(betScore.SerializeToString())
                 gl.get_v("serverlogger").logger.info("下注成功")
-            redis.setobj("room_" + str(roomNo), room)
+            room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

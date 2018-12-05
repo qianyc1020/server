@@ -24,7 +24,7 @@ def execute(userId, message, messageHandle):
             seat = room.getWatchSeatByUserId(userId)
             if seat is not None:
                 room.sendBetScore(messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
                 recReEnterGame = RecReEnterGame()
                 recReEnterGame.gameState = room.gameStatus
                 recReEnterGame.state = True

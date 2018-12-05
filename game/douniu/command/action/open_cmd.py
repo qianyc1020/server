@@ -26,7 +26,7 @@ def execute(userId, message, messageHandle):
                 openCardAction.cards.extend(seat.initialCards)
                 room.executeAction(seat.userId, 3, openCardAction, messageHandle)
                 room.checkOpen(messageHandle)
-                redis.setobj("room_" + str(roomNo), room)
+                room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

@@ -13,7 +13,7 @@ from game.jinhua.mode.jinhua_seat import JinhuaSeat
 from game.jinhua.timeout import play_timeout
 from mode.game.room import Room
 from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME_PLAYER_INFO, \
-    REENTER_GAME_INFO, ASK_ACTION, EXIT_GAME, ROUND_ACTION
+    REENTER_GAME_INFO, ASK_ACTION, EXIT_GAME, ROUND_ACTION, APPLY_CHANGE_MATCH
 from protocol.base.game_base_pb2 import RecExecuteAction, RecUpdateGameInfo, RecUpdateGameUsers, RecReEnterGameInfo
 from protocol.base.server_to_game_pb2 import UserExit
 from protocol.game import zhipai_pb2_grpc
@@ -37,6 +37,10 @@ class JinhuaRoom(Room):
         self.gameType = gameType
         self.operationTime = 0
         self.historyActions = []
+
+    def save(self, redis):
+        if self.gameStatus != GameStatus.DESTORY:
+            redis.setobj("room_" + str(self.roomNo), self)
 
     def object_to_dict(self, d):
         if "seats" in d:
@@ -209,6 +213,12 @@ class JinhuaRoom(Room):
             messageHandle.send_to_gateway(ASK_ACTION, jinhuaRecAsk, userId)
 
     def exit(self, userId, messageHandle):
+        self.exitOrChangeMatch(userId, messageHandle, False)
+
+    def changeMatch(self, userId, messageHandle):
+        self.exitOrChangeMatch(userId, messageHandle, True)
+
+    def exitOrChangeMatch(self, userId, messageHandle, changeMatch):
         seat = self.getSeatByUserId(userId)
         if seat is not None and (seat.guanzhan or self.gameStatus == GameStatus.WAITING):
             while seat is not None:
@@ -219,8 +229,10 @@ class JinhuaRoom(Room):
             redis.delobj(str(userId) + "_room")
             userExit = UserExit()
             userExit.playerId = userId
+            userExit.roomNo = self.roomNo
+            userExit.level = self.matchLevel
             from game.jinhua.server.server import Server
-            Server.send_to_coordinate(EXIT_GAME, userExit)
+            Server.send_to_coordinate(APPLY_CHANGE_MATCH if changeMatch else EXIT_GAME, userExit)
             self.recUpdateScore(messageHandle, 0)
             if 0 == len(self.seats):
                 roomover_cmd.execute(self, messageHandle)

@@ -5,7 +5,7 @@ import threading
 
 import core.globalvar as gl
 from core import config
-from game.douniu.command.client import match_cmd, reconnection_cmd, exit_cmd, ready_cmd
+from game.douniu.command.client import match_cmd, reconnection_cmd, exit_cmd, ready_cmd, change_match_cmd
 from game.base.game_handle import ReceiveHandle as game_handle
 from game.douniu.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
@@ -50,6 +50,7 @@ class Server(object):
         gl.get_v("command")["33"] = voice_cmd
         gl.get_v("command")["37"] = gps_cmd
         gl.get_v("command")["38"] = interaction_cmd
+        gl.get_v("command")["102"] = change_match_cmd
         gl.get_v("command")["1004"] = currency_cmd
         gl.get_v("command")["10001"] = match_cmd
 

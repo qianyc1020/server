@@ -18,7 +18,7 @@ def execute(userId, message, messageHandle):
                 hongbaoScore.ParseFromString(message)
                 if 10 > hongbaoScore.score > -1:
                     room.bankerSelectNum(hongbaoScore.score, messageHandle)
-                    redis.setobj("room_" + str(roomNo), room)
+                    room.save(redis)
         except:
             print traceback.print_exc()
         redis.unlock("lockroom_" + str(roomNo))

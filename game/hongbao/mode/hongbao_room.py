@@ -38,6 +38,10 @@ class HongbaoRoom(Room):
         self.selectNum = -1
         self.hongbaolist = []
 
+    def save(self, redis):
+        if self.gameStatus != GameStatus.DESTORY:
+            redis.setobj("room_" + str(self.roomNo), self)
+
     def object_to_dict(self, d):
         if "seats" in d:
             seat = []

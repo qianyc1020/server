@@ -40,6 +40,10 @@ class LonghuRoom(Room):
         self.betScores = []
         self.shensuanziPlayIndex = -1
 
+    def save(self, redis):
+        if self.gameStatus != GameStatus.DESTORY:
+            redis.setobj("room_" + str(self.roomNo), self)
+
     def object_to_dict(self, d):
         if "seats" in d:
             seat = []

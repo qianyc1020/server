@@ -48,7 +48,7 @@ def execute(userId, message, messageHandle):
                             seat.round += 1
                             room.checkRound(messageHandle)
 
-                        redis.setobj("room_" + str(roomNo), room)
+                        room.save(redis)
 
                     else:
                         gl.get_v("serverlogger").logger.info("比牌失败分数不够")
