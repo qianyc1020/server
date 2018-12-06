@@ -285,7 +285,7 @@ class HongbaoRoom(Room):
     def exit(self, userId, messageHandle):
         seat = self.getWatchSeatByUserId(userId)
         if seat is not None:
-            if seat.playScore != 0 or (self.banker == seat.userId and self.started):
+            if userId in self.userScore or (self.banker == seat.userId and self.gameStatus == GameStatus.PLAYING):
                 return
             if userId == self.banker:
                 self.xiazhuang = True

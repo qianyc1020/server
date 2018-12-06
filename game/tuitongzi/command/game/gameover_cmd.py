@@ -6,10 +6,11 @@ import grpc
 
 import core.globalvar as gl
 from core import config
+from data.database import data_game_details
 from game.tuitongzi.command.game import roomover_cmd
 from game.tuitongzi.mode.game_status import GameStatus
-from game.tuitongzi.timeout import start_timeout
 from game.tuitongzi.server.command import record_cmd
+from game.tuitongzi.timeout import start_timeout
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -93,6 +94,8 @@ def execute(room, messageHandle):
                 users += "," + str(k)
                 if 0 != userwin:
                     messageHandle.game_update_currency(userwin, k, room.roomNo)
+                    data_game_details.create_game_details(k, 7, str(room.roomNo), userwin, userScore[k] - userwin,
+                                                          int(time.time()))
                 # TODO 经验值和返利
 
         room.trend.append(tuitongziPlayerOneSetResult.positionWin)
@@ -151,6 +154,8 @@ def execute(room, messageHandle):
             bankerFinalWin = bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))
             if 0 != bankerFinalWin:
                 messageHandle.game_update_currency(bankerFinalWin, room.banker, room.roomNo)
+                data_game_details.create_game_details(room.banker, 7, str(room.roomNo), bankerFinalWin,
+                                                      bankerWin - bankerFinalWin, int(time.time()))
             banker = room.getWatchSeatByUserId(room.banker)
             room.bankerScore += bankerFinalWin
             banker.shangzhuangScore = room.bankerScore

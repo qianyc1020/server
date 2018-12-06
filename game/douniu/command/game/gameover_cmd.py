@@ -1,8 +1,10 @@
 # coding=utf-8
-import grpc
 import threading
 import time
 
+import grpc
+
+from data.database import data_game_details
 from game.douniu.mode.game_status import GameStatus
 from game.douniu.server.command import record_cmd
 from game.douniu.timeout import ready_timeout
@@ -89,11 +91,16 @@ def execute(room, messageHandle):
                 seat.score += winOrLose[userSettleResult.userId]
                 daerSettlePlayerInfo.score = winOrLose[userSettleResult.userId]
                 messageHandle.game_update_currency(winOrLose[userSettleResult.userId], seat.userId, room.roomNo)
+                data_game_details.create_game_details(userSettleResult.userId, 2, str(room.roomNo),
+                                                      winOrLose[userSettleResult.userId], int(0.5 * room.score),
+                                                      int(time.time()))
             else:
                 scores += "," + str(-bankerWin)
                 seat.score -= bankerWin
                 daerSettlePlayerInfo.score = -bankerWin
                 messageHandle.game_update_currency(-bankerWin, seat.userId, room.roomNo)
+                data_game_details.create_game_details(userSettleResult.userId, 2, str(room.roomNo), -bankerWin,
+                                                      int(0.5 * room.score), int(time.time()))
             daerSettlePlayerInfo.totalScore = seat.score
 
         recSettleSingle = RecSettleSingle()

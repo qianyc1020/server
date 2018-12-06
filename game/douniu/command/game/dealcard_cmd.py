@@ -22,6 +22,8 @@ def execute(room, messageHandle):
             for seat in room.seats:
                 seat.initialCards = []
                 seat.initialCards.extend(shuffleResult.cardlist[5 * seat.seatNo - 5:5 * seat.seatNo])
+                seat.score -= int(0.5 * room.score)
+                messageHandle.game_update_currency(-int(0.5 * room.score), seat.userId, room.roomNo)
             gl.get_v("serverlogger").logger.info("发牌完成")
         executeAction = RecExecuteAction()
         if room.gameStatus == GameStatus.PLAYING:

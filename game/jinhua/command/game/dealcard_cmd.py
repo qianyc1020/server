@@ -20,6 +20,8 @@ def execute(room, messageHandle):
                 seat.initialCards = []
                 seat.initialCards.extend(shuffleResult.cardlist[3 * seat.seatNo - 3:3 * seat.seatNo])
                 seat.playScore = room.score
+                seat.score -= int(0.5 * room.score)
+                messageHandle.game_update_currency(-int(0.5 * room.score), seat.userId, room.roomNo)
             room.deskScore = room.score * len(room.seats)
             room.minScore = room.score
             gl.get_v("serverlogger").logger.info("发牌完成")

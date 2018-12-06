@@ -2,6 +2,7 @@
 import threading
 import time
 
+from data.database import data_game_details
 from game.jinhua.mode.game_status import GameStatus
 from game.jinhua.server.command import record_cmd
 from game.jinhua.timeout import ready_timeout
@@ -36,6 +37,8 @@ def execute(room, messageHandle, wins):
                         scores += "," + str(winOrLose)
                         users += "," + str(s1.userId)
                         messageHandle.game_update_currency(winOrLose, s1.userId, room.roomNo)
+                        data_game_details.create_game_details(s1.userId, 1, str(room.roomNo), winOrLose,
+                                                              int(0.5 * room.score), int(time.time()))
                     if s1.userId in s.canLookUser or s.userId == s1.userId:
                         jinhuaSettlePlayerInfo.card.extend(s1.initialCards)
                     else:
