@@ -64,6 +64,11 @@ class HongbaoRoom(Room):
             for s in d["historyActions"]:
                 historyActions.append(base64.b64decode(s))
             d["historyActions"] = historyActions
+        if "userScore" in d:
+            userScore = {}
+            for (k, v) in d["userScore"].items():
+                userScore[int(k)] = v
+            d["userScore"] = userScore
         return d
 
     def dict_to_object(self):

@@ -73,7 +73,7 @@ class RedisUtils(object):
         """
         jsons = self.__redis.get(key)
         jsons = ast.literal_eval(jsons)
-        jsons = json.dumps(jsons)
+        jsons = json.dumps(jsons, ensure_ascii=False)
         loaded = json.loads(jsons, object_hook=object_hook)
         obj.__dict__ = loaded
         return obj
