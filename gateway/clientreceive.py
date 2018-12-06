@@ -1,5 +1,6 @@
 # coding=utf-8
 import Queue
+import re
 import socket
 import struct
 import threading
@@ -184,7 +185,10 @@ class ClientReceive(object):
 
         loginserver = ReqLoginServer()
         loginserver.ParseFromString(data.data)
-
+        username = re.compile(r"^[a-zA-Z0-9_-]\w{1,32}")
+        if not username.match(loginserver.account):
+            self.close()
+            return
         account = data_account.login(loginserver, self.address)
         if account is not None:
             self.checkLogin(account)
@@ -260,7 +264,10 @@ class ClientReceive(object):
     def relogin(self, data):
         relogin = ReqRelogin()
         relogin.ParseFromString(data.data)
-
+        username = re.compile(r"^[a-zA-Z0-9_-]\w{1,32}")
+        if not username.match(relogin.account):
+            self.close()
+            return
         account = data_account.relogin(relogin, self.address)
         if account is not None:
             self.checkLogin(account)

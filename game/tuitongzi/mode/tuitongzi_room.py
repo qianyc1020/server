@@ -41,7 +41,7 @@ class TuitongziRoom(Room):
         self.betScores = []
         self.shensuanziPlayIndex = -1
         self.openCard = False
-        self.reDealCard = False
+        self.reDealCard = True
         self.surplusCards = []
         self.dealedCards = []
 
@@ -138,6 +138,7 @@ class TuitongziRoom(Room):
                         config.get("tuitongzi", "getBankerScore")):
                     bankerSeat.lianzhuang = 0
                     self.banker = bankerId
+                    self.reDealCard = True
                     break
 
         bankerConfirm = BankerConfirm()
