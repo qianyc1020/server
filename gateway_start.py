@@ -1,6 +1,5 @@
 # coding=utf-8
-import sys
-import pkg_resources
+import pkgutil
 
 sys.path.append('/root/server')
 # sys.path.append('/home/pengyi/server/server')
@@ -16,7 +15,14 @@ config.init("/root/server/conf/pyg.conf")
 # config.init("/Users/yi/server/conf/pyg.conf")
 gl.init()
 
-from game.hongbao.server.server import Server
+from gateway.server import Server
 
 if __name__ == '__main__':
     Server.start()
+    # config.init("/home/pengyi/server/conf/pyg.conf")
+    # loginserver = ReqLoginServer()
+    # loginserver.account = "qqq"
+    # loginserver.sex = 1
+    # loginserver.nick = "wwoo"
+    # loginserver.headUrl = "http://ss"
+    # login.login(loginserver, "127.0.0.1:25225")

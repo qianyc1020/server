@@ -1,5 +1,4 @@
 # coding=utf-8
-import sys
 import pkg_resources
 
 sys.path.append('/root/server')
@@ -16,7 +15,7 @@ config.init("/root/server/conf/pyg.conf")
 # config.init("/Users/yi/server/conf/pyg.conf")
 gl.init()
 
-from game.niuniu.server.server import Server
+from game.jinhua.server.server import Server
 
 if __name__ == '__main__':
     Server.start()
