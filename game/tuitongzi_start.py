@@ -1,5 +1,6 @@
 # coding=utf-8
 import sys
+import pkg_resources
 
 sys.path.append('/root/server')
 # sys.path.append('/home/pengyi/server/server')
