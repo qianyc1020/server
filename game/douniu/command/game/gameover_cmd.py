@@ -4,10 +4,12 @@ import time
 
 import grpc
 
+import core.globalvar as gl
 from data.database import data_game_details
 from game.douniu.mode.game_status import GameStatus
 from game.douniu.server.command import record_cmd
 from game.douniu.timeout import ready_timeout
+from mode.base.rebate import Rebate
 from protocol.base.base_pb2 import SETTLE_GAME
 from protocol.base.game_base_pb2 import RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -78,6 +80,7 @@ def execute(room, messageHandle):
 
         users = ""
         scores = ""
+        rebates = []
         douniuPlayerOneSetResult = DouniuPlayerOneSetResult()
         for userSettleResult in settleResult.userSettleResule:
             seat = room.getSeatByUserId(userSettleResult.userId)
@@ -103,6 +106,12 @@ def execute(room, messageHandle):
                                                       int(0.5 * room.score), int(time.time()))
             daerSettlePlayerInfo.totalScore = seat.score
 
+            rebate = Rebate()
+            rebate.userId = userSettleResult.userId
+            rebate.card = int(0.5 * room.score)
+            rebates.append(rebate)
+
+        gl.get_v("rebate-handle-queue").put(rebates)
         recSettleSingle = RecSettleSingle()
         recSettleSingle.allocId = 2
         recSettleSingle.curPlayCount = room.gameCount + 1

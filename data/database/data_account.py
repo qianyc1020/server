@@ -1,9 +1,10 @@
 # coding=utf-8
+import datetime
 import time
 import traceback
 
 from core import config
-from data.database import mysql_connection, data_gold
+from data.database import mysql_connection, data_user_rebate
 from mode.base.account import Account
 from utils.stringutils import StringUtils
 
@@ -18,8 +19,9 @@ def login(loginserver, address):
         if not exist_account(connection, loginserver.account):
             create_account(t, connection, loginserver, address)
             gold = int(config.get("gateway", "login_give"))
+            account = query_account_by_account(connection, loginserver.account)
+            data_user_rebate.create_user_rebate(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), account.id)
             if 0 != gold:
-                account = query_account_by_account(connection, loginserver.account)
                 update_currency(connection, gold, 0, 0, 0, account.id)
         else:
             if loginserver.nick is not None:

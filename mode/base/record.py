@@ -1,5 +1,6 @@
 # coding=utf-8
 class Record(object):
+
     def __init__(self):
         self.id = ""
         self.alloc_id = 0

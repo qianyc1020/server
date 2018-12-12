@@ -2,10 +2,12 @@
 import threading
 import time
 
+import core.globalvar as gl
 from data.database import data_game_details
 from game.jinhua.mode.game_status import GameStatus
 from game.jinhua.server.command import record_cmd
 from game.jinhua.timeout import ready_timeout
+from mode.base.rebate import Rebate
 from protocol.base.base_pb2 import SETTLE_GAME
 from protocol.base.game_base_pb2 import RecSettleSingle
 from protocol.game.jinhua_pb2 import JinhuaPlayerOneSetResult
@@ -21,6 +23,7 @@ def execute(room, messageHandle, wins):
         kou = False
         scores = ""
         users = ""
+        rebates = []
         for s in room.seats:
             jinhuaPlayerOneSetResult = JinhuaPlayerOneSetResult()
             for s1 in room.seats:
@@ -39,6 +42,10 @@ def execute(room, messageHandle, wins):
                         messageHandle.game_update_currency(winOrLose, s1.userId, room.roomNo)
                         data_game_details.create_game_details(s1.userId, 1, str(room.roomNo), winOrLose,
                                                               int(0.5 * room.score), int(time.time()))
+                        rebate = Rebate()
+                        rebate.userId = s1.userId
+                        rebate.card = int(0.5 * room.score)
+                        rebates.append(rebate)
                     if s1.userId in s.canLookUser or s.userId == s1.userId:
                         jinhuaSettlePlayerInfo.card.extend(s1.initialCards)
                     else:
@@ -47,6 +54,8 @@ def execute(room, messageHandle, wins):
             kou = True
             recSettleSingle.content = jinhuaPlayerOneSetResult.SerializeToString()
             messageHandle.send_to_gateway(SETTLE_GAME, recSettleSingle, s.userId)
+
+        gl.get_v("rebate-handle-queue").put(rebates)
         record_cmd.execute(room, users[1:], scores[1:])
         room.clear()
 

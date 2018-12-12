@@ -11,6 +11,7 @@ from game.longhu.command.game import roomover_cmd
 from game.longhu.mode.game_status import GameStatus
 from game.longhu.server.command import record_cmd
 from game.longhu.timeout import start_timeout
+from mode.base.rebate import Rebate
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -100,7 +101,7 @@ def execute(room, messageHandle):
 
         scores = str(int(bankerWin) if bankerWin <= 0 else int((bankerWin * (1 - rate))))
         users = str(room.banker)
-
+        rebates = []
         dayingjia = 0
         dayingjiaScore = 0
         for k in userScore:
@@ -120,7 +121,11 @@ def execute(room, messageHandle):
                     messageHandle.game_update_currency(userwin, k, room.roomNo)
                     data_game_details.create_game_details(k, 8, str(room.roomNo), userwin, userScore[k] - userwin,
                                                           int(time.time()))
-                # TODO 经验值和返利
+                if 0 < userScore[k] - userwin:
+                    rebate = Rebate()
+                    rebate.userId = k
+                    rebate.card = userScore[k] - userwin
+                    rebates.append(rebate)
 
         room.trend.append(tuitongziPlayerOneSetResult.positionWin)
         if len(room.trend) > 20:
@@ -161,14 +166,20 @@ def execute(room, messageHandle):
                 messageHandle.game_update_currency(bankerFinalWin, room.banker, room.roomNo)
                 data_game_details.create_game_details(room.banker, 8, str(room.roomNo), bankerFinalWin,
                                                       bankerWin - bankerFinalWin, int(time.time()))
+                if 0 < bankerWin - bankerFinalWin:
+                    rebate = Rebate()
+                    rebate.userId = room.banker
+                    rebate.card = bankerWin - bankerFinalWin
+                    rebates.append(rebate)
             banker = room.getWatchSeatByUserId(room.banker)
             room.bankerScore += bankerFinalWin
             banker.shangzhuangScore = room.bankerScore
             if banker is not None:
                 banker.score += bankerFinalWin
                 daerSettlePlayerInfo.totalScore = banker.score
-            # TODO 经验值和返利
-        # TODO else 系统输赢
+
+        if 0 < len(rebates):
+            gl.get_v("rebate-handle-queue").put(rebates)
         daerSettlePlayerInfo.playerId = room.banker
         daerSettlePlayerInfo.score = bankerWin
 

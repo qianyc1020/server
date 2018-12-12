@@ -7,6 +7,7 @@ import core.globalvar as gl
 from core import config
 from game.jinhua.command.client import match_cmd, reconnection_cmd, exit_cmd, ready_cmd, change_match_cmd
 from game.base.game_handle import ReceiveHandle as game_handle
+from game.base.rebate_handle import RebateHandle as rebate_handle
 from game.jinhua.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
@@ -26,6 +27,7 @@ class Server(object):
     def start():
         gl.set_v("serverlogger", LoggerUtils("jinhua"))
         gl.set_v("message-handle-queue", Queue.Queue())
+        gl.set_v("rebate-handle-queue", Queue.Queue())
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
         gl.set_v("redis", RedisUtils())
@@ -35,6 +37,11 @@ class Server(object):
         t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
                              name='message-handle-queue')
         t.start()
+
+        rebateThread = threading.Thread(target=rebate_handle.handle,
+                                        args=(rebate_handle(), gl.get_v("rebate-handle-queue"),),
+                                        name='rebate-handle-queue')
+        rebateThread.start()
 
         Server.initCommand()
         Server.register()
