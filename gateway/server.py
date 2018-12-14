@@ -8,6 +8,7 @@ import traceback
 import core.globalvar as gl
 import gateway
 import gateway.clientreceive
+from core import config
 from gateway.serverreceive import ServerReceive
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
@@ -33,7 +34,7 @@ class Server(object):
             t.start()
             gl.get_v("serverlogger").logger.info("serverqueue started")
 
-            ip_port = ('', 10000)
+            ip_port = ('', config.get("gateway", "port"))
             sk = socket.socket()
             sk.bind(ip_port)
             sk.listen(5)

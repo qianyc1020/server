@@ -4,6 +4,7 @@ import re
 import socket
 import struct
 import threading
+import time
 import traceback
 from decimal import Decimal
 
@@ -31,6 +32,8 @@ class ClientReceive(object):
         self._close = False
         threading.Thread(target=self.relSend, name="clientsend").start()
         self.logining = False
+        self.times = 0
+        self.ttime = int(time.time())
 
     def receive(self, conn, address):
         """
@@ -58,6 +61,17 @@ class ClientReceive(object):
         try:
             while not close:
                 length = self.readInt(conn)
+                ttime = int(time.time())
+                if ttime == self.ttime:
+                    self.times += 1
+                    if self.times == 25:
+                        break
+                else:
+                    self.times = 0
+                    self.ttime = ttime
+                if length > 512000:
+                    gl.get_v("serverlogger").logger.info("packet length more than 500kb")
+                    break
                 md5bytes = self.readStringBytes(conn)
                 length -= len(md5bytes) + 4
                 result = self.readBytes(conn, length)
