@@ -1,4 +1,5 @@
 # coding=utf-8
+import random
 import traceback
 from Queue import Empty
 from decimal import Decimal
@@ -33,7 +34,9 @@ class UserMessageHandle(object):
                     reqCreateGame = ReqCreateGame()
                     reqCreateGame.ParseFromString(message.data)
                     find = False
-                    for g in gl.get_v("games"):
+                    games = gl.get_v("games")
+                    random.shuffle(games)
+                    for g in games:
                         if g.alloc_id == reqCreateGame.allocId and g.state == RUNNING:
                             self.sendToGame(g.uuid, CREATE_GAME, reqCreateGame.SerializeToString())
                             find = True
@@ -48,7 +51,9 @@ class UserMessageHandle(object):
                     find = False
                     if self.__redis.exists(str(reqJoinGame.gameId) + "_gameId"):
                         gameId = self.__redis.get(str(reqJoinGame.gameId) + "_gameId")
-                        for g in gl.get_v("games"):
+                        games = gl.get_v("games")
+                        random.shuffle(games)
+                        for g in games:
                             if g.alloc_id == gameId and g.state == RUNNING:
                                 self.sendToGame(g.uuid, message.opcode, message.data)
                                 find = True
@@ -62,7 +67,9 @@ class UserMessageHandle(object):
                     reqApplyEnterMatch = ReqApplyEnterMatch()
                     reqApplyEnterMatch.ParseFromString(message.data)
                     find = False
-                    for g in gl.get_v("games"):
+                    games = gl.get_v("games")
+                    random.shuffle(games)
+                    for g in games:
                         if g.alloc_id == reqApplyEnterMatch.allocId and g.state == RUNNING:
                             self.sendToGame(g.uuid, APPLY_ENTER_MATCH, reqApplyEnterMatch.SerializeToString())
                             find = True
@@ -135,7 +142,9 @@ class UserMessageHandle(object):
                     if self.__redis.exists(str(self.__userId) + "_room"):
                         roomNo = self.__redis.get(str(self.__userId) + "_room")
                         gameId = self.__redis.get(str(roomNo) + "_gameId")
-                        for g in gl.get_v("games"):
+                        games = gl.get_v("games")
+                        random.shuffle(games)
+                        for g in games:
                             if g.alloc_id == gameId and g.state == RUNNING:
                                 self.sendToGame(g.uuid, GAME_UPDATE_CURRENCY, None)
                                 break
@@ -173,7 +182,9 @@ class UserMessageHandle(object):
                     if self.__redis.exists(str(self.__userId) + "_room"):
                         roomNo = self.__redis.get(str(self.__userId) + "_room")
                         gameId = self.__redis.get(str(roomNo) + "_gameId")
-                        for g in gl.get_v("games"):
+                        games = gl.get_v("games")
+                        random.shuffle(games)
+                        for g in games:
                             if g.alloc_id == gameId and g.state == RUNNING:
                                 self.sendToGame(g.uuid, message.opcode, message.data)
                                 break
