@@ -20,8 +20,8 @@ class UserMessageHandle(object):
         threading.Thread(target=self.relSend, name="clientsend").start()
 
     def close(self):
-        self.__close = True
-        self.__server_receive.remove(self.__userId)
+        self.__close = False
+        # self.__server_receive.remove(self.__userId)
 
     def handle(self, queue):
         while not self.__close:
@@ -50,8 +50,6 @@ class UserMessageHandle(object):
                 print traceback.print_exc()
 
     def send_to_gateway(self, opcode, data, userId=None):
-        if self.__close:
-            return
         send_data = NetMessage()
         send_data.opcode = opcode
         if data is not None:
