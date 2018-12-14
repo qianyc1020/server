@@ -11,6 +11,7 @@ class LoggerUtils(object):
     def __init__(self, filename):
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(filename)
+        self.logger.propagate = False
         log_fmt = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'
         formatter = logging.Formatter(log_fmt)
         log_file_handler = TimedRotatingFileHandler(
