@@ -42,7 +42,10 @@ class LonghuRoom(Room):
 
     def save(self, redis):
         if self.gameStatus != GameStatus.DESTORY:
-            redis.setobj("room_" + str(self.roomNo), self)
+            gl.get_v("rooms")["room_" + str(self.roomNo)] = self
+            # redis.setobj("room_" + str(self.roomNo), self)
+        else:
+            del gl.get_v("rooms")["room_" + str(self.roomNo)]
 
     def object_to_dict(self, d):
         if "seats" in d:

@@ -21,7 +21,7 @@ class SendScores(object):
             time.sleep(0.05)
 
             redis = gl.get_v("redis")
-            if redis.exists("room_" + str(self.roomNo)):
+            if "room_" + str(self.roomNo) in gl.get_v("rooms"):
                 redis.lock("lockroom_" + str(self.roomNo))
                 try:
                     room = redis.getobj("room_" + str(self.roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
