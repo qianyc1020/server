@@ -12,7 +12,7 @@ def execute(roomNo, round, messageHandle):
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING and not room.started:

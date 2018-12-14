@@ -24,7 +24,7 @@ def execute(userId, message, messageHandle):
         if m.level == reqApplyEnterMatch.level:
             if m.inScore <= account.gold:
                 room = LonghuRoom(0, m.playerNum, 0, m.level, m.baseScore, m.inScore, m.leaveScore)
-                redis.lock("lock8_rooms", 5000)
+                redis.lock("lock8_rooms")
                 try:
                     if redis.exists("8_rooms"):
                         rooms = redis.get("8_rooms")
@@ -38,7 +38,7 @@ def execute(userId, message, messageHandle):
                     room.save(redis)
                     redis.set(str(roomNo) + "_gameId", 8)
                     redis.set("8_rooms", rooms)
-                    redis.lock("lockroom_" + str(roomNo), 5000)
+                    redis.lock("lockroom_" + str(roomNo))
                     join_match_room_cmd.execute(userId, message, messageHandle, room)
                     redis.unlock("lockroom_" + str(roomNo))
                 except:

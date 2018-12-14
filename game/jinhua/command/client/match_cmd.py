@@ -10,7 +10,7 @@ from protocol.service.match_pb2 import ReqApplyEnterMatch
 
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
-    redis.lock("match", 5000)
+    redis.lock("match")
     if redis.exists(str(userId) + "_room"):
         reconnection_cmd.execute(userId, message, messageHandle)
         redis.unlock("match")
@@ -25,7 +25,7 @@ def execute(userId, message, messageHandle):
         join = False
         for r in rooms:
             if redis.exists("room_" + str(r)):
-                redis.lock("lockroom_" + str(r), 5000)
+                redis.lock("lockroom_" + str(r))
                 room = redis.getobj("room_" + str(r), JinhuaRoom(), JinhuaRoom().object_to_dict)
                 if room.roomNo != reqApplyEnterMatch.reject and room.matchLevel == reqApplyEnterMatch.level and (room.count == -1 or 0 < len(room.seatNos)):
                     join_match_room_cmd.execute(userId, message, messageHandle, room)

@@ -63,7 +63,7 @@ def execute(userId, message, messageHandle, room=None):
         gameid = redis.get(str(roomNo) + "_gameId")
         if 3 != gameid:
             return
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo), WuziqiRoom(), WuziqiRoom().object_to_dict)
             joinGame(room, messageHandle, userId, redis)

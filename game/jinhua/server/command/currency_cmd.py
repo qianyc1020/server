@@ -13,7 +13,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         account = data_account.query_account_by_id(None, userId)
         if account is not None:
-            redis.lock("lockroom_" + str(roomNo), 5000)
+            redis.lock("lockroom_" + str(roomNo))
             try:
                 room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
                 seat = room.getSeatByUserId(userId)

@@ -13,11 +13,11 @@ def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
             seat = room.getWatchSeatByUserId(userId)
-            if seat is None or room.banker == userId:
+            if seat is None or room.banker == userId or userId in room.bankerList:
                 redis.unlock("lockroom_" + str(roomNo))
                 return
             score = BaiRenScore()

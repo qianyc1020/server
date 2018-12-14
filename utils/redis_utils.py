@@ -1,6 +1,7 @@
 # coding=utf-8
 import ast
 import json
+import random
 import threading
 import time
 
@@ -19,23 +20,19 @@ class RedisUtils(object):
         redis_ping = threading.Thread(target=self._ping, name="redis_ping")
         redis_ping.start()
 
-    def lock(self, key, timeout):
+    def lock(self, key):
         """
         : 加锁
         :param key:
-        :param timeout:
         :return:
         """
         t = time.time()
-        nano = int(round(t * 1000000000))
-        timeoutnanos = timeout * 1000000L
-        while (int(round(time.time() * 1000000000)) - nano) < timeoutnanos:
+        while True:
             if self.__redis.setnx(key, time.strftime("%Y%m%d%H%M%S", time.localtime())) == 1:
                 self.__redis.expire(key, 5)
                 gl.get_v("serverlogger").logger.info("加锁成功%s" % key)
                 return True
-            time.sleep(0.002)
-        return False
+            time.sleep(random.randint(1, 5) / 1000.0)
 
     def unlock(self, key):
         """

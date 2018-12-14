@@ -10,7 +10,7 @@ def execute(roomNo, messageHandle):
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo), TuitongziRoom(), TuitongziRoom().object_to_dict)
             from game.tuitongzi.command.game import gamestart_cmd

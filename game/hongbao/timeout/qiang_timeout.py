@@ -11,7 +11,7 @@ def execute(roomNo, round, messageHandle):
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             from game.hongbao.mode.hongbao_room import HongbaoRoom
             room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)

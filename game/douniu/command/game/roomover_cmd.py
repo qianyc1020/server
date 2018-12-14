@@ -19,7 +19,7 @@ def execute(room, messageHandle):
 
     room.gameStatus = GameStatus.DESTORY
 
-    redis.lock("lock2_rooms", 5000)
+    redis.lock("lock2_rooms")
     try:
         if redis.exists("2_rooms"):
             rooms = redis.get("2_rooms")

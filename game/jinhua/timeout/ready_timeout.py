@@ -10,7 +10,7 @@ def execute(round, roomNo, messageHandle, userId, intoDate):
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             from game.jinhua.mode.jinhua_room import JinhuaRoom
             room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)

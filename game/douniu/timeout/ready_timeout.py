@@ -10,7 +10,7 @@ def execute(round, roomNo, messageHandle, userId, intoDate):
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             from game.douniu.mode.douniu_room import DouniuRoom
             room = redis.getobj("room_" + str(roomNo), DouniuRoom(), DouniuRoom().object_to_dict)

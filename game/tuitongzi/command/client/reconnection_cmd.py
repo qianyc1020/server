@@ -18,7 +18,7 @@ def execute(userId, message, messageHandle):
         if 7 != gameid:
             return
 
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo), TuitongziRoom(), TuitongziRoom().object_to_dict)
             seat = room.getWatchSeatByUserId(userId)

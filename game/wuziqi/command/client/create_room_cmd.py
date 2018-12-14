@@ -13,7 +13,7 @@ def execute(userId, message, messageHandle):
     if redis.exists(str(userId) + "_room"):
         return
     room = WuziqiRoom()
-    redis.lock("lock3_rooms", 5000)
+    redis.lock("lock3_rooms")
     try:
         if redis.exists("3_rooms"):
             rooms = redis.get("3_rooms")
@@ -30,7 +30,7 @@ def execute(userId, message, messageHandle):
         recCreateGame = RecCreateGame()
         recCreateGame.gameId = roomNo
         messageHandle.send_to_gateway(CREATE_GAME, recCreateGame)
-        redis.lock("lockroom_" + str(roomNo), 5000)
+        redis.lock("lockroom_" + str(roomNo))
         join_room_cmd.execute(userId, message, messageHandle, room)
         redis.unlock("lockroom_" + str(roomNo))
     except:
