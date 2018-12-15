@@ -12,6 +12,8 @@ def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
     betScoreAction = BaiRenBetScoreAction()
     betScoreAction.ParseFromString(message)
+    pingReturn = float(config.get("longhu", "pingReturn"))
+    pingRatio = float(config.get("longhu", "pingRatio"))
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
@@ -28,8 +30,6 @@ def execute(userId, message, messageHandle):
             if seat is None:
                 redis.unlock("lockroom_" + str(roomNo))
                 return
-            pingReturn = float(config.get("longhu", "pingReturn"))
-            pingRatio = float(config.get("longhu", "pingRatio"))
             for betScore in betScoreAction.betScore:
                 if betScore.index != 0 and betScore.index != 1 and betScore.index != 2:
                     break
@@ -55,7 +55,7 @@ def execute(userId, message, messageHandle):
                 seat.playScore += betScore.score
                 betScore.playerId = userId
                 room.betScores.append(betScore.SerializeToString())
-                gl.get_v("serverlogger").logger.info("下注成功")
+            gl.get_v("serverlogger").logger.info("下注成功")
             room.save(redis)
         except:
             print traceback.print_exc()
