@@ -71,7 +71,7 @@ class RedisUtils(object):
         gl.get_v("serverlogger").logger.info("下注1")
         jsons = self.__redis.get(key)
         gl.get_v("serverlogger").logger.info("下注2")
-        jsons = ast.literal_eval(jsons)
+        jsons = eval(jsons)
         gl.get_v("serverlogger").logger.info("下注3")
         jsons = json.dumps(jsons, ensure_ascii=False)
         gl.get_v("serverlogger").logger.info("下注4")
