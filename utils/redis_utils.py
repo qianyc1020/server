@@ -1,6 +1,6 @@
 # coding=utf-8
+import cPickle
 import json
-import pickle
 import random
 import threading
 import time
@@ -50,7 +50,7 @@ class RedisUtils(object):
         :param obj:
         :return:
         """
-        self.__redis.set(key, pickle.dumps(obj, -1))
+        self.__redis.set(key, cPickle.dumps(obj, -1))
 
     def set(self, key, obj):
         """
@@ -70,7 +70,7 @@ class RedisUtils(object):
         """
         gl.get_v("serverlogger").logger.info("下注1")
         jsons = self.__redis.get(key)
-        obj = pickle.loads(jsons)
+        obj = cPickle.loads(jsons)
         # gl.get_v("serverlogger").logger.info("下注2")
         # jsons = eval(jsons)
         # gl.get_v("serverlogger").logger.info("下注5")
