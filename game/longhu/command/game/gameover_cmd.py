@@ -45,19 +45,16 @@ def execute(room, messageHandle):
 
         userScore = {}
         bankerWin = 0
-        tuitongziPlayerOneSetResult = BaiRenPlayerOneSetResult()
-        tuitongziPlayerOneSetResult.positionWin.append(0)
-        tuitongziPlayerOneSetResult.positionWin.append(0)
-        tuitongziPlayerOneSetResult.positionWin.append(0)
+        positionWin = [0, 0, 0]
 
         for u in settleResult.userSettleResule:
             win = 0
             if u.win > 0:
                 win = 1
-                tuitongziPlayerOneSetResult.positionWin[u.userId] = 1
+                positionWin[u.userId] = 1
             elif u.win < 0:
                 win = -1
-                tuitongziPlayerOneSetResult.positionWin[u.userId] = 2
+                positionWin[u.userId] = 2
             if win != 0:
                 position = room.positions[u.userId]
                 for k in position.playScores:
@@ -70,10 +67,10 @@ def execute(room, messageHandle):
         win = 0
         if 0 == settleResult.userSettleResule[0].win:
             win = float(config.get("longhu", "pingRatio"))
-            tuitongziPlayerOneSetResult.positionWin[2] = 1
+            positionWin[2] = 1
         else:
             win = -1
-            tuitongziPlayerOneSetResult.positionWin[2] = 2
+            positionWin[2] = 2
 
         for k in room.positions[2].playScores:
             bankerWin -= int(win * room.positions[2].playScores[k])
@@ -127,7 +124,9 @@ def execute(room, messageHandle):
                     rebate.card = userScore[k] - userwin
                     rebates.append(rebate)
 
-        room.trend.append(tuitongziPlayerOneSetResult.positionWin)
+        room.trend.append(positionWin)
+        tuitongziPlayerOneSetResult = BaiRenPlayerOneSetResult()
+        tuitongziPlayerOneSetResult.positionWin.extend(positionWin)
         if len(room.trend) > 20:
             room.trend.remove(room.trend[0])
         room.updateTrend(messageHandle, 0)
