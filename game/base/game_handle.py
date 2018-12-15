@@ -16,6 +16,8 @@ class ReceiveHandle(object):
         self.__close = False
         self.__lock = threading.Lock()
         self.__user_queue = {}
+        self.sendQueue = Queue.Queue()
+        threading.Thread(target=self.relSend, name="clientsend").start()
 
     def close(self):
         self.__close = True
@@ -46,19 +48,15 @@ class ReceiveHandle(object):
             except:
                 print traceback.print_exc()
 
-    def sendToGateway(self, userid, opcode, data):
-
-        netMessage = NetMessage()
-        netMessage.opcode = opcode
-        if data is not None:
-            netMessage.content = data.SerializeToString()
-
-        message = GateWayMessage()
-        message.userId = userid
-        message.data = netMessage.SerializeToString()
-
-        gl.get_v("serverlogger").logger.info("发送%d给%d" % (opcode, userid))
-        gl.get_v("redis").publish("server-gateway", message.SerializeToString())
+    def relSend(self):
+        while not self.__close:
+            try:
+                s = self.sendQueue.get(True, 20)
+                gl.get_v("redis").publish("server-gateway", s.SerializeToString())
+            except Queue.Empty:
+                gl.get_v("serverlogger").logger.info("Received timeout")
+            except:
+                print traceback.print_exc()
 
     def remove(self, userid):
         self.__lock.acquire()

@@ -1,6 +1,4 @@
 # coding=utf-8
-import Queue
-import threading
 import traceback
 from Queue import Empty
 
@@ -16,12 +14,12 @@ class UserMessageHandle(object):
         self.__close = False
         self.__userId = userid
         self.__server_receive = server_receive
-        self.sendQueue = Queue.Queue()
-        threading.Thread(target=self.relSend, name="clientsend").start()
+        self.send_data = NetMessage()
+        self.s = GateWayMessage()
 
     def close(self):
-        self.__close = False
-        # self.__server_receive.remove(self.__userId)
+        self.__close = True
+        self.__server_receive.remove(self.__userId)
 
     def handle(self, queue):
         while not self.__close:
@@ -39,28 +37,17 @@ class UserMessageHandle(object):
             except:
                 print traceback.print_exc()
 
-    def relSend(self):
-        while not self.__close:
-            try:
-                s = self.sendQueue.get(True, 20)
-                gl.get_v("redis").publish("server-gateway", s.SerializeToString())
-            except Queue.Empty:
-                gl.get_v("serverlogger").logger.info("Received timeout")
-            except:
-                print traceback.print_exc()
-
     def send_to_gateway(self, opcode, data, userId=None):
-        send_data = NetMessage()
-        send_data.opcode = opcode
+        self.send_data.Clear()
+        self.send_data.opcode = opcode
         if data is not None:
-            send_data.data = data.SerializeToString()
-        s = GateWayMessage()
+            self.send_data.data = data.SerializeToString()
         if userId is None:
-            s.userId = self.__userId
+            self.s.userId = self.__userId
         else:
-            s.userId = userId
-        s.data = send_data.SerializeToString()
-        self.sendQueue.put(s)
+            self.s.userId = userId
+        self.s.data = self.send_data.SerializeToString()
+        self.__server_receive.sendQueue.put(self.s)
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId if userId is None else userId))
 
     def game_update_currency(self, gold, id, roomNo):
