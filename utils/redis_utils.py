@@ -68,11 +68,17 @@ class RedisUtils(object):
         :param obj:
         :return:
         """
+        gl.get_v("serverlogger").logger.info("下注1")
         jsons = self.__redis.get(key)
+        gl.get_v("serverlogger").logger.info("下注2")
         jsons = ast.literal_eval(jsons)
+        gl.get_v("serverlogger").logger.info("下注3")
         jsons = json.dumps(jsons, ensure_ascii=False)
+        gl.get_v("serverlogger").logger.info("下注4")
         loaded = json.loads(jsons, object_hook=object_hook)
+        gl.get_v("serverlogger").logger.info("下注5")
         obj.__dict__ = loaded
+        gl.get_v("serverlogger").logger.info("下注6")
         return obj
 
     def get(self, key):
