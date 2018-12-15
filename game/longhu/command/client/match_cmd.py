@@ -24,7 +24,7 @@ def execute(userId, message, messageHandle):
             rooms = []
         join = False
         for r in rooms:
-            if "room_" + str(r) in gl.get_v("rooms"):
+            if redis.exists("room_" + str(r)):
                 redis.lock("lockroom_" + str(r))
                 room = redis.getobj("room_" + str(r), LonghuRoom(), LonghuRoom().object_to_dict)
                 if room.roomNo != reqApplyEnterMatch.reject and room.matchLevel == reqApplyEnterMatch.level and (room.count == -1 or 0 < len(room.seatNos)):

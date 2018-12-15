@@ -31,7 +31,6 @@ class Server(object):
         gl.set_v("rebate-handle-queue", Queue.Queue())
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
-        gl.set_v("rooms", {})
         gl.set_v("redis", RedisUtils())
         gl.get_v("redis").startSubscribe([uuid], [message_handle])
         gl.set_v("match_info", json.loads(config.get("longhu", "match")))

@@ -9,7 +9,7 @@ def execute(roomNo, messageHandle):
     time.sleep(11)
 
     redis = gl.get_v("redis")
-    if "room_" + str(roomNo) in gl.get_v("rooms"):
+    if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
