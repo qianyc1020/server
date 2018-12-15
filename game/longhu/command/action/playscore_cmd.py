@@ -10,6 +10,8 @@ from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
+    betScoreAction = BaiRenBetScoreAction()
+    betScoreAction.ParseFromString(message)
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
@@ -26,25 +28,30 @@ def execute(userId, message, messageHandle):
             if seat is None:
                 redis.unlock("lockroom_" + str(roomNo))
                 return
-            betScoreAction = BaiRenBetScoreAction()
-            betScoreAction.ParseFromString(message)
+
+            maxPlay0 = room.positions[2].totalScore + room.positions[1].totalScore + room.bankerScore
+            maxPlay1 = room.positions[2].totalScore + room.positions[0].totalScore + room.bankerScore
+            pingReturn = float(config.get("longhu", "pingReturn"))
+            maxPlay2 = int(
+                ((room.positions[0].totalScore + room.positions[1].totalScore + room.bankerScore) * (
+                        1 - pingReturn) + room.bankerScore) / float(config.get("longhu", "pingRatio")))
             for betScore in betScoreAction.betScore:
                 if betScore.index != 0 and betScore.index != 1 and betScore.index != 2:
                     break
                 if seat.playScore + betScore.score > seat.score:
                     break
-                maxPlay = 0
                 if betScore.index == 0:
-                    maxPlay = room.positions[2].totalScore + room.positions[1].totalScore + room.bankerScore
+                    if room.positions[betScore.index].totalScore + betScore.score > maxPlay0:
+                        break
+                    maxPlay0 -= betScore.score
                 if betScore.index == 1:
-                    maxPlay = room.positions[2].totalScore + room.positions[0].totalScore + room.bankerScore
+                    if room.positions[betScore.index].totalScore + betScore.score > maxPlay1:
+                        break
+                    maxPlay1 -= betScore.score
                 if betScore.index == 2:
-                    pingReturn = float(config.get("longhu", "pingReturn"))
-                    maxPlay = int(
-                        ((room.positions[0].totalScore + room.positions[1].totalScore + room.bankerScore) * (
-                                1 - pingReturn) + room.bankerScore) / float(config.get("longhu", "pingRatio")))
-                if room.positions[betScore.index].totalScore + betScore.score > maxPlay:
-                    break
+                    if room.positions[betScore.index].totalScore + betScore.score > maxPlay2:
+                        break
+                    maxPlay2 -= betScore.score
                 playPosition = room.positions[betScore.index]
                 playPosition.totalScore += betScore.score
                 if userId in playPosition.playScores:

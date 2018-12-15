@@ -117,10 +117,10 @@ def execute(room, messageHandle):
                 seat.score += userwin
                 scores += "," + str(userwin)
                 users += "," + str(k)
-                if 0 != userwin:
-                    messageHandle.game_update_currency(userwin, k, room.roomNo)
-                    data_game_details.create_game_details(k, 8, str(room.roomNo), userwin, userScore[k] - userwin,
-                                                          int(time.time()))
+                # if 0 != userwin:
+                #     messageHandle.game_update_currency(userwin, k, room.roomNo)
+                #     data_game_details.create_game_details(k, 8, str(room.roomNo), userwin, userScore[k] - userwin,
+                #                                           int(time.time()))
                 if 0 < userScore[k] - userwin:
                     rebate = Rebate()
                     rebate.userId = k

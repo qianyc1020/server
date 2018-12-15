@@ -47,7 +47,7 @@ class UserMessageHandle(object):
         else:
             self.s.userId = userId
         self.s.data = self.send_data.SerializeToString()
-        self.__server_receive.sendQueue.put(self.s)
+        self.__server_receive.sendQueue.put(self.s.SerializeToString())
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId if userId is None else userId))
 
     def game_update_currency(self, gold, id, roomNo):

@@ -52,7 +52,7 @@ class ReceiveHandle(object):
         while not self.__close:
             try:
                 s = self.sendQueue.get(True, 20)
-                gl.get_v("redis").publish("server-gateway", s.SerializeToString())
+                gl.get_v("redis").publish("server-gateway", s)
             except Queue.Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:
