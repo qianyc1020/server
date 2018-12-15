@@ -72,12 +72,8 @@ class RedisUtils(object):
         jsons = self.__redis.get(key)
         gl.get_v("serverlogger").logger.info("下注2")
         jsons = eval(jsons)
-        gl.get_v("serverlogger").logger.info("下注3")
-        jsons = json.dumps(jsons, ensure_ascii=False)
-        gl.get_v("serverlogger").logger.info("下注4")
-        loaded = json.loads(jsons, object_hook=object_hook)
         gl.get_v("serverlogger").logger.info("下注5")
-        obj.__dict__ = loaded
+        obj.__dict__ = object_hook(jsons)
         gl.get_v("serverlogger").logger.info("下注6")
         return obj
 
