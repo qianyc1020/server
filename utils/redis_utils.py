@@ -68,14 +68,8 @@ class RedisUtils(object):
         :param obj:
         :return:
         """
-        gl.get_v("serverlogger").logger.info("下注1")
         jsons = self.__redis.get(key)
         obj = cPickle.loads(jsons)
-        # gl.get_v("serverlogger").logger.info("下注2")
-        # jsons = eval(jsons)
-        # gl.get_v("serverlogger").logger.info("下注5")
-        # obj.__dict__ = object_hook(jsons)
-        # gl.get_v("serverlogger").logger.info("下注6")
         return obj
 
     def get(self, key):

@@ -48,19 +48,13 @@ def execute(room, messageHandle):
 
         userScore = {}
         bankerWin = 0
-        niuniuPlayerOneSetResult = BaiRenPlayerOneSetResult()
-        niuniuPlayerOneSetResult.positionWin.append(0)
-        niuniuPlayerOneSetResult.positionWin.append(0)
-        niuniuPlayerOneSetResult.positionWin.append(0)
-        niuniuPlayerOneSetResult.positionWin.append(0)
-        niuniuPlayerOneSetResult.positionWin.append(0)
-
+        positionWin = [0, 0, 0, 0, 0]
         for u in settleResult.userSettleResule:
             win = u.win
             if u.win > 0:
-                niuniuPlayerOneSetResult.positionWin[u.userId] = 1
+                positionWin[u.userId] = 1
             elif u.win < 0:
-                niuniuPlayerOneSetResult.positionWin[u.userId] = 2
+                positionWin[u.userId] = 2
             if win != 0:
                 position = room.positions[u.userId]
                 for k in position.playScores:
@@ -103,11 +97,12 @@ def execute(room, messageHandle):
                     rebate.card = userScore[k] - userwin
                     rebates.append(rebate)
 
-        room.trend.append(niuniuPlayerOneSetResult.positionWin)
+        room.trend.append(positionWin)
         if len(room.trend) > 10:
             room.trend.remove(room.trend[0])
         room.updateTrend(messageHandle, 0)
 
+        niuniuPlayerOneSetResult = BaiRenPlayerOneSetResult()
         dayingjiaSeat = room.getWatchSeatByUserId(dayingjia)
         if dayingjiaSeat is not None:
             room.dayingjia = dayingjia

@@ -10,6 +10,8 @@ from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
+    betScoreAction = BaiRenBetScoreAction()
+    betScoreAction.ParseFromString(message)
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
@@ -26,8 +28,6 @@ def execute(userId, message, messageHandle):
             if seat is None:
                 redis.unlock("lockroom_" + str(roomNo))
                 return
-            betScoreAction = BaiRenBetScoreAction()
-            betScoreAction.ParseFromString(message)
             for betScore in betScoreAction.betScore:
                 if 0 > betScore.index > 3:
                     break
@@ -48,12 +48,10 @@ def execute(userId, message, messageHandle):
                 seat.playScore += betScore.score
                 betScore.playerId = userId
                 room.betScores.append(betScore.SerializeToString())
-                gl.get_v("serverlogger").logger.info("下注成功")
-
                 if room.bankerScore / 3 - total - betScore.score < 100:
                     dealcard_cmd.execute(room, messageHandle)
                     break
-
+            gl.get_v("serverlogger").logger.info("下注成功")
             room.save(redis)
         except:
             print traceback.print_exc()

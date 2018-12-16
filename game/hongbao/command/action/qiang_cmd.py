@@ -9,6 +9,7 @@ from protocol.game.hongbao_pb2 import BaiRenHongbaoQiang
 
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
+    qiang = BaiRenHongbaoQiang()
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
@@ -20,7 +21,6 @@ def execute(userId, message, messageHandle):
                     score = room.hongbaolist[0]
                     room.hongbaolist.remove(score)
 
-                    qiang = BaiRenHongbaoQiang()
                     qiang.score = score
                     userInfo = qiang.user
                     userInfo.account = s.account
