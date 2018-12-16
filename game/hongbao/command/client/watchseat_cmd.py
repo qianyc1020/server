@@ -1,7 +1,6 @@
 # coding=utf-8
 
 import core.globalvar as gl
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 from protocol.base.base_pb2 import WATCH_LIST
 from protocol.base.game_base_pb2 import RecUpdateGameUsers
 
@@ -11,7 +10,7 @@ def execute(userId, message, messageHandle):
     recUpdateGameUsers = RecUpdateGameUsers()
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
-        room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+        room = redis.getobj("room_" + str(roomNo))
         for s in room.watchSeats:
             userInfo = recUpdateGameUsers.users.add()
             userInfo.account = s.account

@@ -13,8 +13,7 @@ def execute(roomNo, round, messageHandle):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            from game.hongbao.mode.hongbao_room import HongbaoRoom
-            room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING:
                 gameover_cmd.execute(room, messageHandle)
                 room.save(redis)

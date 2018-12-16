@@ -4,7 +4,6 @@ import traceback
 import core.globalvar as gl
 from game.wuziqi.command.game import gameover_cmd
 from game.wuziqi.mode.game_status import GameStatus
-from game.wuziqi.mode.wuziqi_room import WuziqiRoom
 
 
 def execute(userId, message, messageHandle):
@@ -13,7 +12,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), WuziqiRoom(), WuziqiRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus == GameStatus.PLAYING and 0 < room.score:
                 gameover_cmd.execute(room, messageHandle, userId)
                 room.save(redis)

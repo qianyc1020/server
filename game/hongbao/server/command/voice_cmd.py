@@ -2,7 +2,6 @@
 import traceback
 
 import core.globalvar as gl
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 from protocol.base.base_pb2 import PLAYER_VOICE
 from protocol.base.game_base_pb2 import ReqPlayerVoice, RecPlayerVoice
 
@@ -20,7 +19,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             messageHandle.broadcast_watch_to_gateway(PLAYER_VOICE, recPlayerVoice, room)
         except:
             print traceback.print_exc()

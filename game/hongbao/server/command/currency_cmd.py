@@ -4,7 +4,6 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 
 
 def execute(userId, message, messageHandle):
@@ -15,7 +14,7 @@ def execute(userId, message, messageHandle):
         if account is not None:
             redis.lock("lockroom_" + str(roomNo))
             try:
-                room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+                room = redis.getobj("room_" + str(roomNo))
                 seat = room.getWatchSeatByUserId(userId)
                 inseat = False
                 if seat is not None:

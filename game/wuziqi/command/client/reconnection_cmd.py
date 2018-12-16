@@ -2,7 +2,6 @@
 import traceback
 
 import core.globalvar as gl
-from game.wuziqi.mode.wuziqi_room import WuziqiRoom
 from protocol.base.base_pb2 import REENTER_GAME
 from protocol.base.game_base_pb2 import RecReEnterGame
 
@@ -18,7 +17,7 @@ def execute(userId, message, messageHandle):
 
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), WuziqiRoom(), WuziqiRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             seat = room.getSeatByUserId(userId)
             if seat is not None:
                 recReEnterGame = RecReEnterGame()

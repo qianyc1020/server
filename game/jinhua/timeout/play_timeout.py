@@ -12,8 +12,7 @@ def execute(roomNo, messageHandle, userId, gameCount, round):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            from game.jinhua.mode.jinhua_room import JinhuaRoom
-            room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == gameCount and room.gameStatus == GameStatus.PLAYING:
                 seat = room.getSeatByUserId(userId)
                 if not seat.end and seat.round == round:

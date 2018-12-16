@@ -2,7 +2,6 @@
 import traceback
 
 import core.globalvar as gl
-from game.niuniu.mode.niuniu_room import NiuniuRoom
 
 
 def execute(userId, message, messageHandle):
@@ -11,7 +10,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if userId in room.bankerList:
                 room.bankerList.remove(userId)
                 room.updateBankerList(messageHandle, 0)

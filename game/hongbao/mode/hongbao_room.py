@@ -1,5 +1,4 @@
 # coding=utf-8
-import base64
 import random
 import threading
 import time
@@ -8,7 +7,6 @@ import core.globalvar as gl
 from core import config
 from game.hongbao.command.game import roomover_cmd
 from game.hongbao.mode.game_status import GameStatus
-from game.hongbao.mode.hongbao_seat import HongbaoSeat
 from game.hongbao.timeout import qiang_timeout
 from mode.game.room import Room
 from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME_PLAYER_INFO, SELF_INFO, BANKER_LIST, \
@@ -41,52 +39,6 @@ class HongbaoRoom(Room):
     def save(self, redis):
         if self.gameStatus != GameStatus.DESTORY:
             redis.setobj("room_" + str(self.roomNo), self)
-
-    def object_to_dict(self, d):
-        if "seats" in d:
-            seat = []
-            for s in d["seats"]:
-                s1 = HongbaoSeat()
-                s1.__dict__ = eval(s)
-                seat.append(s1)
-            d["seats"] = seat
-
-        if "watchSeats" in d:
-            watchSeats = []
-            for s in d["watchSeats"]:
-                s1 = HongbaoSeat()
-                s1.__dict__ = eval(s)
-                watchSeats.append(s1)
-            d["watchSeats"] = watchSeats
-
-        if "historyActions" in d:
-            historyActions = []
-            for s in d["historyActions"]:
-                historyActions.append(base64.b64decode(s))
-            d["historyActions"] = historyActions
-        if "userScore" in d:
-            userScore = {}
-            for (k, v) in d["userScore"].items():
-                userScore[int(k)] = v
-            d["userScore"] = userScore
-        return d
-
-    def dict_to_object(self):
-        d = self.__dict__
-        dict = d.copy()
-        seats = []
-        for s in self.seats:
-            seats.append(str(s.__dict__))
-        dict["seats"] = seats
-        watchSeats = []
-        for s in self.watchSeats:
-            watchSeats.append(str(s.__dict__))
-        dict["watchSeats"] = watchSeats
-        historyActions = []
-        for s in self.historyActions:
-            historyActions.append(base64.b64encode(s))
-        dict["historyActions"] = historyActions
-        return str(dict)
 
     def clear(self):
         super(HongbaoRoom, self).clear()

@@ -2,7 +2,6 @@
 import traceback
 
 import core.globalvar as gl
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 
 
 def execute(userId, message, messageHandle):
@@ -11,7 +10,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             room.xiazhuang = False
             room.save(redis)
         except:

@@ -61,7 +61,7 @@ class RedisUtils(object):
         """
         self.__redis.set(key, json.dumps(obj))
 
-    def getobj(self, key, obj, object_hook):
+    def getobj(self, key):
         """
         : 取出对象
         :param key:

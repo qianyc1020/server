@@ -13,8 +13,7 @@ def execute(roomNo, messageHandle, gameStatus, gameCount):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            from game.douniu.mode.douniu_room import DouniuRoom
-            room = redis.getobj("room_" + str(roomNo), DouniuRoom(), DouniuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == gameCount and room.gameStatus == gameStatus:
                 if gameStatus == GameStatus.GRABING:
                     for seat in room.seats:
@@ -22,7 +21,7 @@ def execute(roomNo, messageHandle, gameStatus, gameCount):
                             seat.grab = 0
                             room.executeAction(seat.userId, 1, DouniuScoreAction(), messageHandle)
                     room.checkGrab(messageHandle)
-                if gameStatus == GameStatus.PLAYING:
+                elif gameStatus == GameStatus.PLAYING:
                     for seat in room.seats:
                         if -1 == seat.playScore and not seat.guanzhan and seat.userId != room.banker:
                             seat.playScore = room.betType * room.score
@@ -30,7 +29,7 @@ def execute(roomNo, messageHandle, gameStatus, gameCount):
                             douniuScoreAction.score = seat.playScore
                             room.executeAction(seat.userId, 2, douniuScoreAction, messageHandle)
                     room.checkPlay(messageHandle)
-                if gameStatus == GameStatus.OPENING:
+                elif gameStatus == GameStatus.OPENING:
                     for seat in room.seats:
                         if not seat.openCard and not seat.guanzhan:
                             seat.openCard = True

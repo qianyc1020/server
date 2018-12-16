@@ -3,7 +3,6 @@ import traceback
 
 import core.globalvar as gl
 from game.jinhua.mode.game_status import GameStatus
-from game.jinhua.mode.jinhua_room import JinhuaRoom
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game.jinhua_pb2 import JinhuaLookCardAction
@@ -15,7 +14,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus != GameStatus.PLAYING:
                 gl.get_v("serverlogger").logger.info("看牌失败状态不对")
                 redis.unlock("lockroom_" + str(roomNo))

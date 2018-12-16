@@ -4,7 +4,6 @@ import traceback
 import core.globalvar as gl
 from game.douniu.command.game import gamestart_cmd
 from game.douniu.mode.game_status import GameStatus
-from game.douniu.mode.douniu_room import DouniuRoom
 from protocol.base.base_pb2 import READY_GAME
 from protocol.base.game_base_pb2 import RecReadyGame
 
@@ -15,7 +14,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), DouniuRoom(), DouniuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus == GameStatus.WAITING:
                 seat = room.getSeatByUserId(userId)
                 if seat is not None and not seat.ready:

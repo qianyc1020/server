@@ -4,7 +4,6 @@ import traceback
 import core.globalvar as gl
 from game.tuitongzi.command.game import dealcard_cmd
 from game.tuitongzi.mode.game_status import GameStatus
-from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
 from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 
 
@@ -16,7 +15,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), TuitongziRoom(), TuitongziRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus != GameStatus.PLAYING:
                 gl.get_v("serverlogger").logger.info("下注失败状态不对")
                 redis.unlock("lockroom_" + str(roomNo))

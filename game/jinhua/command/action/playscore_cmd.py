@@ -3,7 +3,6 @@ import traceback
 
 import core.globalvar as gl
 from game.jinhua.mode.game_status import GameStatus
-from game.jinhua.mode.jinhua_room import JinhuaRoom
 from protocol.game.jinhua_pb2 import JinhuaBetScoreAction
 
 
@@ -11,17 +10,17 @@ def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
+        betScoreAction = JinhuaBetScoreAction()
+        betScoreAction.ParseFromString(message)
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus != GameStatus.PLAYING:
                 gl.get_v("serverlogger").logger.info("下注失败状态不对")
                 redis.unlock("lockroom_" + str(roomNo))
                 return
             seat = room.getSeatByUserId(userId)
             if seat is not None and seat.seatNo == room.operationSeat and not seat.end:
-                betScoreAction = JinhuaBetScoreAction()
-                betScoreAction.ParseFromString(message)
                 if betScoreAction.score > seat.score - seat.playScore:
                     gl.get_v("serverlogger").logger.info("当前分数不够，当前分数%d， 下注分数%d" % (seat.score, seat.playScore))
                     redis.unlock("lockroom_" + str(roomNo))

@@ -3,7 +3,6 @@ import traceback
 
 import core.globalvar as gl
 from game.niuniu.mode.game_status import GameStatus
-from game.niuniu.mode.niuniu_room import NiuniuRoom
 
 
 def execute(roomNo, round, messageHandle):
@@ -13,7 +12,7 @@ def execute(roomNo, round, messageHandle):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING:
                 room.executeAction(0, 5, None, messageHandle)
                 room.opencard = True

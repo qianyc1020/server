@@ -3,24 +3,23 @@ import traceback
 
 import core.globalvar as gl
 from game.hongbao.command.game import gameover_cmd
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 from protocol.game.hongbao_pb2 import BaiRenHongbaoQiang
 
 
 def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
-    qiang = BaiRenHongbaoQiang()
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.started and room.banker != userId and userId not in room.userScore:
                 s = room.getWatchSeatByUserId(userId)
                 if s is not None:
                     score = room.hongbaolist[0]
                     room.hongbaolist.remove(score)
 
+                    qiang = BaiRenHongbaoQiang()
                     qiang.score = score
                     userInfo = qiang.user
                     userInfo.account = s.account

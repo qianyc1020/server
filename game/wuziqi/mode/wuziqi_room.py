@@ -1,10 +1,8 @@
 # coding=utf-8
-import base64
 
 import core.globalvar as gl
 from game.wuziqi.command.game import roomover_cmd
 from game.wuziqi.mode.game_status import GameStatus
-from game.wuziqi.mode.wuziqi_seat import WuziqiSeat
 from mode.game.room import Room
 from protocol.base.base_pb2 import EXECUTE_ACTION, UPDATE_GAME_INFO, UPDATE_GAME_PLAYER_INFO, \
     REENTER_GAME_INFO, EXIT_GAME
@@ -26,47 +24,6 @@ class WuziqiRoom(Room):
     def save(self, redis):
         if self.gameStatus != GameStatus.DESTORY:
             redis.setobj("room_" + str(self.roomNo), self)
-
-    def object_to_dict(self, d):
-        if "seats" in d:
-            seat = []
-            for s in d["seats"]:
-                s1 = WuziqiSeat()
-                s1.__dict__ = eval(s)
-                seat.append(s1)
-            d["seats"] = seat
-
-        if "watchSeats" in d:
-            watchSeats = []
-            for s in d["watchSeats"]:
-                s1 = WuziqiSeat()
-                s1.__dict__ = eval(s)
-                watchSeats.append(s1)
-            d["watchSeats"] = watchSeats
-
-        if "historyActions" in d:
-            historyActions = []
-            for s in d["historyActions"]:
-                historyActions.append(base64.b64decode(s))
-            d["historyActions"] = historyActions
-        return d
-
-    def dict_to_object(self):
-        d = self.__dict__
-        dict = d.copy()
-        seats = []
-        for s in self.seats:
-            seats.append(str(s.__dict__))
-        dict["seats"] = seats
-        watchSeats = []
-        for s in self.watchSeats:
-            watchSeats.append(str(s.__dict__))
-        dict["watchSeats"] = watchSeats
-        historyActions = []
-        for s in self.historyActions:
-            historyActions.append(base64.b64encode(s))
-        dict["historyActions"] = historyActions
-        return str(dict)
 
     def clear(self):
         super(WuziqiRoom, self).clear()
@@ -127,7 +84,6 @@ class WuziqiRoom(Room):
 
     def exit(self, userId, messageHandle):
         if self.gameStatus != GameStatus.PLAYING:
-
             seat = self.getSeatByUserId(userId)
             if seat is not None:
                 while seat is not None:
@@ -140,5 +96,6 @@ class WuziqiRoom(Room):
                 userExit.playerId = userId
                 from game.wuziqi.server.server import Server
                 Server.send_to_coordinate(EXIT_GAME, userExit)
+                self.recUpdateScore(messageHandle, 0)
                 if 0 == len(self.seats):
                     roomover_cmd.execute(self, messageHandle)

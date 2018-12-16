@@ -4,7 +4,6 @@ import traceback
 
 import core.globalvar as gl
 from game.hongbao.mode.game_status import GameStatus
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 
 
 def execute(roomNo, round, messageHandle):
@@ -14,7 +13,7 @@ def execute(roomNo, round, messageHandle):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING and not room.started:
                 room.bankerSelectNum(random.randint(0, 9), messageHandle)
                 room.save(redis)

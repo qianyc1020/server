@@ -2,7 +2,6 @@
 import traceback
 
 import core.globalvar as gl
-from game.niuniu.mode.niuniu_room import NiuniuRoom
 from protocol.base.base_pb2 import PLAYER_VOICE
 from protocol.base.game_base_pb2 import ReqGpsInfo
 
@@ -13,7 +12,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
 
             s = room.getSeatByUserId(userId)
             if s is not None:

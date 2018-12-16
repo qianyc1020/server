@@ -5,7 +5,6 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account
-from game.wuziqi.mode.wuziqi_room import WuziqiRoom
 from game.wuziqi.mode.wuziqi_seat import WuziqiSeat
 from protocol.base.base_pb2 import RecJoinGame, JOIN_GAME, ReqJoinGame
 
@@ -65,7 +64,7 @@ def execute(userId, message, messageHandle, room=None):
             return
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), WuziqiRoom(), WuziqiRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             joinGame(room, messageHandle, userId, redis)
         except:
             print traceback.print_exc()

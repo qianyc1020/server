@@ -3,7 +3,6 @@ import traceback
 
 import core.globalvar as gl
 from game.jinhua.mode.game_status import GameStatus
-from game.jinhua.mode.jinhua_room import JinhuaRoom
 from protocol.game.jinhua_pb2 import JinhuaCompare
 
 
@@ -11,17 +10,17 @@ def execute(userId, message, messageHandle):
     redis = gl.get_v("redis")
     if redis.exists(str(userId) + "_room"):
         roomNo = redis.get(str(userId) + "_room")
+        jinhuaCompare = JinhuaCompare()
+        jinhuaCompare.ParseFromString(message)
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus != GameStatus.PLAYING:
                 gl.get_v("serverlogger").logger.info("比牌失败状态不对")
                 redis.unlock("lockroom_" + str(roomNo))
                 return
             seat = room.getSeatByUserId(userId)
             if seat is not None and seat.seatNo == room.operationSeat and not seat.end:
-                jinhuaCompare = JinhuaCompare()
-                jinhuaCompare.ParseFromString(message)
                 compareSeat = room.getSeatByUserId(jinhuaCompare.compareId)
                 if compareSeat is not None and compareSeat != seat and not compareSeat.end:
                     compareScore = room.minScore

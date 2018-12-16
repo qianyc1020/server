@@ -2,7 +2,6 @@ import time
 import traceback
 
 import core.globalvar as gl
-from game.niuniu.mode.niuniu_room import NiuniuRoom
 
 
 class SendScores(object):
@@ -24,7 +23,7 @@ class SendScores(object):
             if redis.exists("room_" + str(self.roomNo)):
                 redis.lock("lockroom_" + str(self.roomNo))
                 try:
-                    room = redis.getobj("room_" + str(self.roomNo), NiuniuRoom(), NiuniuRoom().object_to_dict)
+                    room = redis.getobj("room_" + str(self.roomNo))
                     if 0 != len(room.betScores):
                         room.sendBetScore(self.messageHandle)
                         room.save(redis)

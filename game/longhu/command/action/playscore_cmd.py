@@ -4,7 +4,6 @@ import traceback
 import core.globalvar as gl
 from core import config
 from game.longhu.mode.game_status import GameStatus
-from game.longhu.mode.longhu_room import LonghuRoom
 from protocol.game.bairen_pb2 import BaiRenBetScoreAction
 
 
@@ -18,7 +17,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), LonghuRoom(), LonghuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameStatus != GameStatus.PLAYING:
                 gl.get_v("serverlogger").logger.info("下注失败状态不对")
                 redis.unlock("lockroom_" + str(roomNo))
@@ -38,9 +37,9 @@ def execute(userId, message, messageHandle):
                 maxPlay = 0
                 if betScore.index == 0:
                     maxPlay = room.positions[2].totalScore + room.positions[1].totalScore + room.bankerScore
-                if betScore.index == 1:
+                elif betScore.index == 1:
                     maxPlay = room.positions[2].totalScore + room.positions[0].totalScore + room.bankerScore
-                if betScore.index == 2:
+                elif betScore.index == 2:
                     maxPlay = int(
                         ((room.positions[0].totalScore + room.positions[1].totalScore + room.bankerScore) * (
                                 1 - pingReturn) + room.bankerScore) / pingRatio)

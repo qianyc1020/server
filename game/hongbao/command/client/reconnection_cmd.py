@@ -3,7 +3,6 @@ import traceback
 
 import core.globalvar as gl
 from game.hongbao.mode.game_status import GameStatus
-from game.hongbao.mode.hongbao_room import HongbaoRoom
 from protocol.base.base_pb2 import REENTER_GAME, SELF_INFO
 from protocol.base.game_base_pb2 import RecReEnterGame, RecUpdateGameUsers
 
@@ -19,7 +18,7 @@ def execute(userId, message, messageHandle):
 
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), HongbaoRoom(), HongbaoRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             seat = room.getWatchSeatByUserId(userId)
             if seat is not None:
                 recReEnterGame = RecReEnterGame()

@@ -8,5 +8,5 @@ def execute(userId, message, messageHandle):
     action.ParseFromString(message.data)
     if 1 == action.actionType:
         selnum_cmd.execute(userId, action.data, messageHandle)
-    if 2 == action.actionType:
+    elif 2 == action.actionType:
         qiang_cmd.execute(userId, action.data, messageHandle)

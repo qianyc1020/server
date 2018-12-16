@@ -4,7 +4,6 @@ import traceback
 import core.globalvar as gl
 from game.tuitongzi.command.game import gameover_cmd
 from game.tuitongzi.mode.game_status import GameStatus
-from game.tuitongzi.mode.tuitongzi_room import TuitongziRoom
 
 
 def execute(roomNo, messageHandle, round):
@@ -14,7 +13,7 @@ def execute(roomNo, messageHandle, round):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), TuitongziRoom(), TuitongziRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == round and room.gameStatus == GameStatus.PLAYING:
                 gameover_cmd.execute(room, messageHandle)
                 room.save(redis)

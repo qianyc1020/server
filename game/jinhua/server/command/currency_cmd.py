@@ -4,7 +4,6 @@ from decimal import Decimal
 
 import core.globalvar as gl
 from data.database import data_account
-from game.jinhua.mode.jinhua_room import JinhuaRoom
 
 
 def execute(userId, message, messageHandle):
@@ -15,7 +14,7 @@ def execute(userId, message, messageHandle):
         if account is not None:
             redis.lock("lockroom_" + str(roomNo))
             try:
-                room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+                room = redis.getobj("room_" + str(roomNo))
                 seat = room.getSeatByUserId(userId)
                 if seat is not None:
                     seat.score = int(account.gold.quantize(Decimal('0')))

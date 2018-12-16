@@ -12,8 +12,7 @@ def execute(round, roomNo, messageHandle, userId, intoDate):
     if redis.exists("room_" + str(roomNo)):
         redis.lock("lockroom_" + str(roomNo))
         try:
-            from game.douniu.mode.douniu_room import DouniuRoom
-            room = redis.getobj("room_" + str(roomNo), DouniuRoom(), DouniuRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             if room.gameCount == round and room.gameStatus != GameStatus.PLAYING:
                 seat = room.getSeatByUserId(userId)
                 if seat is not None and not seat.ready and seat.intoDate == intoDate:

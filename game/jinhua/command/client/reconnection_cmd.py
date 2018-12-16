@@ -3,7 +3,6 @@ import traceback
 
 import core.globalvar as gl
 from game.jinhua.mode.game_status import GameStatus
-from game.jinhua.mode.jinhua_room import JinhuaRoom
 from protocol.base.base_pb2 import REENTER_GAME
 from protocol.base.game_base_pb2 import RecReEnterGame
 
@@ -19,7 +18,7 @@ def execute(userId, message, messageHandle):
 
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             seat = room.getSeatByUserId(userId)
             if seat is not None:
                 recReEnterGame = RecReEnterGame()

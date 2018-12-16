@@ -2,7 +2,6 @@
 import traceback
 
 import core.globalvar as gl
-from game.jinhua.mode.jinhua_room import JinhuaRoom
 
 
 def execute(userId, message, messageHandle):
@@ -11,7 +10,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         redis.lock("lockroom_" + str(roomNo))
         try:
-            room = redis.getobj("room_" + str(roomNo), JinhuaRoom(), JinhuaRoom().object_to_dict)
+            room = redis.getobj("room_" + str(roomNo))
             room.changeMatch(userId, messageHandle)
             room.save(redis)
         except:
