@@ -29,7 +29,7 @@ class Server(object):
         gl.set_v("serverlogger", LoggerUtils("longhu"))
         gl.set_v("message-handle-queue", Queue.Queue())
         gl.set_v("rebate-handle-queue", Queue.Queue())
-        gl.set_v("play-handle", [])
+        gl.set_v("play-handle", {})
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
         gl.set_v("redis", RedisUtils())
