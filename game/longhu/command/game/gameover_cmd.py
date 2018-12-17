@@ -213,6 +213,8 @@ def execute(room, messageHandle):
             record_cmd.execute(room, users, scores)
         e = gl.get_v(str(room.roomNo) + "sendthread")
         e.close()
+        gl.get_v("play-handle")[str(room.roomNo)].close()
+        del gl.get_v("play-handle")[str(room.roomNo)]
         gl.del_v(str(room.roomNo) + "sendthread")
         if 0 != len(room.watchSeats):
             room.clear()

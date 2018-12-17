@@ -29,15 +29,15 @@ class Server(object):
         gl.set_v("serverlogger", LoggerUtils("longhu"))
         gl.set_v("message-handle-queue", Queue.Queue())
         gl.set_v("rebate-handle-queue", Queue.Queue())
+        gl.set_v("play-handle", [])
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
         gl.set_v("redis", RedisUtils())
         gl.get_v("redis").startSubscribe([uuid], [message_handle])
         gl.set_v("match_info", json.loads(config.get("longhu", "match")))
 
-        t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
-                             name='message-handle-queue')
-        t.start()
+        threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
+                         name='message-handle-queue').start()
 
         rebateThread = threading.Thread(target=rebate_handle.handle,
                                         args=(rebate_handle(), gl.get_v("rebate-handle-queue"),),
