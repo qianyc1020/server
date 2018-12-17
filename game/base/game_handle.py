@@ -17,7 +17,7 @@ class ReceiveHandle(object):
         self.__close = False
         self.__lock = threading.Lock()
         self.__user_queue = {}
-        self.sendQueue = Queue.Queue()
+        self.sendQueue = TestQueue()
         threading.Thread(target=self.relSend, name="clientsend").start()
 
     def close(self):
@@ -35,7 +35,7 @@ class ReceiveHandle(object):
 
                 self.__lock.acquire()
                 if s.userId not in self.__user_queue:
-                    messagequeue = TestQueue()
+                    messagequeue = Queue.Queue()
                     messagehandle = UserMessageHandle(s.userId, self)
                     t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
                                          name='handle')  # 线程对象.
