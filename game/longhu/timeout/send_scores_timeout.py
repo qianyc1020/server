@@ -34,7 +34,8 @@ class SendScores(object):
                         gl.get_v("serverlogger").logger.info("下注发送前")
                         self.messageHandle.broadcast_watch_to_gateway(EXECUTE_ACTION, senddata, room)
                         gl.get_v("serverlogger").logger.info("下注发送完成")
-
+                    else:
+                        redis.unlock("lockroom_" + str(self.roomNo))
                 except:
                     print traceback.print_exc()
                     redis.unlock("lockroom_" + str(self.roomNo))
