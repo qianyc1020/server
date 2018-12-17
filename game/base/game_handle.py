@@ -8,6 +8,7 @@ import core.globalvar as gl
 from game.base.usermessagehandle import UserMessageHandle
 from protocol.base.base_pb2 import NetMessage
 from protocol.base.gateway_pb2 import GateWayMessage
+from utils.TestQueue import TestQueue
 
 
 class ReceiveHandle(object):
@@ -34,7 +35,7 @@ class ReceiveHandle(object):
 
                 self.__lock.acquire()
                 if s.userId not in self.__user_queue:
-                    messagequeue = Queue.Queue()
+                    messagequeue = TestQueue()
                     messagehandle = UserMessageHandle(s.userId, self)
                     t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
                                          name='handle')  # 线程对象.

@@ -124,18 +124,6 @@ class LonghuRoom(Room):
             executeAction.data = action.SerializeToString()
             messageHandle.broadcast_watch_to_gateway(EXECUTE_ACTION, executeAction, self)
 
-    def getSendBetScore(self):
-        if 0 < len(self.betScores):
-            action = BaiRenBetScoreAction()
-            for b in self.betScores:
-                a = action.betScore.add()
-                a.ParseFromString(b)
-            self.betScores = []
-            executeAction = RecExecuteAction()
-            executeAction.actionType = 2
-            executeAction.data = action.SerializeToString()
-            return executeAction
-
     def recUpdateGameInfo(self, messageHandle):
         recUpdateGameInfo = RecUpdateGameInfo()
         recUpdateGameInfo.allocId = 8
