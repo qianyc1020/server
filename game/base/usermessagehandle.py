@@ -71,10 +71,12 @@ class UserMessageHandle(object):
             self.send_to_gateway(opcode, data, s.userId)
 
     def broadcast_watch_to_gateway(self, opcode, data, room):
+        gl.get_v("serverlogger").logger.info("发送之前")
         datas = []
         for s in room.watchSeats:
             datas.append(self.get_send_data(opcode, data, s.userId))
         self.__server_receive.sendQueue.putall(datas)
+        gl.get_v("serverlogger").logger.info("发送之后")
 
     def broadcast_all_to_gateway(self, opcode, data, room):
         self.broadcast_seat_to_gateway(opcode, data, room)

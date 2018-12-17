@@ -33,7 +33,7 @@ class TestQueue(Queue):
                             raise Full
                         self.not_full.wait(remaining)
             self.queue.extend(list)
-            self.unfinished_tasks += 1
+            self.unfinished_tasks += len(list)
             self.not_empty.notify()
         finally:
             self.not_full.release()
