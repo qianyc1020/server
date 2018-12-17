@@ -50,17 +50,11 @@ class UserMessageHandle(object):
         self.__server_receive.sendQueue.put(self.s.SerializeToString())
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.__userId if userId is None else userId))
 
-    def get_send_data(self, opcode, data, userId=None):
+    def get_send_data(self, opcode, data):
         self.send_data.Clear()
         self.send_data.opcode = opcode
         if data is not None:
             self.send_data.data = data.SerializeToString()
-        if userId is None:
-            self.s.userId = self.__userId
-        else:
-            self.s.userId = userId
-        self.s.data = self.send_data.SerializeToString()
-        return self.s.SerializeToString()
 
     def game_update_currency(self, gold, id, roomNo):
         data_account.update_currency(None, gold, 0, 0, 0, id)
@@ -72,9 +66,15 @@ class UserMessageHandle(object):
 
     def broadcast_watch_to_gateway(self, opcode, data, room):
         gl.get_v("serverlogger").logger.info("发送之前")
+        self.get_send_data(opcode, data)
         datas = []
         for s in room.watchSeats:
-            datas.append(self.get_send_data(opcode, data, s.userId))
+            if s.userId is None:
+                self.s.userId = self.__userId
+            else:
+                self.s.userId = s.userId
+            self.s.data = self.send_data.SerializeToString()
+            datas.append(self.s.SerializeToString())
         self.__server_receive.sendQueue.putall(datas)
         gl.get_v("serverlogger").logger.info("发送之后")
 
