@@ -188,7 +188,8 @@ class ClientReceive(object):
             if netMessage.opcode == LOGIN_SVR:
                 self.close()
             else:
-                gl.get_v("serverlogger").logger.info("转发%d消息给%d" % (netMessage.opcode, self.userId))
+                gl.get_v("serverlogger").logger.info(
+                    "转发%d消息给%d" % (netMessage.opcode, 0 if self.userId is None else self.userId))
                 self.sendQueue.put(data)
 
     def send_data(self, opcode, data):
