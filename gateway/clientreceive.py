@@ -181,7 +181,7 @@ class ClientReceive(object):
             except:
                 print traceback.print_exc()
 
-    def send(self, data):
+    def check_and_send(self, data):
         if len(data) > 0:
             netMessage = NetMessage()
             netMessage.ParseFromString(data)
@@ -191,6 +191,10 @@ class ClientReceive(object):
                 gl.get_v("serverlogger").logger.info(
                     "转发%d消息给%d" % (netMessage.opcode, 0 if self.userId is None else self.userId))
                 self.sendQueue.put(data)
+
+    def send(self, data):
+        if len(data) > 0:
+            self.sendQueue.put(data)
 
     def send_data(self, opcode, data):
         gl.get_v("serverlogger").logger.info("发送%d给%s" % (opcode, self.userId))

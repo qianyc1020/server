@@ -22,7 +22,7 @@ class ServerReceive(object):
                 s = GateWayMessage()
                 s.ParseFromString(message)
                 if s.userId in gl.get_v("clients"):
-                    gl.get_v("clients")[s.userId].send(s.data)
+                    gl.get_v("clients")[s.userId].check_and_send(s.data)
 
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
