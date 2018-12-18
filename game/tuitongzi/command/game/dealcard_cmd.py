@@ -7,14 +7,16 @@ import grpc
 
 import core.globalvar as gl
 from game.tuitongzi.command.game import gameover_cmd
+from game.tuitongzi.handle.playscore_handle import PlayScoreHandle
 from game.tuitongzi.mode.game_status import GameStatus
-from game.tuitongzi.timeout import play_timeout, send_scores_timeout, open_timeout
+from game.tuitongzi.timeout import play_timeout, open_timeout
 from game.tuitongzi.timeout.send_scores_timeout import SendScores
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
 from protocol.game.bairen_pb2 import BaiRenDealCardAction
 from protocol.game.zhipai_pb2 import ShuffleData
+from utils.TestQueue import TestQueue
 
 
 def execute(room, messageHandle):
@@ -67,11 +69,13 @@ def execute(room, messageHandle):
                                  name='open_timeout')  # 线程对象.
             t.start()
             gl.get_v("serverlogger").logger.info("开始下注")
+            playHandle = PlayScoreHandle(str(room.roomNo), TestQueue(), messageHandle)
+            gl.get_v("play-handle")[str(room.roomNo)] = playHandle
+            threading.Thread(target=playHandle.execute, name='playthread').start()  # 线程对象.
 
             if gl.get_v(str(room.roomNo) + "sendthread") is None:
                 e = SendScores(room.roomNo, messageHandle)
-                t = threading.Thread(target=e.execute, name='sendthread')  # 线程对象.
-                t.start()
+                threading.Thread(target=e.execute, name='sendthread').start()  # 线程对象.
                 gl.set_v(str(room.roomNo) + "sendthread", e)
     except:
         print traceback.print_exc()
