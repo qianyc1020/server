@@ -3,7 +3,6 @@ import Queue
 import traceback
 
 import core.globalvar as gl
-from game.niuniu.command.game import dealcard_cmd
 from game.niuniu.mode.game_status import GameStatus
 
 
@@ -19,6 +18,7 @@ class PlayScoreHandle(object):
         self._close = True
 
     def execute(self):
+        from game.niuniu.command.game import dealcard_cmd
         redis = gl.get_v("redis")
         while not self._close:
             try:
