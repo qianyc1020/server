@@ -13,6 +13,7 @@ from core import config
 from data.database import data_account
 from gateway.messagehandle import MessageHandle
 from protocol.base.base_pb2 import *
+from utils.TestQueue import TestQueue
 from utils.stringutils import StringUtils
 
 
@@ -28,7 +29,7 @@ class ClientReceive(object):
         self.messageQueue = None
         self.messageHandle = None
         self.lock = threading.Lock()
-        self.sendQueue = Queue.Queue()
+        self.sendQueue = TestQueue()
         self._close = False
         threading.Thread(target=self.relSend, name="clientsend").start()
         self.logining = False
@@ -64,7 +65,7 @@ class ClientReceive(object):
                 ttime = int(time.time())
                 if ttime == self.ttime:
                     self.times += 1
-                    if self.times == 250:
+                    if self.times == 25:
                         break
                 else:
                     self.times = 0
@@ -169,13 +170,14 @@ class ClientReceive(object):
     def relSend(self):
         while not self._close:
             try:
-                data = self.sendQueue.get(True, 20)
-                md5str = StringUtils.md5(self.newmd5keyBytes + data)
-                md5bytes = md5str.decode("utf-8")
-                datalen = struct.pack(">i", len(data) + len(md5bytes) + 4)
-                self.conns.sendall(datalen)
-                self.write(md5bytes)
-                self.conns.sendall(data)
+                datas = self.sendQueue.getall(20, True, 20)
+                for data in datas:
+                    md5str = StringUtils.md5(self.newmd5keyBytes + data)
+                    md5bytes = md5str.decode("utf-8")
+                    datalen = struct.pack(">i", len(data) + len(md5bytes) + 4)
+                    self.conns.sendall(datalen)
+                    self.write(md5bytes)
+                    self.conns.sendall(data)
             except Queue.Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:
@@ -235,7 +237,7 @@ class ClientReceive(object):
                 if self.userId in gl.get_v("clients"):
                     gl.get_v("clients")[self.userId].close()
                 gl.get_v("clients")[self.userId] = self
-                self.messageQueue = Queue.Queue()
+                self.messageQueue = TestQueue()
                 self.messageHandle = MessageHandle(self.userId)
                 t = threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
                                      name='handle')  # 线程对象.

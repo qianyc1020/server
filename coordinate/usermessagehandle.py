@@ -27,169 +27,170 @@ class UserMessageHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.get(True, 20)
-                if message.opcode == LOGIN_SVR:
-                    self.send_to_gateway(LOGIN_SVR, None)
-                elif message.opcode == CREATE_GAME:
-                    reqCreateGame = ReqCreateGame()
-                    reqCreateGame.ParseFromString(message.data)
-                    find = False
-                    games = gl.get_v("games")
-                    random.shuffle(games)
-                    for g in games:
-                        if g.alloc_id == reqCreateGame.allocId and g.state == RUNNING:
-                            self.sendToGame(g.uuid, CREATE_GAME, reqCreateGame.SerializeToString())
-                            find = True
-                            break
-                    if not find:
-                        recCreateGame = RecCreateGame()
-                        recCreateGame.state = 1
-                        self.send_to_gateway(CREATE_GAME, recCreateGame)
-                elif message.opcode == JOIN_GAME:
-                    reqJoinGame = ReqJoinGame()
-                    reqJoinGame.ParseFromString(message.data)
-                    find = False
-                    if self.__redis.exists(str(reqJoinGame.gameId) + "_gameId"):
-                        gameId = self.__redis.get(str(reqJoinGame.gameId) + "_gameId")
+                messages = queue.getall(20, True, 20)
+                for message in messages:
+                    if message.opcode == LOGIN_SVR:
+                        self.send_to_gateway(LOGIN_SVR, None)
+                    elif message.opcode == CREATE_GAME:
+                        reqCreateGame = ReqCreateGame()
+                        reqCreateGame.ParseFromString(message.data)
+                        find = False
                         games = gl.get_v("games")
                         random.shuffle(games)
                         for g in games:
-                            if g.alloc_id == gameId and g.state == RUNNING:
-                                self.sendToGame(g.uuid, message.opcode, message.data)
+                            if g.alloc_id == reqCreateGame.allocId and g.state == RUNNING:
+                                self.sendToGame(g.uuid, CREATE_GAME, reqCreateGame.SerializeToString())
                                 find = True
                                 break
-                    if not find:
-                        recJoinGame = RecJoinGame()
-                        recJoinGame.state = 1
-                        recJoinGame.gameId = reqJoinGame.gameId
-                        self.send_to_gateway(JOIN_GAME, recJoinGame)
-                elif message.opcode == APPLY_ENTER_MATCH:
-                    reqApplyEnterMatch = ReqApplyEnterMatch()
-                    reqApplyEnterMatch.ParseFromString(message.data)
-                    find = False
-                    games = gl.get_v("games")
-                    random.shuffle(games)
-                    for g in games:
-                        if g.alloc_id == reqApplyEnterMatch.allocId and g.state == RUNNING:
-                            self.sendToGame(g.uuid, APPLY_ENTER_MATCH, reqApplyEnterMatch.SerializeToString())
-                            find = True
+                        if not find:
+                            recCreateGame = RecCreateGame()
+                            recCreateGame.state = 1
+                            self.send_to_gateway(CREATE_GAME, recCreateGame)
+                    elif message.opcode == JOIN_GAME:
+                        reqJoinGame = ReqJoinGame()
+                        reqJoinGame.ParseFromString(message.data)
+                        find = False
+                        if self.__redis.exists(str(reqJoinGame.gameId) + "_gameId"):
+                            gameId = self.__redis.get(str(reqJoinGame.gameId) + "_gameId")
+                            games = gl.get_v("games")
+                            random.shuffle(games)
+                            for g in games:
+                                if g.alloc_id == gameId and g.state == RUNNING:
+                                    self.sendToGame(g.uuid, message.opcode, message.data)
+                                    find = True
+                                    break
+                        if not find:
+                            recJoinGame = RecJoinGame()
+                            recJoinGame.state = 1
+                            recJoinGame.gameId = reqJoinGame.gameId
+                            self.send_to_gateway(JOIN_GAME, recJoinGame)
+                    elif message.opcode == APPLY_ENTER_MATCH:
+                        reqApplyEnterMatch = ReqApplyEnterMatch()
+                        reqApplyEnterMatch.ParseFromString(message.data)
+                        find = False
+                        games = gl.get_v("games")
+                        random.shuffle(games)
+                        for g in games:
+                            if g.alloc_id == reqApplyEnterMatch.allocId and g.state == RUNNING:
+                                self.sendToGame(g.uuid, APPLY_ENTER_MATCH, reqApplyEnterMatch.SerializeToString())
+                                find = True
+                                recApplyEnterMatch = RecApplyEnterMatch()
+                                recApplyEnterMatch.state = recApplyEnterMatch.SUCCESS
+                                self.send_to_gateway(APPLY_ENTER_MATCH, recApplyEnterMatch)
+                                break
+                        if not find:
                             recApplyEnterMatch = RecApplyEnterMatch()
-                            recApplyEnterMatch.state = recApplyEnterMatch.SUCCESS
+                            recApplyEnterMatch.state = recApplyEnterMatch.FAILD
                             self.send_to_gateway(APPLY_ENTER_MATCH, recApplyEnterMatch)
+
+                    elif message.opcode == UPDATE_MATCH_INFO:
+                        reqUpdateMatchInfo = ReqUpdateMatchInfo()
+                        reqUpdateMatchInfo.ParseFromString(message.data)
+
+                        recUpdateMatchInfo = RecUpdateMatchInfo()
+                        for info in reqUpdateMatchInfo.infos:
+                            infos = recUpdateMatchInfo.infos.add()
+                            infos.allocId = info.allocId
+                            infos.level = info.level
+                            infos.games = 1
+                            infos.players = 5
+                            infos.totalPlayers = 10
+                        self.send_to_gateway(UPDATE_MATCH_INFO, recUpdateMatchInfo)
+
+                    elif message.opcode == BANK_INFO:
+                        reqBankInfo = ReqBankInfo()
+                        reqBankInfo.ParseFromString(message.data)
+
+                        account = data_account.query_account_by_id(None, self.__userId)
+
+                        recBankInfo = RecBankInfo()
+                        recBankInfo.card = int(account.bank_gold.quantize(Decimal('0')))
+                        recBankInfo.gold = int(account.bank_gold.quantize(Decimal('0')))
+                        recBankInfo.integral = int(account.bank_integral.quantize(Decimal('0')))
+                        self.send_to_gateway(BANK_INFO, recBankInfo)
+
+                    elif message.opcode == BANK_DEPOSIT or message.opcode == BANK_GET:
+                        reqOperateBank = ReqOperateBank()
+                        reqOperateBank.ParseFromString(message.data)
+                        account = data_account.query_account_by_id(None, self.__userId)
+                        if message.opcode == BANK_DEPOSIT and int(
+                                account.gold.quantize(Decimal('0'))) < reqOperateBank.card:
                             break
-                    if not find:
-                        recApplyEnterMatch = RecApplyEnterMatch()
-                        recApplyEnterMatch.state = recApplyEnterMatch.FAILD
-                        self.send_to_gateway(APPLY_ENTER_MATCH, recApplyEnterMatch)
+                        if message.opcode == BANK_DEPOSIT and int(
+                                account.gold.quantize(Decimal('0'))) < reqOperateBank.gold:
+                            break
+                        if message.opcode == BANK_DEPOSIT and int(
+                                account.integral.quantize(Decimal('0'))) < reqOperateBank.integral:
+                            break
+                        if message.opcode == BANK_GET and int(
+                                account.bank_gold.quantize(Decimal('0'))) < reqOperateBank.card:
+                            break
+                        if message.opcode == BANK_GET and int(
+                                account.bank_gold.quantize(Decimal('0'))) < reqOperateBank.gold:
+                            break
+                        if message.opcode == BANK_GET and int(
+                                account.bank_integral.quantize(Decimal('0'))) < reqOperateBank.integral:
+                            break
+                        gold = -reqOperateBank.card if message.opcode == BANK_DEPOSIT else reqOperateBank.card
+                        integral = -reqOperateBank.integral if message.opcode == BANK_DEPOSIT else reqOperateBank.integral
 
-                elif message.opcode == UPDATE_MATCH_INFO:
-                    reqUpdateMatchInfo = ReqUpdateMatchInfo()
-                    reqUpdateMatchInfo.ParseFromString(message.data)
+                        data_account.update_currency(None, gold, integral, -gold, -integral, self.__userId)
+                        data_gold.create_gold(2, self.__userId, self.__userId, gold)
 
-                    recUpdateMatchInfo = RecUpdateMatchInfo()
-                    for info in reqUpdateMatchInfo.infos:
-                        infos = recUpdateMatchInfo.infos.add()
-                        infos.allocId = info.allocId
-                        infos.level = info.level
-                        infos.games = 1
-                        infos.players = 5
-                        infos.totalPlayers = 10
-                    self.send_to_gateway(UPDATE_MATCH_INFO, recUpdateMatchInfo)
-
-                elif message.opcode == BANK_INFO:
-                    reqBankInfo = ReqBankInfo()
-                    reqBankInfo.ParseFromString(message.data)
-
-                    account = data_account.query_account_by_id(None, self.__userId)
-
-                    recBankInfo = RecBankInfo()
-                    recBankInfo.card = int(account.bank_gold.quantize(Decimal('0')))
-                    recBankInfo.gold = int(account.bank_gold.quantize(Decimal('0')))
-                    recBankInfo.integral = int(account.bank_integral.quantize(Decimal('0')))
-                    self.send_to_gateway(BANK_INFO, recBankInfo)
-
-                elif message.opcode == BANK_DEPOSIT or message.opcode == BANK_GET:
-                    reqOperateBank = ReqOperateBank()
-                    reqOperateBank.ParseFromString(message.data)
-                    account = data_account.query_account_by_id(None, self.__userId)
-                    if message.opcode == BANK_DEPOSIT and int(
-                            account.gold.quantize(Decimal('0'))) < reqOperateBank.card:
-                        break
-                    if message.opcode == BANK_DEPOSIT and int(
-                            account.gold.quantize(Decimal('0'))) < reqOperateBank.gold:
-                        break
-                    if message.opcode == BANK_DEPOSIT and int(
-                            account.integral.quantize(Decimal('0'))) < reqOperateBank.integral:
-                        break
-                    if message.opcode == BANK_GET and int(
-                            account.bank_gold.quantize(Decimal('0'))) < reqOperateBank.card:
-                        break
-                    if message.opcode == BANK_GET and int(
-                            account.bank_gold.quantize(Decimal('0'))) < reqOperateBank.gold:
-                        break
-                    if message.opcode == BANK_GET and int(
-                            account.bank_integral.quantize(Decimal('0'))) < reqOperateBank.integral:
-                        break
-                    gold = -reqOperateBank.card if message.opcode == BANK_DEPOSIT else reqOperateBank.card
-                    integral = -reqOperateBank.integral if message.opcode == BANK_DEPOSIT else reqOperateBank.integral
-
-                    data_account.update_currency(None, gold, integral, -gold, -integral, self.__userId)
-                    data_gold.create_gold(2, self.__userId, self.__userId, gold)
-
-                    recOprateBank = RecOprateBank()
-                    self.send_to_gateway(message.opcode, recOprateBank)
-                    self.update_currency(self.__userId)
-                    if self.__redis.exists(str(self.__userId) + "_room"):
-                        roomNo = self.__redis.get(str(self.__userId) + "_room")
-                        gameId = self.__redis.get(str(roomNo) + "_gameId")
-                        games = gl.get_v("games")
-                        random.shuffle(games)
-                        for g in games:
-                            if g.alloc_id == gameId and g.state == RUNNING:
-                                self.sendToGame(g.uuid, GAME_UPDATE_CURRENCY, None)
-                                break
-                elif message.opcode == UPDATE_RANK:
-                    reqGameRank = ReqGameRank()
-                    reqGameRank.ParseFromString(message.data)
-                    accounts = data_account.ranking_by_gold(None, reqGameRank.number)
-                    recGameRank = RecGameRank()
-                    i = 0
-                    for a in accounts:
-                        i += 1
-                        playerRankInfo = recGameRank.playerDatas.add()
-                        playerRankInfo.rankId = i
-                        playerRankInfo.playerId = a.id
-                        playerRankInfo.rankVal = int(a.gold.quantize(Decimal('0')))
-                        playerRankInfo.nick = a.nick_name
-                        playerRankInfo.headUrl = a.head_url
-                        if a.introduce is not None:
-                            playerRankInfo.introduce = a.introduce
-                        playerRankInfo.consumeVip = a.level
-                    self.send_to_gateway(message.opcode, recGameRank)
-                elif message.opcode == MATCH_RECORD_INFO:
-                    reqMatchRecordInfo = ReqMatchRecordInfo()
-                    reqMatchRecordInfo.ParseFromString(message.data)
-                    records = data_record.get_records(reqMatchRecordInfo.allocIds, self.__userId)
-                    self.send_to_gateway(message.opcode, records)
-                elif message.opcode == UPDATE_INTRODUCE:
-                    reqUpdateIntroduce = ReqUpdateIntroduce()
-                    reqUpdateIntroduce.ParseFromString(message.data)
-                    account = data_account.update_introduce(None, self.__userId, reqUpdateIntroduce.content)
-                    if None is not account:
-                        self.update_user_info(account)
-                elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
-                        99 < message.opcode < 200) or message.opcode == 38:
-                    if self.__redis.exists(str(self.__userId) + "_room"):
-                        roomNo = self.__redis.get(str(self.__userId) + "_room")
-                        gameId = self.__redis.get(str(roomNo) + "_gameId")
-                        games = gl.get_v("games")
-                        random.shuffle(games)
-                        for g in games:
-                            if g.alloc_id == gameId and g.state == RUNNING:
-                                self.sendToGame(g.uuid, message.opcode, message.data)
-                                break
-                else:
-                    gl.get_v("serverlogger").logger.info("无效协议%d，用户id%d" % (message.opcode, self.__userId))
+                        recOprateBank = RecOprateBank()
+                        self.send_to_gateway(message.opcode, recOprateBank)
+                        self.update_currency(self.__userId)
+                        if self.__redis.exists(str(self.__userId) + "_room"):
+                            roomNo = self.__redis.get(str(self.__userId) + "_room")
+                            gameId = self.__redis.get(str(roomNo) + "_gameId")
+                            games = gl.get_v("games")
+                            random.shuffle(games)
+                            for g in games:
+                                if g.alloc_id == gameId and g.state == RUNNING:
+                                    self.sendToGame(g.uuid, GAME_UPDATE_CURRENCY, None)
+                                    break
+                    elif message.opcode == UPDATE_RANK:
+                        reqGameRank = ReqGameRank()
+                        reqGameRank.ParseFromString(message.data)
+                        accounts = data_account.ranking_by_gold(None, reqGameRank.number)
+                        recGameRank = RecGameRank()
+                        i = 0
+                        for a in accounts:
+                            i += 1
+                            playerRankInfo = recGameRank.playerDatas.add()
+                            playerRankInfo.rankId = i
+                            playerRankInfo.playerId = a.id
+                            playerRankInfo.rankVal = int(a.gold.quantize(Decimal('0')))
+                            playerRankInfo.nick = a.nick_name
+                            playerRankInfo.headUrl = a.head_url
+                            if a.introduce is not None:
+                                playerRankInfo.introduce = a.introduce
+                            playerRankInfo.consumeVip = a.level
+                        self.send_to_gateway(message.opcode, recGameRank)
+                    elif message.opcode == MATCH_RECORD_INFO:
+                        reqMatchRecordInfo = ReqMatchRecordInfo()
+                        reqMatchRecordInfo.ParseFromString(message.data)
+                        records = data_record.get_records(reqMatchRecordInfo.allocIds, self.__userId)
+                        self.send_to_gateway(message.opcode, records)
+                    elif message.opcode == UPDATE_INTRODUCE:
+                        reqUpdateIntroduce = ReqUpdateIntroduce()
+                        reqUpdateIntroduce.ParseFromString(message.data)
+                        account = data_account.update_introduce(None, self.__userId, reqUpdateIntroduce.content)
+                        if None is not account:
+                            self.update_user_info(account)
+                    elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
+                            99 < message.opcode < 200) or message.opcode == 38:
+                        if self.__redis.exists(str(self.__userId) + "_room"):
+                            roomNo = self.__redis.get(str(self.__userId) + "_room")
+                            gameId = self.__redis.get(str(roomNo) + "_gameId")
+                            games = gl.get_v("games")
+                            random.shuffle(games)
+                            for g in games:
+                                if g.alloc_id == gameId and g.state == RUNNING:
+                                    self.sendToGame(g.uuid, message.opcode, message.data)
+                                    break
+                    else:
+                        gl.get_v("serverlogger").logger.info("无效协议%d，用户id%d" % (message.opcode, self.__userId))
 
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)

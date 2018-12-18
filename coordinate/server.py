@@ -1,10 +1,10 @@
 # coding=utf-8
-import Queue
 import threading
 
 import core.globalvar as gl
-from coordinate.receive_from_gateway import ReceiveHandle as gateway_handle
 from coordinate.receive_from_game import ReceiveHandle as game_handle
+from coordinate.receive_from_gateway import ReceiveHandle as gateway_handle
+from utils.TestQueue import TestQueue
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
 
@@ -22,8 +22,8 @@ class Server(object):
     @staticmethod
     def start():
         gl.set_v("serverlogger", LoggerUtils("coordinate"))
-        gl.set_v("from-gateway-queue", Queue.Queue())
-        gl.set_v("from-game-queue", Queue.Queue())
+        gl.set_v("from-gateway-queue", TestQueue())
+        gl.set_v("from-game-queue", TestQueue())
         gl.set_v("games", [])
         gl.set_v("redis", RedisUtils())
         gl.get_v("redis").startSubscribe(["gateway-coordinate", "game-coordinate"],

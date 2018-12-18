@@ -26,24 +26,25 @@ class ReceiveHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.get(True, 20)
-                s = GateWayMessage()
-                s.ParseFromString(message)
-                netMessage = NetMessage()
-                netMessage.ParseFromString(s.data)
-                gl.get_v("serverlogger").logger.info('''收到%d消息%d''' % (s.userId, netMessage.opcode))
+                messages = queue.getall(30, True, 20)
+                for message in messages:
+                    s = GateWayMessage()
+                    s.ParseFromString(message)
+                    netMessage = NetMessage()
+                    netMessage.ParseFromString(s.data)
+                    gl.get_v("serverlogger").logger.info('''收到%d消息%d''' % (s.userId, netMessage.opcode))
 
-                self.__lock.acquire()
-                if s.userId not in self.__user_queue:
-                    messagequeue = Queue.Queue()
-                    messagehandle = UserMessageHandle(s.userId, self)
-                    t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
-                                         name='handle')  # 线程对象.
-                    t.start()
-                    self.__user_queue[s.userId] = messagequeue
+                    self.__lock.acquire()
+                    if s.userId not in self.__user_queue:
+                        messagequeue = Queue.Queue()
+                        messagehandle = UserMessageHandle(s.userId, self)
+                        t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
+                                             name='handle')  # 线程对象.
+                        t.start()
+                        self.__user_queue[s.userId] = messagequeue
 
-                self.__user_queue[s.userId].put(netMessage)
-                self.__lock.release()
+                    self.__user_queue[s.userId].put(netMessage)
+                    self.__lock.release()
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

@@ -27,31 +27,33 @@ class ReceiveHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.get(True, 20)
                 netMessage = NetMessage()
-                netMessage.ParseFromString(message)
-                gl.get_v("serverlogger").logger.info('''收到游戏服消息%d''' % netMessage.opcode)
-                if netMessage.opcode == REGISTER_SERVICE:
-                    reqRegisterGame = ReqRegisterGame()
-                    reqRegisterGame.ParseFromString(netMessage.data)
-                    if reqRegisterGame.password == config.get("coordinate", "game_connect_pwd"):
-                        gl.get_v("games").append(Game(reqRegisterGame.alloc_id, reqRegisterGame.name, netMessage.id))
-                if netMessage.opcode == CHANGE_SERVICE_STATE:
-                    reqServiceState = ReqServiceState()
-                    self.changeServerState(netMessage.id, reqServiceState.state)
-                if netMessage.opcode == EXIT_GAME:
-                    userExit = UserExit()
-                    userExit.ParseFromString(netMessage.data)
-                    self.update_currency(userExit.playerId)
-                    self.send_to_gateway(EXIT_GAME, None, userExit.playerId)
-                if netMessage.opcode == APPLY_CHANGE_MATCH:
-                    userExit = UserExit()
-                    userExit.ParseFromString(netMessage.data)
-                    self.update_currency(userExit.playerId)
-                    recApplyChangeMatch = RecApplyChangeMatch()
-                    recApplyChangeMatch.gameId = userExit.roomNo
-                    recApplyChangeMatch.level = userExit.level
-                    self.send_to_gateway(APPLY_CHANGE_MATCH, recApplyChangeMatch, userExit.playerId)
+                messages = queue.getall(20, True, 20)
+                for message in messages:
+                    netMessage.ParseFromString(message)
+                    gl.get_v("serverlogger").logger.info('''收到游戏服消息%d''' % netMessage.opcode)
+                    if netMessage.opcode == REGISTER_SERVICE:
+                        reqRegisterGame = ReqRegisterGame()
+                        reqRegisterGame.ParseFromString(netMessage.data)
+                        if reqRegisterGame.password == config.get("coordinate", "game_connect_pwd"):
+                            gl.get_v("games").append(
+                                Game(reqRegisterGame.alloc_id, reqRegisterGame.name, netMessage.id))
+                    if netMessage.opcode == CHANGE_SERVICE_STATE:
+                        reqServiceState = ReqServiceState()
+                        self.changeServerState(netMessage.id, reqServiceState.state)
+                    if netMessage.opcode == EXIT_GAME:
+                        userExit = UserExit()
+                        userExit.ParseFromString(netMessage.data)
+                        self.update_currency(userExit.playerId)
+                        self.send_to_gateway(EXIT_GAME, None, userExit.playerId)
+                    if netMessage.opcode == APPLY_CHANGE_MATCH:
+                        userExit = UserExit()
+                        userExit.ParseFromString(netMessage.data)
+                        self.update_currency(userExit.playerId)
+                        recApplyChangeMatch = RecApplyChangeMatch()
+                        recApplyChangeMatch.gameId = userExit.roomNo
+                        recApplyChangeMatch.level = userExit.level
+                        self.send_to_gateway(APPLY_CHANGE_MATCH, recApplyChangeMatch, userExit.playerId)
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

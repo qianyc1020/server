@@ -18,11 +18,12 @@ class MessageHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.get(True, 20)
-                s = GateWayMessage()
-                s.userId = self.__userId
-                s.data = message.SerializeToString()
-                gl.get_v("redis").publish("gateway-coordinate", s.SerializeToString())
+                messages = queue.getall(20, True, 20)
+                for message in messages:
+                    s = GateWayMessage()
+                    s.userId = self.__userId
+                    s.data = message.SerializeToString()
+                    gl.get_v("redis").publish("gateway-coordinate", s.SerializeToString())
             except Empty:
                 print("messagehandle received timeout")
             except:

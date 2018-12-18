@@ -13,6 +13,7 @@ from game.longhu.server.command import chat_cmd, interaction_cmd, action_cmd, gp
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
+from utils.TestQueue import TestQueue
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
 from utils.stringutils import StringUtils
@@ -27,7 +28,7 @@ class Server(object):
     @staticmethod
     def start():
         gl.set_v("serverlogger", LoggerUtils("longhu"))
-        gl.set_v("message-handle-queue", Queue.Queue())
+        gl.set_v("message-handle-queue", TestQueue())
         gl.set_v("rebate-handle-queue", Queue.Queue())
         gl.set_v("play-handle", {})
         uuid = StringUtils.randomStr(32)
