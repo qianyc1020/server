@@ -23,11 +23,12 @@ class UserMessageHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.getall(20, True, 20)
-                if str(message.opcode) in gl.get_v("command"):
-                    gl.get_v("command")[str(message.opcode)].execute(self.__userId, message, self)
-                else:
-                    gl.get_v("serverlogger").logger.info("%d消息头不存在%d" % (self.__userId, message.opcode))
+                messages = queue.getall(20, True, 20)
+                for message in messages:
+                    if str(message.opcode) in gl.get_v("command"):
+                        gl.get_v("command")[str(message.opcode)].execute(self.__userId, message, self)
+                    else:
+                        gl.get_v("serverlogger").logger.info("%d消息头不存在%d" % (self.__userId, message.opcode))
 
             except Empty:
                 print("%d messagehandle received timeout close" % self.__userId)
