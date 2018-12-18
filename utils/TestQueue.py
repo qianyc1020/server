@@ -38,7 +38,7 @@ class TestQueue(Queue):
         finally:
             self.not_full.release()
 
-    def getall(self, block=True, timeout=None):
+    def getall(self, num, block=True, timeout=None):
         """Remove and return an item from the queue.
 
         If optional args 'block' is true and 'timeout' is None (the default),
@@ -67,7 +67,7 @@ class TestQueue(Queue):
                     if remaining <= 0.0:
                         raise Empty
                     self.not_empty.wait(remaining)
-            while self._qsize() and 10 > len(list):
+            while self._qsize() and num > len(list):
                 list.append(self._get())
             self.not_full.notify()
             return list

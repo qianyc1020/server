@@ -1,5 +1,4 @@
 # coding=utf-8
-import Queue
 import threading
 import time
 import traceback
@@ -10,7 +9,7 @@ import core.globalvar as gl
 from game.longhu.command.game import gameover_cmd
 from game.longhu.handle.playscore_handle import PlayScoreHandle
 from game.longhu.mode.game_status import GameStatus
-from game.longhu.timeout import play_timeout, send_scores_timeout
+from game.longhu.timeout import play_timeout
 from game.longhu.timeout.send_scores_timeout import SendScores
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction

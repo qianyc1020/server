@@ -1,5 +1,4 @@
 # coding=utf-8
-import Queue
 import os
 import socket
 import threading
@@ -9,15 +8,17 @@ import core.globalvar as gl
 import gateway
 import gateway.clientreceive
 from core import config
-from gateway.serverreceive import ServerReceive
-from utils.TestQueue import TestQueue
+from protocol.base.gateway_pb2 import GateWayMessage
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
 
 
 def messagehandle(msg):
     gl.get_v("serverlogger").logger.info("1收到消息")
-    gl.get_v("serverqueue").put(msg)
+    s = GateWayMessage()
+    s.ParseFromString(msg)
+    if s.userId in gl.get_v("clients"):
+        gl.get_v("clients")[s.userId].check_and_send(s.data)
     gl.get_v("serverlogger").logger.info("3收到消息")
 
 
@@ -27,15 +28,9 @@ class Server(object):
     def start():
         try:
             gl.set_v("serverlogger", LoggerUtils("gateway"))
-            gl.set_v("serverqueue", TestQueue())
             gl.set_v("redis", RedisUtils())
             gl.get_v("redis").startSubscribe(["server-gateway"], [messagehandle])
             gl.set_v("clients", {})
-
-            t = threading.Thread(target=ServerReceive.handle, args=(ServerReceive(), gl.get_v("serverqueue"),),
-                                 name='handle')
-            t.start()
-            gl.get_v("serverlogger").logger.info("serverqueue started")
 
             ip_port = ('', int(config.get("gateway", "port")))
             sk = socket.socket()
