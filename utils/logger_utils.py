@@ -50,5 +50,5 @@ class Formatter(logging.Formatter):
         else:
             # t = time.strftime("%Y-%m-%d %H:%M:%S", ct)
             # s = "%s,%03d" % (t, record.msecs)
-            s = str(time.time())
+            s = str(datetime.datetime.now())
         return s
