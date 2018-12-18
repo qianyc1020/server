@@ -67,7 +67,7 @@ class TestQueue(Queue):
                     if remaining <= 0.0:
                         raise Empty
                     self.not_empty.wait(remaining)
-            while self.qsize() and 10 > len(list):
+            while self._qsize() and 10 > len(list):
                 list.append(self._get())
             self.not_full.notify()
             return list
