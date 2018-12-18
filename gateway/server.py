@@ -18,6 +18,7 @@ from utils.redis_utils import RedisUtils
 def messagehandle(msg):
     gl.get_v("serverlogger").logger.info("1收到消息")
     gl.get_v("serverqueue").put(msg)
+    gl.get_v("serverlogger").logger.info("3收到消息")
 
 
 class Server(object):
