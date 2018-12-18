@@ -18,6 +18,7 @@ class ServerReceive(object):
         while not self.__close:
             try:
                 message = queue.get(True, 20)
+                gl.get_v("serverhgvlogger").logger.info("2收到消息")
                 s = GateWayMessage()
                 s.ParseFromString(message)
                 if s.userId in gl.get_v("clients"):

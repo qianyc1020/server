@@ -15,6 +15,7 @@ from utils.redis_utils import RedisUtils
 
 
 def messagehandle(msg):
+    gl.get_v("serverhgvlogger").logger.info("1收到消息")
     gl.get_v("serverqueue").put(msg)
 
 
