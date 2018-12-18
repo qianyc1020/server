@@ -26,7 +26,7 @@ class Server(object):
     def start():
         try:
             gl.set_v("serverlogger", LoggerUtils("gateway"))
-            gl.set_v("serverqueue", TestQueue)
+            gl.set_v("serverqueue", TestQueue())
             gl.set_v("redis", RedisUtils())
             gl.get_v("redis").startSubscribe(["server-gateway"], [messagehandle])
             gl.set_v("clients", {})
