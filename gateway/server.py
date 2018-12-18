@@ -10,6 +10,7 @@ import gateway
 import gateway.clientreceive
 from core import config
 from gateway.serverreceive import ServerReceive
+from utils.TestQueue import TestQueue
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
 
@@ -25,7 +26,7 @@ class Server(object):
     def start():
         try:
             gl.set_v("serverlogger", LoggerUtils("gateway"))
-            gl.set_v("serverqueue", Queue.Queue())
+            gl.set_v("serverqueue", TestQueue)
             gl.set_v("redis", RedisUtils())
             gl.get_v("redis").startSubscribe(["server-gateway"], [messagehandle])
             gl.set_v("clients", {})

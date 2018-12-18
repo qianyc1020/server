@@ -17,12 +17,13 @@ class ServerReceive(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.get(True, 20)
-                gl.get_v("serverlogger").logger.info("2收到消息")
-                s = GateWayMessage()
-                s.ParseFromString(message)
-                if s.userId in gl.get_v("clients"):
-                    gl.get_v("clients")[s.userId].check_and_send(s.data)
+                message = queue.getall(True, 20)
+                for m in message:
+                    gl.get_v("serverlogger").logger.info("2收到消息")
+                    s = GateWayMessage()
+                    s.ParseFromString(m)
+                    if s.userId in gl.get_v("clients"):
+                        gl.get_v("clients")[s.userId].check_and_send(s.data)
 
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
