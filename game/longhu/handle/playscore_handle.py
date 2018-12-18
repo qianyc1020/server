@@ -23,11 +23,7 @@ class PlayScoreHandle(object):
         pingRatio = float(config.get("longhu", "pingRatio"))
         while not self._close:
             try:
-                playScores = []
-                playScore = self.queue.get(True, 20)
-                playScores.append(playScore)
-                while self.queue.qsize() > 0 and len(playScores) < 10:
-                    playScores.append(self.queue.get())
+                playScores = self.queue.getall(True, 20)
                 redis.lock("lockroom_" + self.roomNo)
                 try:
                     room = redis.getobj("room_" + self.roomNo)

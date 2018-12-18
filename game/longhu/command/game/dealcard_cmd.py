@@ -16,6 +16,7 @@ from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
 from protocol.game.zhipai_pb2 import ShuffleData
+from utils.TestQueue import TestQueue
 
 
 def execute(room, messageHandle):
@@ -42,7 +43,7 @@ def execute(room, messageHandle):
                                  name='play_timeout')  # 线程对象.
             t.start()
             gl.get_v("serverlogger").logger.info("开始下注")
-            playHandle = PlayScoreHandle(str(room.roomNo), Queue.Queue())
+            playHandle = PlayScoreHandle(str(room.roomNo), TestQueue())
             gl.get_v("play-handle")[str(room.roomNo)] = playHandle
             threading.Thread(target=playHandle.execute, name='playthread').start()  # 线程对象.
 
