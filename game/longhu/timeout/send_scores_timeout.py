@@ -18,7 +18,7 @@ class SendScores(object):
     def execute(self):
 
         while not self._close:
-            time.sleep(0.18)
+            time.sleep(0.2)
 
             redis = gl.get_v("redis")
             if redis.exists("room_" + str(self.roomNo)):
