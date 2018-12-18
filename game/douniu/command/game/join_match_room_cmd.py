@@ -60,10 +60,9 @@ def execute(userId, message, messageHandle, room):
         douniuSeat.guanzhan = room.gameStatus > GameStatus.WAITING
         room.seats.append(douniuSeat)
 
-        t = threading.Thread(target=ready_timeout.execute,
-                             args=(room.gameCount, room.roomNo, messageHandle, userId, douniuSeat.intoDate),
-                             name='ready_timeout')  # 线程对象.
-        t.start()
+        threading.Thread(target=ready_timeout.execute,
+                         args=(room.gameCount, room.roomNo, messageHandle, userId, douniuSeat.intoDate),
+                         name='ready_timeout').start()  # 线程对象.
 
     room.recUpdateGameInfo(messageHandle)
     room.recUpdateScore(messageHandle, 0)

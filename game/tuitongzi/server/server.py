@@ -1,10 +1,11 @@
 # coding=utf-8
-import Queue
 import json
 import threading
 
 import core.globalvar as gl
 from core import config
+from game.base.game_details_handle import GameDetailsHandle
+from game.base.update_currency_handle import UpdateCurrencyHandle
 from game.tuitongzi.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
     jixudangzhuang_cmd, watchseat_cmd
 from game.base.game_handle import ReceiveHandle as game_handle
@@ -29,7 +30,9 @@ class Server(object):
     def start():
         gl.set_v("serverlogger", LoggerUtils("tuitongzi"))
         gl.set_v("message-handle-queue", TestQueue())
-        gl.set_v("rebate-handle-queue", Queue.Queue())
+        gl.set_v("rebate-handle-queue", TestQueue())
+        gl.set_v("update_currency", TestQueue())
+        gl.set_v("game_details", TestQueue())
         gl.set_v("play-handle", {})
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
@@ -40,10 +43,17 @@ class Server(object):
         threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
                          name='message-handle-queue').start()
 
-        rebateThread = threading.Thread(target=rebate_handle.handle,
-                                        args=(rebate_handle(), gl.get_v("rebate-handle-queue"),),
-                                        name='rebate-handle-queue')
-        rebateThread.start()
+        threading.Thread(target=rebate_handle.handle,
+                         args=(rebate_handle(), gl.get_v("rebate-handle-queue"),),
+                         name='rebate-handle-queue').start()
+
+        threading.Thread(target=GameDetailsHandle.handle,
+                         args=(GameDetailsHandle(), gl.get_v("game_details"),),
+                         name='game_details').start()
+
+        threading.Thread(target=UpdateCurrencyHandle.handle,
+                         args=(UpdateCurrencyHandle(), gl.get_v("update_currency"),),
+                         name='update_currency').start()
 
         Server.initCommand()
         Server.register()

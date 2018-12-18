@@ -29,9 +29,7 @@ class Server(object):
         gl.get_v("redis").startSubscribe(["gateway-coordinate", "game-coordinate"],
                                          [from_gateway_handle, from_game_handle])
 
-        t = threading.Thread(target=gateway_handle.handle, args=(gateway_handle(), gl.get_v("from-gateway-queue"),),
-                             name='from-gateway-queue')
-        t.start()
-        t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("from-game-queue"),),
-                             name='from-game-queue')
-        t.start()
+        threading.Thread(target=gateway_handle.handle, args=(gateway_handle(), gl.get_v("from-gateway-queue"),),
+                         name='from-gateway-queue').start()
+        threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("from-game-queue"),),
+                         name='from-game-queue').start()

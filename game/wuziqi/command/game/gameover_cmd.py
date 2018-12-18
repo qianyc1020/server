@@ -5,6 +5,8 @@ import core.globalvar as gl
 from game.wuziqi.command.game import roomover_cmd
 from game.wuziqi.mode.game_status import GameStatus
 from game.wuziqi.server.command import record_cmd
+from mode.base.create_game_details import CreateGameDetails
+from mode.base.update_currency import UpdateCurrency
 from protocol.base.base_pb2 import SETTLE_GAME
 from protocol.base.game_base_pb2 import RecSettleSingle
 from protocol.game.bairen_pb2 import BaiRenPlayerOneSetResult
@@ -23,6 +25,8 @@ def execute(room, messageHandle, userId):
 
         scores = ""
         users = ""
+        update_currency = []
+        game_details = []
         for seat in room.seats:
             users += "," + str(seat.userId)
             win = 0
@@ -33,7 +37,8 @@ def execute(room, messageHandle, userId):
 
             seat.score += win
             scores += "," + str(win)
-            messageHandle.game_update_currency(win, seat.userId, room.roomNo)
+            update_currency.append(UpdateCurrency(win, seat.userId, room.roomNo))
+            game_details.append(CreateGameDetails(seat.userId, 3, str(room.roomNo), win, 0, int(time.time())))
 
             daerSettlePlayerInfo = wuziqiPlayerOneSetResult.players.add()
             daerSettlePlayerInfo.playerId = seat.userId
@@ -49,6 +54,10 @@ def execute(room, messageHandle, userId):
         messageHandle.broadcast_seat_to_gateway(SETTLE_GAME, recSettleSingle, room)
 
         if len(users) > 0:
+            if 0 != len(update_currency):
+                gl.get_v("update_currency").putall(update_currency)
+            if 0 != len(game_details):
+                gl.get_v("game_details").putall(game_details)
             record_cmd.execute(room, users[1:], scores[1:])
         if 0 != len(room.seats):
             room.clear()

@@ -109,8 +109,7 @@ class RedisUtils(object):
 
     def startSubscribe(self, subject, handle):
         for i in range(0, len(subject)):
-            t = threading.Thread(target=self.sigleSubscribe, args=(subject[i], handle[i],), name=subject[i])
-            t.start()
+            threading.Thread(target=self.sigleSubscribe, args=(subject[i], handle[i],), name=subject[i]).start()
 
     def _ping(self):
         while True:

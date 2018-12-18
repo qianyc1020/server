@@ -144,10 +144,9 @@ class JinhuaRoom(Room):
             self.operationTime = int(time.time())
             roundAction.actionTime = 60
 
-            t = threading.Thread(target=play_timeout.execute,
-                                 args=(self.roomNo, messageHandle, operation.userId, self.gameCount, operation.round),
-                                 name='play_timeout')  # 线程对象.
-            t.start()
+            threading.Thread(target=play_timeout.execute,
+                             args=(self.roomNo, messageHandle, operation.userId, self.gameCount, operation.round),
+                             name='play_timeout').start()  # 线程对象.
             messageHandle.broadcast_seat_to_gateway(ROUND_ACTION, roundAction, self)
         else:
             roundAction.actionTime = 60 - int(time.time()) + self.operationTime

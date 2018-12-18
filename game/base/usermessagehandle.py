@@ -3,7 +3,6 @@ import traceback
 from Queue import Empty
 
 import core.globalvar as gl
-from data.database import data_account, data_gold
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 
@@ -24,7 +23,7 @@ class UserMessageHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                message = queue.get(True, 20)
+                message = queue.getall(20, True, 20)
                 if str(message.opcode) in gl.get_v("command"):
                     gl.get_v("command")[str(message.opcode)].execute(self.__userId, message, self)
                 else:
@@ -55,10 +54,6 @@ class UserMessageHandle(object):
         self.send_data.opcode = opcode
         if data is not None:
             self.send_data.data = data.SerializeToString()
-
-    def game_update_currency(self, gold, id, roomNo):
-        data_account.update_currency(None, gold, 0, 0, 0, id)
-        data_gold.create_gold(1, roomNo, id, gold)
 
     def broadcast_seat_to_gateway(self, opcode, data, room):
         for s in room.seats:

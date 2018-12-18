@@ -3,11 +3,12 @@ import threading
 import time
 
 import core.globalvar as gl
-from data.database import data_game_details
 from game.jinhua.mode.game_status import GameStatus
 from game.jinhua.server.command import record_cmd
 from game.jinhua.timeout import ready_timeout
+from mode.base.create_game_details import CreateGameDetails
 from mode.base.rebate import Rebate
+from mode.base.update_currency import UpdateCurrency
 from protocol.base.base_pb2 import SETTLE_GAME
 from protocol.base.game_base_pb2 import RecSettleSingle
 from protocol.game.jinhua_pb2 import JinhuaPlayerOneSetResult
@@ -24,6 +25,8 @@ def execute(room, messageHandle, wins):
         scores = ""
         users = ""
         rebates = []
+        update_currency = []
+        game_details = []
         for s in room.seats:
             jinhuaPlayerOneSetResult = JinhuaPlayerOneSetResult()
             for s1 in room.seats:
@@ -39,9 +42,10 @@ def execute(room, messageHandle, wins):
                         s1.score += winOrLose
                         scores += "," + str(winOrLose)
                         users += "," + str(s1.userId)
-                        messageHandle.game_update_currency(winOrLose, s1.userId, room.roomNo)
-                        data_game_details.create_game_details(s1.userId, 1, str(room.roomNo), winOrLose,
-                                                              int(0.5 * room.score), int(time.time()))
+
+                        update_currency.append(UpdateCurrency(winOrLose, s1.userId, room.roomNo))
+                        game_details.append(CreateGameDetails(s1.userId, 1, str(room.roomNo), winOrLose,
+                                                              int(0.5 * room.score), int(time.time())))
                         rebate = Rebate()
                         rebate.userId = s1.userId
                         rebate.card = int(0.5 * room.score)
@@ -56,6 +60,10 @@ def execute(room, messageHandle, wins):
             messageHandle.send_to_gateway(SETTLE_GAME, recSettleSingle, s.userId)
 
         gl.get_v("rebate-handle-queue").put(rebates)
+        if 0 != len(update_currency):
+            gl.get_v("update_currency").putall(update_currency)
+        if 0 != len(game_details):
+            gl.get_v("game_details").putall(game_details)
         record_cmd.execute(room, users[1:], scores[1:])
         room.clear()
 
@@ -69,7 +77,6 @@ def execute(room, messageHandle, wins):
             room.banker = wins[0].userId
         room.gameCount += 1
         for seat in room.seats:
-            t = threading.Thread(target=ready_timeout.execute,
+            threading.Thread(target=ready_timeout.execute,
                                  args=(room.gameCount, room.roomNo, messageHandle, seat.userId, seat.intoDate),
-                                 name='ready_timeout')  # 线程对象.
-            t.start()
+                                 name='ready_timeout').start()  # 线程对象.

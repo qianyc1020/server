@@ -23,19 +23,20 @@ class RebateHandle(object):
     def handle(self, queue):
         while not self.__close:
             try:
-                rebate = queue.get(True, 20)
-                js = "["
-                for r in rebate:
-                    js += json.dumps(r.__dict__)
-                    js += ","
-                js += "]"
-                js = js.replace(",]", "]")
-                reqdata = {'jsonArray': js}
-                data = urllib.urlencode(reqdata)
-                conn = httplib.HTTPConnection('scan.3gzy3.cn')
-                conn.request('POST', '/user/consumption', data, self.reqheaders)
-                res = conn.getresponse()
-
+                rebates = queue.getall(20, True, 20)
+                for rebate in rebates:
+                    js = "["
+                    for r in rebate:
+                        js += json.dumps(r.__dict__)
+                        js += ","
+                    js += "]"
+                    js = js.replace(",]", "]")
+                    reqdata = {'jsonArray': js}
+                    data = urllib.urlencode(reqdata)
+                    conn = httplib.HTTPConnection('scan.3gzy3.cn')
+                    conn.request('POST', '/user/consumption', data, self.reqheaders)
+                    res = conn.getresponse()
+                    conn.close()
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

@@ -127,10 +127,9 @@ class DouniuRoom(Room):
         douniuRecAsk = BaiRenRecAsk()
         douniuRecAsk.type = type
 
-        t = threading.Thread(target=operation_timeout.execute,
-                             args=(self.roomNo, messageHandle, self.gameStatus, self.gameCount),
-                             name='operation_timeout')  # 线程对象.
-        t.start()
+        threading.Thread(target=operation_timeout.execute,
+                         args=(self.roomNo, messageHandle, self.gameStatus, self.gameCount),
+                         name='operation_timeout').start()  # 线程对象.
         if 0 == userId:
             messageHandle.broadcast_seat_to_gateway(ASK_ACTION, douniuRecAsk, self)
         else:

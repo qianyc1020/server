@@ -274,6 +274,24 @@ def update_currency(connection, gold, integral, bankGold, bankIntegral, id):
             connection.close()
 
 
+def update_currencys(updates):
+    connection = None
+    try:
+        connection = mysql_connection.get_conn()
+        with connection.cursor() as cursor:
+            for update in updates:
+                sql = config.get("sql", "sql_update_currency") % (update.gold, 0, 0, 0, update.user_id)
+                cursor.execute(sql)
+            connection.commit()
+    except:
+        if connection is not None:
+            connection.rollback()
+        print traceback.print_exc()
+    finally:
+        if connection is not None:
+            connection.close()
+
+
 def update_introduce(connection, id, content):
     account = None
     close = connection is None

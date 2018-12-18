@@ -221,10 +221,8 @@ class HongbaoRoom(Room):
         self.startDate = int(time.time())
         self.executeAsk(messageHandle, 0, 2)
 
-        t = threading.Thread(target=qiang_timeout.execute, args=(self.roomNo, self.gameCount, messageHandle,),
-                             name='qiang_timeout')  # 线程对象.
-        t.start()
-
+        threading.Thread(target=qiang_timeout.execute, args=(self.roomNo, self.gameCount, messageHandle,),
+                         name='qiang_timeout').start()  # 线程对象.
         hongbaolist = []
         zonge = self.bankerScore - 10
         for i in range(0, 10):

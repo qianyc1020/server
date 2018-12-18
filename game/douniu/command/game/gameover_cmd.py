@@ -5,11 +5,12 @@ import time
 import grpc
 
 import core.globalvar as gl
-from data.database import data_game_details
 from game.douniu.mode.game_status import GameStatus
 from game.douniu.server.command import record_cmd
 from game.douniu.timeout import ready_timeout
+from mode.base.create_game_details import CreateGameDetails
 from mode.base.rebate import Rebate
+from mode.base.update_currency import UpdateCurrency
 from protocol.base.base_pb2 import SETTLE_GAME
 from protocol.base.game_base_pb2 import RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -81,6 +82,8 @@ def execute(room, messageHandle):
         users = ""
         scores = ""
         rebates = []
+        update_currency = []
+        game_details = []
         douniuPlayerOneSetResult = DouniuPlayerOneSetResult()
         for userSettleResult in settleResult.userSettleResule:
             seat = room.getSeatByUserId(userSettleResult.userId)
@@ -93,17 +96,19 @@ def execute(room, messageHandle):
                 scores += "," + str(winOrLose[userSettleResult.userId])
                 seat.score += winOrLose[userSettleResult.userId]
                 daerSettlePlayerInfo.score = winOrLose[userSettleResult.userId]
-                messageHandle.game_update_currency(winOrLose[userSettleResult.userId], seat.userId, room.roomNo)
-                data_game_details.create_game_details(userSettleResult.userId, 2, str(room.roomNo),
+
+                update_currency.append(UpdateCurrency(winOrLose[userSettleResult.userId], seat.userId, room.roomNo))
+                game_details.append(CreateGameDetails(userSettleResult.userId, 2, str(room.roomNo),
                                                       winOrLose[userSettleResult.userId], int(0.5 * room.score),
-                                                      int(time.time()))
+                                                      int(time.time())))
             else:
                 scores += "," + str(-bankerWin)
                 seat.score -= bankerWin
                 daerSettlePlayerInfo.score = -bankerWin
-                messageHandle.game_update_currency(-bankerWin, seat.userId, room.roomNo)
-                data_game_details.create_game_details(userSettleResult.userId, 2, str(room.roomNo), -bankerWin,
-                                                      int(0.5 * room.score), int(time.time()))
+
+                update_currency.append(UpdateCurrency(-bankerWin, seat.userId, room.roomNo))
+                game_details.append(CreateGameDetails(userSettleResult.userId, 2, str(room.roomNo), -bankerWin,
+                                                      int(0.5 * room.score), int(time.time())))
             daerSettlePlayerInfo.totalScore = seat.score
 
             rebate = Rebate()
@@ -112,6 +117,10 @@ def execute(room, messageHandle):
             rebates.append(rebate)
 
         gl.get_v("rebate-handle-queue").put(rebates)
+        if 0 != len(update_currency):
+            gl.get_v("update_currency").putall(update_currency)
+        if 0 != len(game_details):
+            gl.get_v("game_details").putall(game_details)
         recSettleSingle = RecSettleSingle()
         recSettleSingle.allocId = 2
         recSettleSingle.curPlayCount = room.gameCount + 1
@@ -130,7 +139,6 @@ def execute(room, messageHandle):
             room.exit(l, messageHandle)
         room.gameCount += 1
         for seat in room.seats:
-            t = threading.Thread(target=ready_timeout.execute,
-                                 args=(room.gameCount, room.roomNo, messageHandle, seat.userId, seat.intoDate),
-                                 name='ready_timeout')  # 线程对象.
-            t.start()
+            threading.Thread(target=ready_timeout.execute,
+                             args=(room.gameCount, room.roomNo, messageHandle, seat.userId, seat.intoDate),
+                             name='ready_timeout').start()  # 线程对象.

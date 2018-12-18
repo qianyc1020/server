@@ -6,12 +6,13 @@ import grpc
 
 import core.globalvar as gl
 from core import config
-from data.database import data_game_details
 from game.tuitongzi.command.game import roomover_cmd
 from game.tuitongzi.mode.game_status import GameStatus
 from game.tuitongzi.server.command import record_cmd
 from game.tuitongzi.timeout import start_timeout
+from mode.base.create_game_details import CreateGameDetails
 from mode.base.rebate import Rebate
+from mode.base.update_currency import UpdateCurrency
 from protocol.base.base_pb2 import EXECUTE_ACTION, SETTLE_GAME, ASK_XIAZHUANG
 from protocol.base.game_base_pb2 import RecExecuteAction, RecSettleSingle
 from protocol.game import zhipai_pb2_grpc
@@ -73,6 +74,8 @@ def execute(room, messageHandle):
         dayingjiaScore = 0
         dashujia = 0
         dashujiaScore = 0
+        update_currency = []
+        game_details = []
         for k in userScore:
             if dayingjiaScore < userScore[k]:
                 dayingjia = k
@@ -90,9 +93,9 @@ def execute(room, messageHandle):
                 scores += "," + str(userwin)
                 users += "," + str(k)
                 if 0 != userwin:
-                    messageHandle.game_update_currency(userwin, k, room.roomNo)
-                    data_game_details.create_game_details(k, 7, str(room.roomNo), userwin, userScore[k] - userwin,
-                                                          int(time.time()))
+                    update_currency.append(UpdateCurrency(userwin, k, room.roomNo))
+                    game_details.append(CreateGameDetails(k, 7, str(room.roomNo), userwin, userScore[k] - userwin,
+                                                          int(time.time())))
                 if 0 < userScore[k] - userwin:
                     rebate = Rebate()
                     rebate.userId = k
@@ -155,9 +158,9 @@ def execute(room, messageHandle):
         if 1 != room.banker:
             bankerFinalWin = bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))
             if 0 != bankerFinalWin:
-                messageHandle.game_update_currency(bankerFinalWin, room.banker, room.roomNo)
-                data_game_details.create_game_details(room.banker, 7, str(room.roomNo), bankerFinalWin,
-                                                      bankerWin - bankerFinalWin, int(time.time()))
+                update_currency.append(UpdateCurrency(bankerFinalWin, room.banker, room.roomNo))
+                game_details.append(CreateGameDetails(room.banker, 7, str(room.roomNo), bankerFinalWin,
+                                                      bankerWin - bankerFinalWin, int(time.time())))
                 if 0 < bankerWin - bankerFinalWin:
                     rebate = Rebate()
                     rebate.userId = room.banker
@@ -172,6 +175,10 @@ def execute(room, messageHandle):
 
         if 0 < len(rebates):
             gl.get_v("rebate-handle-queue").put(rebates)
+        if 0 != len(update_currency):
+            gl.get_v("update_currency").putall(update_currency)
+        if 0 != len(game_details):
+            gl.get_v("game_details").putall(game_details)
         daerSettlePlayerInfo.playerId = room.banker
         daerSettlePlayerInfo.score = bankerWin
 
@@ -212,8 +219,7 @@ def execute(room, messageHandle):
         if 0 != len(room.watchSeats):
             room.clear()
             room.gameCount += 1
-            t = threading.Thread(target=start_timeout.execute, args=(room.roomNo, messageHandle,),
-                                 name='start_timeout')  # 线程对象.
-            t.start()
+            threading.Thread(target=start_timeout.execute, args=(room.roomNo, messageHandle,),
+                             name='start_timeout').start()  # 线程对象.
         else:
             roomover_cmd.execute(room, messageHandle)

@@ -41,10 +41,9 @@ class Server(object):
                 reload(gateway.clientreceive)
                 from gateway.clientreceive import ClientReceive
                 conn, address = sk.accept()
-                t = threading.Thread(target=ClientReceive.receive,
-                                     args=(ClientReceive(), conn, '''%s:%d''' % (address[0], address[1]),),
-                                     name='clientreceive')  # 线程对象.
-                t.start()
+                threading.Thread(target=ClientReceive.receive,
+                                 args=(ClientReceive(), conn, '''%s:%d''' % (address[0], address[1]),),
+                                 name='clientreceive').start()  # 线程对象.
         except:
             print traceback.print_exc()
             for (c, v) in gl.get_v("clients").items():

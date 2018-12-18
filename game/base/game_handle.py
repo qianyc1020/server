@@ -2,7 +2,6 @@
 import Queue
 import threading
 import traceback
-from Queue import Empty
 
 import core.globalvar as gl
 from game.base.usermessagehandle import UserMessageHandle
@@ -36,16 +35,15 @@ class ReceiveHandle(object):
 
                     self.__lock.acquire()
                     if s.userId not in self.__user_queue:
-                        messagequeue = Queue.Queue()
+                        messagequeue = TestQueue()
                         messagehandle = UserMessageHandle(s.userId, self)
-                        t = threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
-                                             name='handle')  # 线程对象.
-                        t.start()
+                        threading.Thread(target=UserMessageHandle.handle, args=(messagehandle, messagequeue,),
+                                         name='handle').start()  # 线程对象.
                         self.__user_queue[s.userId] = messagequeue
 
                     self.__user_queue[s.userId].put(netMessage)
                     self.__lock.release()
-            except Empty:
+            except Queue.Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:
                 print traceback.print_exc()
@@ -53,8 +51,9 @@ class ReceiveHandle(object):
     def relSend(self):
         while not self.__close:
             try:
-                s = self.sendQueue.get(True, 20)
-                gl.get_v("redis").publish("server-gateway", s)
+                ss = self.sendQueue.getall(20, True, 20)
+                for s in ss:
+                    gl.get_v("redis").publish("server-gateway", s)
             except Queue.Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

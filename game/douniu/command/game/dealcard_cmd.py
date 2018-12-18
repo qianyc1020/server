@@ -5,6 +5,7 @@ import grpc
 
 import core.globalvar as gl
 from game.douniu.mode.game_status import GameStatus
+from mode.base.update_currency import UpdateCurrency
 from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
@@ -19,11 +20,15 @@ def execute(room, messageHandle):
             conn = grpc.insecure_channel('127.0.0.1:50002')
             client = zhipai_pb2_grpc.ZhipaiStub(channel=conn)
             shuffleResult = client.shuffle(shuffleData)
+            update_currency = []
             for seat in room.seats:
                 seat.initialCards = []
                 seat.initialCards.extend(shuffleResult.cardlist[5 * seat.seatNo - 5:5 * seat.seatNo])
                 seat.score -= int(0.5 * room.score)
-                messageHandle.game_update_currency(-int(0.5 * room.score), seat.userId, room.roomNo)
+                update_currency.append(UpdateCurrency(-int(0.5 * room.score), seat.userId, room.roomNo))
+
+            if 0 != len(update_currency):
+                gl.get_v("update_currency").putall(update_currency)
             gl.get_v("serverlogger").logger.info("发牌完成")
         executeAction = RecExecuteAction()
         if room.gameStatus == GameStatus.PLAYING:

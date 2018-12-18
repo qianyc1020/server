@@ -239,9 +239,8 @@ class ClientReceive(object):
                 gl.get_v("clients")[self.userId] = self
                 self.messageQueue = TestQueue()
                 self.messageHandle = MessageHandle(self.userId)
-                t = threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
-                                     name='handle')  # 线程对象.
-                t.start()
+                threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
+                                 name='handle').start()  # 线程对象.
                 self.update_user_info(account)
                 self.update_currency(account)
 

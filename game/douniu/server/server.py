@@ -1,10 +1,11 @@
 # coding=utf-8
-import Queue
 import json
 import threading
 
 import core.globalvar as gl
 from core import config
+from game.base.game_details_handle import GameDetailsHandle
+from game.base.update_currency_handle import UpdateCurrencyHandle
 from game.douniu.command.client import match_cmd, reconnection_cmd, exit_cmd, ready_cmd, change_match_cmd
 from game.base.game_handle import ReceiveHandle as game_handle
 from game.base.rebate_handle import RebateHandle as rebate_handle
@@ -12,6 +13,7 @@ from game.douniu.server.command import chat_cmd, interaction_cmd, action_cmd, gp
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import ReqRegisterGame
+from utils.TestQueue import TestQueue
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
 from utils.stringutils import StringUtils
@@ -26,22 +28,30 @@ class Server(object):
     @staticmethod
     def start():
         gl.set_v("serverlogger", LoggerUtils("douniu"))
-        gl.set_v("message-handle-queue", Queue.Queue())
-        gl.set_v("rebate-handle-queue", Queue.Queue())
+        gl.set_v("message-handle-queue", TestQueue())
+        gl.set_v("rebate-handle-queue", TestQueue())
+        gl.set_v("update_currency", TestQueue())
+        gl.set_v("game_details", TestQueue())
         uuid = StringUtils.randomStr(32)
         gl.set_v("uuid", uuid)
         gl.set_v("redis", RedisUtils())
         gl.get_v("redis").startSubscribe([uuid], [message_handle])
         gl.set_v("match_info", json.loads(config.get("douniu", "match")))
 
-        t = threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
-                             name='message-handle-queue')
-        t.start()
+        threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("message-handle-queue"),),
+                         name='message-handle-queue').start()
 
-        rebateThread = threading.Thread(target=rebate_handle.handle,
-                                        args=(rebate_handle(), gl.get_v("rebate-handle-queue"),),
-                                        name='rebate-handle-queue')
-        rebateThread.start()
+        threading.Thread(target=rebate_handle.handle,
+                         args=(rebate_handle(), gl.get_v("rebate-handle-queue"),),
+                         name='rebate-handle-queue').start()
+
+        threading.Thread(target=GameDetailsHandle.handle,
+                         args=(GameDetailsHandle(), gl.get_v("game_details"),),
+                         name='game_details').start()
+
+        threading.Thread(target=UpdateCurrencyHandle.handle,
+                         args=(UpdateCurrencyHandle(), gl.get_v("update_currency"),),
+                         name='update_currency').start()
 
         Server.initCommand()
         Server.register()

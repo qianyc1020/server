@@ -24,3 +24,24 @@ def create_gold(type, source, user_id, gold):
     finally:
         if connection is not None:
             connection.close()
+
+
+def create_golds(type, updates):
+    from data.database import data_account
+    connection = None
+    try:
+        connection = mysql_connection.get_conn()
+        with connection.cursor() as cursor:
+            for update in updates:
+                account = data_account.query_account_by_id(connection, update.user_id)
+                sql = config.get("sql", "sql_create_gold") % (
+                    type, update.roomNo, update.user_id, update.gold, account.gold, int(time.time()))
+                cursor.execute(sql)
+            connection.commit()
+    except:
+        print traceback.print_exc()
+        if connection is not None:
+            connection.rollback()
+    finally:
+        if connection is not None:
+            connection.close()

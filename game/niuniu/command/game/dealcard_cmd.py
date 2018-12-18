@@ -53,13 +53,10 @@ def execute(room, messageHandle):
             room.gameStatus = GameStatus.PLAYING
             room.historyActions.append(executeAction.SerializeToString())
             room.executeAsk(messageHandle, 0, 2)
-            t = threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle, room.gameCount,),
-                                 name='play_timeout')  # 线程对象.
-            t.start()
-
-            t = threading.Thread(target=open_timeout.execute, args=(room.roomNo, room.gameCount, messageHandle,),
-                                 name='open_timeout')  # 线程对象.
-            t.start()
+            threading.Thread(target=play_timeout.execute, args=(room.roomNo, messageHandle, room.gameCount,),
+                             name='play_timeout').start()  # 线程对象.
+            threading.Thread(target=open_timeout.execute, args=(room.roomNo, room.gameCount, messageHandle,),
+                             name='open_timeout').start()  # 线程对象.
             gl.get_v("serverlogger").logger.info("开始下注")
             playHandle = PlayScoreHandle(str(room.roomNo), TestQueue(), messageHandle)
             gl.get_v("play-handle")[str(room.roomNo)] = playHandle
