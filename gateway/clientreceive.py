@@ -64,7 +64,7 @@ class ClientReceive(object):
                 ttime = int(time.time())
                 if ttime == self.ttime:
                     self.times += 1
-                    if self.times == 25:
+                    if self.times == 250:
                         break
                 else:
                     self.times = 0
