@@ -2,8 +2,8 @@
 import socket
 import threading
 import traceback
+from Queue import Queue
 
-import queue
 from phttphandle import HttpRequest
 
 
@@ -25,7 +25,7 @@ class WorkThread(threading.Thread):
 class ThreadPoolManger:
     def __init__(self, thread_number):
         self.thread_number = thread_number
-        self.work_queue = queue.Queue()
+        self.work_queue = Queue()
         for i in range(self.thread_number):  # 生成一些线程来执行任务
             thread = WorkThread(self.work_queue)
             thread.start()
