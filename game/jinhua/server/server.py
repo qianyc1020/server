@@ -6,7 +6,7 @@ import core.globalvar as gl
 from core import config
 from game.base.game_details_handle import GameDetailsHandle
 from game.base.update_currency_handle import UpdateCurrencyHandle
-from game.jinhua.command.client import match_cmd, reconnection_cmd, exit_cmd, ready_cmd, change_match_cmd
+from game.jinhua.command.client import match_cmd, reconnection_cmd, exit_cmd, ready_cmd, change_match_cmd, change_online
 from game.base.game_handle import ReceiveHandle as game_handle
 from game.base.rebate_handle import RebateHandle as rebate_handle
 from game.jinhua.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
@@ -69,6 +69,7 @@ class Server(object):
         gl.get_v("command")["38"] = interaction_cmd
         gl.get_v("command")["102"] = change_match_cmd
         gl.get_v("command")["1004"] = currency_cmd
+        gl.get_v("command")["1005"] = change_online
         gl.get_v("command")["10001"] = match_cmd
 
     @staticmethod

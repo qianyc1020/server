@@ -6,7 +6,7 @@ from core import config
 from game.base.game_details_handle import GameDetailsHandle
 from game.base.update_currency_handle import UpdateCurrencyHandle
 from game.wuziqi.command.client import reconnection_cmd, exit_cmd, create_room_cmd, join_room_cmd, set_amount_cmd, \
-    ready_cmd, lose_cmd
+    ready_cmd, lose_cmd, change_online
 from game.base.game_handle import ReceiveHandle as game_handle
 from game.wuziqi.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
 from protocol.base.base_pb2 import NetMessage, REGISTER_SERVICE
@@ -65,6 +65,7 @@ class Server(object):
         gl.get_v("command")["104"] = set_amount_cmd
         gl.get_v("command")["105"] = lose_cmd
         gl.get_v("command")["1004"] = currency_cmd
+        gl.get_v("command")["1005"] = change_online
 
     @staticmethod
     def send_to_gateway(self, opcode, data):

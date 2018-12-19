@@ -7,7 +7,7 @@ from core import config
 from game.base.game_details_handle import GameDetailsHandle
 from game.base.update_currency_handle import UpdateCurrencyHandle
 from game.tuitongzi.command.client import match_cmd, reconnection_cmd, exit_cmd, shangzhuang_cmd, xiazhuang_cmd, \
-    jixudangzhuang_cmd, watchseat_cmd
+    jixudangzhuang_cmd, watchseat_cmd, change_online
 from game.base.game_handle import ReceiveHandle as game_handle
 from game.base.rebate_handle import RebateHandle as rebate_handle
 from game.tuitongzi.server.command import chat_cmd, interaction_cmd, action_cmd, gps_cmd, voice_cmd, currency_cmd
@@ -73,6 +73,7 @@ class Server(object):
         gl.get_v("command")["122"] = jixudangzhuang_cmd
         gl.get_v("command")["124"] = watchseat_cmd
         gl.get_v("command")["1004"] = currency_cmd
+        gl.get_v("command")["1005"] = change_online
         gl.get_v("command")["10001"] = match_cmd
 
     @staticmethod

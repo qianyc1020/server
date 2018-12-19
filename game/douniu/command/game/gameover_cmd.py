@@ -133,7 +133,7 @@ def execute(room, messageHandle):
 
         levelSeat = []
         for s in room.seats:
-            if s.score < room.leaveScore:
+            if s.score < room.leaveScore or not s.online:
                 levelSeat.append(s.userId)
         for l in levelSeat:
             room.exit(l, messageHandle)

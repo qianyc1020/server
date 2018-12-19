@@ -16,7 +16,7 @@ class MessageHandle(object):
         self.__close = True
 
     def handle(self, queue):
-        while not self.__close:
+        while True:
             try:
                 messages = queue.getall(20, True, 20)
                 for message in messages:
@@ -26,5 +26,7 @@ class MessageHandle(object):
                     gl.get_v("redis").publish("gateway-coordinate", s.SerializeToString())
             except Empty:
                 print("messagehandle received timeout")
+                if self.__close:
+                    break
             except:
                 print traceback.print_exc()

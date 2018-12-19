@@ -13,6 +13,7 @@ from core import config
 from data.database import data_account
 from gateway.messagehandle import MessageHandle
 from protocol.base.base_pb2 import *
+from protocol.base.game_base_pb2 import ReqUpdatePlayerOnline
 from utils.TestQueue import TestQueue
 from utils.stringutils import StringUtils
 
@@ -35,6 +36,7 @@ class ClientReceive(object):
         self.logining = False
         self.times = 0
         self.ttime = int(time.time())
+        self.redis = gl.get_v("redis")
 
     def receive(self, conn, address):
         """
@@ -70,8 +72,8 @@ class ClientReceive(object):
                 else:
                     self.times = 0
                     self.ttime = ttime
-                if length > 512000:
-                    gl.get_v("serverlogger").logger.info("packet length more than 500kb")
+                if length > 102400:
+                    gl.get_v("serverlogger").logger.info("packet length more than 100kb")
                     break
                 md5bytes = self.readStringBytes(conn)
                 length -= len(md5bytes) + 4
@@ -121,6 +123,13 @@ class ClientReceive(object):
             return
         self._close = True
         if self.messageHandle is not None:
+            if self.redis.exists(str(self.userId) + "_room"):
+                online = ReqUpdatePlayerOnline()
+                online.state = False
+                data = NetMessage()
+                data.opcode = CHANGE_ONLINE
+                data.data = online.SerializeToString()
+                self.messageQueue.put(data)
             self.messageHandle.close()
         try:
             if self.conns is not None:
@@ -241,6 +250,13 @@ class ClientReceive(object):
                 self.messageHandle = MessageHandle(self.userId)
                 threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
                                  name='handle').start()  # 线程对象.
+                if self.redis.exists(str(self.userId) + "_room"):
+                    online = ReqUpdatePlayerOnline()
+                    online.state = True
+                    data = NetMessage()
+                    data.opcode = CHANGE_ONLINE
+                    data.data = online.SerializeToString()
+                    self.messageQueue.put(data)
                 self.update_user_info(account)
                 self.update_currency(account)
 

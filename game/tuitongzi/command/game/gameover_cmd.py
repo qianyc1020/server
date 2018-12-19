@@ -219,6 +219,12 @@ def execute(room, messageHandle):
         if 0 != len(room.watchSeats):
             room.clear()
             room.gameCount += 1
+            levelSeat = []
+            for s in room.seats:
+                if s.score < room.leaveScore or not s.online:
+                    levelSeat.append(s.userId)
+            for l in levelSeat:
+                room.exit(l, messageHandle)
             threading.Thread(target=start_timeout.execute, args=(room.roomNo, messageHandle,),
                              name='start_timeout').start()  # 线程对象.
         else:

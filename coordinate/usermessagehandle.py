@@ -179,7 +179,7 @@ class UserMessageHandle(object):
                         if None is not account:
                             self.update_user_info(account)
                     elif (5 < message.opcode < 23) or (27 < message.opcode < 34) or (
-                            99 < message.opcode < 200) or message.opcode == 38:
+                            99 < message.opcode < 200) or message.opcode == 38 or message.opcode == 1005:
                         if self.__redis.exists(str(self.__userId) + "_room"):
                             roomNo = self.__redis.get(str(self.__userId) + "_room")
                             gameId = self.__redis.get(str(roomNo) + "_gameId")
