@@ -44,8 +44,8 @@ class PlayScoreHandle(object):
                             if seat.playScore + betScore.score > seat.score:
                                 break
                             total = 0
-                            for p in room.positions:
-                                total += p.totalScore
+                            for b in room.positions:
+                                total += b.totalScore
 
                             if total + betScore.score > room.bankerScore / 3:
                                 break
