@@ -38,15 +38,15 @@ class ReceiveHandle(object):
                         if reqRegisterGame.password == config.get("coordinate", "game_connect_pwd"):
                             gl.get_v("games").append(
                                 Game(reqRegisterGame.alloc_id, reqRegisterGame.name, netMessage.id))
-                    if netMessage.opcode == CHANGE_SERVICE_STATE:
+                    elif netMessage.opcode == CHANGE_SERVICE_STATE:
                         reqServiceState = ReqServiceState()
                         self.changeServerState(netMessage.id, reqServiceState.state)
-                    if netMessage.opcode == EXIT_GAME:
+                    elif netMessage.opcode == EXIT_GAME:
                         userExit = UserExit()
                         userExit.ParseFromString(netMessage.data)
                         self.update_currency(userExit.playerId)
                         self.send_to_gateway(EXIT_GAME, None, userExit.playerId)
-                    if netMessage.opcode == APPLY_CHANGE_MATCH:
+                    elif netMessage.opcode == APPLY_CHANGE_MATCH:
                         userExit = UserExit()
                         userExit.ParseFromString(netMessage.data)
                         self.update_currency(userExit.playerId)

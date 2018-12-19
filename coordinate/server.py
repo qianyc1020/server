@@ -4,6 +4,7 @@ import threading
 import core.globalvar as gl
 from coordinate.receive_from_game import ReceiveHandle as game_handle
 from coordinate.receive_from_gateway import ReceiveHandle as gateway_handle
+from notice import server
 from utils.TestQueue import TestQueue
 from utils.logger_utils import LoggerUtils
 from utils.redis_utils import RedisUtils
@@ -33,3 +34,4 @@ class Server(object):
                          name='from-gateway-queue').start()
         threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("from-game-queue"),),
                          name='from-game-queue').start()
+        server.start_server()
