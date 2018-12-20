@@ -14,13 +14,16 @@ from utils.redis_utils import RedisUtils
 
 
 def messagehandle(msg):
-    s = GateWayMessage()
-    s.ParseFromString(msg)
-    if -1 == s.userId:
-        for client in gl.get_v("clients"):
-            client.send(s.data)
-    elif s.userId in gl.get_v("clients"):
-        gl.get_v("clients")[s.userId].check_and_send(s.data)
+    try:
+        s = GateWayMessage()
+        s.ParseFromString(msg)
+        if -1 == s.userId:
+            for (d, x) in gl.get_v("clients"):
+                x.send(s.data)
+        elif s.userId in gl.get_v("clients"):
+            gl.get_v("clients")[s.userId].check_and_send(s.data)
+    except:
+        print traceback.print_exc()
 
 
 class Server(object):
