@@ -13,10 +13,10 @@ class TcpCount(object):
 
     def get_connect(self, port):
         ESTABLISHED = []
-        port = str(self.covert_number(port)).replace("0x", "0").upper()
+        port = str(self.covert_number(port)).replace("0x", "").upper()
         for i in self.get_contents('/proc/net/tcp'):
             c = i.split()
-            p = re.findall(r":.*%(port)s" % vars(), i)
+            p = re.findall(r":.*%(port)s" % vars(), c[1])
 
             if c[3] == "01" and p:
                 ESTABLISHED.append(c[3])
