@@ -66,6 +66,7 @@ class HttpRequest(object):
             self.request_data = {}
             request_body = body.split('\r\n\r\n', 1)[1]
             parameters = request_body.split('&')  # 每一行是一个字段
+            gl.get_v("serverlogger").logger.info("参数%s" % parameters)
             for i in parameters:
                 if i == '':
                     continue
@@ -77,6 +78,7 @@ class HttpRequest(object):
                 req = self.url.split('?', 1)[1]
                 s_url = self.url.split('?', 1)[0]
                 parameters = req.split('&')
+                gl.get_v("serverlogger").logger.info("参数%s" % parameters)
                 for i in parameters:
                     key, val = i.split('=', 1)
                     self.request_data[key] = val
@@ -86,6 +88,7 @@ class HttpRequest(object):
     def do(self, path):
         self.response_line = ErrorCode.NOT_FOUND
         self.response_head['Content-Type'] = 'text/html'
+        gl.get_v("serverlogger").logger.info("路径%s" % path)
         if path == "/addgold":
             userId = self.request_data["userId"]
             gold = self.request_data["gold"]

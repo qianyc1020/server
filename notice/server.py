@@ -4,6 +4,9 @@ import threading
 import traceback
 from Queue import Queue
 
+import core.globalvar as gl
+from core import config
+
 from phttphandle import HttpRequest
 
 
@@ -35,7 +38,7 @@ class ThreadPoolManger:
 
 
 def tcp_link(sock, addr):
-    print('Accept new connection from %s:%s...' % addr)
+    gl.get_v("serverlogger").logger.info('Accept new connection from %s:%s...' % addr)
     request = sock.recv(1024)
     http_req = HttpRequest()
     try:
@@ -48,10 +51,9 @@ def tcp_link(sock, addr):
 
 def start_server():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('', 9999))
+    s.bind(('', config.get("coordinate", "port")))
     s.listen(10)
     thread_pool = ThreadPoolManger(5)
-    print('listen in %s:%d' % ('127.0.0.1', 9999))
     while True:
         sock, addr = s.accept()
         thread_pool.add_work(tcp_link, *(sock, addr))
