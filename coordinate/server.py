@@ -27,13 +27,11 @@ class Server(object):
         gl.set_v("from-game-queue", TestQueue())
         gl.set_v("games", [])
         gl.set_v("redis", RedisUtils())
-        keys = gl.get_v("redis").keys("*room*")
-        print keys
-        # gl.get_v("redis").startSubscribe(["gateway-coordinate", "game-coordinate"],
-        #                                  [from_gateway_handle, from_game_handle])
-        #
-        # threading.Thread(target=gateway_handle.handle, args=(gateway_handle(), gl.get_v("from-gateway-queue"),),
-        #                  name='from-gateway-queue').start()
-        # threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("from-game-queue"),),
-        #                  name='from-game-queue').start()
-        # server.start_server()
+        gl.get_v("redis").startSubscribe(["gateway-coordinate", "game-coordinate"],
+                                         [from_gateway_handle, from_game_handle])
+
+        threading.Thread(target=gateway_handle.handle, args=(gateway_handle(), gl.get_v("from-gateway-queue"),),
+                         name='from-gateway-queue').start()
+        threading.Thread(target=game_handle.handle, args=(game_handle(), gl.get_v("from-game-queue"),),
+                         name='from-game-queue').start()
+        server.start_server()
