@@ -18,7 +18,7 @@ def messagehandle(msg):
         s = GateWayMessage()
         s.ParseFromString(msg)
         if -1 == s.userId:
-            for (d, x) in gl.get_v("clients"):
+            for (d, x) in gl.get_v("clients").items():
                 x.send(s.data)
         elif s.userId in gl.get_v("clients"):
             gl.get_v("clients")[s.userId].check_and_send(s.data)
