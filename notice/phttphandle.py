@@ -128,6 +128,7 @@ class HttpRequest(object):
                         if g.alloc_id == gameId and g.state == RUNNING:
                             self.sendToGame(g.uuid, CHANGE_ONLINE, online)
                             break
+                self.response_line = ErrorCode.OK
 
     def getResponse(self):
         response = self.response_line + dict2str(self.response_head) + '\r\n' + self.response_body
