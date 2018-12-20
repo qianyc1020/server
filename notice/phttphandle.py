@@ -139,6 +139,9 @@ class HttpRequest(object):
             connectuser = TcpCount().get_connect(int(config.get("gateway", "port")))
             self.response_line = ErrorCode.OK
             self.response_body = str(len(gameuser)) + "," + str(connectuser)
+        elif path == "/connectinfo":
+            self.response_line = ErrorCode.OK
+            self.response_body = TcpCount().get_info(int(config.get("gateway", "port")))
 
     def getResponse(self):
         response = self.response_line + dict2str(self.response_head) + '\r\n' + self.response_body
