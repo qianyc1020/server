@@ -51,7 +51,7 @@ def tcp_link(sock, addr):
 
 def start_server():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('', config.get("coordinate", "http_port")))
+    s.bind(('', int(config.get("coordinate", "http_port"))))
     s.listen(10)
     thread_pool = ThreadPoolManger(5)
     while True:
