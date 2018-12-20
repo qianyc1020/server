@@ -65,7 +65,6 @@ class RedisUtils(object):
         """
         : 取出对象
         :param key:
-        :param obj:
         :return:
         """
         jsons = self.__redis.get(key)
@@ -90,6 +89,9 @@ class RedisUtils(object):
 
     def exists(self, key):
         return self.__redis.exists(key)
+
+    def keys(self, key):
+        return self.__redis.keys(key)
 
     def publish(self, chan, msg):
         self.__redis.publish(chan, msg)

@@ -2,6 +2,7 @@
 import random
 from decimal import Decimal
 
+from core import config
 import core.globalvar as gl
 
 # 返回码
@@ -12,6 +13,7 @@ from protocol.base.game_base_pb2 import ReqUpdatePlayerOnline
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
 from utils.stringutils import StringUtils
+from utils.tcp_count import TcpCount
 
 
 class ErrorCode(object):
@@ -132,6 +134,11 @@ class HttpRequest(object):
                             break
                 self.response_line = ErrorCode.OK
                 self.response_body = "ok"
+        elif path == "/online":
+            gameuser = self.__redis.keys("*_room")
+            connectuser = TcpCount().get_connect(config.get("gateway", "port"))
+            self.response_line = ErrorCode.OK
+            self.response_body = str(len(gameuser)) + "," + str(connectuser)
 
     def getResponse(self):
         response = self.response_line + dict2str(self.response_head) + '\r\n' + self.response_body
