@@ -22,7 +22,7 @@ class TcpCount(object):
                 ESTABLISHED.append(c[3])
         return len(ESTABLISHED)
 
-    def get_info(self, port):
+    def get_info(self, port1):
         ESTABLISHED = []
         SYN_SENT = []
         SYN_RECV = []
@@ -32,7 +32,7 @@ class TcpCount(object):
         CLOSE = []
         CLOSE_WAIT = []
         CLOSING = []
-        port = str(self.covert_number(port)).replace("0x", "0").upper()
+        port = str(self.covert_number(port1)).replace("0x", "0").upper()
         for i in self.get_contents('/proc/net/tcp'):
             c = i.split()
             p = re.findall(r":.*%(port)s" % vars(), i)
@@ -56,4 +56,8 @@ class TcpCount(object):
             elif c[3] == '0B' and p:
                 CLOSING.append(c[3])
 
-        return len(ESTABLISHED)
+        return str(port1) + "ESTABLISHED:\t" + str(len(ESTABLISHED)) + " \nSYN_SENT:\t" + str(len(SYN_SENT)) + \
+               "\nSYN_RECV:\t" + str(len(SYN_RECV)) + " \nFIN_WAIT1:\t" + str(len(FIN_WAIT1)) + \
+               "\nFIN_WAIT2:\t" + str(len(FIN_WAIT2)) + " \nTIME_WAIT:\t" + str(len(TIME_WAIT)) + \
+               "\nCLOSE:  \t" + str(len(CLOSE)) + " \nCLOSE_WAIT:\t" + str(len(CLOSE_WAIT)) + \
+               "\nCLOSING:\t" + str(len(CLOSING))
