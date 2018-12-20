@@ -32,10 +32,10 @@ class TcpCount(object):
         CLOSE = []
         CLOSE_WAIT = []
         CLOSING = []
-        port = str(self.covert_number(port1)).replace("0x", "0").upper()
+        port = str(self.covert_number(port1)).replace("0x", "").upper()
         for i in self.get_contents('/proc/net/tcp'):
             c = i.split()
-            p = re.findall(r":.*%(port)s" % vars(), i)
+            p = re.findall(r":.*%(port)s" % vars(), c[1])
 
             if c[3] == "01" and p:
                 ESTABLISHED.append(c[3])

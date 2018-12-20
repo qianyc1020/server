@@ -11,6 +11,9 @@ from phttphandle import HttpRequest
 
 
 # 每个任务线程
+from utils.tcp_count import TcpCount
+
+
 class WorkThread(threading.Thread):
     def __init__(self, work_queue):
         super(WorkThread, self).__init__()
@@ -60,5 +63,5 @@ def start_server():
 
 
 if __name__ == '__main__':
-    start_server()
-    pass
+    p = TcpCount().get_info(10001)
+    print p
