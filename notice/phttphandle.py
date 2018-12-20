@@ -136,7 +136,7 @@ class HttpRequest(object):
                 self.response_body = "ok"
         elif path == "/online":
             gameuser = self.__redis.keys("*_room")
-            connectuser = TcpCount().get_connect(config.get("gateway", "port"))
+            connectuser = TcpCount().get_connect(int(config.get("gateway", "port")))
             self.response_line = ErrorCode.OK
             self.response_body = str(len(gameuser)) + "," + str(connectuser)
 
