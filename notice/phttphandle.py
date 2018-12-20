@@ -87,6 +87,7 @@ class HttpRequest(object):
 
     def do(self, path):
         self.response_line = ErrorCode.NOT_FOUND
+        self.response_body = "error"
         self.response_head['Content-Type'] = 'text/html'
         gl.get_v("serverlogger").logger.info("路径%s" % str(path))
         if path == "/addgold":
@@ -108,6 +109,7 @@ class HttpRequest(object):
                             self.sendToGame(g.uuid, GAME_UPDATE_CURRENCY, None)
                             break
                 self.response_line = ErrorCode.OK
+                self.response_body = "ok"
 
         elif path == "/enable":
             userId = self.request_data["userId"]
@@ -129,6 +131,7 @@ class HttpRequest(object):
                             self.sendToGame(g.uuid, CHANGE_ONLINE, online)
                             break
                 self.response_line = ErrorCode.OK
+                self.response_body = "ok"
 
     def getResponse(self):
         response = self.response_line + dict2str(self.response_head) + '\r\n' + self.response_body
