@@ -8,7 +8,7 @@ import core.globalvar as gl
 # 返回码
 from data.database import data_account, data_gold
 from protocol.base.base_pb2 import GAME_UPDATE_CURRENCY, NetMessage, RecUpdateCurrency, UPDATE_CURRENCY, LOGIN_SVR, \
-    CHANGE_ONLINE
+    CHANGE_ONLINE, RecSystemNotice, SYSTEM_NOTICE
 from protocol.base.game_base_pb2 import ReqUpdatePlayerOnline
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
@@ -132,6 +132,15 @@ class HttpRequest(object):
                         if g.alloc_id == gameId and g.state == RUNNING:
                             self.sendToGame(g.uuid, CHANGE_ONLINE, online)
                             break
+                self.response_line = ErrorCode.OK
+                self.response_body = "ok"
+        elif path == "/notice":
+            notice = self.request_data["notice"]
+            pwd = self.request_data["pwd"]
+            if pwd == StringUtils.md5(notice):
+                recSystemNotice = RecSystemNotice()
+                recSystemNotice.msg = notice
+                self.send_to_gateway(SYSTEM_NOTICE, recSystemNotice, -1)
                 self.response_line = ErrorCode.OK
                 self.response_body = "ok"
         elif path == "/online":
