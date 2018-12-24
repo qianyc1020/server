@@ -109,6 +109,9 @@ enum Opcode {
     BANK_DEPOSIT = 15002; //存
     BANK_GET = 15003; //取
 
+    //个人中心
+    PERSONAL = 16001; //获取个人中心加密码
+
 
     REGISTER_SERVICE = 1000;
     CHANGE_SERVICE_STATE = 1001;
@@ -134,7 +137,9 @@ enum LoginState {
     LIMIT = 2; //限制登陆
     PHONE_ERROR = 3; //电话号码绑定
     NO_ACCOUNT = 4; //没有账号
-    ERROR = 5; //未知错误
+    NO_CODE = 5; //未发送验证码
+    CODE_ERROR = 6; //验证码错误
+    ERROR = -1; //未知错误
 }
 
 message RecCheckVersion {
@@ -182,6 +187,7 @@ message ReqLoginServer {
     int64 phone = 6; //新加电话号码
     LoginClass cls = 7; //账号类型
     bool auto = 8; //自动注册
+    string higher = 9; //上级
 }
 
 message RecLoginServer {
@@ -451,4 +457,8 @@ message ReqHandselCurrency {
 
 message RecHandselCurrency {
     int32 state = 1; //0 成功， 1 没找到玩家 2 金额不够
+}
+
+message RecPersonalCode {
+    string code = 1;
 }

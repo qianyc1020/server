@@ -227,47 +227,63 @@ class ClientReceive(object):
             return
         account = data_account.login(loginserver, self.address)
         if account is not None:
-            self.checkLogin(account)
+            self.checkLogin(account, loginserver.cls, False, loginserver.password)
+            # TODO 绑定上级
+            # if account.last_time == account.create_time:
+            #     account.higher
         else:
             self.close()
             gl.get_v("serverlogger").logger.info("login fail")
 
-    def checkLogin(self, account):
+    def checkLogin(self, account, cls, relogin, pwd):
 
         reclogin = RecLoginServer()
         if account is not None:
-            if StringUtils.md5(account.account_name) != account.pswd:
-                reclogin.state = PASSWORD_ERROR
-            elif 1 == account.account_state:
+            if 1 == account.account_state:
                 reclogin.state = LIMIT
+            elif cls == OFFICIAL and not relogin:
+                if self.redis.exists(account.account_name + "_code"):
+                    code = self.redis.get(account.account_name + "_code")
+                    if StringUtils.md5(code) != pwd:
+                        reclogin.state = CODE_ERROR
+                    else:
+                        self.loginSuccess(reclogin, account)
+                        return
+                else:
+                    reclogin.state = NO_CODE
+            elif cls != OFFICIAL and StringUtils.md5(account.account_name) != pwd:
+                reclogin.state = PASSWORD_ERROR
             else:
-                self.send_data(LOGIN_SVR, reclogin)
-                self.userId = account.id
-                if self.userId in gl.get_v("clients"):
-                    gl.get_v("clients")[self.userId].close()
-                gl.get_v("clients")[self.userId] = self
-                self.messageQueue = TestQueue()
-                self.messageHandle = MessageHandle(self.userId)
-                threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
-                                 name='handle').start()  # 线程对象.
-                if self.redis.exists(str(self.userId) + "_room"):
-                    online = ReqUpdatePlayerOnline()
-                    online.state = True
-                    data = NetMessage()
-                    data.opcode = CHANGE_ONLINE
-                    data.data = online.SerializeToString()
-                    self.messageQueue.put(data)
-                self.update_user_info(account)
-                self.update_currency(account)
-
-                data = NetMessage()
-                data.opcode = LOGIN_SVR
-                self.messageQueue.put(data)
-                self.logining = True
+                self.loginSuccess(reclogin, account)
                 return
         else:
-            reclogin.state = ERROR
+            reclogin.state = NO_ACCOUNT
         self.send_data(LOGIN_SVR, reclogin)
+
+    def loginSuccess(self, reclogin, account):
+        self.send_data(LOGIN_SVR, reclogin)
+        self.userId = account.id
+        if self.userId in gl.get_v("clients"):
+            gl.get_v("clients")[self.userId].close()
+        gl.get_v("clients")[self.userId] = self
+        self.messageQueue = TestQueue()
+        self.messageHandle = MessageHandle(self.userId)
+        threading.Thread(target=MessageHandle.handle, args=(self.messageHandle, self.messageQueue,),
+                         name='handle').start()  # 线程对象.
+        if self.redis.exists(str(self.userId) + "_room"):
+            online = ReqUpdatePlayerOnline()
+            online.state = True
+            data = NetMessage()
+            data.opcode = CHANGE_ONLINE
+            data.data = online.SerializeToString()
+            self.messageQueue.put(data)
+        self.update_user_info(account)
+        self.update_currency(account)
+
+        data = NetMessage()
+        data.opcode = LOGIN_SVR
+        self.messageQueue.put(data)
+        self.logining = True
 
     def update_user_info(self, account):
         user_info = RecUserInfo()
@@ -312,7 +328,7 @@ class ClientReceive(object):
             return
         account = data_account.relogin(relogin, self.address)
         if account is not None:
-            self.checkLogin(account)
+            self.checkLogin(account, relogin.cls, True, relogin.password)
         else:
             self.close()
             gl.get_v("serverlogger").logger.info("login fail")
