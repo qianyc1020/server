@@ -203,7 +203,7 @@ class UserMessageHandle(object):
                             recSendCode.state = 2
                         else:
                             s = HttpUtils(config.get("api", "api_host")).get(
-                                config.get("api", "send_code_url") & reqSendCode.phone, None)
+                                config.get("api", "send_code_url") % reqSendCode.phone, None)
                             res = s.read()
                             recSendCode.state = 1
                         self.send_to_gateway(SEND_CODE, recSendCode)

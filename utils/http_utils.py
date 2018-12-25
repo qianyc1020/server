@@ -17,7 +17,7 @@ class HttpUtils(object):
             data = urllib.urlencode(param)
             conn.request("GET", url + "?" + data, self.reqheaders)
         else:
-            conn.request("GET", url, self.reqheaders)
+            conn.request("GET", url, headers=self.reqheaders)
         res = conn.getresponse()
         conn.close()
         return res
@@ -28,7 +28,7 @@ class HttpUtils(object):
             data = urllib.urlencode(param)
             conn.request('POST', url, data, self.reqheaders)
         else:
-            conn.request('POST', url, self.reqheaders)
+            conn.request('POST', url, headers=self.reqheaders)
         res = conn.getresponse()
         conn.close()
         return res
