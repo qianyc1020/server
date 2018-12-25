@@ -69,7 +69,7 @@ class RedisUtils(object):
         :param ex:
         :return:
         """
-        self.__redis.setex(key, ex, json.dumps(obj))
+        self.__redis.setex(key, ex, obj)
 
     def getobj(self, key):
         """
