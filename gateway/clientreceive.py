@@ -100,7 +100,7 @@ class ClientReceive(object):
                             self.send_data(SEND_PING, None)
                         elif data.opcode == SEND_CODE:
                             reqSendCode = ReqSendCode()
-                            reqSendCode.parseFromString(data.data)
+                            reqSendCode.ParseFromString(data.data)
                             recSendCode = RecSendCode()
                             if not re.match(r"^1[35678]\d{9}$", reqSendCode.phone):
                                 recSendCode.state = 3
