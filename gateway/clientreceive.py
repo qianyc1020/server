@@ -15,6 +15,7 @@ from gateway.messagehandle import MessageHandle
 from protocol.base.base_pb2 import *
 from protocol.base.game_base_pb2 import ReqUpdatePlayerOnline
 from utils.TestQueue import TestQueue
+from utils.http_utils import HttpUtils
 from utils.stringutils import StringUtils
 
 
@@ -97,6 +98,20 @@ class ClientReceive(object):
                             self.relogin(data)
                         elif data.opcode == SEND_PING:
                             self.send_data(SEND_PING, None)
+                        elif data.opcode == SEND_CODE:
+                            reqSendCode = ReqSendCode()
+                            reqSendCode.parseFromString(data.data)
+                            recSendCode = RecSendCode()
+                            if not re.match(r"^1[35678]\d{9}$", reqSendCode.phone):
+                                recSendCode.state = 3
+                            elif self.redis.exists(reqSendCode.phone + "_code"):
+                                recSendCode.state = 2
+                            else:
+                                s = HttpUtils(config.get("api", "api_host")).get(
+                                    config.get("api", "send_code_url") % reqSendCode.phone, None)
+                                res = s.read()
+                                recSendCode.state = 1
+                            self.send_data(SEND_CODE, recSendCode)
                         else:
                             if self.userId is not None:
                                 self.messageQueue.put(data)
