@@ -259,9 +259,10 @@ class ClientReceive(object):
             elif cls == OFFICIAL and not relogin:
                 if self.redis.exists(account.account_name + "_code"):
                     code = self.redis.get(account.account_name + "_code")
-                    if StringUtils.md5(code) != pwd:
+                    if StringUtils.md5(str(code)) != pwd:
                         reclogin.state = CODE_ERROR
                     else:
+                        self.redis.delobj(account.account_name + "_code")
                         self.loginSuccess(reclogin, account)
                         return
                 else:
