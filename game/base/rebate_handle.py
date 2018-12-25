@@ -1,21 +1,17 @@
 # coding=utf-8
-import httplib
 import json
 import traceback
-import urllib
 from Queue import Empty
 
 import core.globalvar as gl
+from core import config
+from utils.http_utils import HttpUtils
 
 
 class RebateHandle(object):
 
     def __init__(self):
         self.__close = False
-        self.reqheaders = {'Content-type': 'application/x-www-form-urlencoded',
-                           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                           'Host': 'scan.3gzy3.cn',
-                           'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1', }
 
     def close(self):
         self.__close = True
@@ -32,11 +28,7 @@ class RebateHandle(object):
                     js += "]"
                     js = js.replace(",]", "]")
                     reqdata = {'jsonArray': js}
-                    data = urllib.urlencode(reqdata)
-                    conn = httplib.HTTPConnection('scan.3gzy3.cn')
-                    conn.request('POST', '/user/consumption', data, self.reqheaders)
-                    res = conn.getresponse()
-                    conn.close()
+                    HttpUtils(config.get("api", "api_host")).post(config.get("api", "consumption_url"), reqdata)
             except Empty:
                 gl.get_v("serverlogger").logger.info("Received timeout")
             except:

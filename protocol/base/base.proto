@@ -91,6 +91,7 @@ enum Opcode {
     SEARCH_GAME = 60; //搜索房间信息
     UPDATE_INTRODUCE = 61; //更新个性签名
     HANDSEL_CURRENCY = 62; //赠送货币
+    SEND_CODE = 63; //发送验证码
 
     MATCH_RECORD_INFO = 8000; //获取匹配场战绩详情
 
@@ -461,4 +462,12 @@ message RecHandselCurrency {
 
 message RecPersonalCode {
     string code = 1;
+}
+
+message ReqSendCode {
+    string phone = 1; //手机号
+}
+
+message RecSendCode {
+    int32 state = 1; //-1失败 1.成功 2.已经发送过 3.手机号错误
 }

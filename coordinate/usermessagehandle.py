@@ -1,15 +1,18 @@
 # coding=utf-8
 import random
+import re
 import traceback
 from Queue import Empty
 from decimal import Decimal
 
 import core.globalvar as gl
+from core import config
 from data.database import data_account, data_record, data_gold
 from protocol.base.base_pb2 import *
 from protocol.base.gateway_pb2 import GateWayMessage
 from protocol.base.server_to_game_pb2 import RUNNING
 from protocol.service.match_pb2 import *
+from utils.http_utils import HttpUtils
 from utils.stringutils import StringUtils
 
 
@@ -190,6 +193,19 @@ class UserMessageHandle(object):
                                 if g.alloc_id == gameId and g.state == RUNNING:
                                     self.sendToGame(g.uuid, message.opcode, message.data)
                                     break
+                    elif message.opcode == SEND_CODE:
+                        reqSendCode = ReqSendCode()
+                        reqSendCode.parseFromString(message.data)
+                        recSendCode = RecSendCode()
+                        if not re.match(r"^1[35678]\d{9}$", reqSendCode.phone):
+                            recSendCode.state = 3
+                        elif self.__redis.exists(str(self.__userId) + "_code"):
+                            recSendCode.state = 2
+                        else:
+                            s = HttpUtils(config.get("api", "api_host")).get(config.get("api", "send_code_url"), None)
+                            res = s.read()
+                            recSendCode.state = 1
+                        self.send_to_gateway(SEND_CODE, recSendCode)
                     elif message.opcode == PERSONAL:
                         s = StringUtils.randomStr(32)
                         self.__redis.setex(str(self.__userId) + "personalcode", s, 10)
