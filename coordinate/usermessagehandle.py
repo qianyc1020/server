@@ -202,7 +202,8 @@ class UserMessageHandle(object):
                         elif self.__redis.exists(str(self.__userId) + "_code"):
                             recSendCode.state = 2
                         else:
-                            s = HttpUtils(config.get("api", "api_host")).get(config.get("api", "send_code_url"), None)
+                            s = HttpUtils(config.get("api", "api_host")).get(
+                                config.get("api", "send_code_url") & reqSendCode.phone, None)
                             res = s.read()
                             recSendCode.state = 1
                         self.send_to_gateway(SEND_CODE, recSendCode)
