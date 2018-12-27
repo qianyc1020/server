@@ -460,8 +460,13 @@ message RecHandselCurrency {
     int32 state = 1; //0 成功， 1 没找到玩家 2 金额不够
 }
 
+message ReqPersonalCode {
+    int32 opcode = 1;
+}
+
 message RecPersonalCode {
     string code = 1;
+    int32 opcode = 2;
 }
 
 message ReqSendCode {

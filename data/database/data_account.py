@@ -64,8 +64,8 @@ def create_account(t, connection, loginserver, address):
         if connection is None:
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_create_account") % (
-            loginserver.account, loginserver.nick, loginserver.sex, loginserver.headUrl, StringUtils.md5(
-                loginserver.account), int(t), int(t), address, 0, 0, 0, '', 0, 0)
+            loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl,
+            StringUtils.md5(loginserver.account), int(t), int(t), address, 0, 0, 0, '', 0, 0)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
@@ -84,7 +84,8 @@ def update_login_with_info(t, connection, loginserver, address):
         if connection is None:
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_update_login_with_info") % (
-            loginserver.nick, loginserver.sex, loginserver.headUrl, int(t), address, loginserver.account)
+            StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl, int(t), address,
+            loginserver.account)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()

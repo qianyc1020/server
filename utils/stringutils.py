@@ -17,3 +17,8 @@ class StringUtils(object):
         h = hashlib.md5()
         h.update(data)
         return h.hexdigest()
+
+    @staticmethod
+    def phoneToNick(phone):
+        if len(phone) > 8:
+            return phone[:3] + "*****" + phone[-3:]

@@ -193,8 +193,11 @@ class UserMessageHandle(object):
                     elif message.opcode == PERSONAL:
                         s = StringUtils.randomStr(32)
                         self.__redis.setex(str(self.__userId) + "personalcode", s, 10)
+                        reqPersonalCode = ReqPersonalCode()
+                        reqPersonalCode.ParseFromString(message.data)
                         code = RecPersonalCode()
                         code.code = s
+                        code.opcode = reqPersonalCode.opcode
                         self.send_to_gateway(PERSONAL, code)
                     else:
                         gl.get_v("serverlogger").logger.info("无效协议%d，用户id%d" % (message.opcode, self.__userId))
