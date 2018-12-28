@@ -249,9 +249,11 @@ class ClientReceive(object):
                     update_login_with_info(t, None, loginserver, self.address, loginserver.device)
                 else:
                     update_login(t, None, self.address, loginserver.account, loginserver.device)
-            # TODO 绑定上级
-            # if account.last_time == account.create_time:
-            #     account.higher
+            if account.last_time == account.create_time:
+                s = HttpUtils(config.get("api", "api_host")).get(
+                    config.get("api", "send_code_url") % (self.userId, account.higher, self.address.split(':')[0]),
+                    None)
+                res = s.read()
         else:
             self.close()
             gl.get_v("serverlogger").logger.info("login fail")
