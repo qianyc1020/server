@@ -268,6 +268,7 @@ class ClientReceive(object):
                         session = self.redis.get(account.account_name + "_session")
                         if StringUtils.md5(session) == pwd:
                             self.loginSuccess(reclogin, account)
+                            return True
                 if self.redis.exists(account.account_name + "_code"):
                     code = self.redis.get(account.account_name + "_code")
                     if StringUtils.md5(str(code)) != pwd:
