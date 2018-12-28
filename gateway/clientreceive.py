@@ -251,7 +251,7 @@ class ClientReceive(object):
                     update_login(t, None, self.address, loginserver.account, loginserver.device)
             if account.last_time == account.create_time:
                 s = HttpUtils(config.get("api", "api_host")).get(
-                    config.get("api", "send_code_url") % (self.userId, account.higher, self.address.split(':')[0]),
+                    config.get("api", "bind") % (self.userId, account.higher, self.address.split(':')[0]),
                     None)
                 res = s.read()
         else:
