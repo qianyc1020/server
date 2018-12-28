@@ -10,24 +10,18 @@ from utils.stringutils import StringUtils
 
 
 def login(loginserver, address):
-    t = time.time()
     connection = None
     account = None
     try:
         connection = mysql_connection.get_conn()
 
         if not exist_account(connection, loginserver.account):
-            create_account(t, connection, loginserver, address)
+            create_account(time.time(), connection, loginserver, address)
             gold = int(config.get("gateway", "login_give"))
             account = query_account_by_account(connection, loginserver.account)
             data_user_rebate.create_user_rebate(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), account.id)
             if 0 != gold:
                 update_currency(connection, gold, 0, 0, 0, account.id)
-        else:
-            if loginserver.nick is not None:
-                update_login_with_info(t, connection, loginserver, address)
-            else:
-                update_login(t, connection, address, loginserver.account)
         account = query_account_by_account(connection, loginserver.account)
     except:
         if connection is not None:
@@ -65,7 +59,7 @@ def create_account(t, connection, loginserver, address):
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_create_account") % (
             loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl,
-            StringUtils.md5(loginserver.account), int(t), int(t), address, 0, 0, 0, '', 0, 0)
+            StringUtils.md5(loginserver.account), int(t), int(t), address, 0, 0, 0, '', 0, 0, loginserver.device)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
@@ -78,13 +72,13 @@ def create_account(t, connection, loginserver, address):
             connection.close()
 
 
-def update_login_with_info(t, connection, loginserver, address):
+def update_login_with_info(t, connection, loginserver, address, device):
     close = connection is None
     try:
         if connection is None:
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_update_login_with_info") % (
-            StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl, int(t), address,
+            StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl, int(t), address, device,
             loginserver.account)
         with connection.cursor() as cursor:
             cursor.execute(sql)
@@ -98,12 +92,12 @@ def update_login_with_info(t, connection, loginserver, address):
             connection.close()
 
 
-def update_login(t, connection, address, account):
+def update_login(t, connection, address, account, device):
     close = connection is None
     try:
         if connection is None:
             connection = mysql_connection.get_conn()
-        sql = config.get("sql", "sql_update_login") % (int(t), address, account)
+        sql = config.get("sql", "sql_update_login") % (int(t), address, device, account)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()

@@ -23,7 +23,8 @@ CREATE TABLE `account` (
   `introduce`     VARCHAR(1024)                                     DEFAULT NULL,
   `phone`         VARCHAR(255)                                      DEFAULT NULL,
   `level`         INT(11) UNSIGNED                                  DEFAULT 0,
-  `experience`    BIGINT(19)                                        DEFAULT 0
+  `experience`    BIGINT(19)                                        DEFAULT 0,
+  `device`        VARCHAR(255)                                      DEFAULT NULL
 
 )
   ENGINE = InnoDB
@@ -31,3 +32,4 @@ CREATE TABLE `account` (
   COLLATE = utf8mb4_unicode_ci;
 ALTER TABLE account
   AUTO_INCREMENT = 10000;
+INSERT INTO pygame.account (account_name, nick_name, sex, head_url, pswd, create_time, last_time, last_address, account_state, gold, integral, bank_pswd, bank_gold, bank_integral, records, authority, total_count, introduce, phone, level, experience) VALUES ('pengyi', 0x70656E677969, 1, '', '54292b463c3e765a42d20d4f76d38c91', 1544611319, 1544780348, '127.0.0.1:34279', 0, 0.00, 0.00, null, 0.00, 0.00, '', 0, 0, null, null, 0, 0);

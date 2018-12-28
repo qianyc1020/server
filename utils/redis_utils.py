@@ -61,6 +61,16 @@ class RedisUtils(object):
         """
         self.__redis.set(key, json.dumps(obj))
 
+    def setexo(self, key, obj, ex):
+        """
+        : 存入数组
+        :param key:
+        :param obj:
+        :param ex:
+        :return:
+        """
+        self.__redis.setex(key, ex, json.dumps(obj))
+
     def setex(self, key, obj, ex):
         """
         : 存入数组

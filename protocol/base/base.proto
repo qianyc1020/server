@@ -140,6 +140,7 @@ enum LoginState {
     NO_ACCOUNT = 4; //没有账号
     NO_CODE = 5; //未发送验证码
     CODE_ERROR = 6; //验证码错误
+    SESSION_INVALID = 7; //session过期
     ERROR = -1; //未知错误
 }
 
@@ -189,10 +190,12 @@ message ReqLoginServer {
     LoginClass cls = 7; //账号类型
     bool auto = 8; //自动注册
     string higher = 9; //上级
+    string device = 10; //设备码
 }
 
 message RecLoginServer {
     LoginState state = 1;
+    string session = 2;
 }
 
 //玩家登陆，更新玩家基础信息

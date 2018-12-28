@@ -11,6 +11,7 @@ from decimal import Decimal
 import core.globalvar as gl
 from core import config
 from data.database import data_account
+from data.database.data_account import update_login_with_info, update_login
 from gateway.messagehandle import MessageHandle
 from protocol.base.base_pb2 import *
 from protocol.base.game_base_pb2 import ReqUpdatePlayerOnline
@@ -242,7 +243,12 @@ class ClientReceive(object):
             return
         account = data_account.login(loginserver, self.address)
         if account is not None:
-            self.checkLogin(account, loginserver.cls, False, loginserver.password)
+            if self.checkLogin(account, loginserver.cls, False, loginserver.password, loginserver.device):
+                t = time.time()
+                if loginserver.nick is not None:
+                    update_login_with_info(t, None, loginserver, self.address, loginserver.device)
+                else:
+                    update_login(t, None, self.address, loginserver.account, loginserver.device)
             # TODO 绑定上级
             # if account.last_time == account.create_time:
             #     account.higher
@@ -250,13 +256,18 @@ class ClientReceive(object):
             self.close()
             gl.get_v("serverlogger").logger.info("login fail")
 
-    def checkLogin(self, account, cls, relogin, pwd):
+    def checkLogin(self, account, cls, relogin, pwd, device):
 
         reclogin = RecLoginServer()
         if account is not None:
             if 1 == account.account_state:
                 reclogin.state = LIMIT
             elif cls == OFFICIAL and not relogin:
+                if device == account.device:
+                    if self.redis.exists(account.account_name + "_session"):
+                        session = self.redis.get(account.account_name + "_session")
+                        if StringUtils.md5(session) == pwd:
+                            self.loginSuccess(reclogin, account)
                 if self.redis.exists(account.account_name + "_code"):
                     code = self.redis.get(account.account_name + "_code")
                     if StringUtils.md5(str(code)) != pwd:
@@ -264,19 +275,23 @@ class ClientReceive(object):
                     else:
                         self.redis.delobj(account.account_name + "_code")
                         self.loginSuccess(reclogin, account)
-                        return
+                        return True
                 else:
                     reclogin.state = NO_CODE
-            elif cls != OFFICIAL and StringUtils.md5(account.account_name) != pwd:
+            elif cls != OFFICIAL and account.pswd != pwd:
                 reclogin.state = PASSWORD_ERROR
             else:
                 self.loginSuccess(reclogin, account)
-                return
+                return True
         else:
             reclogin.state = NO_ACCOUNT
         self.send_data(LOGIN_SVR, reclogin)
+        return False
 
     def loginSuccess(self, reclogin, account):
+        session = StringUtils.randomStr(32)
+        self.redis.setexo(account.account_name + "_session", session, 604800)
+        reclogin.session = session
         self.send_data(LOGIN_SVR, reclogin)
         self.userId = account.id
         if self.userId in gl.get_v("clients"):
