@@ -80,8 +80,7 @@ def update_login_with_info(t, connection, loginserver, address, device):
         if connection is None:
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_update_login_with_info") % (
-            StringUtils.phoneToNick(loginserver.nick), loginserver.sex,
-            config.get("gateway", "head_url") % random.randint(1, 50), int(t), address, device, loginserver.account)
+            StringUtils.phoneToNick(loginserver.nick), loginserver.sex, int(t), address, device, loginserver.account)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
