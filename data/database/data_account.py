@@ -23,7 +23,7 @@ def login(loginserver, address):
             account = query_account_by_account(connection, loginserver.account)
             # data_user_rebate.create_user_rebate(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), account.id)
             s = HttpUtils(config.get("api", "api_host")).get(
-                config.get("api", "bind") % (account.id, account.higher, address.split(':')[0]),
+                config.get("api", "bind") % (account.id, loginserver.higher, address.split(':')[0]),
                 None)
             res = s.read()
             if 0 != gold:
