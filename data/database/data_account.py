@@ -1,5 +1,6 @@
 # coding=utf-8
 import datetime
+import random
 import time
 import traceback
 
@@ -58,8 +59,9 @@ def create_account(t, connection, loginserver, address):
         if connection is None:
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_create_account") % (
-            loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl,
-            StringUtils.md5(loginserver.account), int(t), int(t), address, 0, 0, 0, '', 0, 0, loginserver.device)
+            loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex,
+            config.get("gateway", "head_url") % random.randint(1, 50), StringUtils.md5(loginserver.account), int(t),
+            int(t), address, 0, 0, 0, '', 0, 0, loginserver.device)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
