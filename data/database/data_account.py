@@ -159,6 +159,7 @@ def query_account_by_account(connection, account):
             a.phone = result["phone"]
             a.level = result["level"]
             a.experience = result["experience"]
+            a.device = result["device"]
             return a
     except:
         print traceback.print_exc()
@@ -199,6 +200,7 @@ def query_account_by_id(connection, id):
             a.phone = result["phone"]
             a.level = result["level"]
             a.experience = result["experience"]
+            a.device = result["device"]
             return a
     except:
         print traceback.print_exc()
@@ -242,6 +244,7 @@ def query_account_by_ids(connection, ids):
                 a.phone = result["phone"]
                 a.level = result["level"]
                 a.experience = result["experience"]
+                a.device = result["device"]
                 accounts[a.id] = a
     except:
         print traceback.print_exc()
@@ -341,6 +344,7 @@ def ranking_by_gold(connection, limit):
                 a.phone = r["phone"]
                 a.level = r["level"]
                 a.experience = r["experience"]
+                a.device = result["device"]
                 accounts.append(a)
             return accounts
     except:

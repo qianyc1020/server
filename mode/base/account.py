@@ -24,3 +24,4 @@ class Account(object):
         self.phone = None
         self.level = None
         self.experience = None
+        self.device = None
