@@ -7,6 +7,7 @@ import traceback
 from core import config
 from data.database import mysql_connection, data_user_rebate
 from mode.base.account import Account
+from utils.http_utils import HttpUtils
 from utils.stringutils import StringUtils
 
 
@@ -20,7 +21,11 @@ def login(loginserver, address):
             create_account(time.time(), connection, loginserver, address)
             gold = int(config.get("gateway", "login_give"))
             account = query_account_by_account(connection, loginserver.account)
-            data_user_rebate.create_user_rebate(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), account.id)
+            # data_user_rebate.create_user_rebate(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), account.id)
+            s = HttpUtils(config.get("api", "api_host")).get(
+                config.get("api", "bind") % (account.id, account.higher, address.split(':')[0]),
+                None)
+            res = s.read()
             if 0 != gold:
                 update_currency(connection, gold, 0, 0, 0, account.id)
         account = query_account_by_account(connection, loginserver.account)
