@@ -65,7 +65,8 @@ def create_account(t, connection, loginserver, address):
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_create_account") % (
             loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex,
-            config.get("gateway", "head_url") % random.randint(1, 50), StringUtils.md5(loginserver.account), int(t),
+            loginserver.headUrl, StringUtils.md5(loginserver.account), int(t),
+            # config.get("gateway", "head_url") % random.randint(1, 50), StringUtils.md5(loginserver.account), int(t),
             int(t), address, 0, 0, 0, '', 0, 0, loginserver.device)
         with connection.cursor() as cursor:
             cursor.execute(sql)
