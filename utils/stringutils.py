@@ -22,3 +22,5 @@ class StringUtils(object):
     def phoneToNick(phone):
         if len(phone) > 8:
             return phone[:3] + "*****" + phone[-3:]
+        else:
+            return phone
