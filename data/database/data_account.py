@@ -350,7 +350,7 @@ def ranking_by_gold(connection, limit):
                 a.phone = r["phone"]
                 a.level = r["level"]
                 a.experience = r["experience"]
-                a.device = result["device"]
+                a.device = r["device"]
                 accounts.append(a)
             return accounts
     except:
