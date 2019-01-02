@@ -5,7 +5,7 @@ import core.globalvar as gl
 
 
 def execute(roomNo, messageHandle):
-    time.sleep(12)
+    time.sleep(5)
 
     redis = gl.get_v("redis")
     if redis.exists("room_" + str(roomNo)):
