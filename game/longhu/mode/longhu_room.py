@@ -57,6 +57,7 @@ class LonghuRoom(Room):
             if seat is None or self.bankerScore < int(config.get("longhu", "getBankerScore")):
                 self.banker = 1
         if self.xiazhuang or 1 == self.banker:
+            self.banker = 1
             self.xiazhuang = False
             while len(self.bankerList) > 0:
                 bankerId = self.bankerList[0]
@@ -71,10 +72,11 @@ class LonghuRoom(Room):
         bankerConfirm = BankerConfirm()
         userInfo = bankerConfirm.banker
         if 1 == self.banker:
-            if bool(config.get("longhu", "onlyPlayerBanker")):
+            if config.get("longhu", "onlyPlayerBanker") == "True":
                 self.updateBankerList(messageHandle, 0)
                 return
-            userInfo.playerId = 1
+            userInfo.playerId = 0
+            userInfo.nick = '系统小乐'
             userInfo.score = int(config.get("longhu", "bankerDefaultScore"))
             userInfo.online = True
             self.bankerScore = int(config.get("longhu", "bankerDefaultScore"))

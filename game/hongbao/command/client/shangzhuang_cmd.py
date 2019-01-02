@@ -14,7 +14,7 @@ def execute(userId, message, messageHandle):
         roomNo = redis.get(str(userId) + "_room")
         score = BaiRenScore()
         score.ParseFromString(message.data)
-        onlyPlayerBanker = bool(config.get("hongbao", "onlyPlayerBanker"))
+        onlyPlayerBanker = config.get("hongbao", "onlyPlayerBanker") == "True"
         redis.lock("lockroom_" + str(roomNo))
         try:
             room = redis.getobj("room_" + str(roomNo))

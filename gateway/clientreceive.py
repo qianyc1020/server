@@ -357,7 +357,7 @@ class ClientReceive(object):
             return
         account = data_account.relogin(relogin, self.address)
         if account is not None:
-            self.checkLogin(account, relogin.cls, True, relogin.password)
+            self.checkLogin(account, relogin.cls, True, relogin.password, "")
         else:
             self.close()
             gl.get_v("serverlogger").logger.info("login fail")

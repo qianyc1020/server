@@ -11,7 +11,7 @@ def execute(room, messageHandle):
     if room.gameStatus == GameStatus.WAITING:
         banker = room.getWatchSeatByUserId(room.banker)
         getBankerScore = int(config.get("hongbao", "getBankerScore"))
-        onlyPlayerBanker = bool(config.get("hongbao", "onlyPlayerBanker"))
+        onlyPlayerBanker = config.get("hongbao", "onlyPlayerBanker") == "True"
         if (1 != room.banker and room.xiazhuang) or (
                 banker is not None and banker.shangzhuangScore < getBankerScore):
             messageHandle.broadcast_watch_to_gateway(LEAVE_BANKER, None, room)

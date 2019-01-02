@@ -4,7 +4,7 @@ import traceback
 
 import core.globalvar as gl
 from data.database import data_account
-from game.niuniu.command.game import join_match_room_cmd
+from game.niuniu.command.game import join_match_room_cmd, gamestart_cmd
 from game.niuniu.mode.niuniu_room import NiuniuRoom
 from mode.game.match_info import MatchInfo
 from protocol.service.match_pb2 import ReqApplyEnterMatch
@@ -40,6 +40,8 @@ def execute(userId, message, messageHandle):
                     redis.set("10_rooms", rooms)
                     redis.lock("lockroom_" + str(roomNo))
                     join_match_room_cmd.execute(userId, message, messageHandle, room)
+                    gamestart_cmd.execute(room, messageHandle)
+                    room.save(redis)
                     redis.unlock("lockroom_" + str(roomNo))
                 except:
                     traceback.print_exc()
