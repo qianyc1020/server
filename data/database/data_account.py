@@ -1,11 +1,9 @@
 # coding=utf-8
-import datetime
-import random
 import time
 import traceback
 
 from core import config
-from data.database import mysql_connection, data_user_rebate
+from data.database import mysql_connection
 from mode.base.account import Account
 from utils.http_utils import HttpUtils
 from utils.stringutils import StringUtils
@@ -86,6 +84,8 @@ def update_login_with_info(t, connection, loginserver, address, device):
         if connection is None:
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_update_login_with_info") % (
+            # StringUtils.phoneToNick(loginserver.nick), loginserver.sex, loginserver.headUrl, int(t), address,
+            # loginserver.account)
             StringUtils.phoneToNick(loginserver.nick), loginserver.sex, int(t), address, device, loginserver.account)
         with connection.cursor() as cursor:
             cursor.execute(sql)
