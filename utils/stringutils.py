@@ -13,6 +13,14 @@ class StringUtils(object):
         return ''.join(sa)
 
     @staticmethod
+    def randomNum(length):
+        seed = "1234567890"
+        sa = []
+        for i in range(length):
+            sa.append(random.choice(seed))
+        return ''.join(sa)
+
+    @staticmethod
     def md5(data):
         h = hashlib.md5()
         h.update(data)
