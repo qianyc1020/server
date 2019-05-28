@@ -1,4 +1,5 @@
 # coding=utf-8
+import random
 import time
 import traceback
 
@@ -19,7 +20,6 @@ def login(loginserver, address):
             create_account(time.time(), connection, loginserver, address)
             gold = int(config.get("gateway", "login_give"))
             account = query_account_by_account(connection, loginserver.account)
-            # data_user_rebate.create_user_rebate(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), account.id)
             s = HttpUtils(config.get("api", "api_host")).get(
                 config.get("api", "bind") % (account.id, loginserver.higher, address.split(':')[0]),
                 None)
@@ -44,7 +44,7 @@ def relogin(relogininfo, address):
         connection = mysql_connection.get_conn()
 
         if exist_account(connection, relogininfo.account):
-            update_login(t, connection, address, relogininfo.account)
+            update_login(t, connection, address, relogininfo.account, None)
         return query_account_by_account(connection, relogininfo.account)
     except:
         if connection is not None:
@@ -63,9 +63,8 @@ def create_account(t, connection, loginserver, address):
             connection = mysql_connection.get_conn()
         sql = config.get("sql", "sql_create_account") % (
             loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex,
-            loginserver.headUrl, StringUtils.md5(loginserver.account), int(t),
-            # config.get("gateway", "head_url") % random.randint(1, 50), StringUtils.md5(loginserver.account), int(t),
-            int(t), address, 0, 0, 0, '', 0, 0, loginserver.device)
+            config.get("gateway", "head_url") % random.randint(1, 50), StringUtils.md5(loginserver.account), int(t),
+            int(t), address, loginserver.device)
         with connection.cursor() as cursor:
             cursor.execute(sql)
             connection.commit()
