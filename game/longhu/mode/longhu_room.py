@@ -75,8 +75,8 @@ class LonghuRoom(Room):
             if config.get("longhu", "onlyPlayerBanker") == "True":
                 self.updateBankerList(messageHandle, 0)
                 return
-            userInfo.playerId = 0
-            userInfo.nick = '系统小乐'
+            userInfo.playerId = 1
+            userInfo.nick = '系统'
             userInfo.score = int(config.get("longhu", "bankerDefaultScore"))
             userInfo.online = True
             self.bankerScore = int(config.get("longhu", "bankerDefaultScore"))

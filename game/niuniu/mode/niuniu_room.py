@@ -82,8 +82,8 @@ class NiuniuRoom(Room):
             if config.get("niuniu", "onlyPlayerBanker") == "True":
                 self.updateBankerList(messageHandle, 0)
                 return
-            userInfo.playerId = 0
-            userInfo.nick = '系统小乐'
+            userInfo.playerId = 1
+            userInfo.nick = '系统'
             userInfo.score = int(config.get("niuniu", "bankerDefaultScore"))
             userInfo.online = True
             self.bankerScore = int(config.get("niuniu", "bankerDefaultScore"))
