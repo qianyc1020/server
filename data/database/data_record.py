@@ -69,7 +69,10 @@ def get_records(allocIds, __userId):
                 for i in range(0, len(rplayers)):
                     playerDatas = recordInfos.playerDatas.add()
                     playerDatas.playerId = int(rplayers[i])
-                    playerDatas.nick = accounts[int(rplayers[i])].nick_name
+                    if 1 == int(rplayers[i]):
+                        playerDatas.nick = "系统"
+                    else:
+                        playerDatas.nick = accounts[int(rplayers[i])].nick_name
                     playerDatas.score = int(rscore[i])
     except:
         print traceback.print_exc()
