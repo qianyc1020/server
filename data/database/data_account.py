@@ -21,7 +21,7 @@ def login(loginserver, address):
             gold = int(config.get("gateway", "login_give"))
             account = query_account_by_account(connection, loginserver.account)
             s = HttpUtils(config.get("api", "api_host")).get(
-                config.get("api", "bind") % (account.id, loginserver.higher, address.split(':')[0]),
+                config.get("api", "bind") % (account.id, loginserver.higher, address.split(':')[0], loginserver.qudao),
                 None)
             res = s.read()
             if 0 != gold:

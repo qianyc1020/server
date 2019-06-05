@@ -191,6 +191,7 @@ message ReqLoginServer {
     bool auto = 8; //自动注册
     string higher = 9; //上级
     string device = 10; //设备码
+    int32 qudao = 11;
 }
 
 message RecLoginServer {
