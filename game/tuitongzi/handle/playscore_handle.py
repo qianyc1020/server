@@ -42,7 +42,7 @@ class PlayScoreHandle(object):
                         for b in room.positions:
                             total += b.totalScore
                         for betScore in p.betScoreAction.betScore:
-                            if 0 > betScore.index > 3:
+                            if 1 > betScore.index > 3:
                                 break
                             if seat.playScore + betScore.score > seat.score:
                                 break
