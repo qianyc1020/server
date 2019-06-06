@@ -15,7 +15,7 @@ from protocol.base.base_pb2 import EXECUTE_ACTION
 from protocol.base.game_base_pb2 import RecExecuteAction
 from protocol.game import zhipai_pb2_grpc
 from protocol.game.bairen_pb2 import BaiRenDealCardAction
-from protocol.game.zhipai_pb2 import ShuffleData
+from protocol.game.zhipai_pb2 import ShuffleData, CheatCards
 from utils.TestQueue import TestQueue
 
 
@@ -48,6 +48,9 @@ def execute(room, messageHandle):
                 room.surplusCards = []
                 room.surplusCards.extend(shuffleResult.cardlist)
             else:
+                cheatCards = CheatCards()
+                cheatCards.cardlist.extend(room.surplusCards)
+                shuffleData.extraData = cheatCards.SerializeToString()
                 shuffleResult = client.cheat(shuffleData)
                 room.surplusCards = []
                 room.surplusCards.extend(shuffleResult.cardlist)
