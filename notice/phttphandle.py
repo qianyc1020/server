@@ -157,6 +157,8 @@ class HttpRequest(object):
             out = open('./conf/' + file, 'w')
             out.write(value)
             out.close()
+            self.response_line = ErrorCode.OK
+            self.response_body = "ok"
 
     def getResponse(self):
         response = self.response_line + dict2str(self.response_head) + '\r\n' + self.response_body
