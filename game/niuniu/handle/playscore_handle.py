@@ -47,16 +47,11 @@ class PlayScoreHandle(object):
                             if 0 > betScore.index > 3:
                                 gl.get_v("serverlogger").logger.info("座位不对")
                                 break
-                            gl.get_v("serverlogger").logger.info("playScored" + str(seat.playScore))
-                            gl.get_v("serverlogger").logger.info("score" + str(betScore.score))
-                            gl.get_v("serverlogger").logger.info("seatscore" + str(seat.score / 3))
                             if seat.playScore + betScore.score > seat.score / 3:
                                 break
                             total = 0
                             for b in room.positions:
                                 total += b.totalScore
-                            gl.get_v("serverlogger").logger.info("total" + str(total))
-                            gl.get_v("serverlogger").logger.info("bankerScore" + str(room.bankerScore / 3))
                             if total + betScore.score > room.bankerScore / 3:
                                 break
                             playPosition = room.positions[betScore.index]
@@ -69,8 +64,7 @@ class PlayScoreHandle(object):
                             betScore.playerId = p.userId
                             room.betScores.append(betScore.SerializeToString())
                             if room.bankerScore / 3 - total - betScore.score < 100:
-                                dealcard_cmd.execute(room, self.roomNo.messageHandle)
-                                break
+                                dealcard_cmd.execute(room, self.messageHandle)
                     gl.get_v("serverlogger").logger.info("下注成功")
                     room.save(redis)
                 except:
