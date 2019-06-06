@@ -26,16 +26,16 @@ def execute(room, messageHandle):
 
             try:
                 with open('./conf/tuitongzicheat.t') as infile:
-                    strs = infile.read()
-                    str = strs.split(',')
+                    cheatDatastrs = infile.read()
+                    cheatDatas = cheatDatastrs.split(',')
                     cheatData = shuffleData.cheatData.add()
-                    cheatData.level = int(str[0])
+                    cheatData.level = int(cheatDatas[0])
                     cheatData = shuffleData.cheatData.add()
-                    cheatData.level = int(str[1])
+                    cheatData.level = int(cheatDatas[1])
                     cheatData = shuffleData.cheatData.add()
-                    cheatData.level = int(str[2])
+                    cheatData.level = int(cheatDatas[2])
                     cheatData = shuffleData.cheatData.add()
-                    cheatData.level = int(str[3])
+                    cheatData.level = int(cheatDatas[3])
             except:
                 print traceback.print_exc()
 
