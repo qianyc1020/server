@@ -25,7 +25,7 @@ def execute(room, messageHandle):
             shuffleData = ShuffleData()
 
             try:
-                with open('./conf/tuitongzicheat.t') as infile:
+                with open('./conf/tuitongzicheat') as infile:
                     cheatDatastrs = infile.read()
                     cheatDatas = cheatDatastrs.split(',')
                     cheatData = shuffleData.cheatData.add()

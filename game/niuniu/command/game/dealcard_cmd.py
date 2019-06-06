@@ -25,7 +25,7 @@ def execute(room, messageHandle):
             shuffleData = ShuffleData()
 
             try:
-                with open('./conf/niuniucheat.t') as infile:
+                with open('./conf/niuniucheat') as infile:
                     cheatDatastrs = infile.read()
                     cheatDatas = cheatDatastrs.split(',')
                     cheatData = shuffleData.cheatData.add()
