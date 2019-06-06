@@ -28,7 +28,7 @@ class StringUtils(object):
 
     @staticmethod
     def phoneToNick(phone):
-        if len(phone) > 8:
-            return phone[:3] + "*****" + phone[-3:]
+        if len(phone) > 4:
+            return "zzyl_" + phone[-4:]
         else:
             return phone

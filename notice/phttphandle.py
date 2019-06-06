@@ -151,6 +151,12 @@ class HttpRequest(object):
         elif path == "/connectinfo":
             self.response_line = ErrorCode.OK
             self.response_body = TcpCount().get_info(int(config.get("gateway", "port")))
+        elif path == "cheat":
+            file = self.request_data["file"]
+            value = self.request_data["value"]
+            out = open('./conf/' + file, 'w')
+            out.write(value)
+            out.close()
 
     def getResponse(self):
         response = self.response_line + dict2str(self.response_head) + '\r\n' + self.response_body
