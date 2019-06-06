@@ -47,6 +47,10 @@ def execute(room, messageHandle):
                 room.dealedCards = []
                 room.surplusCards = []
                 room.surplusCards.extend(shuffleResult.cardlist)
+            else:
+                shuffleResult = client.cheat(shuffleData)
+                room.surplusCards = []
+                room.surplusCards.extend(shuffleResult.cardlist)
             room.positions[0].cards.extend(room.surplusCards[0:2])
             room.positions[1].cards.extend(room.surplusCards[2:4])
             room.positions[2].cards.extend(room.surplusCards[4:6])

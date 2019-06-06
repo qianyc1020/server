@@ -8,6 +8,10 @@ service Zhipai {
     //洗牌函数
     rpc shuffle (ShuffleData) returns (ShuffleResult) {
     }
+
+    //洗牌函数
+    rpc cheat (ShuffleData) returns (ShuffleResult) {
+    }
 }
 
 message SettleData {
@@ -66,4 +70,9 @@ message CheatData {
     int32 player_id = 1;
     int32 loc = 2;
     int32 level = 3;
+}
+
+//作弊的数据
+message CheatCards {
+    repeated int32 cardlist = 1; //牌
 }
