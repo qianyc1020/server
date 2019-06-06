@@ -36,6 +36,8 @@ def execute(room, messageHandle):
                     cheatData.level = int(cheatDatas[2])
                     cheatData = shuffleData.cheatData.add()
                     cheatData.level = int(cheatDatas[3])
+                    cheatData = shuffleData.cheatData.add()
+                    cheatData.level = int(cheatDatas[4])
             except:
                 print traceback.print_exc()
 
