@@ -23,21 +23,26 @@ class PlayScoreHandle(object):
         while not self._close:
             try:
                 playScores = self.queue.getall(35, True, 20)
+                gl.get_v("serverlogger").logger.info("1")
                 redis.lock("lockroom_" + self.roomNo)
                 try:
                     room = redis.getobj("room_" + self.roomNo)
+                    gl.get_v("serverlogger").logger.info("2")
                     if room.gameStatus != GameStatus.PLAYING:
                         gl.get_v("serverlogger").logger.info("下注失败状态不对")
                         redis.unlock("lockroom_" + self.roomNo)
                         return
                     for p in playScores:
+                        gl.get_v("serverlogger").logger.info("3")
                         if p.userId == room.banker:
                             redis.unlock("lockroom_" + self.roomNo)
                             return
                         seat = room.getWatchSeatByUserId(p.userId)
+                        gl.get_v("serverlogger").logger.info("4")
                         if seat is None:
                             redis.unlock("lockroom_" + self.roomNo)
                             return
+                        gl.get_v("serverlogger").logger.info("5")
                         for betScore in p.betScoreAction.betScore:
                             if 0 > betScore.index > 3:
                                 gl.get_v("serverlogger").logger.info("座位不对")
