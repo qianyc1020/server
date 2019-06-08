@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import random
+import urllib
 from decimal import Decimal
 
 from core import config
@@ -135,7 +136,7 @@ class HttpRequest(object):
                 self.response_line = ErrorCode.OK
                 self.response_body = "ok"
         elif path == "/notice":
-            notice = self.request_data["notice"]
+            notice = urllib.unquote(self.request_data["notice"].encode('utf8'))
             pwd = self.request_data["pwd"]
             if pwd == StringUtils.md5(notice):
                 recSystemNotice = RecSystemNotice()

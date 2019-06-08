@@ -29,6 +29,4 @@ CREATE TABLE `account` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
-ALTER TABLE account
-  AUTO_INCREMENT = 10000;
-INSERT INTO pygame.account (10000, account_name, nick_name, sex, head_url, pswd, create_time, last_time, last_address, account_state, gold, integral, bank_pswd, bank_gold, bank_integral, authority, total_count, introduce, phone, level, experience) VALUES ('pengyi', 0x70656E677969, 1, '', '54292b463c3e765a42d20d4f76d38c91', 1544611319, 1544780348, '127.0.0.1:34279', 0, 0.00, 0.00, null, 0.00, 0.00, 0, 0, null, null, 0, 0);
+INSERT INTO pygame.account (id, account_name, nick_name, sex, head_url, pswd, create_time, last_time, last_address, account_state, gold, integral, bank_pswd, bank_gold, bank_integral, authority, total_count, introduce, phone, level, experience) VALUES (10000, '10000', _binary '10000', 1, '', 'b7a782741f667201b54880c925faec4b', 1544611319, 1544780348, '127.0.0.1:34279', 0, 0.00, 0.00, null, 0.00, 0.00, 0, 0, null, null, 0, 0);
