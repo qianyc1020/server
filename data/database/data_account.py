@@ -61,8 +61,13 @@ def create_account(t, connection, loginserver, address):
     try:
         if connection is None:
             connection = mysql_connection.get_conn()
+        userid = 0
+        while userid == 0:
+            uid = random.randint(11000, 99999)
+            if query_account_by_id(connection, uid) is None:
+                userid = uid
         sql = config.get("sql", "sql_create_account") % (
-            loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex,
+            userid, loginserver.account, StringUtils.phoneToNick(loginserver.nick), loginserver.sex,
             config.get("gateway", "head_url") % random.randint(1, 50), StringUtils.md5(loginserver.account), int(t),
             int(t), address, loginserver.device)
         with connection.cursor() as cursor:
@@ -184,30 +189,31 @@ def query_account_by_id(connection, id):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             result = cursor.fetchone()
-            a = Account()
-            a.id = result["id"]
-            a.account_name = result["account_name"]
-            a.nick_name = result["nick_name"]
-            a.sex = result["sex"]
-            a.pswd = result["pswd"]
-            a.head_url = result["head_url"]
-            a.create_time = result["create_time"]
-            a.last_time = result["last_time"]
-            a.last_address = result["last_address"]
-            a.account_state = result["account_state"]
-            a.gold = result["gold"]
-            a.integral = result["integral"]
-            a.bank_pswd = result["bank_pswd"]
-            a.bank_gold = result["bank_gold"]
-            a.bank_integral = result["bank_integral"]
-            a.authority = result["authority"]
-            a.total_count = result["total_count"]
-            a.introduce = result["introduce"]
-            a.phone = result["phone"]
-            a.level = result["level"]
-            a.experience = result["experience"]
-            a.device = result["device"]
-            return a
+            if result is not None:
+                a = Account()
+                a.id = result["id"]
+                a.account_name = result["account_name"]
+                a.nick_name = result["nick_name"]
+                a.sex = result["sex"]
+                a.pswd = result["pswd"]
+                a.head_url = result["head_url"]
+                a.create_time = result["create_time"]
+                a.last_time = result["last_time"]
+                a.last_address = result["last_address"]
+                a.account_state = result["account_state"]
+                a.gold = result["gold"]
+                a.integral = result["integral"]
+                a.bank_pswd = result["bank_pswd"]
+                a.bank_gold = result["bank_gold"]
+                a.bank_integral = result["bank_integral"]
+                a.authority = result["authority"]
+                a.total_count = result["total_count"]
+                a.introduce = result["introduce"]
+                a.phone = result["phone"]
+                a.level = result["level"]
+                a.experience = result["experience"]
+                a.device = result["device"]
+                return a
     except:
         print traceback.print_exc()
     finally:

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `account` (
-  `id`            INT(11) PRIMARY KEY                      NOT NULL AUTO_INCREMENT UNIQUE,
+  `id`            INT(11) PRIMARY KEY                      NOT NULL UNIQUE,
   `account_name`  VARCHAR(128) COLLATE utf8mb4_unicode_ci  NOT NULL UNIQUE,
   `nick_name`     BLOB,
   `sex`           INT(11)                                           DEFAULT 0,
@@ -31,4 +31,4 @@ CREATE TABLE `account` (
   COLLATE = utf8mb4_unicode_ci;
 ALTER TABLE account
   AUTO_INCREMENT = 10000;
-INSERT INTO pygame.account (account_name, nick_name, sex, head_url, pswd, create_time, last_time, last_address, account_state, gold, integral, bank_pswd, bank_gold, bank_integral, authority, total_count, introduce, phone, level, experience) VALUES ('pengyi', 0x70656E677969, 1, '', '54292b463c3e765a42d20d4f76d38c91', 1544611319, 1544780348, '127.0.0.1:34279', 0, 0.00, 0.00, null, 0.00, 0.00, 0, 0, null, null, 0, 0);
+INSERT INTO pygame.account (10000, account_name, nick_name, sex, head_url, pswd, create_time, last_time, last_address, account_state, gold, integral, bank_pswd, bank_gold, bank_integral, authority, total_count, introduce, phone, level, experience) VALUES ('pengyi', 0x70656E677969, 1, '', '54292b463c3e765a42d20d4f76d38c91', 1544611319, 1544780348, '127.0.0.1:34279', 0, 0.00, 0.00, null, 0.00, 0.00, 0, 0, null, null, 0, 0);

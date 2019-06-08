@@ -2,39 +2,35 @@
 import random
 import socket
 import struct
-import time
+import threading
+import traceback
 
 import core.globalvar as gl
 from core import config
 from protocol.base.base_pb2 import *
+from protocol.game.bairen_pb2 import BaiRenRecAsk
+from protocol.service.match_pb2 import ReqApplyEnterMatch, RecApplyEnterMatch
+from robot.betscore import BetScore
 from utils.stringutils import StringUtils
 
 
 class Client(object):
 
-    def __init__(self, account, redis):
+    def __init__(self, account, allocId):
+        self.accountId = 0
         self.account = account
-        self.ip_port = ('127.0.0.1', 9999)
+        self.ip_port = ('103.16.231.113', 10001)
         self.s = socket.socket()
         self.s.connect(self.ip_port)
         self.oldmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
         self.newmd5keyBytes = config.get("gateway", "md5").encode("utf-8")
-        self.redis = redis
+        # self.redis = gl.get_v("redis")
+        self.allocId = allocId
+        self.betScore = None
 
     def execute(self):
         while True:
             length = self.readInt(self.s)
-            ttime = int(time.time())
-            if ttime == self.ttime:
-                self.times += 1
-                if self.times == 25:
-                    break
-            else:
-                self.times = 0
-                self.ttime = ttime
-            if length > 102400:
-                gl.get_v("serverlogger").logger.info("packet length more than 100kb")
-                break
             md5bytes = self.readStringBytes(self.s)
             length -= len(md5bytes) + 4
             result = self.readBytes(self.s, length)
@@ -47,7 +43,42 @@ class Client(object):
                     if data.opcode == CHECK_VERSION:
                         self.checkVersion(data)
                         self.login()
-                    elif data.opcode == CHECK_VERSION:
+                    elif data.opcode == LOGIN_SVR:
+                        recLoginServer = RecLoginServer()
+                        recLoginServer.ParseFromString(data.data)
+                        if recLoginServer.state == SUCCESS:
+                            gl.get_v("serverlogger").logger.info("login success")
+                        else:
+                            gl.get_v("serverlogger").logger.info("login fail:" + str(recLoginServer.state))
+                            self.close()
+                            return
+                    elif data.opcode == UPDATE_USER_INFO:
+                        user_info = RecUserInfo()
+                        user_info.ParseFromString(data.data)
+                        if user_info.allocId != 0:
+                            gl.get_v("serverlogger").logger.info("client close:allocId:" + str(user_info.allocId))
+                            self.close()
+                        else:
+                            self.accountId = user_info.playerId
+                            self.intoRoom()
+                    elif data.opcode == APPLY_ENTER_MATCH:
+                        recApplyEnterMatch = RecApplyEnterMatch()
+                        recApplyEnterMatch.ParseFromString(data.data)
+                        if recApplyEnterMatch.state != recApplyEnterMatch.SUCCESS:
+                            gl.get_v("serverlogger").logger.info("enter match fail")
+                            self.close()
+                    elif data.opcode == ASK_ACTION:
+                        gl.get_v("serverlogger").logger.info("start bet")
+                        baiRenRecAsk = BaiRenRecAsk()
+                        baiRenRecAsk.ParseFromString(data.data)
+                        if baiRenRecAsk.type == 2:
+                            self.betScore = BetScore(self)
+                            threading.Thread(target=BetScore.execute, args=(self.betScore,), name='betScore').start()
+                    elif data.opcode == SETTLE_GAME:
+                        gl.get_v("serverlogger").logger.info("end bet")
+                        if self.betScore is not None:
+                            self.betScore.close()
+                        self.betScore = None
 
     def readInt(self, conn):
         msg = conn.recv(4)  # total data length
@@ -111,9 +142,24 @@ class Client(object):
 
     def login(self):
         code = StringUtils.randomNum(6)
-        self.redis.setex(self.account + "_code", int(code), 10)
+        # self.redis.setex(self.account + "_code", int(code), 10)
         loginserver = ReqLoginServer()
         loginserver.account = self.account
-        loginserver.password = StringUtils.md5(code)
-        loginserver.cls = OFFICIAL
+        loginserver.nick = self.account
+        loginserver.password = StringUtils.md5(self.account)
+        loginserver.cls = WECHAT
         self.send_data(LOGIN_SVR, loginserver)
+
+    def close(self):
+        try:
+            if self.s is not None:
+                self.s.shutdown(socket.SHUT_RDWR)
+                self.s.close()
+        except:
+            print traceback.print_exc()
+
+    def intoRoom(self):
+        reqApplyEnterMatch = ReqApplyEnterMatch()
+        reqApplyEnterMatch.allocId = self.allocId
+        reqApplyEnterMatch.level = 11
+        self.send_data(APPLY_ENTER_MATCH, reqApplyEnterMatch)
