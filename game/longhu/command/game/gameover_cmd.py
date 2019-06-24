@@ -51,10 +51,10 @@ def execute(room, messageHandle):
         for u in settleResult.userSettleResule:
             win = 0
             if u.win > 0:
-                win = 1
+                win = 1 * rate
                 positionWin[u.userId] = 1
             elif u.win < 0:
-                win = -1
+                win = -1 * rate
                 positionWin[u.userId] = 2
             if win != 0:
                 position = room.positions[u.userId]
@@ -97,7 +97,7 @@ def execute(room, messageHandle):
                     else:
                         userScore[k] = int(win * room.positions[1].playScores[k])
 
-        scores = str(int(bankerWin) if bankerWin <= 0 else int((bankerWin * (1 - rate))))
+        scores = str(int(bankerWin) if bankerWin <= 0 else int(bankerWin * rate))
         users = str(room.banker)
         rebates = []
         dayingjia = 0
@@ -113,7 +113,7 @@ def execute(room, messageHandle):
                 gl.get_v("serverlogger").logger.info('''%d下注前%d''' % (k, seat.score))
                 gl.get_v("serverlogger").logger.info('''%d下注%d''' % (k, seat.playScore))
                 gl.get_v("serverlogger").logger.info('''%d输赢%d''' % (k, userScore[k]))
-                userwin = userScore[k] if userScore[k] <= 0 else int((userScore[k] * (1 - rate)))
+                userwin = int(userScore[k])
                 seat.score += userwin
                 scores += "," + str(userwin)
                 users += "," + str(k)
@@ -121,10 +121,9 @@ def execute(room, messageHandle):
                     update_currency.append(UpdateCurrency(userwin, k, room.roomNo))
                     game_details.append(CreateGameDetails(k, 8, str(room.roomNo), userwin, userScore[k] - userwin,
                                                           int(time.time())))
-                if 0 < userScore[k] - userwin:
                     rebate = Rebate()
                     rebate.userId = k
-                    rebate.card = userScore[k] - userwin
+                    rebate.card = abs(userwin)
                     rebates.append(rebate)
 
         room.trend.append(positionWin)
@@ -163,16 +162,15 @@ def execute(room, messageHandle):
         daerSettlePlayerInfo = tuitongziPlayerOneSetResult.players.add()
         banker = None
         if 1 != room.banker:
-            bankerFinalWin = int(bankerWin) if bankerWin <= 0 else int((bankerWin * (1 - rate)))
+            bankerFinalWin = int(bankerWin) if bankerWin <= 0 else int(bankerWin * rate)
             if 0 != bankerFinalWin:
                 update_currency.append(UpdateCurrency(bankerFinalWin, room.banker, room.roomNo))
                 game_details.append(CreateGameDetails(room.banker, 8, str(room.roomNo), bankerFinalWin,
                                                       bankerWin - bankerFinalWin, int(time.time())))
-                if 0 < bankerWin - bankerFinalWin:
-                    rebate = Rebate()
-                    rebate.userId = room.banker
-                    rebate.card = bankerWin - bankerFinalWin
-                    rebates.append(rebate)
+                rebate = Rebate()
+                rebate.userId = room.banker
+                rebate.card = abs(bankerFinalWin)
+                rebates.append(rebate)
             banker = room.getWatchSeatByUserId(room.banker)
             room.bankerScore += bankerFinalWin
             banker.shangzhuangScore = room.bankerScore
@@ -187,7 +185,7 @@ def execute(room, messageHandle):
         if 0 != len(game_details):
             gl.get_v("game_details").putall(game_details)
         daerSettlePlayerInfo.playerId = room.banker
-        daerSettlePlayerInfo.score = bankerWin
+        daerSettlePlayerInfo.score = bankerFinalWin
 
         recSettleSingle = RecSettleSingle()
         recSettleSingle.allocId = 8

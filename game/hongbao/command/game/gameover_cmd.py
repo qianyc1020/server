@@ -29,11 +29,11 @@ def execute(room, messageHandle):
             if x % 10 == room.selectNum:
                 win = -room.bankerScore + x
             else:
-                win = x
+                win = x * rate
             userScore[int(d)] = win
             bankerWin -= win
 
-        scores = str(bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate))))
+        scores = str(bankerWin if bankerWin <= 0 else int(bankerWin * rate))
         users = str(room.banker)
         rebates = []
         update_currency = []
@@ -44,7 +44,7 @@ def execute(room, messageHandle):
                 gl.get_v("serverlogger").logger.info('''%d下注前%d''' % (k, seat.score))
                 gl.get_v("serverlogger").logger.info('''%d下注%d''' % (k, seat.playScore))
                 gl.get_v("serverlogger").logger.info('''%d输赢%d''' % (k, userScore[k]))
-                userwin = userScore[k] if userScore[k] <= 0 else int((userScore[k] * (1 - rate)))
+                userwin = int(userScore[k])
                 seat.score += userwin
                 scores += "," + str(userwin)
                 users += "," + str(k)
@@ -52,11 +52,10 @@ def execute(room, messageHandle):
                     update_currency.append(UpdateCurrency(userwin, k, room.roomNo))
                     game_details.append(CreateGameDetails(k, 11, str(room.roomNo), userwin, userScore[k] - userwin,
                                                           int(time.time())))
-                    if 0 < userScore[k] - userwin:
-                        rebate = Rebate()
-                        rebate.userId = k
-                        rebate.card = userScore[k] - userwin
-                        rebates.append(rebate)
+                    rebate = Rebate()
+                    rebate.userId = k
+                    rebate.card = abs(userwin)
+                    rebates.append(rebate)
 
         for (d, x) in userScore.items():
             daerSettlePlayerInfo = hongbaoPlayerOneSetResult.players.add()
@@ -69,7 +68,7 @@ def execute(room, messageHandle):
         daerSettlePlayerInfo = hongbaoPlayerOneSetResult.players.add()
         banker = None
         if 1 != room.banker:
-            bankerFinalWin = bankerWin if bankerWin <= 0 else int((bankerWin * (1 - rate)))
+            bankerFinalWin = bankerWin if bankerWin <= 0 else int(bankerWin * rate)
             if 0 != bankerFinalWin:
                 update_currency.append(UpdateCurrency(bankerFinalWin, room.banker, room.roomNo))
                 game_details.append(CreateGameDetails(room.banker, 11, str(room.roomNo), bankerFinalWin,
@@ -92,7 +91,7 @@ def execute(room, messageHandle):
         if 0 != len(game_details):
             gl.get_v("game_details").putall(game_details)
         daerSettlePlayerInfo.playerId = room.banker
-        daerSettlePlayerInfo.score = bankerWin
+        daerSettlePlayerInfo.score = bankerFinalWin
 
         recSettleSingle = RecSettleSingle()
         recSettleSingle.allocId = 11
